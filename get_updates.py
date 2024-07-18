@@ -50,6 +50,7 @@ def get_wikidata_updates(start_time, end_time):
     return changes
 
 def compare_changes(api_url, change):
+    print(change)
     new_rev = change["revid"]
     old_rev = change["old_revid"]
     params = {
@@ -154,12 +155,12 @@ def main ():
     # end_dt = get_datetime_from_user("Enter the end date and time (YYYY-MM-DD HH:MM:SS): ")
 
     # put dummy inpout for testing
-    start_dt = datetime(2024, 7, 17, 8, 20, 0)
-    end_dt = datetime(2024, 7, 23, 0, 0, 1)
+    start_dt = datetime(2024, 7, 1, 8, 20, 0)
+    end_dt = datetime(2024, 7, 18, 0, 0, 1)
 
     changes = get_wikidata_updates(start_dt, end_dt)
-    # print((changes[1]))
-
+    for change in changes:
+        print(change)
     # # Calling compare changes with the first change in the list for demonstration
     compare_changes("https://www.wikidata.org/w/api.php", changes[0])
 
