@@ -3,6 +3,8 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import readline
 from rdflib import Graph, Namespace
+import new_entity_rdf
+import compare
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -50,9 +52,15 @@ def get_wikidata_updates(start_time, end_time):
     return changes
 
 def compare_changes(api_url, change):
-    print(change)
+
     new_rev = change["revid"]
     old_rev = change["old_revid"]
+
+    # if change['type'] == 'new':
+        # new_entity_rdf.main(change['title'], change['revid'])
+    compare.compare_revisions(change['title'], old_rev, new_rev)
+    
+
     params = {
         'action': 'compare',
         'fromrev': old_rev,
@@ -162,13 +170,6 @@ def main ():
     for change in changes:
         print(change)
     # # Calling compare changes with the first change in the list for demonstration
-    compare_changes("https://www.wikidata.org/w/api.php", changes[0])
-
-
-
-    # # Entity ID and revision IDs
-    entity_id = changes[1]["title"]
-    old_revision_id = changes[1]["old_revid"]
-    new_revision_id =  changes[1]["revid"]
+    compare_changes("https://www.wikidata.org/w/api.php", changes[1])
 
 main()
