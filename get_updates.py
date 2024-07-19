@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import readline
 from rdflib import Graph, Namespace
 import new_entity_rdf
-import compare
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -28,7 +27,8 @@ def get_wikidata_updates(start_time, end_time):
         'rcend': start,
         'rclimit': '5', # Limit the number of changes returned up to 500, default 10
         'rcprop': 'title|ids|sizes|flags|user|timestamp',
-        'format': 'json'
+        'format': 'json',
+        'rctype': 'edit|new' # Limit the type of changes to edits and new entities
     }
 
     # Make the request
@@ -40,51 +40,39 @@ def get_wikidata_updates(start_time, end_time):
         print("Error:", data['error']['info'])
         return
     
-    # Print the changes
     changes = data.get('query', {}).get('recentchanges', [])
-    # for change in changes:
-    #     # print all properties of the change
-    #     for key in change:
-    #         print(key, ":", change[key])
-            
-    #     print("--------------------------------------------------")
-    
     return changes
 
 def compare_changes(api_url, change):
 
     new_rev = change["revid"]
     old_rev = change["old_revid"]
+    print(change['title'])
+    if change['type'] == 'new':
+        # Fetch the JSON data for the new entity
+        new_entity_rdf.main(change['title'])
+        return
+    elif change['type'] != 'edit':
+        # TODO: Handle changes with type categorize?
+        print("Unsupported change type:", change['type'])
+        return
+    elif change['type'] == 'edit':        
+        params = {
+            'action': 'compare',
+            'fromrev': old_rev,
+            'torev': new_rev,
+            'format': 'json'
+        }
+        
+        response = requests.get(api_url, params=params)
+        comparison_data = response.json()
 
-    # if change['type'] == 'new':
-        # new_entity_rdf.main(change['title'], change['revid'])
-    compare.compare_revisions(change['title'], old_rev, new_rev)
-    
-
-    params = {
-        'action': 'compare',
-        'fromrev': old_rev,
-        'torev': new_rev,
-        'format': 'json'
-    }
-    
-    response = requests.get(api_url, params=params)
-    comparison_data = response.json()
-
-    # access the comparison data
-    # comparison_data['compare']['totitle']
-    # comparison_data['compare']['fromrevid']
-    # comparison_data['compare']['torevid']
-    print("----------------------------------------------------------")
-    print(comparison_data)
-    print("----------------------------------------------------------")
-
-    if 'compare' in comparison_data:
-        # Fetch The HTML diff of the changes using compare API
-        diff = comparison_data['compare']['*'] 
-        convert_to_rdf(diff, change['title'])
-    else:
-        print("Comparison data unavailable.")
+        if 'compare' in comparison_data:
+            # Fetch The HTML diff of the changes using compare API
+            diff = comparison_data['compare']['*'] 
+            convert_to_rdf(diff, change['title'])
+        else:
+            print("Comparison data unavailable.")
 
 def convert_to_rdf(diff_html, entity_id):
     # need a subject, predicate and object for each change
@@ -167,8 +155,7 @@ def main ():
     end_dt = datetime(2024, 7, 18, 0, 0, 1)
 
     changes = get_wikidata_updates(start_dt, end_dt)
-    for change in changes:
-        print(change)
+    print(changes[1])
     # # Calling compare changes with the first change in the list for demonstration
     compare_changes("https://www.wikidata.org/w/api.php", changes[1])
 
