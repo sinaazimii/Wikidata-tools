@@ -4,6 +4,13 @@ from bs4 import BeautifulSoup
 import readline
 from rdflib import Graph, Namespace
 import new_entity_rdf
+import argparse
+import difflib
+
+
+# default values
+CHANGES_TYPE = 'edit|new'
+CHANGE_COUNT = 5
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -77,7 +84,6 @@ def compare_changes(api_url, change):
 def convert_to_rdf(diff_html, entity_id):
     # need a subject, predicate and object for each change
     subject = entity_id
-    # diff_html =  '<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Property / <a title="Property:P6127" href="/wiki/Property:P6127">Letterboxd film ID</a></td></tr><tr><td colspan="2">\xa0</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline"><div><ins class="diffchange diffchange-inline"><span><a class="wb-external-id external" href="https://letterboxd.com/film/carved-the-slit-mouthed-woman/" rel="nofollow">carved-the-slit-mouthed-woman</a></span></ins></div></td></tr><tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Property / <a title="Property:P6127" href="/wiki/Property:P6127">Letterboxd film ID</a>: <a class="wb-external-id external" href="https://letterboxd.com/film/carved-the-slit-mouthed-woman/" rel="nofollow">carved-the-slit-mouthed-woman</a> / rank</td></tr><tr><td colspan="2">\xa0</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline"><div><ins class="diffchange diffchange-inline"><span>Normal rank</span></ins></div></td></tr><tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Property / <a title="Property:P6127" href="/wiki/Property:P6127">Letterboxd film ID</a>: <a class="wb-external-id external" href="https://letterboxd.com/film/carved-the-slit-mouthed-woman/" rel="nofollow">carved-the-slit-mouthed-woman</a> / reference</td></tr><tr><td colspan="2">\xa0</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline"><div><ins class="diffchange diffchange-inline"><span><a title="Property:P854" href="/wiki/Property:P854">reference URL</a>: <a rel="nofollow" class="external free" href="https://letterboxd.com/tmdb/25744">https://letterboxd.com/tmdb/25744</a></span></ins></div></td></tr>'
     soup = BeautifulSoup(diff_html, 'html.parser')
     # Construct DELETE and INSERT statements
     delete_statements = []
@@ -142,21 +148,99 @@ def get_datetime_from_user(prompt):
         return get_datetime_from_user(prompt)
 
 
+def check_args_type(args):
+    if args.type:
+        if  args.type not in ['edit', 'new']:
+            print("Invalid type argument. Please provide 'edit' or 'new, not setting means bith of them'.")
+            return False
+        else:
+            CHANGES_TYPE = args.type
+    if args.latest:
+        if args.latest not in ['true', 'false']:
+            print("Invalid type argument. Please provide 'true' or 'false'.")
+            return False
+        else:
+            LATEST = args.latest
+    if args.file:
+        if args.file is not str:
+            print("Invalid file argument. Please provide a valid file name.")
+            return False
+        else:
+            FILE_NAME = args.file
+    if args.number:
+        if args.number is not int:
+            print("Invalid number argument. Please provide a valid number.")
+            return False
+        else:
+            CHANGE_COUNT = args.number
+    if args.start:
+        if not verify_date_format(args.start):
+            print("Invalid start date argument. Please provide a valid date.")
+            return False
+        else:
+            start_dt = datetime.strptime(args.start, '%Y-%m-%d %H:%M:%S')
+    if args.end:
+        if not verify_date_format(args.end):
+            print("Invalid end date argument. Please provide a valid date.")
+            return False
+        else:
+            end_dt = datetime.strptime(args.end, '%Y-%m-%d %H:%M:%S')
+    return True
+
+def verify_date_format(date):
+    if type(date) is not str or len(date) != 19 or date[10] != ' ' \
+        or date[13] != ':' or date[16] != ':' or date[4] != '-' or date[7] != '-' \
+        or int(date[0:4]) not in range(1000, 9999) or int(date[5:7]) not in range(1, 12) \
+        or int(date[8:10]) not in range(1, 31) or int(date[11:13]) not in range(0, 24) \
+        or int(date[14:16]) not in range(0, 60) or int(date[17:19]) not in range(0, 60):
+        return False
+    return True
+
+
+def print_differences(str1, str2):
+    # Create a Differ object
+    differ = difflib.Differ()
+
+    # Compare the two strings
+    diff = list(differ.compare(str1.splitlines(), str2.splitlines()))
+
+    # Print the differences
+    print('\n'.join(diff))
 
 def main ():
-    print("To get updates from Wikidata, please provide "
-    "the start and end date and time, for example: 2024-05-04 00:00:00")
+    # define some command line arguments that rqurie flags and then values
+    parser = argparse.ArgumentParser(
+    description="This script retrieves recent changes of the wikidata, allowing you to store the output in a file")
+    parser.add_argument("-f", "--file", help = "store the output in a file")
+    parser.add_argument("-l", "--latest", help = "get latest changes")
+    parser.add_argument("-t", "--type", help = "filter the type of changes. possible values are edit, new")
+    parser.add_argument("-n", "--number", help = "number of changes to get, not setting will get 5 changes")
+    parser.add_argument("-st", "--start", help = "start date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
+                        "not setting start and end date will get latest changes")
+    parser.add_argument("-et", "--end", help = "end date and time, in form of 'YYYY-MM-DD HH:MM:SS'")
+    args = parser.parse_args()
+    
+    # TODO make sure if latest is set, start and end date are not set, 
+    # if start and end date are set, latest is not set
+    # and if latest, sort to actually retrieve get latest 
 
-    # start_dt = get_datetime_from_user("Enter the start date and time (YYYY-MM-DD HH:MM:SS): ")
-    # end_dt = get_datetime_from_user("Enter the end date and time (YYYY-MM-DD HH:MM:SS): ")
+    # verify the arguments type
+    if check_args_type(args):
 
-    # put dummy inpout for testing
-    start_dt = datetime(2024, 7, 1, 8, 20, 0)
-    end_dt = datetime(2024, 7, 18, 0, 0, 1)
+        # put dummy inpout for testing
+        start_dt = datetime(2024, 7, 1, 8, 20, 0)
+        end_dt = datetime(2024, 7, 18, 0, 0, 1)
 
-    changes = get_wikidata_updates(start_dt, end_dt)
-    print(changes[1])
-    # # Calling compare changes with the first change in the list for demonstration
-    compare_changes("https://www.wikidata.org/w/api.php", changes[1])
+        # TODO hanlde time like above bc user enter string
+        # of make user enter in paranthesis like above
+
+        print("Getting updates from Wikidata...")
+        # print(args.latest)
+        return
+
+        changes = get_wikidata_updates(start_dt, end_dt)
+        print(changes[1])
+        # # Calling compare changes with the first change in the list for demonstration
+        compare_changes("https://www.wikidata.org/w/api.php", changes[1])
 
 main()
