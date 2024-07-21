@@ -1,7 +1,7 @@
 import requests
 import json
 
-def main(entity_id, revision_id=0):
+def main(entity_id):
     # Define namespaces
     PREFIXES = """PREFIX wd: <http://www.wikidata.org/entity/>
     PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -10,12 +10,17 @@ def main(entity_id, revision_id=0):
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     """
     
+    # check if entity_id is correct format
+    if not entity_id.startswith('Q'):
+        print("\n")
+        print("Invalid entity ID")
+        print("\n")
+        return (PREFIXES, None)
+
     # Fetch JSON data for the entity
-    if revision_id == 0:
-        url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json"
-    else:
-        print("revision_id", revision_id)
-        url = f"https://www.wikidata.org/w/api.php?action=wbgetentities&ids={entity_id}&format=json&revision={revision_id}"
+    url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json"
+    # else:
+    #     url = f"https://www.wikidata.org/w/api.php?action=wbgetentities&ids={entity_id}&format=json&revision={revision_id}"
     response = requests.get(url)
     data = response.json()
 
@@ -76,8 +81,8 @@ def main(entity_id, revision_id=0):
     insert_data += "}\n"
 
     # Combine with prefixes
-    sparql_insert = PREFIXES + insert_data
+    sparql_insert = insert_data
 
     # Print the SPARQL insert statement
-    print(sparql_insert)
-    return entity
+    # print(PREFIXES, sparql_insert)
+    return (PREFIXES, sparql_insert)
