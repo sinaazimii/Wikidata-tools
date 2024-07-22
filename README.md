@@ -10,8 +10,9 @@ There are 4 types of changes:
     categorize: Changes in the categorization of pages.
 
 Currently we are only interested in edit/new type. 
+    
     if a page is a new entity in wikidata then the resulting rdf should contain
     the title, description, and all the properties that have been added.
 
-    if a page is edited the wikimedai compare api is being called and then
+    if a page is edited the wikimedia compare api is being called and then
     the resulting rdf will be created.
