@@ -32,11 +32,13 @@ There are 4 types of changes:
 
 Currently we are only interested in edit/new type. 
 
-**
-if a page is a new entity in wikidata then the resulting rdf should contain
+* if a page is a new entity in wikidata then the resulting rdf should contain
 the title, description, and all the properties that have been added. 
 The logic that do this operation can be found in new_entity_rdf.py.
 
-if a page is edited the wikimedia compare api is being called and then
+* if a page is edited the wikimedia compare api is being called and then
 the resulting rdf will be created.
-**
+
+
+## Contact
+email: sinaazm15@gmail.com 
