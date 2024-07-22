@@ -6,7 +6,7 @@ The main goal of get_updates.py is to retrieve the latest changes that has been 
 in the format of rdf queries. For this purpose we use wikidata api called recentchanges.
 And afterwards they are parsed into rdf format.
 
-e.g. 
+e.g.\
 INSERT {
     subject predicate object
 }

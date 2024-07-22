@@ -1,11 +1,9 @@
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-import readline
 from rdflib import Graph, Namespace
 import new_entity_rdf
 import argparse
-import difflib
 
 # default values
 CHANGES_TYPE = 'edit|new'
@@ -94,7 +92,7 @@ def convert_to_rdf(diff_html, entity_id):
     # Construct DELETE and INSERT statements
     delete_statements = []
     insert_statements = []
-    global PREFIXES, EDIT_DELETE_RDFS, INSEERT_RDFS
+    global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS
     rows = soup.find_all('tr')
     current_predicate = None
     for row in rows:
@@ -103,10 +101,9 @@ def convert_to_rdf(diff_html, entity_id):
             value = row.find('a')
             if value:
                 current_predicate = f"wdt:{value.text.strip()}"
-                if ('wdt' not in PREFIXES): PREFIXES += WDT + "\n"
+                # if ('wdt' not in PREFIXES): PREFIXES += WDT + "\n"
             else:
-                # add schema
-                if ('schema' not in PREFIXES): PREFIXES += SCHEMA + "\n"
+                # if ('schema' not in PREFIXES): PREFIXES += SCHEMA + "\n"
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip()}"
                     
         # Process deleted values
@@ -168,7 +165,7 @@ def verify_args(args):
         return False
     if args.type:
         if  args.type not in ['edit|new','edit', 'new']:
-            print("Invalid type argument. Please provide 'edit' or 'new, not setting means bith of them'.")
+            print("Invalid type argument. Please provide 'edit' or 'new, not setting means both of them'.")
             return False
         else:
             CHANGES_TYPE = args.type
@@ -216,7 +213,7 @@ def verify_date_format(date):
     return True
 
 def main ():
-    # define some command line arguments that rqurie flags and then values
+    # define some command line arguments
     parser = argparse.ArgumentParser(
     description="This script retrieves recent changes of the wikidata, allowing you to store the output in a file"
                 "not setting a time period will get the latest changes"
