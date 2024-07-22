@@ -19,8 +19,11 @@ FILE_NAME = None
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
 WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
+SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
+WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
 
-PREFIXES = PREFIXES = WD + "\n"
+# Define namespaces
+PREFIXES = WD + "\n" + WDT + "\n" + SCHEMA + "\n" + SKOS + "\n" + WIKIBASE + "\n" 
 
 EDIT_DELETE_RDFS = []
 EDIT_INSERT_RDFS = []
@@ -59,9 +62,9 @@ def compare_changes(api_url, change):
     diff = ""
     if change['type'] == 'new':
         # Fetch the JSON data for the new entity
-        new_prefix, new_insert_statement = new_entity_rdf.main(change['title'])
+        new_insert_statement = new_entity_rdf.main(change['title'])
         print(new_insert_statement)
-        # NEW_INSERT_RDFS.append(new_insert_statement)
+        NEW_INSERT_RDFS.append(new_insert_statement)
         return
     elif change['type'] != 'edit':
         # TODO: Handle changes with type categorize?
@@ -77,7 +80,6 @@ def compare_changes(api_url, change):
         
         response = requests.get(api_url, params=params)
         comparison_data = response.json()
-
         if 'compare' in comparison_data:
             # Fetch The HTML diff of the changes using compare API
             diff = comparison_data['compare']['*'] 
@@ -139,11 +141,12 @@ def convert_to_rdf(diff_html, entity_id):
     )
     if(delete_statements != []):
         EDIT_DELETE_RDFS.append(delete_rdf)
-        # print(delete_rdf)
+        print(delete_rdf)
+        print("\n")
     if (insert_statements != []):
         EDIT_INSERT_RDFS.append(insert_rdf)
-        # print(insert_rdf)
-
+        print(insert_rdf)
+        print("\n")
 
 def get_datetime_from_user(prompt):
     date_str = input(prompt)
@@ -155,8 +158,17 @@ def get_datetime_from_user(prompt):
         return get_datetime_from_user(prompt)
 
 
-def check_args_type(args):
+def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
+    if args.latest and (args.start or args.end):
+        print("Cannot set latest and start or end date at the same time.")
+        return False
+    if args.start and not args.end:
+        print("Cannot set start date without end date.")
+        return False
+    if args.end and not args.start:
+        print("Cannot set end date without start date.")
+        return False
     if args.type:
         if  args.type not in ['edit|new','edit', 'new']:
             print("Invalid type argument. Please provide 'edit' or 'new, not setting means bith of them'.")
@@ -219,13 +231,9 @@ def main ():
     parser.add_argument("-st", "--start", help = "start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes")
     parser.add_argument("-et", "--end", help = "end date and time, in form of 'YYYY-MM-DD HH:MM:SS'")
     args = parser.parse_args()
-    
-    # TODO make sure if latest is set, start and end date are not set, 
-    # if start and end date are set, latest is not set
-    # and if latest, sort to actually retrieve get latest 
 
-    # verify the arguments type
-    if check_args_type(args):
+    # verify the arguments type and values
+    if verify_args(args):
         print("Getting updates from Wikidata...")
         print("Type: ", CHANGES_TYPE)
         print("Latest: ", LATEST)
@@ -234,17 +242,11 @@ def main ():
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
         print('\n')
+        print(PREFIXES)
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
-        print(changes)
         for change in changes:
             compare_changes("https://www.wikidata.org/w/api.php", change)
-        print(PREFIXES)
-        for i in range(len(EDIT_DELETE_RDFS)):
-            print(EDIT_DELETE_RDFS[i])
-        for i in range(len(EDIT_INSERT_RDFS)):
-            print(EDIT_INSERT_RDFS[i])
-        for i in range(len(NEW_INSERT_RDFS)):
-            print(NEW_INSERT_RDFS[i])
+        
 
 main()

@@ -2,30 +2,37 @@ import requests
 import json
 
 def main(entity_id):
-    # Define namespaces
-    PREFIXES = """PREFIX wd: <http://www.wikidata.org/entity/>
-    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-    PREFIX wikibase: <http://wikiba.se/ontology#>
-    PREFIX schema: <http://schema.org/>
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    """
     
     # check if entity_id is correct format
     if not entity_id.startswith('Q'):
         print("\n")
         print("Invalid entity ID")
+        print("one reason could be that the entity ID is not yet set in the correct format,"
+              "this happens for entities that are very new and have not been indexed yet"
+              )
         print("\n")
-        return (PREFIXES, None)
+        return None
 
     # Fetch JSON data for the entity
-    url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json"
+    # url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json"
     # else:
-    #     url = f"https://www.wikidata.org/w/api.php?action=wbgetentities&ids={entity_id}&format=json&revision={revision_id}"
-    response = requests.get(url)
+    url = f"https://www.wikidata.org/w/api.php"
+    response = requests.get(url, params={
+        'action': 'wbgetentities',
+        'ids': entity_id,
+        'format': 'json',
+        'languages': 'en'
+    })
     data = response.json()
 
-    entity = data['entities'][entity_id]
-
+    # Check for errors in the response
+    try:
+        entity = data['entities'][entity_id]
+    except KeyError:
+        print("\n")
+        print("Entity not found")
+        print("\n")
+        return None
     # Initialize the INSERT DATA statement
     insert_data = "INSERT DATA {\n"
 
@@ -52,7 +59,6 @@ def main(entity_id):
         'descriptions': entity.get('descriptions', {}),
         'aliases': entity.get('aliases', {}),
     }
-
     # Add claims
     for prop, claims in entity['claims'].items():
         for claim in claims:
@@ -83,6 +89,4 @@ def main(entity_id):
     # Combine with prefixes
     sparql_insert = insert_data
 
-    # Print the SPARQL insert statement
-    # print(PREFIXES, sparql_insert)
-    return (PREFIXES, sparql_insert)
+    return sparql_insert
