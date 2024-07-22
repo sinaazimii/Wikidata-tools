@@ -42,16 +42,13 @@ def get_wikidata_updates(start_time, end_time):
         'format': 'json',
         'rctype': CHANGES_TYPE # Limit the type of changes to edits and new entities
     }
-
     # Make the request
     response = requests.get(api_url, params=params)
     data = response.json()
-
     # Check for errors in the response
     if 'error' in data:
         print("Error:", data['error']['info'])
         return
-    
     changes = data.get('query', {}).get('recentchanges', [])
     return changes
 
@@ -244,6 +241,7 @@ def main ():
         print('\n')
         print(PREFIXES)
         changes = get_wikidata_updates(START_DATE, END_DATE)
+        print(changes)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
             compare_changes("https://www.wikidata.org/w/api.php", change)
