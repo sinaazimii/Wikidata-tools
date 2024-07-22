@@ -19,10 +19,9 @@ DELETE {
 ## Getting Started
 ```bash
 git clone git@github.com:sinaazimii/Wikidata-tools.git
+git checkout master
 pip install requirements.txt
 python3 get_updates.py
-
-
 ```
 
 There are 4 types of changes:
@@ -32,10 +31,12 @@ There are 4 types of changes:
     categorize: Changes in the categorization of pages.
 
 Currently we are only interested in edit/new type. 
-    
-    if a page is a new entity in wikidata then the resulting rdf should contain
-    the title, description, and all the properties that have been added. 
-    The logic that do this operation can be found in new_entity_rdf.py.
 
-    if a page is edited the wikimedia compare api is being called and then
-    the resulting rdf will be created.
+**
+if a page is a new entity in wikidata then the resulting rdf should contain
+the title, description, and all the properties that have been added. 
+The logic that do this operation can be found in new_entity_rdf.py.
+
+if a page is edited the wikimedia compare api is being called and then
+the resulting rdf will be created.
+**
