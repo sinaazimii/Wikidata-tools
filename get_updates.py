@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from rdflib import Graph, Namespace
 import new_entity_rdf
 import argparse
+from dateutil.relativedelta import relativedelta
 
 # default values
 CHANGES_TYPE = 'edit|new'
@@ -210,6 +211,13 @@ def verify_date_format(date):
         or int(date[8:10]) not in range(1, 31) or int(date[11:13]) not in range(0, 24) \
         or int(date[14:16]) not in range(0, 60) or int(date[17:19]) not in range(0, 60):
         return False
+    # check if date is not earlier than 1 month ago from now
+    formatted_date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+    now = datetime.now()
+    one_month_ago = now - relativedelta(months=1)
+    if formatted_date < one_month_ago:
+        print("The date cannot be earlier than 1 month ago.")
+        return False
     return True
 
 def main ():
@@ -238,7 +246,6 @@ def main ():
         print('\n')
         print(PREFIXES)
         changes = get_wikidata_updates(START_DATE, END_DATE)
-        print(changes)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
             compare_changes("https://www.wikidata.org/w/api.php", change)
