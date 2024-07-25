@@ -1,33 +1,36 @@
 import requests
 import json
 
+
 def main(entity_id):
-    
     # check if entity_id is correct format
-    if not entity_id.startswith('Q'):
+    if not entity_id.startswith("Q"):
         print("\n")
         print("Invalid entity ID")
-        print("one reason could be that the entity ID is not yet set in the correct format,"
-              "this happens for entities that are very new and have not been indexed yet"
-              )
+        print(
+            "one reason could be that the entity ID is not yet set in the correct format,"
+            "this happens for entities that are very new and have not been indexed yet"
+        )
         print("\n")
         return None
-
     # Fetch JSON data for the entity
     # url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json"
     # else:
     url = f"https://www.wikidata.org/w/api.php"
-    response = requests.get(url, params={
-        'action': 'wbgetentities',
-        'ids': entity_id,
-        'format': 'json',
-        'languages': 'en'
-    })
+    response = requests.get(
+        url,
+        params={
+            "action": "wbgetentities",
+            "ids": entity_id,
+            "format": "json",
+            "languages": "en",
+        },
+    )
     data = response.json()
 
     # Check for errors in the response
     try:
-        entity = data['entities'][entity_id]
+        entity = data["entities"][entity_id]
     except KeyError:
         print("\n")
         print("Entity not found")
@@ -40,53 +43,54 @@ def main(entity_id):
     insert_data += f"  wd:{entity['id']} a schema:Thing ;\n"
 
     # Add labels
-    for lang, label in entity['labels'].items():
+    for lang, label in entity["labels"].items():
         insert_data += f"    schema:name \"{label['value']}\"@{lang} ;\n"
 
     # Add descriptions
-    for lang, desc in entity['descriptions'].items():
+    for lang, desc in entity["descriptions"].items():
         insert_data += f"    schema:description \"{desc['value']}\"@{lang} ;\n"
 
     # Add aliases
-    for lang, aliases in entity['aliases'].items():
+    for lang, aliases in entity["aliases"].items():
         for alias in aliases:
             insert_data += f"    skos:altLabel \"{alias['value']}\"@{lang} ;\n"
 
     # create simpler entity object
     simple_entity = {
-        'id': entity['id'],
-        'labels': entity.get('labels', {}),
-        'descriptions': entity.get('descriptions', {}),
-        'aliases': entity.get('aliases', {}),
+        "id": entity["id"],
+        "labels": entity.get("labels", {}),
+        "descriptions": entity.get("descriptions", {}),
+        "aliases": entity.get("aliases", {}),
     }
     # Add claims
-    for prop, claims in entity['claims'].items():
+    for prop, claims in entity["claims"].items():
         for claim in claims:
-            if 'mainsnak' in claim and 'datavalue' in claim['mainsnak']:
-                value = claim['mainsnak']['datavalue']['value']
-                if claim['mainsnak']['datavalue']['type'] == 'wikibase-entityid':
+            if "mainsnak" in claim and "datavalue" in claim["mainsnak"]:
+                value = claim["mainsnak"]["datavalue"]["value"]
+                if claim["mainsnak"]["datavalue"]["type"] == "wikibase-entityid":
                     insert_data += f"    wdt:{prop} wd:{value['id']} ;\n"
-                    simple_entity[prop] = value['id']
-                elif claim['mainsnak']['datavalue']['type'] == 'string':
-                    insert_data += f"    wdt:{prop} \"{value}\" ;\n"
+                    simple_entity[prop] = value["id"]
+                elif claim["mainsnak"]["datavalue"]["type"] == "string":
+                    insert_data += f'    wdt:{prop} "{value}" ;\n'
                     simple_entity[prop] = value
-                elif claim['mainsnak']['datavalue']['type'] == 'time':
-                    insert_data += f"    wdt:{prop} \"{value['time']}\"^^xsd:dateTime ;\n"
-                    simple_entity[prop] = value['time']
-                elif claim['mainsnak']['datavalue']['type'] == 'quantity':
-                    insert_data += f"    wdt:{prop} \"{value['amount']}\"^^xsd:decimal ;\n"
-                    simple_entity[prop] = value['amount']
+                elif claim["mainsnak"]["datavalue"]["type"] == "time":
+                    insert_data += (
+                        f"    wdt:{prop} \"{value['time']}\"^^xsd:dateTime ;\n"
+                    )
+                    simple_entity[prop] = value["time"]
+                elif claim["mainsnak"]["datavalue"]["type"] == "quantity":
+                    insert_data += (
+                        f"    wdt:{prop} \"{value['amount']}\"^^xsd:decimal ;\n"
+                    )
+                    simple_entity[prop] = value["amount"]
                 else:
                     # add without type
                     insert_data += f"    wdt:{prop} {value} ;\n"
 
     # Remove the last semicolon and add a period
-    insert_data = insert_data.rstrip(' ;\n') + " .\n"
+    insert_data = insert_data.rstrip(" ;\n") + " .\n"
 
     # Close the INSERT DATA statement
     insert_data += "}\n"
 
-    # Combine with prefixes
-    sparql_insert = insert_data
-
-    return sparql_insert
+    return insert_data
