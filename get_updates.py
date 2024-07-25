@@ -62,7 +62,7 @@ def compare_changes(api_url, change):
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"])
         print(new_insert_statement)
-        NEW_INSERT_RDFS.append(new_insert_statement)
+        NEW_INSERT_RDFS.append((new_insert_statement, change["timestamp"]))
         return
     elif change["type"] != "edit":
         print("Unsupported change type:", change["type"])
@@ -80,13 +80,13 @@ def compare_changes(api_url, change):
         if "compare" in comparison_data:
             # Fetch The HTML diff of the changes using compare API
             diff = comparison_data["compare"]["*"]
-            convert_to_rdf(diff, change["title"])
+            convert_to_rdf(diff, change["title"], change["timestamp"])
         else:
             print("Comparison data unavailable.")
     return diff
 
 
-def convert_to_rdf(diff_html, entity_id):
+def convert_to_rdf(diff_html, entity_id, timestamp):
     # need a subject, predicate and object for each change
     subject = entity_id
     soup = BeautifulSoup(diff_html, "html.parser")
@@ -128,14 +128,14 @@ def convert_to_rdf(diff_html, entity_id):
                 )
 
     delete_rdf = "DELETE DATA {\n" + "\n".join(delete_statements) + "\n};"
-
     insert_rdf = "INSERT DATA {\n" + "\n".join(insert_statements) + "\n};"
+
     if delete_statements != []:
-        EDIT_DELETE_RDFS.append(delete_rdf)
+        EDIT_DELETE_RDFS.append((delete_rdf, timestamp))
         print(delete_rdf)
         print("\n")
     if insert_statements != []:
-        EDIT_INSERT_RDFS.append(insert_rdf)
+        EDIT_INSERT_RDFS.append((insert_rdf,timestamp))
         print(insert_rdf)
         print("\n")
 
@@ -174,8 +174,8 @@ def verify_args(args):
         FILE_NAME = args.file
     if args.number:
         try:                
-            if not int(args.number) or int(args.number) not in range(1, 500):
-                print("Invalid number argument. Please provide a valid number between 1 and 500.")
+            if not int(args.number) or int(args.number) not in range(1, 501):
+                print("Invalid number argument. Please provide a valid number between 1 and 501.")
                 return False
             else:
                 CHANGE_COUNT = args.number
@@ -232,10 +232,9 @@ def write_to_file(data):
     with open(FILE_NAME, "w") as file:
         file.write(PREFIXES)
         file.write("\n")
-        for change_list in data:
-            for change in change_list:
-                file.write(change)
-                file.write("\n")
+        for change, time in data:
+            file.write(change)
+            file.write("\n")
     print("Changes written to file.")
 
 
@@ -255,7 +254,7 @@ def main():
     parser.add_argument(
         "-n",
         "--number",
-        help="number of changes to get, not setting will get 5 changes, Maximum number of changes is 500",
+        help="number of changes to get, not setting will get 5 changes, Maximum number of changes is 501",
     )
     parser.add_argument(
         "-st",
@@ -284,7 +283,14 @@ def main():
             compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
-            write_to_file([EDIT_DELETE_RDFS, EDIT_INSERT_RDFS, NEW_INSERT_RDFS])
+            # merge all the changes into one list sorted by timestamp
+            all_changes = sorted(
+                EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS, key=lambda x: x[1]
+            )
+            write_to_file(all_changes)
+            # Possible refinement: stream the changes to the file while processing them to save time and memory
+            # TODO: Add command line argument for filtering language of the new entities, without filtering the language
+            # the script will get all the languages of the new entity and resulting rdf might be too large
 
 
 main()
