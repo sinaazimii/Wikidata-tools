@@ -6,15 +6,17 @@ The main goal of get_updates.py is to retrieve the latest changes that has been 
 in the format of rdf queries. For this purpose we use wikidata api called recentchanges.
 And afterwards they are parsed into rdf format.
 
-e.g.\
+e.g.
+```
 INSERT {
     subject predicate object
 }
-
+```
+```
 DELETE {
     subject predicate object
 }
-
+```
 
 ## Getting Started
 ```bash
@@ -58,5 +60,8 @@ python3 get_updates.py -t edit -n 15 #get 15 of latest updates with type edit
 python3 get_updates.py -n 5 -t new -st '2024-07-22 11:56:10' -et '2024-07-22 11:56:15' #get 5 of updates with type new with time interval between 2024-07-22 11:56:10 and 2024-07-22 11:56:15
 ```
 
+## Sample result
+You can checkout the text file named ```sample_results.txt``` to see what does the script's output looks like
+
 ## Contact
-email: sinaazm15@gmail.com 
+email: sinaazm15@gmail.com
