@@ -63,7 +63,6 @@ def compare_changes(api_url, change):
         NEW_INSERT_RDFS.append(new_insert_statement)
         return
     elif change['type'] != 'edit':
-        # TODO: Handle changes with type categorize?
         print("Unsupported change type:", change['type'])
         return
     elif change['type'] == 'edit':        
@@ -81,8 +80,6 @@ def compare_changes(api_url, change):
             diff = comparison_data['compare']['*'] 
             convert_to_rdf(diff, change['title'])
         else:
-            # TODO: Handle cases where comparison data is not available
-            # happens time to time and should be showed what is the problem
             print("Comparison data unavailable.")
     return diff
 
