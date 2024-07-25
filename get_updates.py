@@ -173,11 +173,15 @@ def verify_args(args):
             return False
         FILE_NAME = args.file
     if args.number:
-        if not int(args.number):
-            print("Invalid number argument. Please provide a valid number.")
+        try:                
+            if not int(args.number) or int(args.number) not in range(1, 500):
+                print("Invalid number argument. Please provide a valid number between 1 and 500.")
+                return False
+            else:
+                CHANGE_COUNT = args.number
+        except ValueError:
+            print("Invalid number argument. Please provide a valid number between 1 and 500.")
             return False
-        else:
-            CHANGE_COUNT = args.number
     if args.start:
         if not verify_date_format(args.start):
             print("Invalid start date argument. Please provide a valid date.")
@@ -259,7 +263,7 @@ def main():
         help="start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes",
     )
     parser.add_argument(
-        "-et", "--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
+        "-et","--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
     )
     args = parser.parse_args()
 

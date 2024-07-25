@@ -1,0 +1,307 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX schema: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+DELETE DATA {
+  wd:Q76582861 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q55028803 wdt:exact match "https://scigraph.springernature.com/pub.10.1007/s11357-017-0003-x" .
+  wd:Q55028803 wdt:exact match "Normal rank" .
+};
+DELETE DATA {
+  wd:Q124296032 wdt:family name "politician" .
+};
+DELETE DATA {
+  wd:Q76582860 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q55028778 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12864-018-4668-z" .
+  wd:Q55028778 wdt:exact match "Normal rank" .
+};
+DELETE DATA {
+  wd:Q76582859 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q55028750 wdt:exact match "https://scigraph.springernature.com/pub.10.1007/s12178-018-9486-z" .
+  wd:Q55028750 wdt:exact match "Normal rank" .
+};
+DELETE DATA {
+  wd:Q76582858 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q55028729 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12909-018-1147-9" .
+  wd:Q55028729 wdt:exact match "Normal rank" .
+};
+DELETE DATA {
+  wd:Q76582857 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q124296032 wdt:given name "politician" .
+};
+DELETE DATA {
+  wd:Q55028700 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s13002-018-0234-7" .
+  wd:Q55028700 wdt:exact match "Normal rank" .
+};
+DELETE DATA {
+  wd:Q76579599 schema:description / nl "sterrenbeeldBoogschutter" .
+};
+DELETE DATA {
+  wd:Q55028690 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12870-018-1298-1" .
+  wd:Q55028690 wdt:exact match "Normal rank" .
+};
+INSERT DATA {
+  wd:Q116330405 schema:description / ha "Wikimedia template" .
+};
+INSERT DATA {
+  wd:Q19168227 wdt:copyright status "public domain" .
+  wd:Q19168227 wdt:copyright status "Normal rank" .
+  wd:Q19168227 wdt:copyright status "applies to jurisdiction: countries with longer than 70 years pma" .
+  wd:Q19168227 wdt:copyright status "determination method: 70 years or more after author(s) death" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:full work available at URL "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+};
+INSERT DATA {
+  wd:Q12186590 wdt:replaced by "Q12186587" .
+  wd:Q12186590 wdt:replaced by "Normal rank" .
+  wd:Q12186590 wdt:replaced by "imported from Wikimedia project: Arabic WikipediaWikimedia import URL: https://ar.wikipedia.org/w/index.php?title=حكومة_جميل_مردم_بك_الثانية&oldid=65912648" .
+};
+INSERT DATA {
+  wd:Q46579399 schema:label / bho "टेम्पलेट:Taxonomy/Eoxenopoides" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:full work available at URL "online access status: open access" .
+};
+INSERT DATA {
+  wd:Q116330014 schema:description / ug "قېلىپ ۋىكىپېدىيە" .
+};
+INSERT DATA {
+  wd:Q81068649 schema:description / hy "գալակտիկա Սեքստան համաստեղությունում" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:full work available at URL "file format: Portable Document Format" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:full work available at URL "https://europepmc.org/articles/pmc2992281?pdf=render" .
+  wd:Q34352285 wdt:full work available at URL "Normal rank" .
+};
+INSERT DATA {
+  wd:Q116330405 schema:label / ha "Template:Taxonomy/Eptalofosuchus" .
+};
+INSERT DATA {
+  wd:Q64137662 wdt:native label "Cory Grüter-Andrew (English)" .
+  wd:Q64137662 wdt:native label "Normal rank" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+};
+INSERT DATA {
+  wd:Q116330014 schema:label / ug "قېلىپ:Taxonomy/Eocharaceae" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "series ordinal: 5" .
+};
+INSERT DATA {
+  wd:Q110214212 wdt:occupation "art historian" .
+  wd:Q110214212 wdt:occupation "Normal rank" .
+};
+INSERT DATA {
+  wd:Q116330132 schema:description / bho "टेम्पलेट विकिपीडिया" .
+};
+INSERT DATA {
+  wd:Q12186574 wdt:replaced by "Q12186590" .
+  wd:Q12186574 wdt:replaced by "Normal rank" .
+  wd:Q12186574 wdt:replaced by "imported from Wikimedia project: Arabic WikipediaWikimedia import URL: https://ar.wikipedia.org/w/index.php?title=حكومة_سعد_الله_الجابري_الثالثة&oldid=65934420" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "Donald S. Berkholz" .
+  wd:Q34352285 wdt:author name string "Normal rank" .
+};
+INSERT DATA {
+  wd:Q111826142 schema:description / hy "գիտական հոդված հրատարակված 2007 թվականի նոյեմբերի 28-ին" .
+};
+INSERT DATA {
+  wd:Q41398280 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 7659186reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A7659186retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+};
+INSERT DATA {
+  wd:Q127816820 wdt:located in/on physical feature "Basin of the Roode Beek" .
+  wd:Q127816820 wdt:located in/on physical feature "Normal rank" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "series ordinal: 4" .
+};
+INSERT DATA {
+  wd:Q116330402 schema:description / ha "Wikimedia template" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "Douglas Y. Smith" .
+  wd:Q34352285 wdt:author name string "Normal rank" .
+};
+INSERT DATA {
+  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+};
+INSERT DATA {
+  wd:Q116330132 schema:label / bho "टेम्पलेट:Taxonomy/Eoviscaccia" .
+};
+INSERT DATA {
+  wd:Q127817163 a schema:Thing ;
+    schema:name "Experiment and Discrete Element Modelling on Strength, Deformation and Failure Behaviour of Shale Under Brazilian Compression"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "52" ;
+    wdt:P973 "http://link.springer.com/10.1007/s00603-019-01847-z" ;
+    wdt:P577 "+2019-05-20T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1007/S00603-019-01847-Z" ;
+    wdt:P433 "11" ;
+    wdt:P304 "4339-4359" ;
+    wdt:P2093 "Sheng-Qi Yang" ;
+    wdt:P2093 "Peng-Fei Yin" ;
+    wdt:P2093 "Yan-Hua Huang" ;
+    wdt:P1476 {'text': 'Experiment and Discrete Element Modelling on Strength, Deformation and Failure Behaviour of Shale Under Brazilian Compression', 'language': 'en'} ;
+    wdt:P1433 wd:Q15761427 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817162 a schema:Thing ;
+    schema:name "Does political pressure matter in bank lending? Evidence from China"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "26" ;
+    wdt:P973 "https://onlinelibrary.wiley.com/doi/10.1111/fmii.12089" ;
+    wdt:P577 "+2017-11-09T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1111/FMII.12089" ;
+    wdt:P433 "5" ;
+    wdt:P304 "249-277" ;
+    wdt:P2093 "Weixing Cai" ;
+    wdt:P2093 "Fangming Xu" ;
+    wdt:P2093 "Cheng Zeng" ;
+    wdt:P1476 {'text': 'Does political pressure matter in bank lending? Evidence from China', 'language': 'en'} ;
+    wdt:P1433 wd:Q15762233 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817161 a schema:Thing ;
+    schema:name "Computational screening of metal-substituted HKUST-1 catalysts for chemical fixation of carbon dioxide into epoxides"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "7" ;
+    wdt:P973 "https://xlink.rsc.org/?DOI=C9TA02455G" ;
+    wdt:P577 "+2019-00-00T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1039/C9TA02455G" ;
+    wdt:P433 "24" ;
+    wdt:P304 "14825-14834" ;
+    wdt:P2093 "Tian-ding Hu" ;
+    wdt:P2093 "Yan Jiang" ;
+    wdt:P2093 "Yi-hong Ding" ;
+    wdt:P1476 {'text': 'Computational screening of metal-substituted HKUST-1 catalysts for chemical fixation of carbon dioxide into epoxides', 'language': 'en'} ;
+    wdt:P1433 wd:Q18712373 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817160 a schema:Thing ;
+    schema:name "Microstructurally engineered nanocrystalline Fe–Sn–Sb anodes: towards stable high energy density sodium-ion batteries"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "7" ;
+    wdt:P973 "https://xlink.rsc.org/?DOI=C9TA01158G" ;
+    wdt:P577 "+2019-00-00T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1039/C9TA01158G" ;
+    wdt:P433 "23" ;
+    wdt:P304 "14145-14152" ;
+    wdt:P2093 "Eldho Edison" ;
+    wdt:P2093 "Sivaramapanicker Sreejith" ;
+    wdt:P2093 "Hao Ren" ;
+    wdt:P2093 "Chwee Teck Lim" ;
+    wdt:P2093 "Srinivasan Madhavi" ;
+    wdt:P1476 {'text': 'Microstructurally engineered nanocrystalline Fe–Sn–Sb anodes: towards stable high energy density sodium-ion batteries', 'language': 'en'} ;
+    wdt:P1433 wd:Q18712373 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817159 a schema:Thing ;
+    schema:name "Automated Evaluation of Semantic Segmentation Robustness for Autonomous Driving"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "21" ;
+    wdt:P973 "https://ieeexplore.ieee.org/document/8691698/" ;
+    wdt:P577 "+2020-05-00T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1109/TITS.2019.2909066" ;
+    wdt:P433 "5" ;
+    wdt:P304 "1951-1963" ;
+    wdt:P2093 "Wei Zhou" ;
+    wdt:P2093 "Julie Stephany Berrio" ;
+    wdt:P2093 "Stewart Worrall" ;
+    wdt:P2093 "Eduardo Nebot" ;
+    wdt:P1476 {'text': 'Automated Evaluation of Semantic Segmentation Robustness for Autonomous Driving', 'language': 'en'} ;
+    wdt:P1433 wd:Q15746428 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817158 a schema:Thing ;
+    schema:name "Multifunctional Nanohybrid of Palladium Nanoparticles Encapsulated by Carbon‐Dots for Exploiting Synergetic Applications"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "6" ;
+    wdt:P973 "https://onlinelibrary.wiley.com/doi/10.1002/admi.201900361" ;
+    wdt:P577 "+2019-05-21T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1002/ADMI.201900361" ;
+    wdt:P433 "13" ;
+    wdt:P2093 "Namasivayam Dhenadhayalan" ;
+    wdt:P2093 "Tzu‐Han Hsin" ;
+    wdt:P2093 "King‐Chuen Lin" ;
+    wdt:P1476 {'text': 'Multifunctional Nanohybrid of Palladium Nanoparticles Encapsulated by Carbon‐Dots for Exploiting Synergetic Applications', 'language': 'en'} ;
+    wdt:P1433 wd:Q27725630 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817157 a schema:Thing ;
+    schema:name "Generalized Storage Equations for Flood Routing with Nonlinear Muskingum Models"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "33" ;
+    wdt:P973 "http://link.springer.com/10.1007/s11269-019-02247-2" ;
+    wdt:P577 "+2019-05-21T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1007/S11269-019-02247-2" ;
+    wdt:P433 "8" ;
+    wdt:P304 "2677-2691" ;
+    wdt:P2093 "Omid Bozorg-Haddad" ;
+    wdt:P2093 "Mehri Abdi-Dehkordi" ;
+    wdt:P2093 "Farzan Hamedi" ;
+    wdt:P2093 "Maryam Pazoki" ;
+    wdt:P2093 "Hugo A. Loáiciga" ;
+    wdt:P1476 {'text': 'Generalized Storage Equations for Flood Routing with Nonlinear Muskingum Models', 'language': 'en'} ;
+    wdt:P1433 wd:Q15763474 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
+INSERT DATA {
+  wd:Q127817156 a schema:Thing ;
+    schema:name "Rutin-casein co-precipitates as potential delivery vehicles for flavonoid rutin"@en ;
+    schema:description "scholarly article"@en ;
+    wdt:P478 "96" ;
+    wdt:P973 "https://www.sciencedirect.com/science/article/pii/S0268005X18324871" ;
+    wdt:P577 "+2019-11-00T00:00:00Z"^^xsd:dateTime ;
+    wdt:P356 "10.1016/J.FOODHYD.2019.05.032" ;
+    wdt:P304 "451-462" ;
+    wdt:P2093 "Ali Rashidinejad" ;
+    wdt:P2093 "Simon M. Loveday" ;
+    wdt:P2093 "Geoffrey B. Jameson" ;
+    wdt:P2093 "Jason P. Hindmarsh" ;
+    wdt:P2093 "Harjinder Singh" ;
+    wdt:P1476 {'text': 'Rutin-casein co-precipitates as potential delivery vehicles for flavonoid rutin', 'language': 'en'} ;
+    wdt:P1433 wd:Q3076433 ;
+    wdt:P407 wd:Q1860 ;
+    wdt:P31 wd:Q13442814 .
+}
+
