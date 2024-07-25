@@ -143,16 +143,6 @@ def convert_to_rdf(diff_html, entity_id):
         print(insert_rdf)
         print("\n")
 
-def get_datetime_from_user(prompt):
-    date_str = input(prompt)
-    try:
-        user_datetime = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-        return user_datetime
-    except ValueError:
-        print("Incorrect format. Please enter the date and time in 'YYYY-MM-DD HH:MM:SS' format.")
-        return get_datetime_from_user(prompt)
-
-
 def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
     if args.latest and (args.start or args.end):
@@ -177,11 +167,10 @@ def verify_args(args):
         else:
             LATEST = args.latest
     if args.file:
-        if args.file is not str:
-            print("Invalid file argument. Please provide a valid file name.")
+        if not args.file.endswith('.ttl') and not args.file.endswith('.txt'):
+            print("Invalid file name. Please provide a file with .ttl or .txt extension.")
             return False
-        else:
-            FILE_NAME = args.file
+        FILE_NAME = args.file
     if args.number:
         if not int(args.number):
             print("Invalid number argument. Please provide a valid number.")
@@ -195,16 +184,17 @@ def verify_args(args):
         else:
             START_DATE = datetime.strptime(args.start, '%Y-%m-%d %H:%M:%S')
     if args.end:
-        if not verify_date_format(args.end):
+        if not verify_date(args.end):
             print("Invalid end date argument. Please provide a valid date.")
             return False
         else:
             END_DATE = datetime.strptime(args.end, '%Y-%m-%d %H:%M:%S')
     if not args.start or not args.end:
         LATEST = 'true'
+
     return True
 
-def verify_date_format(date):
+def verify_date(date):
     if type(date) is not str or len(date) != 19 or date[10] != ' ' \
         or date[13] != ':' or date[16] != ':' or date[4] != '-' or date[7] != '-' \
         or int(date[0:4]) not in range(1000, 9999) or int(date[5:7]) not in range(1, 12) \
@@ -220,6 +210,17 @@ def verify_date_format(date):
         return False
     return True
 
+def write_to_file(data):
+    print("Writing changes to file...")
+    with open(FILE_NAME, 'w') as file:
+        file.write(PREFIXES)
+        file.write('\n')
+        for change_list in data:
+            for change in change_list:
+                file.write(change)
+                file.write('\n')
+    print("Changes written to file.")
+
 def main ():
     # define some command line arguments
     parser = argparse.ArgumentParser(
@@ -229,7 +230,7 @@ def main ():
     parser.add_argument("-f", "--file", help = "store the output in a file")
     parser.add_argument("-l", "--latest", help = "get latest changes")
     parser.add_argument("-t", "--type", help = "filter the type of changes. possible values are edit|new, edit, new")
-    parser.add_argument("-n", "--number", help = "number of changes to get, not setting will get 5 changes")
+    parser.add_argument("-n", "--number", help = "number of changes to get, not setting will get 5 changes, Maximum number of changes is 500")
     parser.add_argument("-st", "--start", help = "start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes")
     parser.add_argument("-et", "--end", help = "end date and time, in form of 'YYYY-MM-DD HH:MM:SS'")
     args = parser.parse_args()
@@ -249,6 +250,8 @@ def main ():
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
             compare_changes("https://www.wikidata.org/w/api.php", change)
-        
+        # write the changes to a file
+        if FILE_NAME:
+            write_to_file([EDIT_DELETE_RDFS, EDIT_INSERT_RDFS, NEW_INSERT_RDFS])
 
 main()
