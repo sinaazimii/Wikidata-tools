@@ -1,4 +1,5 @@
 import requests
+import re
 from datetime import datetime
 from bs4 import BeautifulSoup
 from rdflib import Graph, Namespace
@@ -99,14 +100,20 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
+            td_tag_text = row.get_text(strip=True)
             value = row.find("a")
             if value:
-                current_predicate = f"wdt:{value.text.strip()}"
-                # if ('wdt' not in PREFIXES): PREFIXES += WDT + "\n"
+                pattern = re.compile(r'/wiki/Property:(P\d+)')
+                if (value and pattern.search(value.prettify())):
+                    # Extract the property ID from the match
+                    property_id = pattern.search(value.prettify()).group(1)
+                    current_predicate = f"wdt:{property_id}"
+                    sub_props = td_tag_text.split("/")[2:]
+                    for sub_prop in sub_props:
+                        current_predicate += f"/{sub_prop.strip()}"
             else:
-                # if ('schema' not in PREFIXES): PREFIXES += SCHEMA + "\n"
                 current_predicate = (
-                    f"schema:{row.find('td', class_='diff-lineno').text.strip()}"
+                    f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 )
 
         # Process deleted values
@@ -196,6 +203,7 @@ def verify_args(args):
             END_DATE = datetime.strptime(args.end, "%Y-%m-%d %H:%M:%S")
     if not args.start or not args.end:
         LATEST = "true"
+    # TODO: check if the start date is not later than the end date
 
     return True
 
