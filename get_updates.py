@@ -116,6 +116,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 )
 
+        # TODO: schema url? is description really a schema property?
+        # TODO: handle cases where the predicate ends with reference and the value is a table!
+
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
@@ -128,11 +131,31 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         # Process added values
         elif row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
-            if value and current_predicate:
-                added_value = value.text.strip()
-                insert_statements.append(
-                    f'  wd:{subject} {current_predicate} "{added_value}" .'
-                )
+            # find all a tags in the value
+            # TODO: Figure out the condition to check if its nested!
+            # TODO: Handle nested a_tags by code in try snippet and extend the rows list to include the nested a_tags
+            # TODO: Handle the b_tag case
+            nested_tags = value.find_all("a")
+            nested_tags += value.find_all("b")
+            if(len(nested_tags) > 0):
+                for i in range(0, len(nested_tags), 2):
+                    nested_predicate = None
+                    nested_object = None
+                    # check if a tag has a property id
+                    # its a predicate
+                    pattern = re.compile(r'/wiki/Property:(P\d+)')
+                    if pattern.search(nested_tags[i].get('href')):
+                        property_id = pattern.search(nested_tags[i].get('href')).group(1)
+                        insert_statements.append(
+                        f'  wd:{subject} {f"wdt:{property_id}"} "{nested_tags[i+1].text}" .'
+                        )
+            else:
+                if value and current_predicate:
+                    added_value = value.text.strip()
+                    insert_statements.append(
+                        f'  wd:{subject} {current_predicate} "{added_value}" .'
+                    )
+
 
     delete_rdf = "DELETE DATA {\n" + "\n".join(delete_statements) + "\n};"
     insert_rdf = "INSERT DATA {\n" + "\n".join(insert_statements) + "\n};"
