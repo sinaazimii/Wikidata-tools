@@ -183,7 +183,7 @@ def verify_args(args):
             print("Invalid number argument. Please provide a valid number between 1 and 500.")
             return False
     if args.start:
-        if not verify_date_format(args.start):
+        if not verify_date(args.start):
             print("Invalid start date argument. Please provide a valid date.")
             return False
         else:
