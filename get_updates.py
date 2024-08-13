@@ -1,5 +1,6 @@
 import requests
 import re
+import sys
 from datetime import datetime
 from bs4 import BeautifulSoup
 from rdflib import Graph, Namespace
@@ -63,7 +64,7 @@ def compare_changes(api_url, change):
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"])
         print(new_insert_statement)
-        NEW_INSERT_RDFS.append((new_insert_statement, change["timestamp"]))
+        NEW_INSERT_RDFS.append((change['title'],new_insert_statement, change["timestamp"]))
         return
     elif change["type"] != "edit":
         print("Unsupported change type:", change["type"])
@@ -117,7 +118,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 )
 
         # TODO: schema url? is description really a schema property?
-        # TODO: handle cases where the predicate ends with reference and the value is a table!
 
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -131,44 +131,43 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         # Process added values
         elif row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
-            # find all a tags in the value
-            # TODO: Figure out the condition to check if its nested!
-            # TODO: Handle nested a_tags by code in try snippet and extend the rows list to include the nested a_tags
-            # TODO: Handle the b_tag case
-            nested_tags = value.find_all("a")
-            nested_tags += value.find_all("b")
-            if(len(nested_tags) > 0):
-                for i in range(0, len(nested_tags), 2):
-                    nested_predicate = None
-                    nested_object = None
-                    # check if a tag has a property id
-                    # its a predicate
-                    pattern = re.compile(r'/wiki/Property:(P\d+)')
-                    if pattern.search(nested_tags[i].get('href')):
-                        property_id = pattern.search(nested_tags[i].get('href')).group(1)
+            # find all nested a_tags/b_tags in the value
+            if value:
+                nested_tags = value.find_all("a")
+                nested_tags += value.find_all("b")
+                if(len(nested_tags) > 0 and len(nested_tags) % 2 == 0):
+                    insert_statements.append(handle_nested(nested_tags, current_predicate, subject))
+                else:
+                    if current_predicate:
+                        added_value = value.text.strip()
                         insert_statements.append(
-                        f'  wd:{subject} {f"wdt:{property_id}"} "{nested_tags[i+1].text}" .'
+                            f'  wd:{subject} {current_predicate} "{added_value}" .'
                         )
-            else:
-                if value and current_predicate:
-                    added_value = value.text.strip()
-                    insert_statements.append(
-                        f'  wd:{subject} {current_predicate} "{added_value}" .'
-                    )
 
 
     delete_rdf = "DELETE DATA {\n" + "\n".join(delete_statements) + "\n};"
     insert_rdf = "INSERT DATA {\n" + "\n".join(insert_statements) + "\n};"
 
     if delete_statements != []:
-        EDIT_DELETE_RDFS.append((delete_rdf, timestamp))
+        EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
         print(delete_rdf)
         print("\n")
     if insert_statements != []:
-        EDIT_INSERT_RDFS.append((insert_rdf,timestamp))
+        EDIT_INSERT_RDFS.append((subject, insert_rdf,timestamp))
         print(insert_rdf)
         print("\n")
 
+def handle_nested(nested_tags, current_predicate, subject):
+    insert_statement = ""
+    for i in range(0, len(nested_tags), 2):
+        # check if a tag has a property id
+        # its a predicate
+        pattern = re.compile(r'/wiki/Property:(P\d+)')
+        if pattern.search(nested_tags[i].get('href')):
+            property_id = ":" +pattern.search(nested_tags[i].get('href')).group(1)
+            insert_statement = f'  wd:{subject} {f"{current_predicate + property_id}"} "{nested_tags[i+1].text}" .'
+
+    return insert_statement
 
 def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
@@ -213,20 +212,24 @@ def verify_args(args):
             print("Invalid number argument. Please provide a valid number between 1 and 500.")
             return False
     if args.start:
-        if not verify_date(args.start):
+        if verify_date(args.start):
+            START_DATE = datetime.strptime(args.start, "%Y-%m-%d %H:%M:%S")
+        else:
             print("Invalid start date argument. Please provide a valid date.")
             return False
-        else:
-            START_DATE = datetime.strptime(args.start, "%Y-%m-%d %H:%M:%S")
     if args.end:
-        if not verify_date(args.end):
+        if verify_date(args.end):
+            END_DATE = datetime.strptime(args.end, "%Y-%m-%d %H:%M:%S")
+        else:
             print("Invalid end date argument. Please provide a valid date.")
             return False
-        else:
-            END_DATE = datetime.strptime(args.end, "%Y-%m-%d %H:%M:%S")
     if not args.start or not args.end:
         LATEST = "true"
-    # TODO: check if the start date is not later than the end date
+
+    if START_DATE and END_DATE:
+        if (END_DATE - START_DATE).days < 0:
+            print("Start date cannot be later than end date.")
+            return False
 
     return True
 
@@ -263,11 +266,37 @@ def write_to_file(data):
     with open(FILE_NAME, "w") as file:
         file.write(PREFIXES)
         file.write("\n")
-        for change, time in data:
+        for subject, change, time in data:
             file.write(change)
             file.write("\n")
     print("Changes written to file.")
 
+# def compress_changes(changes_list):
+#     # changes list are in form of (subject, rdf, timestamp)
+#     compressed_changes = []
+#     for i in range  (0,len(changes_list)):
+#         for j in range (i+1,len(changes_list)):
+#             if changes_list[i][0] == changes_list[j][0]:
+#                 compressed_changes.append(merge_rdf(changes_list[i][1], changes_list[j][1]))
+#                 changes_list.pop(j)
+#     return compressed_changes
+
+def merge_rdf(old_rdf, new_rdf):
+    # Extract the content from the old string's curly braces
+    old_match = re.search(r'\{(.*?)\}', old_rdf, re.DOTALL)
+    if old_match:
+        old_content = old_match.group(1).strip()
+    else:
+        old_content = ''
+
+    # Insert the old content into the new string's curly braces
+    new_match = re.search(r'\{(.*?)\}', new_rdf, re.DOTALL)
+    if new_match:
+        new_content = new_match.group(1).strip()
+        combined_content = f"{new_content}\n  {old_content}"  # Add old content with a new line and indent
+        # Replace the content inside the new string's curly braces
+        updated_string = re.sub(r'\{(.*?)\}', f'{{\n  {combined_content}\n}}', new_rdf, flags=re.DOTALL)
+        return updated_string
 
 def main():
     # define some command line arguments
@@ -310,8 +339,11 @@ def main():
         print(PREFIXES)
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
+        i=0
         for change in changes:
+            print(i)
             compare_changes("https://www.wikidata.org/w/api.php", change)
+            i+=1
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
@@ -319,6 +351,12 @@ def main():
                 EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS, key=lambda x: x[1]
             )
             write_to_file(all_changes)
+            print(len(all_changes))
+            print(len(compress_changes(all_changes)))
+
+            # TODO: some rdfs still are ill formed, sub props are not handled properly in some cases. Investigate!
+            # TODO: Comparison not working as intended! 1477 is the new length of the list after compression (500 before) 
+
             # Possible refinement: stream the changes to the file while processing them to save time and memory
             # TODO: Add command line argument for filtering language of the new entities, without filtering the language
             # the script will get all the languages of the new entity and resulting rdf might be too large
