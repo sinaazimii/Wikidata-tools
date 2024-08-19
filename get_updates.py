@@ -118,25 +118,31 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 )
 
         # TODO: schema url? is description really a schema property?
-
+        # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
-            if value and current_predicate:
-                deleted_value = value.text.strip()
-                delete_statements.append(
-                    f'  wd:{subject} {current_predicate} "{deleted_value}" .'
-                )
+            if value:
+                delete_nested_tags = value.find_all("a")
+                delete_nested_tags += value.find_all("b")
+                if(len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0):
+                    delete_statements.append(handle_nested(delete_nested_tags, current_predicate, subject))
+                else:
+                    if current_predicate:
+                        deleted_value = value.text.strip()
+                        delete_statements.append(
+                            f'  wd:{subject} {current_predicate} "{deleted_value}" .'
+                        )
 
         # Process added values
         elif row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             # find all nested a_tags/b_tags in the value
             if value:
-                nested_tags = value.find_all("a")
-                nested_tags += value.find_all("b")
-                if(len(nested_tags) > 0 and len(nested_tags) % 2 == 0):
-                    insert_statements.append(handle_nested(nested_tags, current_predicate, subject))
+                add_nested_tags = value.find_all("a")
+                add_nested_tags += value.find_all("b")
+                if(len(add_nested_tags) > 0 and len(add_nested_tags) % 2 == 0):
+                    insert_statements.append(handle_nested(add_nested_tags, current_predicate, subject))
                 else:
                     if current_predicate:
                         added_value = value.text.strip()
@@ -158,16 +164,16 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print("\n")
 
 def handle_nested(nested_tags, current_predicate, subject):
-    insert_statement = ""
+    change_statement = ""
     for i in range(0, len(nested_tags), 2):
         # check if a tag has a property id
         # its a predicate
         pattern = re.compile(r'/wiki/Property:(P\d+)')
         if pattern.search(nested_tags[i].get('href')):
             property_id = ":" +pattern.search(nested_tags[i].get('href')).group(1)
-            insert_statement = f'  wd:{subject} {f"{current_predicate + property_id}"} "{nested_tags[i+1].text}" .'
-
-    return insert_statement
+            change_statement += f'  wd:{subject} {f"{current_predicate + property_id}"} "{nested_tags[i+1].text}" .\n'
+        
+    return change_statement
 
 def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
@@ -339,11 +345,8 @@ def main():
         print(PREFIXES)
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
-        i=0
         for change in changes:
-            print(i)
             compare_changes("https://www.wikidata.org/w/api.php", change)
-            i+=1
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
@@ -351,10 +354,8 @@ def main():
                 EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS, key=lambda x: x[1]
             )
             write_to_file(all_changes)
-            print(len(all_changes))
-            print(len(compress_changes(all_changes)))
 
-            # TODO: some rdfs still are ill formed, sub props are not handled properly in some cases. Investigate!
+
             # TODO: Comparison not working as intended! 1477 is the new length of the list after compression (500 before) 
 
             # Possible refinement: stream the changes to the file while processing them to save time and memory
