@@ -5,303 +5,2947 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 
 DELETE DATA {
-  wd:Q76582861 schema:description / nl "sterrenbeeldBoogschutter" .
+  wd:Q128907129 wdt:P170/creator "John Romita Jr." .
 };
 DELETE DATA {
-  wd:Q55028803 wdt:exact match "https://scigraph.springernature.com/pub.10.1007/s11357-017-0003-x" .
-  wd:Q55028803 wdt:exact match "Normal rank" .
+  wd:Q128907129 wdt:P21/sex or gender "female" .
 };
 DELETE DATA {
-  wd:Q124296032 wdt:family name "politician" .
+  wd:Q134189 wdt:P1938/rankProperty/Project Gutenberg author ID:41932/rank "Normal rank" .
 };
 DELETE DATA {
-  wd:Q76582860 schema:description / nl "sterrenbeeldBoogschutter" .
-};
-DELETE DATA {
-  wd:Q55028778 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12864-018-4668-z" .
-  wd:Q55028778 wdt:exact match "Normal rank" .
-};
-DELETE DATA {
-  wd:Q76582859 schema:description / nl "sterrenbeeldBoogschutter" .
-};
-DELETE DATA {
-  wd:Q55028750 wdt:exact match "https://scigraph.springernature.com/pub.10.1007/s12178-018-9486-z" .
-  wd:Q55028750 wdt:exact match "Normal rank" .
-};
-DELETE DATA {
-  wd:Q76582858 schema:description / nl "sterrenbeeldBoogschutter" .
-};
-DELETE DATA {
-  wd:Q55028729 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12909-018-1147-9" .
-  wd:Q55028729 wdt:exact match "Normal rank" .
-};
-DELETE DATA {
-  wd:Q76582857 schema:description / nl "sterrenbeeldBoogschutter" .
-};
-DELETE DATA {
-  wd:Q124296032 wdt:given name "politician" .
-};
-DELETE DATA {
-  wd:Q55028700 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s13002-018-0234-7" .
-  wd:Q55028700 wdt:exact match "Normal rank" .
-};
-DELETE DATA {
-  wd:Q76579599 schema:description / nl "sterrenbeeldBoogschutter" .
-};
-DELETE DATA {
-  wd:Q55028690 wdt:exact match "https://scigraph.springernature.com/pub.10.1186/s12870-018-1298-1" .
-  wd:Q55028690 wdt:exact match "Normal rank" .
-};
-INSERT DATA {
-  wd:Q116330405 schema:description / ha "Wikimedia template" .
-};
-INSERT DATA {
-  wd:Q19168227 wdt:copyright status "public domain" .
-  wd:Q19168227 wdt:copyright status "Normal rank" .
-  wd:Q19168227 wdt:copyright status "applies to jurisdiction: countries with longer than 70 years pma" .
-  wd:Q19168227 wdt:copyright status "determination method: 70 years or more after author(s) death" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:full work available at URL "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
-};
-INSERT DATA {
-  wd:Q12186590 wdt:replaced by "Q12186587" .
-  wd:Q12186590 wdt:replaced by "Normal rank" .
-  wd:Q12186590 wdt:replaced by "imported from Wikimedia project: Arabic WikipediaWikimedia import URL: https://ar.wikipedia.org/w/index.php?title=حكومة_جميل_مردم_بك_الثانية&oldid=65912648" .
-};
-INSERT DATA {
-  wd:Q46579399 schema:label / bho "टेम्पलेट:Taxonomy/Eoxenopoides" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:full work available at URL "online access status: open access" .
-};
-INSERT DATA {
-  wd:Q116330014 schema:description / ug "قېلىپ ۋىكىپېدىيە" .
-};
-INSERT DATA {
-  wd:Q81068649 schema:description / hy "գալակտիկա Սեքստան համաստեղությունում" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:full work available at URL "file format: Portable Document Format" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:full work available at URL "https://europepmc.org/articles/pmc2992281?pdf=render" .
-  wd:Q34352285 wdt:full work available at URL "Normal rank" .
-};
-INSERT DATA {
-  wd:Q116330405 schema:label / ha "Template:Taxonomy/Eptalofosuchus" .
-};
-INSERT DATA {
-  wd:Q64137662 wdt:native label "Cory Grüter-Andrew (English)" .
-  wd:Q64137662 wdt:native label "Normal rank" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
-};
-INSERT DATA {
-  wd:Q116330014 schema:label / ug "قېلىپ:Taxonomy/Eocharaceae" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "series ordinal: 5" .
-};
-INSERT DATA {
-  wd:Q110214212 wdt:occupation "art historian" .
-  wd:Q110214212 wdt:occupation "Normal rank" .
-};
-INSERT DATA {
-  wd:Q116330132 schema:description / bho "टेम्पलेट विकिपीडिया" .
-};
-INSERT DATA {
-  wd:Q12186574 wdt:replaced by "Q12186590" .
-  wd:Q12186574 wdt:replaced by "Normal rank" .
-  wd:Q12186574 wdt:replaced by "imported from Wikimedia project: Arabic WikipediaWikimedia import URL: https://ar.wikipedia.org/w/index.php?title=حكومة_سعد_الله_الجابري_الثالثة&oldid=65934420" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "Donald S. Berkholz" .
-  wd:Q34352285 wdt:author name string "Normal rank" .
-};
-INSERT DATA {
-  wd:Q111826142 schema:description / hy "գիտական հոդված հրատարակված 2007 թվականի նոյեմբերի 28-ին" .
-};
-INSERT DATA {
-  wd:Q41398280 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 7659186reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A7659186retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
-};
-INSERT DATA {
-  wd:Q127816820 wdt:located in/on physical feature "Basin of the Roode Beek" .
-  wd:Q127816820 wdt:located in/on physical feature "Normal rank" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "series ordinal: 4" .
-};
-INSERT DATA {
-  wd:Q116330402 schema:description / ha "Wikimedia template" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "Douglas Y. Smith" .
-  wd:Q34352285 wdt:author name string "Normal rank" .
-};
-INSERT DATA {
-  wd:Q34352285 wdt:author name string "stated in: Europe PubMed CentralPubMed publication ID: 20889968reference URL: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20889968retrieved: 25 July 2024Timestamp+2024-07-25T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
-};
-INSERT DATA {
-  wd:Q116330132 schema:label / bho "टेम्पलेट:Taxonomy/Eoviscaccia" .
-};
-INSERT DATA {
-  wd:Q127817163 a schema:Thing ;
-    schema:name "Experiment and Discrete Element Modelling on Strength, Deformation and Failure Behaviour of Shale Under Brazilian Compression"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "52" ;
-    wdt:P973 "http://link.springer.com/10.1007/s00603-019-01847-z" ;
-    wdt:P577 "+2019-05-20T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1007/S00603-019-01847-Z" ;
-    wdt:P433 "11" ;
-    wdt:P304 "4339-4359" ;
-    wdt:P2093 "Sheng-Qi Yang" ;
-    wdt:P2093 "Peng-Fei Yin" ;
-    wdt:P2093 "Yan-Hua Huang" ;
-    wdt:P1476 {'text': 'Experiment and Discrete Element Modelling on Strength, Deformation and Failure Behaviour of Shale Under Brazilian Compression', 'language': 'en'} ;
-    wdt:P1433 wd:Q15761427 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
+  wd:Q15172503 wdt:P196/reference:P248 "JPL Small-Body Database" .
 
-INSERT DATA {
-  wd:Q127817162 a schema:Thing ;
-    schema:name "Does political pressure matter in bank lending? Evidence from China"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "26" ;
-    wdt:P973 "https://onlinelibrary.wiley.com/doi/10.1111/fmii.12089" ;
-    wdt:P577 "+2017-11-09T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1111/FMII.12089" ;
-    wdt:P433 "5" ;
-    wdt:P304 "249-277" ;
-    wdt:P2093 "Weixing Cai" ;
-    wdt:P2093 "Fangming Xu" ;
-    wdt:P2093 "Cheng Zeng" ;
-    wdt:P1476 {'text': 'Does political pressure matter in bank lending? Evidence from China', 'language': 'en'} ;
-    wdt:P1433 wd:Q15762233 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
+};
+DELETE DATA {
+  wd:Q15172503 wdt:P716 "2063918" .
+  wd:Q15172503 wdt:P716/rank "Normal rank" .
+};
+DELETE DATA {
+  wd:Q31283139 wdt:P39/position held "mayor" .
+};
+DELETE DATA {
+  wd:Q82157456 wdt:P2093 "J GERSHON-COHEN" .
+  wd:Q82157456 wdt:P2093/rank "Normal rank" .
+  wd:Q82157456 wdt:P2093/qualifier "series ordinal: 1" .
+  wd:Q82157456 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q82157456 wdt:P2093/reference:P698 "20993593" .
+  wd:Q82157456 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:20993593%20AND%20SRC:MED&resulttype=core&format=json" .
+  wd:Q82157456 wdt:P2093/reference:P813 "15 January 2020" .
 
-INSERT DATA {
-  wd:Q127817161 a schema:Thing ;
-    schema:name "Computational screening of metal-substituted HKUST-1 catalysts for chemical fixation of carbon dioxide into epoxides"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "7" ;
-    wdt:P973 "https://xlink.rsc.org/?DOI=C9TA02455G" ;
-    wdt:P577 "+2019-00-00T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1039/C9TA02455G" ;
-    wdt:P433 "24" ;
-    wdt:P304 "14825-14834" ;
-    wdt:P2093 "Tian-ding Hu" ;
-    wdt:P2093 "Yan Jiang" ;
-    wdt:P2093 "Yi-hong Ding" ;
-    wdt:P1476 {'text': 'Computational screening of metal-substituted HKUST-1 catalysts for chemical fixation of carbon dioxide into epoxides', 'language': 'en'} ;
-    wdt:P1433 wd:Q18712373 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
+};
+DELETE DATA {
+  wd:Q82157463 schema:description/en "01 July 1946" .
+  wd:Q82157463 schema:description/de "Juli 1946" .
+  wd:Q82157463 schema:description/uk "в липні 1946" .
+};
+DELETE DATA {
+  wd:Q9081815 wdt:P910 "Category:Tapeinia" .
+  wd:Q9081815 wdt:P910/rank "Normal rank" .
+  wd:Q9081815 wdt:P910/reference:P143 "Portuguese Wikipedia" .
 
+};
 INSERT DATA {
-  wd:Q127817160 a schema:Thing ;
-    schema:name "Microstructurally engineered nanocrystalline Fe–Sn–Sb anodes: towards stable high energy density sodium-ion batteries"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "7" ;
-    wdt:P973 "https://xlink.rsc.org/?DOI=C9TA01158G" ;
-    wdt:P577 "+2019-00-00T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1039/C9TA01158G" ;
-    wdt:P433 "23" ;
-    wdt:P304 "14145-14152" ;
-    wdt:P2093 "Eldho Edison" ;
-    wdt:P2093 "Sivaramapanicker Sreejith" ;
-    wdt:P2093 "Hao Ren" ;
-    wdt:P2093 "Chwee Teck Lim" ;
-    wdt:P2093 "Srinivasan Madhavi" ;
-    wdt:P1476 {'text': 'Microstructurally engineered nanocrystalline Fe–Sn–Sb anodes: towards stable high energy density sodium-ion batteries', 'language': 'en'} ;
-    wdt:P1433 wd:Q18712373 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
 
+  wd:Q15172501 wdt:P11796/rank "Normal rank" .
+  wd:Q15172501 wdt:P11796/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P11796/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P11796/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P11796/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P11796/reference:P813 "12 August 2024" .
+
+};
 INSERT DATA {
-  wd:Q127817159 a schema:Thing ;
-    schema:name "Automated Evaluation of Semantic Segmentation Robustness for Autonomous Driving"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "21" ;
-    wdt:P973 "https://ieeexplore.ieee.org/document/8691698/" ;
-    wdt:P577 "+2020-05-00T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1109/TITS.2019.2909066" ;
-    wdt:P433 "5" ;
-    wdt:P304 "1951-1963" ;
-    wdt:P2093 "Wei Zhou" ;
-    wdt:P2093 "Julie Stephany Berrio" ;
-    wdt:P2093 "Stewart Worrall" ;
-    wdt:P2093 "Eduardo Nebot" ;
-    wdt:P1476 {'text': 'Automated Evaluation of Semantic Segmentation Robustness for Autonomous Driving', 'language': 'en'} ;
-    wdt:P1433 wd:Q15746428 ;
-    wdt:P31 wd:Q13442814 .
-}
 
+  wd:Q15172501 wdt:P2045/rank "Normal rank" .
+  wd:Q15172501 wdt:P2045/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2045/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2045/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2045/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2045/reference:P813 "12 August 2024" .
+
+};
 INSERT DATA {
-  wd:Q127817158 a schema:Thing ;
-    schema:name "Multifunctional Nanohybrid of Palladium Nanoparticles Encapsulated by Carbon‐Dots for Exploiting Synergetic Applications"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "6" ;
-    wdt:P973 "https://onlinelibrary.wiley.com/doi/10.1002/admi.201900361" ;
-    wdt:P577 "+2019-05-21T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1002/ADMI.201900361" ;
-    wdt:P433 "13" ;
-    wdt:P2093 "Namasivayam Dhenadhayalan" ;
-    wdt:P2093 "Tzu‐Han Hsin" ;
-    wdt:P2093 "King‐Chuen Lin" ;
-    wdt:P1476 {'text': 'Multifunctional Nanohybrid of Palladium Nanoparticles Encapsulated by Carbon‐Dots for Exploiting Synergetic Applications', 'language': 'en'} ;
-    wdt:P1433 wd:Q27725630 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
 
+  wd:Q15172501 wdt:P2146/rank "Normal rank" .
+  wd:Q15172501 wdt:P2146/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2146/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2146/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2146/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2146/reference:P813 "12 August 2024" .
+
+};
 INSERT DATA {
-  wd:Q127817157 a schema:Thing ;
-    schema:name "Generalized Storage Equations for Flood Routing with Nonlinear Muskingum Models"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "33" ;
-    wdt:P973 "http://link.springer.com/10.1007/s11269-019-02247-2" ;
-    wdt:P577 "+2019-05-21T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1007/S11269-019-02247-2" ;
-    wdt:P433 "8" ;
-    wdt:P304 "2677-2691" ;
-    wdt:P2093 "Omid Bozorg-Haddad" ;
-    wdt:P2093 "Mehri Abdi-Dehkordi" ;
-    wdt:P2093 "Farzan Hamedi" ;
-    wdt:P2093 "Maryam Pazoki" ;
-    wdt:P2093 "Hugo A. Loáiciga" ;
-    wdt:P1476 {'text': 'Generalized Storage Equations for Flood Routing with Nonlinear Muskingum Models', 'language': 'en'} ;
-    wdt:P1433 wd:Q15763474 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
 
+  wd:Q15172501 wdt:P2213/rank "Normal rank" .
+  wd:Q15172501 wdt:P2213/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2213/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2213/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2213/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2213/reference:P813 "12 August 2024" .
+
+};
 INSERT DATA {
-  wd:Q127817156 a schema:Thing ;
-    schema:name "Rutin-casein co-precipitates as potential delivery vehicles for flavonoid rutin"@en ;
-    schema:description "scholarly article"@en ;
-    wdt:P478 "96" ;
-    wdt:P973 "https://www.sciencedirect.com/science/article/pii/S0268005X18324871" ;
-    wdt:P577 "+2019-11-00T00:00:00Z"^^xsd:dateTime ;
-    wdt:P356 "10.1016/J.FOODHYD.2019.05.032" ;
-    wdt:P304 "451-462" ;
-    wdt:P2093 "Ali Rashidinejad" ;
-    wdt:P2093 "Simon M. Loveday" ;
-    wdt:P2093 "Geoffrey B. Jameson" ;
-    wdt:P2093 "Jason P. Hindmarsh" ;
-    wdt:P2093 "Harjinder Singh" ;
-    wdt:P1476 {'text': 'Rutin-casein co-precipitates as potential delivery vehicles for flavonoid rutin', 'language': 'en'} ;
-    wdt:P1433 wd:Q3076433 ;
-    wdt:P407 wd:Q1860 ;
-    wdt:P31 wd:Q13442814 .
-}
 
+  wd:Q15172501 wdt:P2233/rank "Normal rank" .
+  wd:Q15172501 wdt:P2233/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2233/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2233/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2233/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2233/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+
+  wd:Q15172501 wdt:P2243/rank "Normal rank" .
+  wd:Q15172501 wdt:P2243/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2243/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2243/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2243/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2243/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+
+  wd:Q15172501 wdt:P2244/rank "Normal rank" .
+  wd:Q15172501 wdt:P2244/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2244/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2244/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2244/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2244/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+
+  wd:Q15172501 wdt:P2248/rank "Normal rank" .
+  wd:Q15172501 wdt:P2248/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2248/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2248/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2248/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2248/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+
+  wd:Q15172501 wdt:P2325/rank "Normal rank" .
+  wd:Q15172501 wdt:P2325/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P2325/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P2325/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P2325/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P2325/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Lexeme:L1342462 wdt:P5137/Property/item for this sense "colic" .
+  wd:Lexeme:L1342462 wdt:P5137/Property/item for this sense:colic/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Lexeme:L1342462 wdt:P5238 "szag/𒊮" .
+  wd:Lexeme:L1342462 wdt:P5238/𒊮/rank "Normal rank" .
+  wd:Lexeme:L1342462 wdt:P5238/𒊮/qualifier "series ordinal: 1" .
+};
+INSERT DATA {
+  wd:Lexeme:L1342462 wdt:P5238/𒊮/qualifier:P5548 "szag4/𒊮" .
+
+  wd:Lexeme:L1342462 wdt:P5238/𒊮/qualifier:P5980 "szag/𒊮 (Sumerian) - heart" .
+
+};
+INSERT DATA {
+  wd:Q100758975 schema:description/hy "գիտական հոդված հրատարակված 2020 թվականի հոկտեմբերի 21-ին" .
+};
+INSERT DATA {
+  wd:Q111917548 wdt:P1889 "Arixi" .
+  wd:Q111917548 wdt:P1889/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q11382802 wdt:P569/reference:P248 "Library of Congress Authorities" .
+  wd:Q11382802 wdt:P569/reference:P244 "n85162984" .
+  wd:Q11382802 wdt:P569/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q116488310 schema:description/de "Kulturdenkmal in der Gemeinde Herleshausen im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116488310 schema:description/en "cultural monument in the municipality of Herleshausen in the Werra-Meißner district, Hesse" .
+};
+INSERT DATA {
+  wd:Q116488311 schema:description/de "Kulturdenkmal in der Gemeinde Herleshausen im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116488311 schema:description/fr "monument culturel de la commune de Herleshausen, district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116488312 schema:description/de "Kulturdenkmal in der Gemeinde Herleshausen im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116488312 schema:description/en "cultural monument in the municipality of Herleshausen in the Werra-Meißner district, Hesse" .
+};
+INSERT DATA {
+  wd:Q116488312 schema:description/fr "monument culturel de la commune de Herleshausen, district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116488314 schema:description/de "Kulturdenkmal in der Gemeinde Herleshausen im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586138 schema:description/de "Kulturdenkmal in der Gemeinde Meinhard im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586138 schema:description/fr "monument culturel de la commune de Meinhard dans le district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586140 schema:description/fr "monument culturel de la commune de Meinhard dans le district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586141 schema:description/de "Kulturdenkmal in der Gemeinde Meinhard im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586141 schema:description/en "cultural monument in the community of Meinhard in the Werra-Meißner district, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586141 schema:description/fr "monument culturel de la commune de Meinhard dans le district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586142 schema:description/de "Kulturdenkmal in der Gemeinde Meinhard im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586142 schema:description/en "cultural monument in the community of Meinhard in the Werra-Meißner district, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586660 schema:description/de "Kulturdenkmal in der Gemeinde Meißner im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586660 schema:description/en "cultural monument in the municipality of Meißner in the Werra-Meißner district, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586660 schema:description/fr "monument culturel de la commune de Meißner, district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586663 schema:description/de "Kulturdenkmal in der Gemeinde Meißner im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q116586663 schema:description/fr "monument culturel de la commune de Meißner, district de Werra-Meißner, Hesse" .
+};
+INSERT DATA {
+  wd:Q116586665 schema:description/de "Kulturdenkmal in der Gemeinde Meißner im Werra-Meißner-Kreis, Hessen" .
+};
+INSERT DATA {
+  wd:Q117705811 schema:description/en "4th-century BC Greek soldier and mercenary" .
+};
+INSERT DATA {
+  wd:Q124304827 wdt:P69 "Tallinn University of Applied Sciences" .
+  wd:Q124304827 wdt:P69/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q126627632 schema:description/hy "գիտական հոդված" .
+};
+INSERT DATA {
+  wd:Q128244001 wdt:P2671 "/g/11lcytqyv6" .
+  wd:Q128244001 wdt:P2671/g/11lcytqyv6/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128800229 schema:description/en "football club" .
+};
+INSERT DATA {
+  wd:Q128905924 wdt:P101 "AIDS service organization" .
+  wd:Q128905924 wdt:P101/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128906594 wdt:P856//usssaonline.com//qualifier:P407 "English" .
+
+};
+INSERT DATA {
+  wd:Q128906984 wdt:P31 "hospital" .
+  wd:Q128906984 wdt:P31/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128907020 wdt:P4955 "692230" .
+  wd:Q128907020 wdt:P4955/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128907074 schema:description/sl "znanstveni članek" .
+  wd:Q128907074 schema:description/ar "مقالة بحثية نشرت في 17 نوفمبر 2018" .
+  wd:Q128907074 schema:description/ast "artículu científicu" .
+  wd:Q128907074 schema:description/bg "научна статия" .
+  wd:Q128907074 schema:description/bn "১৭ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907074 schema:description/ca "article científic" .
+  wd:Q128907074 schema:description/cs "vědecký článek" .
+  wd:Q128907074 schema:description/da "videnskabelig artikel udgivet 17. november 2018" .
+  wd:Q128907074 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907074 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907074 schema:description/eo "scienca artikolo" .
+  wd:Q128907074 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907074 schema:description/et "teaduslik artikkel" .
+  wd:Q128907074 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907074 schema:description/fr "article scientifique" .
+  wd:Q128907074 schema:description/gl "artigo científico" .
+  wd:Q128907074 schema:description/he "מאמר מדעי" .
+  wd:Q128907074 schema:description/hu "tudományos cikk" .
+  wd:Q128907074 schema:description/id "artikel ilmiah" .
+  wd:Q128907074 schema:description/it "articolo scientifico" .
+  wd:Q128907074 schema:description/ja "2018年の論文" .
+  wd:Q128907074 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907074 schema:description/ko "2018년 논문" .
+  wd:Q128907074 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907074 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907074 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907074 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907074 schema:description/oc "article scientific" .
+  wd:Q128907074 schema:description/pl "artykuł naukowy" .
+  wd:Q128907074 schema:description/pt "artigo científico" .
+  wd:Q128907074 schema:description/pt-br "artigo científico" .
+  wd:Q128907074 schema:description/ro "articol științific" .
+  wd:Q128907074 schema:description/ru "научная статья" .
+  wd:Q128907074 schema:description/sk "vedecký článok" .
+  wd:Q128907074 schema:description/sq "artikull shkencor" .
+  wd:Q128907074 schema:description/sr "научни чланак" .
+  wd:Q128907074 schema:description/sr-ec "научни чланак" .
+  wd:Q128907074 schema:description/sr-el "naučni članak" .
+  wd:Q128907074 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907074 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907074 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907074 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907074 schema:description/tr "bilimsel makale" .
+  wd:Q128907074 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907074 schema:description/vi "bài báo khoa học" .
+  wd:Q128907074 schema:description/zh "2018年学术文章" .
+  wd:Q128907074 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907074 schema:description/yue "2018年學術文章" .
+  wd:Q128907074 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907074 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907075 schema:description/sl "znanstveni članek" .
+  wd:Q128907075 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2017" .
+  wd:Q128907075 schema:description/ast "artículu científicu" .
+  wd:Q128907075 schema:description/bg "научна статия" .
+  wd:Q128907075 schema:description/bn "সেপ্টেম্বর ২০১৭-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907075 schema:description/ca "article científic" .
+  wd:Q128907075 schema:description/cs "vědecký článek" .
+  wd:Q128907075 schema:description/da "videnskabelig artikel udgivet september 2017" .
+  wd:Q128907075 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907075 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907075 schema:description/eo "scienca artikolo" .
+  wd:Q128907075 schema:description/es "artículo científico publicado en 2017" .
+  wd:Q128907075 schema:description/et "teaduslik artikkel" .
+  wd:Q128907075 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907075 schema:description/fr "article scientifique" .
+  wd:Q128907075 schema:description/gl "artigo científico" .
+  wd:Q128907075 schema:description/he "מאמר מדעי" .
+  wd:Q128907075 schema:description/hu "tudományos cikk" .
+  wd:Q128907075 schema:description/id "artikel ilmiah" .
+  wd:Q128907075 schema:description/it "articolo scientifico" .
+  wd:Q128907075 schema:description/ja "2017年の論文" .
+  wd:Q128907075 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907075 schema:description/ko "2017년 논문" .
+  wd:Q128907075 schema:description/nan "2017 nî lūn-bûn" .
+  wd:Q128907075 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907075 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907075 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907075 schema:description/oc "article scientific" .
+  wd:Q128907075 schema:description/pl "artykuł naukowy" .
+  wd:Q128907075 schema:description/pt "artigo científico" .
+  wd:Q128907075 schema:description/pt-br "artigo científico" .
+  wd:Q128907075 schema:description/ro "articol științific" .
+  wd:Q128907075 schema:description/ru "научная статья" .
+  wd:Q128907075 schema:description/sk "vedecký článok" .
+  wd:Q128907075 schema:description/sq "artikull shkencor" .
+  wd:Q128907075 schema:description/sr "научни чланак" .
+  wd:Q128907075 schema:description/sr-ec "научни чланак" .
+  wd:Q128907075 schema:description/sr-el "naučni članak" .
+  wd:Q128907075 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907075 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907075 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907075 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907075 schema:description/tr "bilimsel makale" .
+  wd:Q128907075 schema:description/uk "наукова стаття, опублікована у вересні 2017" .
+  wd:Q128907075 schema:description/vi "bài báo khoa học" .
+  wd:Q128907075 schema:description/zh "2017年学术文章" .
+  wd:Q128907075 schema:description/zh-hant "2017年學術文章" .
+  wd:Q128907075 schema:description/yue "2017年學術文章" .
+  wd:Q128907075 schema:description/zh-hans "2017年学术文章" .
+  wd:Q128907075 schema:description/wuu "2017年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907077 schema:description/sl "znanstveni članek" .
+  wd:Q128907077 schema:description/ar "مقالة بحثية نشرت في أبريل 2019" .
+  wd:Q128907077 schema:description/ast "artículu científicu" .
+  wd:Q128907077 schema:description/bg "научна статия" .
+  wd:Q128907077 schema:description/bn "এপ্রিল ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907077 schema:description/ca "article científic" .
+  wd:Q128907077 schema:description/cs "vědecký článek" .
+  wd:Q128907077 schema:description/da "videnskabelig artikel udgivet april 2019" .
+  wd:Q128907077 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907077 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907077 schema:description/eo "scienca artikolo" .
+  wd:Q128907077 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907077 schema:description/et "teaduslik artikkel" .
+  wd:Q128907077 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907077 schema:description/fr "article scientifique" .
+  wd:Q128907077 schema:description/gl "artigo científico" .
+  wd:Q128907077 schema:description/he "מאמר מדעי" .
+  wd:Q128907077 schema:description/hu "tudományos cikk" .
+  wd:Q128907077 schema:description/id "artikel ilmiah" .
+  wd:Q128907077 schema:description/it "articolo scientifico" .
+  wd:Q128907077 schema:description/ja "2019年の論文" .
+  wd:Q128907077 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907077 schema:description/ko "2019년 논문" .
+  wd:Q128907077 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907077 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907077 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907077 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907077 schema:description/oc "article scientific" .
+  wd:Q128907077 schema:description/pl "artykuł naukowy" .
+  wd:Q128907077 schema:description/pt "artigo científico" .
+  wd:Q128907077 schema:description/pt-br "artigo científico" .
+  wd:Q128907077 schema:description/ro "articol științific" .
+  wd:Q128907077 schema:description/ru "научная статья" .
+  wd:Q128907077 schema:description/sk "vedecký článok" .
+  wd:Q128907077 schema:description/sq "artikull shkencor" .
+  wd:Q128907077 schema:description/sr "научни чланак" .
+  wd:Q128907077 schema:description/sr-ec "научни чланак" .
+  wd:Q128907077 schema:description/sr-el "naučni članak" .
+  wd:Q128907077 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907077 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907077 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907077 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907077 schema:description/tr "bilimsel makale" .
+  wd:Q128907077 schema:description/uk "наукова стаття, опублікована у квітні 2019" .
+  wd:Q128907077 schema:description/vi "bài báo khoa học" .
+  wd:Q128907077 schema:description/zh "2019年学术文章" .
+  wd:Q128907077 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907077 schema:description/yue "2019年學術文章" .
+  wd:Q128907077 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907077 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907078 schema:description/sl "znanstveni članek" .
+  wd:Q128907078 schema:description/ar "مقالة بحثية نشرت في 5 فبراير 2019" .
+  wd:Q128907078 schema:description/ast "artículu científicu" .
+  wd:Q128907078 schema:description/bg "научна статия" .
+  wd:Q128907078 schema:description/bn "৫ ফেব্রুয়ারি ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907078 schema:description/ca "article científic" .
+  wd:Q128907078 schema:description/cs "vědecký článek" .
+  wd:Q128907078 schema:description/da "videnskabelig artikel udgivet 5. februar 2019" .
+  wd:Q128907078 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907078 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907078 schema:description/eo "scienca artikolo" .
+  wd:Q128907078 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907078 schema:description/et "teaduslik artikkel" .
+  wd:Q128907078 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907078 schema:description/fr "article scientifique" .
+  wd:Q128907078 schema:description/gl "artigo científico" .
+  wd:Q128907078 schema:description/he "מאמר מדעי" .
+  wd:Q128907078 schema:description/hu "tudományos cikk" .
+  wd:Q128907078 schema:description/id "artikel ilmiah" .
+  wd:Q128907078 schema:description/it "articolo scientifico" .
+  wd:Q128907078 schema:description/ja "2019年の論文" .
+  wd:Q128907078 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907078 schema:description/ko "2019년 논문" .
+  wd:Q128907078 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907078 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907078 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907078 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907078 schema:description/oc "article scientific" .
+  wd:Q128907078 schema:description/pl "artykuł naukowy" .
+  wd:Q128907078 schema:description/pt "artigo científico" .
+  wd:Q128907078 schema:description/pt-br "artigo científico" .
+  wd:Q128907078 schema:description/ro "articol științific" .
+  wd:Q128907078 schema:description/ru "научная статья" .
+  wd:Q128907078 schema:description/sk "vedecký článok" .
+  wd:Q128907078 schema:description/sq "artikull shkencor" .
+  wd:Q128907078 schema:description/sr "научни чланак" .
+  wd:Q128907078 schema:description/sr-ec "научни чланак" .
+  wd:Q128907078 schema:description/sr-el "naučni članak" .
+  wd:Q128907078 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907078 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907078 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907078 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907078 schema:description/tr "bilimsel makale" .
+  wd:Q128907078 schema:description/uk "наукова стаття, опублікована в лютому 2019" .
+  wd:Q128907078 schema:description/vi "bài báo khoa học" .
+  wd:Q128907078 schema:description/zh "2019年学术文章" .
+  wd:Q128907078 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907078 schema:description/yue "2019年學術文章" .
+  wd:Q128907078 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907078 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907079 schema:description/sl "znanstveni članek" .
+  wd:Q128907079 schema:description/ar "مقالة بحثية نشرت في 4 نوفمبر 2018" .
+  wd:Q128907079 schema:description/ast "artículu científicu" .
+  wd:Q128907079 schema:description/bg "научна статия" .
+  wd:Q128907079 schema:description/bn "৪ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907079 schema:description/ca "article científic" .
+  wd:Q128907079 schema:description/cs "vědecký článek" .
+  wd:Q128907079 schema:description/da "videnskabelig artikel udgivet 4. november 2018" .
+  wd:Q128907079 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907079 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907079 schema:description/eo "scienca artikolo" .
+  wd:Q128907079 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907079 schema:description/et "teaduslik artikkel" .
+  wd:Q128907079 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907079 schema:description/fr "article scientifique" .
+  wd:Q128907079 schema:description/gl "artigo científico" .
+  wd:Q128907079 schema:description/he "מאמר מדעי" .
+  wd:Q128907079 schema:description/hu "tudományos cikk" .
+  wd:Q128907079 schema:description/id "artikel ilmiah" .
+  wd:Q128907079 schema:description/it "articolo scientifico" .
+  wd:Q128907079 schema:description/ja "2018年の論文" .
+  wd:Q128907079 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907079 schema:description/ko "2018년 논문" .
+  wd:Q128907079 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907079 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907079 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907079 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907079 schema:description/oc "article scientific" .
+  wd:Q128907079 schema:description/pl "artykuł naukowy" .
+  wd:Q128907079 schema:description/pt "artigo científico" .
+  wd:Q128907079 schema:description/pt-br "artigo científico" .
+  wd:Q128907079 schema:description/ro "articol științific" .
+  wd:Q128907079 schema:description/ru "научная статья" .
+  wd:Q128907079 schema:description/sk "vedecký článok" .
+  wd:Q128907079 schema:description/sq "artikull shkencor" .
+  wd:Q128907079 schema:description/sr "научни чланак" .
+  wd:Q128907079 schema:description/sr-ec "научни чланак" .
+  wd:Q128907079 schema:description/sr-el "naučni članak" .
+  wd:Q128907079 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907079 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907079 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907079 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907079 schema:description/tr "bilimsel makale" .
+  wd:Q128907079 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907079 schema:description/vi "bài báo khoa học" .
+  wd:Q128907079 schema:description/zh "2018年学术文章" .
+  wd:Q128907079 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907079 schema:description/yue "2018年學術文章" .
+  wd:Q128907079 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907079 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907080 schema:description/sl "znanstveni članek" .
+  wd:Q128907080 schema:description/ar "مقالة بحثية نشرت في يناير 2018" .
+  wd:Q128907080 schema:description/ast "artículu científicu" .
+  wd:Q128907080 schema:description/bg "научна статия" .
+  wd:Q128907080 schema:description/bn "জানুয়ারি ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907080 schema:description/ca "article científic" .
+  wd:Q128907080 schema:description/cs "vědecký článek" .
+  wd:Q128907080 schema:description/da "videnskabelig artikel udgivet januar 2018" .
+  wd:Q128907080 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907080 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907080 schema:description/eo "scienca artikolo" .
+  wd:Q128907080 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907080 schema:description/et "teaduslik artikkel" .
+  wd:Q128907080 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907080 schema:description/fr "article scientifique" .
+  wd:Q128907080 schema:description/gl "artigo científico" .
+  wd:Q128907080 schema:description/he "מאמר מדעי" .
+  wd:Q128907080 schema:description/hu "tudományos cikk" .
+  wd:Q128907080 schema:description/id "artikel ilmiah" .
+  wd:Q128907080 schema:description/it "articolo scientifico" .
+  wd:Q128907080 schema:description/ja "2018年の論文" .
+  wd:Q128907080 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907080 schema:description/ko "2018년 논문" .
+  wd:Q128907080 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907080 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907080 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907080 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907080 schema:description/oc "article scientific" .
+  wd:Q128907080 schema:description/pl "artykuł naukowy" .
+  wd:Q128907080 schema:description/pt "artigo científico" .
+  wd:Q128907080 schema:description/pt-br "artigo científico" .
+  wd:Q128907080 schema:description/ro "articol științific" .
+  wd:Q128907080 schema:description/ru "научная статья" .
+  wd:Q128907080 schema:description/sk "vedecký článok" .
+  wd:Q128907080 schema:description/sq "artikull shkencor" .
+  wd:Q128907080 schema:description/sr "научни чланак" .
+  wd:Q128907080 schema:description/sr-ec "научни чланак" .
+  wd:Q128907080 schema:description/sr-el "naučni članak" .
+  wd:Q128907080 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907080 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907080 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907080 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907080 schema:description/tr "bilimsel makale" .
+  wd:Q128907080 schema:description/uk "наукова стаття, опублікована в січні 2018" .
+  wd:Q128907080 schema:description/vi "bài báo khoa học" .
+  wd:Q128907080 schema:description/zh "2018年学术文章" .
+  wd:Q128907080 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907080 schema:description/yue "2018年學術文章" .
+  wd:Q128907080 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907080 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907081 schema:description/sl "znanstveni članek" .
+  wd:Q128907081 schema:description/ar "مقالة بحثية نشرت في 2018" .
+  wd:Q128907081 schema:description/ast "artículu científicu" .
+  wd:Q128907081 schema:description/bg "научна статия" .
+  wd:Q128907081 schema:description/bn "২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907081 schema:description/ca "article científic" .
+  wd:Q128907081 schema:description/cs "vědecký článek" .
+  wd:Q128907081 schema:description/da "videnskabelig artikel udgivet 2018" .
+  wd:Q128907081 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907081 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907081 schema:description/eo "scienca artikolo" .
+  wd:Q128907081 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907081 schema:description/et "teaduslik artikkel" .
+  wd:Q128907081 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907081 schema:description/fr "article scientifique" .
+  wd:Q128907081 schema:description/gl "artigo científico" .
+  wd:Q128907081 schema:description/he "מאמר מדעי" .
+  wd:Q128907081 schema:description/hu "tudományos cikk" .
+  wd:Q128907081 schema:description/id "artikel ilmiah" .
+  wd:Q128907081 schema:description/it "articolo scientifico" .
+  wd:Q128907081 schema:description/ja "2018年の論文" .
+  wd:Q128907081 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907081 schema:description/ko "2018년 논문" .
+  wd:Q128907081 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907081 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907081 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907081 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907081 schema:description/oc "article scientific" .
+  wd:Q128907081 schema:description/pl "artykuł naukowy" .
+  wd:Q128907081 schema:description/pt "artigo científico" .
+  wd:Q128907081 schema:description/pt-br "artigo científico" .
+  wd:Q128907081 schema:description/ro "articol științific" .
+  wd:Q128907081 schema:description/ru "научная статья" .
+  wd:Q128907081 schema:description/sk "vedecký článok" .
+  wd:Q128907081 schema:description/sq "artikull shkencor" .
+  wd:Q128907081 schema:description/sr "научни чланак" .
+  wd:Q128907081 schema:description/sr-ec "научни чланак" .
+  wd:Q128907081 schema:description/sr-el "naučni članak" .
+  wd:Q128907081 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907081 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907081 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907081 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907081 schema:description/tr "bilimsel makale" .
+  wd:Q128907081 schema:description/uk "наукова стаття, опублікована у 2018" .
+  wd:Q128907081 schema:description/vi "bài báo khoa học" .
+  wd:Q128907081 schema:description/zh "2018年学术文章" .
+  wd:Q128907081 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907081 schema:description/yue "2018年學術文章" .
+  wd:Q128907081 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907081 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907082 schema:description/sl "znanstveni članek" .
+  wd:Q128907082 schema:description/ar "مقالة بحثية نشرت في يونيو 2015" .
+  wd:Q128907082 schema:description/ast "artículu científicu" .
+  wd:Q128907082 schema:description/bg "научна статия" .
+  wd:Q128907082 schema:description/bn "জুন ২০১৫-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907082 schema:description/ca "article científic" .
+  wd:Q128907082 schema:description/cs "vědecký článek" .
+  wd:Q128907082 schema:description/da "videnskabelig artikel udgivet juni 2015" .
+  wd:Q128907082 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907082 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907082 schema:description/eo "scienca artikolo" .
+  wd:Q128907082 schema:description/es "artículo científico publicado en 2015" .
+  wd:Q128907082 schema:description/et "teaduslik artikkel" .
+  wd:Q128907082 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907082 schema:description/fr "article scientifique" .
+  wd:Q128907082 schema:description/gl "artigo científico" .
+  wd:Q128907082 schema:description/he "מאמר מדעי" .
+  wd:Q128907082 schema:description/hu "tudományos cikk" .
+  wd:Q128907082 schema:description/id "artikel ilmiah" .
+  wd:Q128907082 schema:description/it "articolo scientifico" .
+  wd:Q128907082 schema:description/ja "2015年の論文" .
+  wd:Q128907082 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907082 schema:description/ko "2015년 논문" .
+  wd:Q128907082 schema:description/nan "2015 nî lūn-bûn" .
+  wd:Q128907082 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907082 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907082 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907082 schema:description/oc "article scientific" .
+  wd:Q128907082 schema:description/pl "artykuł naukowy" .
+  wd:Q128907082 schema:description/pt "artigo científico" .
+  wd:Q128907082 schema:description/pt-br "artigo científico" .
+  wd:Q128907082 schema:description/ro "articol științific" .
+  wd:Q128907082 schema:description/ru "научная статья" .
+  wd:Q128907082 schema:description/sk "vedecký článok" .
+  wd:Q128907082 schema:description/sq "artikull shkencor" .
+  wd:Q128907082 schema:description/sr "научни чланак" .
+  wd:Q128907082 schema:description/sr-ec "научни чланак" .
+  wd:Q128907082 schema:description/sr-el "naučni članak" .
+  wd:Q128907082 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907082 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907082 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907082 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907082 schema:description/tr "bilimsel makale" .
+  wd:Q128907082 schema:description/uk "наукова стаття, опублікована в червні 2015" .
+  wd:Q128907082 schema:description/vi "bài báo khoa học" .
+  wd:Q128907082 schema:description/zh "2015年学术文章" .
+  wd:Q128907082 schema:description/zh-hant "2015年學術文章" .
+  wd:Q128907082 schema:description/yue "2015年學術文章" .
+  wd:Q128907082 schema:description/zh-hans "2015年学术文章" .
+  wd:Q128907082 schema:description/wuu "2015年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907083 schema:description/sl "znanstveni članek" .
+  wd:Q128907083 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2014" .
+  wd:Q128907083 schema:description/ast "artículu científicu" .
+  wd:Q128907083 schema:description/bg "научна статия" .
+  wd:Q128907083 schema:description/bn "সেপ্টেম্বর ২০১৪-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907083 schema:description/ca "article científic" .
+  wd:Q128907083 schema:description/cs "vědecký článek" .
+  wd:Q128907083 schema:description/da "videnskabelig artikel udgivet september 2014" .
+  wd:Q128907083 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907083 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907083 schema:description/eo "scienca artikolo" .
+  wd:Q128907083 schema:description/es "artículo científico publicado en 2014" .
+  wd:Q128907083 schema:description/et "teaduslik artikkel" .
+  wd:Q128907083 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907083 schema:description/fr "article scientifique" .
+  wd:Q128907083 schema:description/gl "artigo científico" .
+  wd:Q128907083 schema:description/he "מאמר מדעי" .
+  wd:Q128907083 schema:description/hu "tudományos cikk" .
+  wd:Q128907083 schema:description/id "artikel ilmiah" .
+  wd:Q128907083 schema:description/it "articolo scientifico" .
+  wd:Q128907083 schema:description/ja "2014年の論文" .
+  wd:Q128907083 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907083 schema:description/ko "2014년 논문" .
+  wd:Q128907083 schema:description/nan "2014 nî lūn-bûn" .
+  wd:Q128907083 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907083 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907083 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907083 schema:description/oc "article scientific" .
+  wd:Q128907083 schema:description/pl "artykuł naukowy" .
+  wd:Q128907083 schema:description/pt "artigo científico" .
+  wd:Q128907083 schema:description/pt-br "artigo científico" .
+  wd:Q128907083 schema:description/ro "articol științific" .
+  wd:Q128907083 schema:description/ru "научная статья" .
+  wd:Q128907083 schema:description/sk "vedecký článok" .
+  wd:Q128907083 schema:description/sq "artikull shkencor" .
+  wd:Q128907083 schema:description/sr "научни чланак" .
+  wd:Q128907083 schema:description/sr-ec "научни чланак" .
+  wd:Q128907083 schema:description/sr-el "naučni članak" .
+  wd:Q128907083 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907083 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907083 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907083 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907083 schema:description/tr "bilimsel makale" .
+  wd:Q128907083 schema:description/uk "наукова стаття, опублікована у вересні 2014" .
+  wd:Q128907083 schema:description/vi "bài báo khoa học" .
+  wd:Q128907083 schema:description/zh "2014年学术文章" .
+  wd:Q128907083 schema:description/zh-hant "2014年學術文章" .
+  wd:Q128907083 schema:description/yue "2014年學術文章" .
+  wd:Q128907083 schema:description/zh-hans "2014年学术文章" .
+  wd:Q128907083 schema:description/wuu "2014年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907084 schema:description/sl "znanstveni članek" .
+  wd:Q128907084 schema:description/ar "مقالة بحثية نشرت في 16 نوفمبر 2018" .
+  wd:Q128907084 schema:description/ast "artículu científicu" .
+  wd:Q128907084 schema:description/bg "научна статия" .
+  wd:Q128907084 schema:description/bn "১৬ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907084 schema:description/ca "article científic" .
+  wd:Q128907084 schema:description/cs "vědecký článek" .
+  wd:Q128907084 schema:description/da "videnskabelig artikel udgivet 16. november 2018" .
+  wd:Q128907084 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907084 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907084 schema:description/eo "scienca artikolo" .
+  wd:Q128907084 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907084 schema:description/et "teaduslik artikkel" .
+  wd:Q128907084 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907084 schema:description/fr "article scientifique" .
+  wd:Q128907084 schema:description/gl "artigo científico" .
+  wd:Q128907084 schema:description/he "מאמר מדעי" .
+  wd:Q128907084 schema:description/hu "tudományos cikk" .
+  wd:Q128907084 schema:description/id "artikel ilmiah" .
+  wd:Q128907084 schema:description/it "articolo scientifico" .
+  wd:Q128907084 schema:description/ja "2018年の論文" .
+  wd:Q128907084 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907084 schema:description/ko "2018년 논문" .
+  wd:Q128907084 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907084 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907084 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907084 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907084 schema:description/oc "article scientific" .
+  wd:Q128907084 schema:description/pl "artykuł naukowy" .
+  wd:Q128907084 schema:description/pt "artigo científico" .
+  wd:Q128907084 schema:description/pt-br "artigo científico" .
+  wd:Q128907084 schema:description/ro "articol științific" .
+  wd:Q128907084 schema:description/ru "научная статья" .
+  wd:Q128907084 schema:description/sk "vedecký článok" .
+  wd:Q128907084 schema:description/sq "artikull shkencor" .
+  wd:Q128907084 schema:description/sr "научни чланак" .
+  wd:Q128907084 schema:description/sr-ec "научни чланак" .
+  wd:Q128907084 schema:description/sr-el "naučni članak" .
+  wd:Q128907084 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907084 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907084 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907084 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907084 schema:description/tr "bilimsel makale" .
+  wd:Q128907084 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907084 schema:description/vi "bài báo khoa học" .
+  wd:Q128907084 schema:description/zh "2018年学术文章" .
+  wd:Q128907084 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907084 schema:description/yue "2018年學術文章" .
+  wd:Q128907084 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907084 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907085 schema:description/sl "znanstveni članek" .
+  wd:Q128907085 schema:description/ar "مقالة بحثية نشرت في نوفمبر 2018" .
+  wd:Q128907085 schema:description/ast "artículu científicu" .
+  wd:Q128907085 schema:description/bg "научна статия" .
+  wd:Q128907085 schema:description/bn "নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907085 schema:description/ca "article científic" .
+  wd:Q128907085 schema:description/cs "vědecký článek" .
+  wd:Q128907085 schema:description/da "videnskabelig artikel udgivet november 2018" .
+  wd:Q128907085 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907085 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907085 schema:description/eo "scienca artikolo" .
+  wd:Q128907085 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907085 schema:description/et "teaduslik artikkel" .
+  wd:Q128907085 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907085 schema:description/fr "article scientifique" .
+  wd:Q128907085 schema:description/gl "artigo científico" .
+  wd:Q128907085 schema:description/he "מאמר מדעי" .
+  wd:Q128907085 schema:description/hu "tudományos cikk" .
+  wd:Q128907085 schema:description/id "artikel ilmiah" .
+  wd:Q128907085 schema:description/it "articolo scientifico" .
+  wd:Q128907085 schema:description/ja "2018年の論文" .
+  wd:Q128907085 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907085 schema:description/ko "2018년 논문" .
+  wd:Q128907085 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907085 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907085 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907085 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907085 schema:description/oc "article scientific" .
+  wd:Q128907085 schema:description/pl "artykuł naukowy" .
+  wd:Q128907085 schema:description/pt "artigo científico" .
+  wd:Q128907085 schema:description/pt-br "artigo científico" .
+  wd:Q128907085 schema:description/ro "articol științific" .
+  wd:Q128907085 schema:description/ru "научная статья" .
+  wd:Q128907085 schema:description/sk "vedecký článok" .
+  wd:Q128907085 schema:description/sq "artikull shkencor" .
+  wd:Q128907085 schema:description/sr "научни чланак" .
+  wd:Q128907085 schema:description/sr-ec "научни чланак" .
+  wd:Q128907085 schema:description/sr-el "naučni članak" .
+  wd:Q128907085 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907085 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907085 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907085 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907085 schema:description/tr "bilimsel makale" .
+  wd:Q128907085 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907085 schema:description/vi "bài báo khoa học" .
+  wd:Q128907085 schema:description/zh "2018年学术文章" .
+  wd:Q128907085 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907085 schema:description/yue "2018年學術文章" .
+  wd:Q128907085 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907085 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907086 schema:description/sl "znanstveni članek" .
+  wd:Q128907086 schema:description/ar "مقالة بحثية نشرت في 2 أكتوبر 2018" .
+  wd:Q128907086 schema:description/ast "artículu científicu" .
+  wd:Q128907086 schema:description/bg "научна статия" .
+  wd:Q128907086 schema:description/bn "২ অক্টোবর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907086 schema:description/ca "article científic" .
+  wd:Q128907086 schema:description/cs "vědecký článek" .
+  wd:Q128907086 schema:description/da "videnskabelig artikel udgivet 2. oktober 2018" .
+  wd:Q128907086 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907086 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907086 schema:description/eo "scienca artikolo" .
+  wd:Q128907086 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907086 schema:description/et "teaduslik artikkel" .
+  wd:Q128907086 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907086 schema:description/fr "article scientifique" .
+  wd:Q128907086 schema:description/gl "artigo científico" .
+  wd:Q128907086 schema:description/he "מאמר מדעי" .
+  wd:Q128907086 schema:description/hu "tudományos cikk" .
+  wd:Q128907086 schema:description/id "artikel ilmiah" .
+  wd:Q128907086 schema:description/it "articolo scientifico" .
+  wd:Q128907086 schema:description/ja "2018年の論文" .
+  wd:Q128907086 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907086 schema:description/ko "2018년 논문" .
+  wd:Q128907086 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907086 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907086 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907086 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907086 schema:description/oc "article scientific" .
+  wd:Q128907086 schema:description/pl "artykuł naukowy" .
+  wd:Q128907086 schema:description/pt "artigo científico" .
+  wd:Q128907086 schema:description/pt-br "artigo científico" .
+  wd:Q128907086 schema:description/ro "articol științific" .
+  wd:Q128907086 schema:description/ru "научная статья" .
+  wd:Q128907086 schema:description/sk "vedecký článok" .
+  wd:Q128907086 schema:description/sq "artikull shkencor" .
+  wd:Q128907086 schema:description/sr "научни чланак" .
+  wd:Q128907086 schema:description/sr-ec "научни чланак" .
+  wd:Q128907086 schema:description/sr-el "naučni članak" .
+  wd:Q128907086 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907086 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907086 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907086 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907086 schema:description/tr "bilimsel makale" .
+  wd:Q128907086 schema:description/uk "наукова стаття, опублікована в жовтні 2018" .
+  wd:Q128907086 schema:description/vi "bài báo khoa học" .
+  wd:Q128907086 schema:description/zh "2018年学术文章" .
+  wd:Q128907086 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907086 schema:description/yue "2018年學術文章" .
+  wd:Q128907086 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907086 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907087 schema:description/sl "znanstveni članek" .
+  wd:Q128907087 schema:description/ar "مقالة بحثية نشرت في يونيو 2004" .
+  wd:Q128907087 schema:description/ast "artículu científicu" .
+  wd:Q128907087 schema:description/bg "научна статия" .
+  wd:Q128907087 schema:description/bn "জুন ২০০৪-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907087 schema:description/ca "article científic" .
+  wd:Q128907087 schema:description/cs "vědecký článek" .
+  wd:Q128907087 schema:description/da "videnskabelig artikel udgivet juni 2004" .
+  wd:Q128907087 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907087 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907087 schema:description/eo "scienca artikolo" .
+  wd:Q128907087 schema:description/es "artículo científico publicado en 2004" .
+  wd:Q128907087 schema:description/et "teaduslik artikkel" .
+  wd:Q128907087 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907087 schema:description/fr "article scientifique" .
+  wd:Q128907087 schema:description/gl "artigo científico" .
+  wd:Q128907087 schema:description/he "מאמר מדעי" .
+  wd:Q128907087 schema:description/hu "tudományos cikk" .
+  wd:Q128907087 schema:description/id "artikel ilmiah" .
+  wd:Q128907087 schema:description/it "articolo scientifico" .
+  wd:Q128907087 schema:description/ja "2004年の論文" .
+  wd:Q128907087 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907087 schema:description/ko "2004년 논문" .
+  wd:Q128907087 schema:description/nan "2004 nî lūn-bûn" .
+  wd:Q128907087 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907087 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907087 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907087 schema:description/oc "article scientific" .
+  wd:Q128907087 schema:description/pl "artykuł naukowy" .
+  wd:Q128907087 schema:description/pt "artigo científico" .
+  wd:Q128907087 schema:description/pt-br "artigo científico" .
+  wd:Q128907087 schema:description/ro "articol științific" .
+  wd:Q128907087 schema:description/ru "научная статья" .
+  wd:Q128907087 schema:description/sk "vedecký článok" .
+  wd:Q128907087 schema:description/sq "artikull shkencor" .
+  wd:Q128907087 schema:description/sr "научни чланак" .
+  wd:Q128907087 schema:description/sr-ec "научни чланак" .
+  wd:Q128907087 schema:description/sr-el "naučni članak" .
+  wd:Q128907087 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907087 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907087 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907087 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907087 schema:description/tr "bilimsel makale" .
+  wd:Q128907087 schema:description/uk "наукова стаття, опублікована в червні 2004" .
+  wd:Q128907087 schema:description/vi "bài báo khoa học" .
+  wd:Q128907087 schema:description/zh "2004年学术文章" .
+  wd:Q128907087 schema:description/zh-hant "2004年學術文章" .
+  wd:Q128907087 schema:description/yue "2004年學術文章" .
+  wd:Q128907087 schema:description/zh-hans "2004年学术文章" .
+  wd:Q128907087 schema:description/wuu "2004年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907088 schema:description/sl "znanstveni članek" .
+  wd:Q128907088 schema:description/ar "مقالة بحثية نشرت في 20 نوفمبر 2018" .
+  wd:Q128907088 schema:description/ast "artículu científicu" .
+  wd:Q128907088 schema:description/bg "научна статия" .
+  wd:Q128907088 schema:description/bn "২০ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907088 schema:description/ca "article científic" .
+  wd:Q128907088 schema:description/cs "vědecký článek" .
+  wd:Q128907088 schema:description/da "videnskabelig artikel udgivet 20. november 2018" .
+  wd:Q128907088 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907088 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907088 schema:description/eo "scienca artikolo" .
+  wd:Q128907088 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907088 schema:description/et "teaduslik artikkel" .
+  wd:Q128907088 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907088 schema:description/fr "article scientifique" .
+  wd:Q128907088 schema:description/gl "artigo científico" .
+  wd:Q128907088 schema:description/he "מאמר מדעי" .
+  wd:Q128907088 schema:description/hu "tudományos cikk" .
+  wd:Q128907088 schema:description/id "artikel ilmiah" .
+  wd:Q128907088 schema:description/it "articolo scientifico" .
+  wd:Q128907088 schema:description/ja "2018年の論文" .
+  wd:Q128907088 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907088 schema:description/ko "2018년 논문" .
+  wd:Q128907088 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907088 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907088 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907088 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907088 schema:description/oc "article scientific" .
+  wd:Q128907088 schema:description/pl "artykuł naukowy" .
+  wd:Q128907088 schema:description/pt "artigo científico" .
+  wd:Q128907088 schema:description/pt-br "artigo científico" .
+  wd:Q128907088 schema:description/ro "articol științific" .
+  wd:Q128907088 schema:description/ru "научная статья" .
+  wd:Q128907088 schema:description/sk "vedecký článok" .
+  wd:Q128907088 schema:description/sq "artikull shkencor" .
+  wd:Q128907088 schema:description/sr "научни чланак" .
+  wd:Q128907088 schema:description/sr-ec "научни чланак" .
+  wd:Q128907088 schema:description/sr-el "naučni članak" .
+  wd:Q128907088 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907088 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907088 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907088 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907088 schema:description/tr "bilimsel makale" .
+  wd:Q128907088 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907088 schema:description/vi "bài báo khoa học" .
+  wd:Q128907088 schema:description/zh "2018年学术文章" .
+  wd:Q128907088 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907088 schema:description/yue "2018年學術文章" .
+  wd:Q128907088 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907088 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907089 schema:description/sl "znanstveni članek" .
+  wd:Q128907089 schema:description/ar "مقالة بحثية نشرت في يناير 2019" .
+  wd:Q128907089 schema:description/ast "artículu científicu" .
+  wd:Q128907089 schema:description/bg "научна статия" .
+  wd:Q128907089 schema:description/bn "জানুয়ারি ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907089 schema:description/ca "article científic" .
+  wd:Q128907089 schema:description/cs "vědecký článek" .
+  wd:Q128907089 schema:description/da "videnskabelig artikel udgivet januar 2019" .
+  wd:Q128907089 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907089 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907089 schema:description/eo "scienca artikolo" .
+  wd:Q128907089 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907089 schema:description/et "teaduslik artikkel" .
+  wd:Q128907089 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907089 schema:description/fr "article scientifique" .
+  wd:Q128907089 schema:description/gl "artigo científico" .
+  wd:Q128907089 schema:description/he "מאמר מדעי" .
+  wd:Q128907089 schema:description/hu "tudományos cikk" .
+  wd:Q128907089 schema:description/id "artikel ilmiah" .
+  wd:Q128907089 schema:description/it "articolo scientifico" .
+  wd:Q128907089 schema:description/ja "2019年の論文" .
+  wd:Q128907089 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907089 schema:description/ko "2019년 논문" .
+  wd:Q128907089 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907089 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907089 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907089 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907089 schema:description/oc "article scientific" .
+  wd:Q128907089 schema:description/pl "artykuł naukowy" .
+  wd:Q128907089 schema:description/pt "artigo científico" .
+  wd:Q128907089 schema:description/pt-br "artigo científico" .
+  wd:Q128907089 schema:description/ro "articol științific" .
+  wd:Q128907089 schema:description/ru "научная статья" .
+  wd:Q128907089 schema:description/sk "vedecký článok" .
+  wd:Q128907089 schema:description/sq "artikull shkencor" .
+  wd:Q128907089 schema:description/sr "научни чланак" .
+  wd:Q128907089 schema:description/sr-ec "научни чланак" .
+  wd:Q128907089 schema:description/sr-el "naučni članak" .
+  wd:Q128907089 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907089 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907089 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907089 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907089 schema:description/tr "bilimsel makale" .
+  wd:Q128907089 schema:description/uk "наукова стаття, опублікована в січні 2019" .
+  wd:Q128907089 schema:description/vi "bài báo khoa học" .
+  wd:Q128907089 schema:description/zh "2019年学术文章" .
+  wd:Q128907089 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907089 schema:description/yue "2019年學術文章" .
+  wd:Q128907089 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907089 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907090 schema:description/sl "znanstveni članek" .
+  wd:Q128907090 schema:description/ar "مقالة بحثية نشرت في نوفمبر 2018" .
+  wd:Q128907090 schema:description/ast "artículu científicu" .
+  wd:Q128907090 schema:description/bg "научна статия" .
+  wd:Q128907090 schema:description/bn "নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907090 schema:description/ca "article científic" .
+  wd:Q128907090 schema:description/cs "vědecký článek" .
+  wd:Q128907090 schema:description/da "videnskabelig artikel udgivet november 2018" .
+  wd:Q128907090 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907090 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907090 schema:description/eo "scienca artikolo" .
+  wd:Q128907090 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907090 schema:description/et "teaduslik artikkel" .
+  wd:Q128907090 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907090 schema:description/fr "article scientifique" .
+  wd:Q128907090 schema:description/gl "artigo científico" .
+  wd:Q128907090 schema:description/he "מאמר מדעי" .
+  wd:Q128907090 schema:description/hu "tudományos cikk" .
+  wd:Q128907090 schema:description/id "artikel ilmiah" .
+  wd:Q128907090 schema:description/it "articolo scientifico" .
+  wd:Q128907090 schema:description/ja "2018年の論文" .
+  wd:Q128907090 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907090 schema:description/ko "2018년 논문" .
+  wd:Q128907090 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907090 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907090 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907090 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907090 schema:description/oc "article scientific" .
+  wd:Q128907090 schema:description/pl "artykuł naukowy" .
+  wd:Q128907090 schema:description/pt "artigo científico" .
+  wd:Q128907090 schema:description/pt-br "artigo científico" .
+  wd:Q128907090 schema:description/ro "articol științific" .
+  wd:Q128907090 schema:description/ru "научная статья" .
+  wd:Q128907090 schema:description/sk "vedecký článok" .
+  wd:Q128907090 schema:description/sq "artikull shkencor" .
+  wd:Q128907090 schema:description/sr "научни чланак" .
+  wd:Q128907090 schema:description/sr-ec "научни чланак" .
+  wd:Q128907090 schema:description/sr-el "naučni članak" .
+  wd:Q128907090 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907090 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907090 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907090 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907090 schema:description/tr "bilimsel makale" .
+  wd:Q128907090 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907090 schema:description/vi "bài báo khoa học" .
+  wd:Q128907090 schema:description/zh "2018年学术文章" .
+  wd:Q128907090 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907090 schema:description/yue "2018年學術文章" .
+  wd:Q128907090 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907090 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907091 schema:description/sl "znanstveni članek" .
+  wd:Q128907091 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2014" .
+  wd:Q128907091 schema:description/ast "artículu científicu" .
+  wd:Q128907091 schema:description/bg "научна статия" .
+  wd:Q128907091 schema:description/bn "সেপ্টেম্বর ২০১৪-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907091 schema:description/ca "article científic" .
+  wd:Q128907091 schema:description/cs "vědecký článek" .
+  wd:Q128907091 schema:description/da "videnskabelig artikel udgivet september 2014" .
+  wd:Q128907091 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907091 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907091 schema:description/eo "scienca artikolo" .
+  wd:Q128907091 schema:description/es "artículo científico publicado en 2014" .
+  wd:Q128907091 schema:description/et "teaduslik artikkel" .
+  wd:Q128907091 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907091 schema:description/fr "article scientifique" .
+  wd:Q128907091 schema:description/gl "artigo científico" .
+  wd:Q128907091 schema:description/he "מאמר מדעי" .
+  wd:Q128907091 schema:description/hu "tudományos cikk" .
+  wd:Q128907091 schema:description/id "artikel ilmiah" .
+  wd:Q128907091 schema:description/it "articolo scientifico" .
+  wd:Q128907091 schema:description/ja "2014年の論文" .
+  wd:Q128907091 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907091 schema:description/ko "2014년 논문" .
+  wd:Q128907091 schema:description/nan "2014 nî lūn-bûn" .
+  wd:Q128907091 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907091 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907091 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907091 schema:description/oc "article scientific" .
+  wd:Q128907091 schema:description/pl "artykuł naukowy" .
+  wd:Q128907091 schema:description/pt "artigo científico" .
+  wd:Q128907091 schema:description/pt-br "artigo científico" .
+  wd:Q128907091 schema:description/ro "articol științific" .
+  wd:Q128907091 schema:description/ru "научная статья" .
+  wd:Q128907091 schema:description/sk "vedecký článok" .
+  wd:Q128907091 schema:description/sq "artikull shkencor" .
+  wd:Q128907091 schema:description/sr "научни чланак" .
+  wd:Q128907091 schema:description/sr-ec "научни чланак" .
+  wd:Q128907091 schema:description/sr-el "naučni članak" .
+  wd:Q128907091 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907091 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907091 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907091 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907091 schema:description/tr "bilimsel makale" .
+  wd:Q128907091 schema:description/uk "наукова стаття, опублікована у вересні 2014" .
+  wd:Q128907091 schema:description/vi "bài báo khoa học" .
+  wd:Q128907091 schema:description/zh "2014年学术文章" .
+  wd:Q128907091 schema:description/zh-hant "2014年學術文章" .
+  wd:Q128907091 schema:description/yue "2014年學術文章" .
+  wd:Q128907091 schema:description/zh-hans "2014年学术文章" .
+  wd:Q128907091 schema:description/wuu "2014年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907092 schema:description/sl "znanstveni članek" .
+  wd:Q128907092 schema:description/ar "مقالة بحثية نشرت في 16 نوفمبر 2018" .
+  wd:Q128907092 schema:description/ast "artículu científicu" .
+  wd:Q128907092 schema:description/bg "научна статия" .
+  wd:Q128907092 schema:description/bn "১৬ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907092 schema:description/ca "article científic" .
+  wd:Q128907092 schema:description/cs "vědecký článek" .
+  wd:Q128907092 schema:description/da "videnskabelig artikel udgivet 16. november 2018" .
+  wd:Q128907092 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907092 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907092 schema:description/eo "scienca artikolo" .
+  wd:Q128907092 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907092 schema:description/et "teaduslik artikkel" .
+  wd:Q128907092 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907092 schema:description/fr "article scientifique" .
+  wd:Q128907092 schema:description/gl "artigo científico" .
+  wd:Q128907092 schema:description/he "מאמר מדעי" .
+  wd:Q128907092 schema:description/hu "tudományos cikk" .
+  wd:Q128907092 schema:description/id "artikel ilmiah" .
+  wd:Q128907092 schema:description/it "articolo scientifico" .
+  wd:Q128907092 schema:description/ja "2018年の論文" .
+  wd:Q128907092 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907092 schema:description/ko "2018년 논문" .
+  wd:Q128907092 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907092 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907092 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907092 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907092 schema:description/oc "article scientific" .
+  wd:Q128907092 schema:description/pl "artykuł naukowy" .
+  wd:Q128907092 schema:description/pt "artigo científico" .
+  wd:Q128907092 schema:description/pt-br "artigo científico" .
+  wd:Q128907092 schema:description/ro "articol științific" .
+  wd:Q128907092 schema:description/ru "научная статья" .
+  wd:Q128907092 schema:description/sk "vedecký článok" .
+  wd:Q128907092 schema:description/sq "artikull shkencor" .
+  wd:Q128907092 schema:description/sr "научни чланак" .
+  wd:Q128907092 schema:description/sr-ec "научни чланак" .
+  wd:Q128907092 schema:description/sr-el "naučni članak" .
+  wd:Q128907092 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907092 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907092 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907092 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907092 schema:description/tr "bilimsel makale" .
+  wd:Q128907092 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907092 schema:description/vi "bài báo khoa học" .
+  wd:Q128907092 schema:description/zh "2018年学术文章" .
+  wd:Q128907092 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907092 schema:description/yue "2018年學術文章" .
+  wd:Q128907092 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907092 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907093 schema:description/sl "znanstveni članek" .
+  wd:Q128907093 schema:description/ar "مقالة بحثية نشرت في 16 نوفمبر 2018" .
+  wd:Q128907093 schema:description/ast "artículu científicu" .
+  wd:Q128907093 schema:description/bg "научна статия" .
+  wd:Q128907093 schema:description/bn "১৬ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907093 schema:description/ca "article científic" .
+  wd:Q128907093 schema:description/cs "vědecký článek" .
+  wd:Q128907093 schema:description/da "videnskabelig artikel udgivet 16. november 2018" .
+  wd:Q128907093 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907093 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907093 schema:description/eo "scienca artikolo" .
+  wd:Q128907093 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907093 schema:description/et "teaduslik artikkel" .
+  wd:Q128907093 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907093 schema:description/fr "article scientifique" .
+  wd:Q128907093 schema:description/gl "artigo científico" .
+  wd:Q128907093 schema:description/he "מאמר מדעי" .
+  wd:Q128907093 schema:description/hu "tudományos cikk" .
+  wd:Q128907093 schema:description/id "artikel ilmiah" .
+  wd:Q128907093 schema:description/it "articolo scientifico" .
+  wd:Q128907093 schema:description/ja "2018年の論文" .
+  wd:Q128907093 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907093 schema:description/ko "2018년 논문" .
+  wd:Q128907093 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907093 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907093 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907093 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907093 schema:description/oc "article scientific" .
+  wd:Q128907093 schema:description/pl "artykuł naukowy" .
+  wd:Q128907093 schema:description/pt "artigo científico" .
+  wd:Q128907093 schema:description/pt-br "artigo científico" .
+  wd:Q128907093 schema:description/ro "articol științific" .
+  wd:Q128907093 schema:description/ru "научная статья" .
+  wd:Q128907093 schema:description/sk "vedecký článok" .
+  wd:Q128907093 schema:description/sq "artikull shkencor" .
+  wd:Q128907093 schema:description/sr "научни чланак" .
+  wd:Q128907093 schema:description/sr-ec "научни чланак" .
+  wd:Q128907093 schema:description/sr-el "naučni članak" .
+  wd:Q128907093 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907093 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907093 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907093 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907093 schema:description/tr "bilimsel makale" .
+  wd:Q128907093 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907093 schema:description/vi "bài báo khoa học" .
+  wd:Q128907093 schema:description/zh "2018年学术文章" .
+  wd:Q128907093 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907093 schema:description/yue "2018年學術文章" .
+  wd:Q128907093 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907093 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907094 schema:description/sl "znanstveni članek" .
+  wd:Q128907094 schema:description/ar "مقالة بحثية نشرت في 31 أكتوبر 2018" .
+  wd:Q128907094 schema:description/ast "artículu científicu" .
+  wd:Q128907094 schema:description/bg "научна статия" .
+  wd:Q128907094 schema:description/bn "৩১ অক্টোবর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907094 schema:description/ca "article científic" .
+  wd:Q128907094 schema:description/cs "vědecký článek" .
+  wd:Q128907094 schema:description/da "videnskabelig artikel udgivet 31. oktober 2018" .
+  wd:Q128907094 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907094 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907094 schema:description/eo "scienca artikolo" .
+  wd:Q128907094 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907094 schema:description/et "teaduslik artikkel" .
+  wd:Q128907094 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907094 schema:description/fr "article scientifique" .
+  wd:Q128907094 schema:description/gl "artigo científico" .
+  wd:Q128907094 schema:description/he "מאמר מדעי" .
+  wd:Q128907094 schema:description/hu "tudományos cikk" .
+  wd:Q128907094 schema:description/id "artikel ilmiah" .
+  wd:Q128907094 schema:description/it "articolo scientifico" .
+  wd:Q128907094 schema:description/ja "2018年の論文" .
+  wd:Q128907094 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907094 schema:description/ko "2018년 논문" .
+  wd:Q128907094 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907094 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907094 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907094 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907094 schema:description/oc "article scientific" .
+  wd:Q128907094 schema:description/pl "artykuł naukowy" .
+  wd:Q128907094 schema:description/pt "artigo científico" .
+  wd:Q128907094 schema:description/pt-br "artigo científico" .
+  wd:Q128907094 schema:description/ro "articol științific" .
+  wd:Q128907094 schema:description/ru "научная статья" .
+  wd:Q128907094 schema:description/sk "vedecký článok" .
+  wd:Q128907094 schema:description/sq "artikull shkencor" .
+  wd:Q128907094 schema:description/sr "научни чланак" .
+  wd:Q128907094 schema:description/sr-ec "научни чланак" .
+  wd:Q128907094 schema:description/sr-el "naučni članak" .
+  wd:Q128907094 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907094 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907094 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907094 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907094 schema:description/tr "bilimsel makale" .
+  wd:Q128907094 schema:description/uk "наукова стаття, опублікована в жовтні 2018" .
+  wd:Q128907094 schema:description/vi "bài báo khoa học" .
+  wd:Q128907094 schema:description/zh "2018年学术文章" .
+  wd:Q128907094 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907094 schema:description/yue "2018年學術文章" .
+  wd:Q128907094 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907094 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907095 schema:description/sl "znanstveni članek" .
+  wd:Q128907095 schema:description/ar "مقالة بحثية نشرت في 15 نوفمبر 2018" .
+  wd:Q128907095 schema:description/ast "artículu científicu" .
+  wd:Q128907095 schema:description/bg "научна статия" .
+  wd:Q128907095 schema:description/bn "১৫ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907095 schema:description/ca "article científic" .
+  wd:Q128907095 schema:description/cs "vědecký článek" .
+  wd:Q128907095 schema:description/da "videnskabelig artikel udgivet 15. november 2018" .
+  wd:Q128907095 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907095 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907095 schema:description/eo "scienca artikolo" .
+  wd:Q128907095 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907095 schema:description/et "teaduslik artikkel" .
+  wd:Q128907095 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907095 schema:description/fr "article scientifique" .
+  wd:Q128907095 schema:description/gl "artigo científico" .
+  wd:Q128907095 schema:description/he "מאמר מדעי" .
+  wd:Q128907095 schema:description/hu "tudományos cikk" .
+  wd:Q128907095 schema:description/id "artikel ilmiah" .
+  wd:Q128907095 schema:description/it "articolo scientifico" .
+  wd:Q128907095 schema:description/ja "2018年の論文" .
+  wd:Q128907095 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907095 schema:description/ko "2018년 논문" .
+  wd:Q128907095 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907095 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907095 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907095 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907095 schema:description/oc "article scientific" .
+  wd:Q128907095 schema:description/pl "artykuł naukowy" .
+  wd:Q128907095 schema:description/pt "artigo científico" .
+  wd:Q128907095 schema:description/pt-br "artigo científico" .
+  wd:Q128907095 schema:description/ro "articol științific" .
+  wd:Q128907095 schema:description/ru "научная статья" .
+  wd:Q128907095 schema:description/sk "vedecký článok" .
+  wd:Q128907095 schema:description/sq "artikull shkencor" .
+  wd:Q128907095 schema:description/sr "научни чланак" .
+  wd:Q128907095 schema:description/sr-ec "научни чланак" .
+  wd:Q128907095 schema:description/sr-el "naučni članak" .
+  wd:Q128907095 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907095 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907095 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907095 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907095 schema:description/tr "bilimsel makale" .
+  wd:Q128907095 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907095 schema:description/vi "bài báo khoa học" .
+  wd:Q128907095 schema:description/zh "2018年学术文章" .
+  wd:Q128907095 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907095 schema:description/yue "2018年學術文章" .
+  wd:Q128907095 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907095 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907096 schema:description/sl "znanstveni članek" .
+  wd:Q128907096 schema:description/ar "مقالة بحثية نشرت في يونيو 2003" .
+  wd:Q128907096 schema:description/ast "artículu científicu" .
+  wd:Q128907096 schema:description/bg "научна статия" .
+  wd:Q128907096 schema:description/bn "জুন ২০০৩-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907096 schema:description/ca "article científic" .
+  wd:Q128907096 schema:description/cs "vědecký článek" .
+  wd:Q128907096 schema:description/da "videnskabelig artikel udgivet juni 2003" .
+  wd:Q128907096 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907096 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907096 schema:description/eo "scienca artikolo" .
+  wd:Q128907096 schema:description/es "artículo científico publicado en 2003" .
+  wd:Q128907096 schema:description/et "teaduslik artikkel" .
+  wd:Q128907096 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907096 schema:description/fr "article scientifique" .
+  wd:Q128907096 schema:description/gl "artigo científico" .
+  wd:Q128907096 schema:description/he "מאמר מדעי" .
+  wd:Q128907096 schema:description/hu "tudományos cikk" .
+  wd:Q128907096 schema:description/id "artikel ilmiah" .
+  wd:Q128907096 schema:description/it "articolo scientifico" .
+  wd:Q128907096 schema:description/ja "2003年の論文" .
+  wd:Q128907096 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907096 schema:description/ko "2003년 논문" .
+  wd:Q128907096 schema:description/nan "2003 nî lūn-bûn" .
+  wd:Q128907096 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907096 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907096 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907096 schema:description/oc "article scientific" .
+  wd:Q128907096 schema:description/pl "artykuł naukowy" .
+  wd:Q128907096 schema:description/pt "artigo científico" .
+  wd:Q128907096 schema:description/pt-br "artigo científico" .
+  wd:Q128907096 schema:description/ro "articol științific" .
+  wd:Q128907096 schema:description/ru "научная статья" .
+  wd:Q128907096 schema:description/sk "vedecký článok" .
+  wd:Q128907096 schema:description/sq "artikull shkencor" .
+  wd:Q128907096 schema:description/sr "научни чланак" .
+  wd:Q128907096 schema:description/sr-ec "научни чланак" .
+  wd:Q128907096 schema:description/sr-el "naučni članak" .
+  wd:Q128907096 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907096 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907096 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907096 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907096 schema:description/tr "bilimsel makale" .
+  wd:Q128907096 schema:description/uk "наукова стаття, опублікована в червні 2003" .
+  wd:Q128907096 schema:description/vi "bài báo khoa học" .
+  wd:Q128907096 schema:description/zh "2003年学术文章" .
+  wd:Q128907096 schema:description/zh-hant "2003年學術文章" .
+  wd:Q128907096 schema:description/yue "2003年學術文章" .
+  wd:Q128907096 schema:description/zh-hans "2003年学术文章" .
+  wd:Q128907096 schema:description/wuu "2003年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907097 schema:description/sl "znanstveni članek" .
+  wd:Q128907097 schema:description/ar "مقالة بحثية نشرت في 20 نوفمبر 2018" .
+  wd:Q128907097 schema:description/ast "artículu científicu" .
+  wd:Q128907097 schema:description/bg "научна статия" .
+  wd:Q128907097 schema:description/bn "২০ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907097 schema:description/ca "article científic" .
+  wd:Q128907097 schema:description/cs "vědecký článek" .
+  wd:Q128907097 schema:description/da "videnskabelig artikel udgivet 20. november 2018" .
+  wd:Q128907097 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907097 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907097 schema:description/eo "scienca artikolo" .
+  wd:Q128907097 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907097 schema:description/et "teaduslik artikkel" .
+  wd:Q128907097 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907097 schema:description/fr "article scientifique" .
+  wd:Q128907097 schema:description/gl "artigo científico" .
+  wd:Q128907097 schema:description/he "מאמר מדעי" .
+  wd:Q128907097 schema:description/hu "tudományos cikk" .
+  wd:Q128907097 schema:description/id "artikel ilmiah" .
+  wd:Q128907097 schema:description/it "articolo scientifico" .
+  wd:Q128907097 schema:description/ja "2018年の論文" .
+  wd:Q128907097 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907097 schema:description/ko "2018년 논문" .
+  wd:Q128907097 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907097 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907097 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907097 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907097 schema:description/oc "article scientific" .
+  wd:Q128907097 schema:description/pl "artykuł naukowy" .
+  wd:Q128907097 schema:description/pt "artigo científico" .
+  wd:Q128907097 schema:description/pt-br "artigo científico" .
+  wd:Q128907097 schema:description/ro "articol științific" .
+  wd:Q128907097 schema:description/ru "научная статья" .
+  wd:Q128907097 schema:description/sk "vedecký článok" .
+  wd:Q128907097 schema:description/sq "artikull shkencor" .
+  wd:Q128907097 schema:description/sr "научни чланак" .
+  wd:Q128907097 schema:description/sr-ec "научни чланак" .
+  wd:Q128907097 schema:description/sr-el "naučni članak" .
+  wd:Q128907097 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907097 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907097 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907097 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907097 schema:description/tr "bilimsel makale" .
+  wd:Q128907097 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907097 schema:description/vi "bài báo khoa học" .
+  wd:Q128907097 schema:description/zh "2018年学术文章" .
+  wd:Q128907097 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907097 schema:description/yue "2018年學術文章" .
+  wd:Q128907097 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907097 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907098 schema:description/sl "znanstveni članek" .
+  wd:Q128907098 schema:description/ar "مقالة بحثية نشرت في فبراير 2005" .
+  wd:Q128907098 schema:description/ast "artículu científicu" .
+  wd:Q128907098 schema:description/bg "научна статия" .
+  wd:Q128907098 schema:description/bn "ফেব্রুয়ারি ২০০৫-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907098 schema:description/ca "article científic" .
+  wd:Q128907098 schema:description/cs "vědecký článek" .
+  wd:Q128907098 schema:description/da "videnskabelig artikel udgivet februar 2005" .
+  wd:Q128907098 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907098 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907098 schema:description/eo "scienca artikolo" .
+  wd:Q128907098 schema:description/es "artículo científico publicado en 2005" .
+  wd:Q128907098 schema:description/et "teaduslik artikkel" .
+  wd:Q128907098 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907098 schema:description/fr "article scientifique" .
+  wd:Q128907098 schema:description/gl "artigo científico" .
+  wd:Q128907098 schema:description/he "מאמר מדעי" .
+  wd:Q128907098 schema:description/hu "tudományos cikk" .
+  wd:Q128907098 schema:description/id "artikel ilmiah" .
+  wd:Q128907098 schema:description/it "articolo scientifico" .
+  wd:Q128907098 schema:description/ja "2005年の論文" .
+  wd:Q128907098 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907098 schema:description/ko "2005년 논문" .
+  wd:Q128907098 schema:description/nan "2005 nî lūn-bûn" .
+  wd:Q128907098 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907098 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907098 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907098 schema:description/oc "article scientific" .
+  wd:Q128907098 schema:description/pl "artykuł naukowy" .
+  wd:Q128907098 schema:description/pt "artigo científico" .
+  wd:Q128907098 schema:description/pt-br "artigo científico" .
+  wd:Q128907098 schema:description/ro "articol științific" .
+  wd:Q128907098 schema:description/ru "научная статья" .
+  wd:Q128907098 schema:description/sk "vedecký článok" .
+  wd:Q128907098 schema:description/sq "artikull shkencor" .
+  wd:Q128907098 schema:description/sr "научни чланак" .
+  wd:Q128907098 schema:description/sr-ec "научни чланак" .
+  wd:Q128907098 schema:description/sr-el "naučni članak" .
+  wd:Q128907098 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907098 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907098 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907098 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907098 schema:description/tr "bilimsel makale" .
+  wd:Q128907098 schema:description/uk "наукова стаття, опублікована в лютому 2005" .
+  wd:Q128907098 schema:description/vi "bài báo khoa học" .
+  wd:Q128907098 schema:description/zh "2005年学术文章" .
+  wd:Q128907098 schema:description/zh-hant "2005年學術文章" .
+  wd:Q128907098 schema:description/yue "2005年學術文章" .
+  wd:Q128907098 schema:description/zh-hans "2005年学术文章" .
+  wd:Q128907098 schema:description/wuu "2005年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907099 schema:description/sl "znanstveni članek" .
+  wd:Q128907099 schema:description/ar "مقالة بحثية نشرت في 20 نوفمبر 2018" .
+  wd:Q128907099 schema:description/ast "artículu científicu" .
+  wd:Q128907099 schema:description/bg "научна статия" .
+  wd:Q128907099 schema:description/bn "২০ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907099 schema:description/ca "article científic" .
+  wd:Q128907099 schema:description/cs "vědecký článek" .
+  wd:Q128907099 schema:description/da "videnskabelig artikel udgivet 20. november 2018" .
+  wd:Q128907099 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907099 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907099 schema:description/eo "scienca artikolo" .
+  wd:Q128907099 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907099 schema:description/et "teaduslik artikkel" .
+  wd:Q128907099 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907099 schema:description/fr "article scientifique" .
+  wd:Q128907099 schema:description/gl "artigo científico" .
+  wd:Q128907099 schema:description/he "מאמר מדעי" .
+  wd:Q128907099 schema:description/hu "tudományos cikk" .
+  wd:Q128907099 schema:description/id "artikel ilmiah" .
+  wd:Q128907099 schema:description/it "articolo scientifico" .
+  wd:Q128907099 schema:description/ja "2018年の論文" .
+  wd:Q128907099 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907099 schema:description/ko "2018년 논문" .
+  wd:Q128907099 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907099 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907099 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907099 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907099 schema:description/oc "article scientific" .
+  wd:Q128907099 schema:description/pl "artykuł naukowy" .
+  wd:Q128907099 schema:description/pt "artigo científico" .
+  wd:Q128907099 schema:description/pt-br "artigo científico" .
+  wd:Q128907099 schema:description/ro "articol științific" .
+  wd:Q128907099 schema:description/ru "научная статья" .
+  wd:Q128907099 schema:description/sk "vedecký článok" .
+  wd:Q128907099 schema:description/sq "artikull shkencor" .
+  wd:Q128907099 schema:description/sr "научни чланак" .
+  wd:Q128907099 schema:description/sr-ec "научни чланак" .
+  wd:Q128907099 schema:description/sr-el "naučni članak" .
+  wd:Q128907099 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907099 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907099 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907099 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907099 schema:description/tr "bilimsel makale" .
+  wd:Q128907099 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907099 schema:description/vi "bài báo khoa học" .
+  wd:Q128907099 schema:description/zh "2018年学术文章" .
+  wd:Q128907099 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907099 schema:description/yue "2018年學術文章" .
+  wd:Q128907099 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907099 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907100 schema:description/sl "znanstveni članek" .
+  wd:Q128907100 schema:description/ar "مقالة بحثية نشرت في 20 نوفمبر 2018" .
+  wd:Q128907100 schema:description/ast "artículu científicu" .
+  wd:Q128907100 schema:description/bg "научна статия" .
+  wd:Q128907100 schema:description/bn "২০ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907100 schema:description/ca "article científic" .
+  wd:Q128907100 schema:description/cs "vědecký článek" .
+  wd:Q128907100 schema:description/da "videnskabelig artikel udgivet 20. november 2018" .
+  wd:Q128907100 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907100 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907100 schema:description/eo "scienca artikolo" .
+  wd:Q128907100 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907100 schema:description/et "teaduslik artikkel" .
+  wd:Q128907100 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907100 schema:description/fr "article scientifique" .
+  wd:Q128907100 schema:description/gl "artigo científico" .
+  wd:Q128907100 schema:description/he "מאמר מדעי" .
+  wd:Q128907100 schema:description/hu "tudományos cikk" .
+  wd:Q128907100 schema:description/id "artikel ilmiah" .
+  wd:Q128907100 schema:description/it "articolo scientifico" .
+  wd:Q128907100 schema:description/ja "2018年の論文" .
+  wd:Q128907100 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907100 schema:description/ko "2018년 논문" .
+  wd:Q128907100 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907100 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907100 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907100 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907100 schema:description/oc "article scientific" .
+  wd:Q128907100 schema:description/pl "artykuł naukowy" .
+  wd:Q128907100 schema:description/pt "artigo científico" .
+  wd:Q128907100 schema:description/pt-br "artigo científico" .
+  wd:Q128907100 schema:description/ro "articol științific" .
+  wd:Q128907100 schema:description/ru "научная статья" .
+  wd:Q128907100 schema:description/sk "vedecký článok" .
+  wd:Q128907100 schema:description/sq "artikull shkencor" .
+  wd:Q128907100 schema:description/sr "научни чланак" .
+  wd:Q128907100 schema:description/sr-ec "научни чланак" .
+  wd:Q128907100 schema:description/sr-el "naučni članak" .
+  wd:Q128907100 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907100 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907100 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907100 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907100 schema:description/tr "bilimsel makale" .
+  wd:Q128907100 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907100 schema:description/vi "bài báo khoa học" .
+  wd:Q128907100 schema:description/zh "2018年学术文章" .
+  wd:Q128907100 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907100 schema:description/yue "2018年學術文章" .
+  wd:Q128907100 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907100 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907101 schema:description/sl "znanstveni članek" .
+  wd:Q128907101 schema:description/ar "مقالة بحثية نشرت في 7 يناير 2019" .
+  wd:Q128907101 schema:description/ast "artículu científicu" .
+  wd:Q128907101 schema:description/bg "научна статия" .
+  wd:Q128907101 schema:description/bn "৭ জানুয়ারি ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907101 schema:description/ca "article científic" .
+  wd:Q128907101 schema:description/cs "vědecký článek" .
+  wd:Q128907101 schema:description/da "videnskabelig artikel udgivet 7. januar 2019" .
+  wd:Q128907101 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907101 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907101 schema:description/eo "scienca artikolo" .
+  wd:Q128907101 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907101 schema:description/et "teaduslik artikkel" .
+  wd:Q128907101 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907101 schema:description/fr "article scientifique" .
+  wd:Q128907101 schema:description/gl "artigo científico" .
+  wd:Q128907101 schema:description/he "מאמר מדעי" .
+  wd:Q128907101 schema:description/hu "tudományos cikk" .
+  wd:Q128907101 schema:description/id "artikel ilmiah" .
+  wd:Q128907101 schema:description/it "articolo scientifico" .
+  wd:Q128907101 schema:description/ja "2019年の論文" .
+  wd:Q128907101 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907101 schema:description/ko "2019년 논문" .
+  wd:Q128907101 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907101 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907101 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907101 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907101 schema:description/oc "article scientific" .
+  wd:Q128907101 schema:description/pl "artykuł naukowy" .
+  wd:Q128907101 schema:description/pt "artigo científico" .
+  wd:Q128907101 schema:description/pt-br "artigo científico" .
+  wd:Q128907101 schema:description/ro "articol științific" .
+  wd:Q128907101 schema:description/ru "научная статья" .
+  wd:Q128907101 schema:description/sk "vedecký článok" .
+  wd:Q128907101 schema:description/sq "artikull shkencor" .
+  wd:Q128907101 schema:description/sr "научни чланак" .
+  wd:Q128907101 schema:description/sr-ec "научни чланак" .
+  wd:Q128907101 schema:description/sr-el "naučni članak" .
+  wd:Q128907101 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907101 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907101 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907101 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907101 schema:description/tr "bilimsel makale" .
+  wd:Q128907101 schema:description/uk "наукова стаття, опублікована в січні 2019" .
+  wd:Q128907101 schema:description/vi "bài báo khoa học" .
+  wd:Q128907101 schema:description/zh "2019年学术文章" .
+  wd:Q128907101 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907101 schema:description/yue "2019年學術文章" .
+  wd:Q128907101 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907101 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907102 schema:description/sl "znanstveni članek" .
+  wd:Q128907102 schema:description/ar "مقالة بحثية نشرت في فبراير 2019" .
+  wd:Q128907102 schema:description/ast "artículu científicu" .
+  wd:Q128907102 schema:description/bg "научна статия" .
+  wd:Q128907102 schema:description/bn "ফেব্রুয়ারি ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907102 schema:description/ca "article científic" .
+  wd:Q128907102 schema:description/cs "vědecký článek" .
+  wd:Q128907102 schema:description/da "videnskabelig artikel udgivet februar 2019" .
+  wd:Q128907102 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907102 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907102 schema:description/eo "scienca artikolo" .
+  wd:Q128907102 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907102 schema:description/et "teaduslik artikkel" .
+  wd:Q128907102 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907102 schema:description/fr "article scientifique" .
+  wd:Q128907102 schema:description/gl "artigo científico" .
+  wd:Q128907102 schema:description/he "מאמר מדעי" .
+  wd:Q128907102 schema:description/hu "tudományos cikk" .
+  wd:Q128907102 schema:description/id "artikel ilmiah" .
+  wd:Q128907102 schema:description/it "articolo scientifico" .
+  wd:Q128907102 schema:description/ja "2019年の論文" .
+  wd:Q128907102 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907102 schema:description/ko "2019년 논문" .
+  wd:Q128907102 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907102 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907102 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907102 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907102 schema:description/oc "article scientific" .
+  wd:Q128907102 schema:description/pl "artykuł naukowy" .
+  wd:Q128907102 schema:description/pt "artigo científico" .
+  wd:Q128907102 schema:description/pt-br "artigo científico" .
+  wd:Q128907102 schema:description/ro "articol științific" .
+  wd:Q128907102 schema:description/ru "научная статья" .
+  wd:Q128907102 schema:description/sk "vedecký článok" .
+  wd:Q128907102 schema:description/sq "artikull shkencor" .
+  wd:Q128907102 schema:description/sr "научни чланак" .
+  wd:Q128907102 schema:description/sr-ec "научни чланак" .
+  wd:Q128907102 schema:description/sr-el "naučni članak" .
+  wd:Q128907102 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907102 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907102 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907102 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907102 schema:description/tr "bilimsel makale" .
+  wd:Q128907102 schema:description/uk "наукова стаття, опублікована в лютому 2019" .
+  wd:Q128907102 schema:description/vi "bài báo khoa học" .
+  wd:Q128907102 schema:description/zh "2019年学术文章" .
+  wd:Q128907102 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907102 schema:description/yue "2019年學術文章" .
+  wd:Q128907102 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907102 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907103 schema:description/sl "znanstveni članek" .
+  wd:Q128907103 schema:description/ar "مقالة بحثية نشرت في 20 نوفمبر 2018" .
+  wd:Q128907103 schema:description/ast "artículu científicu" .
+  wd:Q128907103 schema:description/bg "научна статия" .
+  wd:Q128907103 schema:description/bn "২০ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907103 schema:description/ca "article científic" .
+  wd:Q128907103 schema:description/cs "vědecký článek" .
+  wd:Q128907103 schema:description/da "videnskabelig artikel udgivet 20. november 2018" .
+  wd:Q128907103 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907103 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907103 schema:description/eo "scienca artikolo" .
+  wd:Q128907103 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907103 schema:description/et "teaduslik artikkel" .
+  wd:Q128907103 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907103 schema:description/fr "article scientifique" .
+  wd:Q128907103 schema:description/gl "artigo científico" .
+  wd:Q128907103 schema:description/he "מאמר מדעי" .
+  wd:Q128907103 schema:description/hu "tudományos cikk" .
+  wd:Q128907103 schema:description/id "artikel ilmiah" .
+  wd:Q128907103 schema:description/it "articolo scientifico" .
+  wd:Q128907103 schema:description/ja "2018年の論文" .
+  wd:Q128907103 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907103 schema:description/ko "2018년 논문" .
+  wd:Q128907103 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907103 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907103 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907103 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907103 schema:description/oc "article scientific" .
+  wd:Q128907103 schema:description/pl "artykuł naukowy" .
+  wd:Q128907103 schema:description/pt "artigo científico" .
+  wd:Q128907103 schema:description/pt-br "artigo científico" .
+  wd:Q128907103 schema:description/ro "articol științific" .
+  wd:Q128907103 schema:description/ru "научная статья" .
+  wd:Q128907103 schema:description/sk "vedecký článok" .
+  wd:Q128907103 schema:description/sq "artikull shkencor" .
+  wd:Q128907103 schema:description/sr "научни чланак" .
+  wd:Q128907103 schema:description/sr-ec "научни чланак" .
+  wd:Q128907103 schema:description/sr-el "naučni članak" .
+  wd:Q128907103 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907103 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907103 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907103 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907103 schema:description/tr "bilimsel makale" .
+  wd:Q128907103 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907103 schema:description/vi "bài báo khoa học" .
+  wd:Q128907103 schema:description/zh "2018年学术文章" .
+  wd:Q128907103 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907103 schema:description/yue "2018年學術文章" .
+  wd:Q128907103 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907103 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907104 schema:description/sl "znanstveni članek" .
+  wd:Q128907104 schema:description/ar "مقالة بحثية نشرت في 12 ديسمبر 2018" .
+  wd:Q128907104 schema:description/ast "artículu científicu" .
+  wd:Q128907104 schema:description/bg "научна статия" .
+  wd:Q128907104 schema:description/bn "১২ ডিসেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907104 schema:description/ca "article científic" .
+  wd:Q128907104 schema:description/cs "vědecký článek" .
+  wd:Q128907104 schema:description/da "videnskabelig artikel udgivet 12. december 2018" .
+  wd:Q128907104 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907104 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907104 schema:description/eo "scienca artikolo" .
+  wd:Q128907104 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907104 schema:description/et "teaduslik artikkel" .
+  wd:Q128907104 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907104 schema:description/fr "article scientifique" .
+  wd:Q128907104 schema:description/gl "artigo científico" .
+  wd:Q128907104 schema:description/he "מאמר מדעי" .
+  wd:Q128907104 schema:description/hu "tudományos cikk" .
+  wd:Q128907104 schema:description/id "artikel ilmiah" .
+  wd:Q128907104 schema:description/it "articolo scientifico" .
+  wd:Q128907104 schema:description/ja "2018年の論文" .
+  wd:Q128907104 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907104 schema:description/ko "2018년 논문" .
+  wd:Q128907104 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907104 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907104 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907104 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907104 schema:description/oc "article scientific" .
+  wd:Q128907104 schema:description/pl "artykuł naukowy" .
+  wd:Q128907104 schema:description/pt "artigo científico" .
+  wd:Q128907104 schema:description/pt-br "artigo científico" .
+  wd:Q128907104 schema:description/ro "articol științific" .
+  wd:Q128907104 schema:description/ru "научная статья" .
+  wd:Q128907104 schema:description/sk "vedecký článok" .
+  wd:Q128907104 schema:description/sq "artikull shkencor" .
+  wd:Q128907104 schema:description/sr "научни чланак" .
+  wd:Q128907104 schema:description/sr-ec "научни чланак" .
+  wd:Q128907104 schema:description/sr-el "naučni članak" .
+  wd:Q128907104 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907104 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907104 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907104 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907104 schema:description/tr "bilimsel makale" .
+  wd:Q128907104 schema:description/uk "наукова стаття, опублікована в грудні 2018" .
+  wd:Q128907104 schema:description/vi "bài báo khoa học" .
+  wd:Q128907104 schema:description/zh "2018年学术文章" .
+  wd:Q128907104 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907104 schema:description/yue "2018年學術文章" .
+  wd:Q128907104 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907104 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907105 schema:description/sl "znanstveni članek" .
+  wd:Q128907105 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2013" .
+  wd:Q128907105 schema:description/ast "artículu científicu" .
+  wd:Q128907105 schema:description/bg "научна статия" .
+  wd:Q128907105 schema:description/bn "সেপ্টেম্বর ২০১৩-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907105 schema:description/ca "article científic" .
+  wd:Q128907105 schema:description/cs "vědecký článek" .
+  wd:Q128907105 schema:description/da "videnskabelig artikel udgivet september 2013" .
+  wd:Q128907105 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907105 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907105 schema:description/eo "scienca artikolo" .
+  wd:Q128907105 schema:description/es "artículo científico publicado en 2013" .
+  wd:Q128907105 schema:description/et "teaduslik artikkel" .
+  wd:Q128907105 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907105 schema:description/fr "article scientifique" .
+  wd:Q128907105 schema:description/gl "artigo científico" .
+  wd:Q128907105 schema:description/he "מאמר מדעי" .
+  wd:Q128907105 schema:description/hu "tudományos cikk" .
+  wd:Q128907105 schema:description/id "artikel ilmiah" .
+  wd:Q128907105 schema:description/it "articolo scientifico" .
+  wd:Q128907105 schema:description/ja "2013年の論文" .
+  wd:Q128907105 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907105 schema:description/ko "2013년 논문" .
+  wd:Q128907105 schema:description/nan "2013 nî lūn-bûn" .
+  wd:Q128907105 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907105 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907105 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907105 schema:description/oc "article scientific" .
+  wd:Q128907105 schema:description/pl "artykuł naukowy" .
+  wd:Q128907105 schema:description/pt "artigo científico" .
+  wd:Q128907105 schema:description/pt-br "artigo científico" .
+  wd:Q128907105 schema:description/ro "articol științific" .
+  wd:Q128907105 schema:description/ru "научная статья" .
+  wd:Q128907105 schema:description/sk "vedecký článok" .
+  wd:Q128907105 schema:description/sq "artikull shkencor" .
+  wd:Q128907105 schema:description/sr "научни чланак" .
+  wd:Q128907105 schema:description/sr-ec "научни чланак" .
+  wd:Q128907105 schema:description/sr-el "naučni članak" .
+  wd:Q128907105 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907105 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907105 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907105 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907105 schema:description/tr "bilimsel makale" .
+  wd:Q128907105 schema:description/uk "наукова стаття, опублікована у вересні 2013" .
+  wd:Q128907105 schema:description/vi "bài báo khoa học" .
+  wd:Q128907105 schema:description/zh "2013年学术文章" .
+  wd:Q128907105 schema:description/zh-hant "2013年學術文章" .
+  wd:Q128907105 schema:description/yue "2013年學術文章" .
+  wd:Q128907105 schema:description/zh-hans "2013年学术文章" .
+  wd:Q128907105 schema:description/wuu "2013年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907106 schema:description/sl "znanstveni članek" .
+  wd:Q128907106 schema:description/ar "مقالة بحثية نشرت في فبراير 2019" .
+  wd:Q128907106 schema:description/ast "artículu científicu" .
+  wd:Q128907106 schema:description/bg "научна статия" .
+  wd:Q128907106 schema:description/bn "ফেব্রুয়ারি ২০১৯-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907106 schema:description/ca "article científic" .
+  wd:Q128907106 schema:description/cs "vědecký článek" .
+  wd:Q128907106 schema:description/da "videnskabelig artikel udgivet februar 2019" .
+  wd:Q128907106 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907106 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907106 schema:description/eo "scienca artikolo" .
+  wd:Q128907106 schema:description/es "artículo científico publicado en 2019" .
+  wd:Q128907106 schema:description/et "teaduslik artikkel" .
+  wd:Q128907106 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907106 schema:description/fr "article scientifique" .
+  wd:Q128907106 schema:description/gl "artigo científico" .
+  wd:Q128907106 schema:description/he "מאמר מדעי" .
+  wd:Q128907106 schema:description/hu "tudományos cikk" .
+  wd:Q128907106 schema:description/id "artikel ilmiah" .
+  wd:Q128907106 schema:description/it "articolo scientifico" .
+  wd:Q128907106 schema:description/ja "2019年の論文" .
+  wd:Q128907106 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907106 schema:description/ko "2019년 논문" .
+  wd:Q128907106 schema:description/nan "2019 nî lūn-bûn" .
+  wd:Q128907106 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907106 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907106 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907106 schema:description/oc "article scientific" .
+  wd:Q128907106 schema:description/pl "artykuł naukowy" .
+  wd:Q128907106 schema:description/pt "artigo científico" .
+  wd:Q128907106 schema:description/pt-br "artigo científico" .
+  wd:Q128907106 schema:description/ro "articol științific" .
+  wd:Q128907106 schema:description/ru "научная статья" .
+  wd:Q128907106 schema:description/sk "vedecký článok" .
+  wd:Q128907106 schema:description/sq "artikull shkencor" .
+  wd:Q128907106 schema:description/sr "научни чланак" .
+  wd:Q128907106 schema:description/sr-ec "научни чланак" .
+  wd:Q128907106 schema:description/sr-el "naučni članak" .
+  wd:Q128907106 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907106 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907106 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907106 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907106 schema:description/tr "bilimsel makale" .
+  wd:Q128907106 schema:description/uk "наукова стаття, опублікована в лютому 2019" .
+  wd:Q128907106 schema:description/vi "bài báo khoa học" .
+  wd:Q128907106 schema:description/zh "2019年学术文章" .
+  wd:Q128907106 schema:description/zh-hant "2019年學術文章" .
+  wd:Q128907106 schema:description/yue "2019年學術文章" .
+  wd:Q128907106 schema:description/zh-hans "2019年学术文章" .
+  wd:Q128907106 schema:description/wuu "2019年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907107 schema:description/sl "znanstveni članek" .
+  wd:Q128907107 schema:description/ar "مقالة بحثية نشرت في مايو 2020" .
+  wd:Q128907107 schema:description/ast "artículu científicu" .
+  wd:Q128907107 schema:description/bg "научна статия" .
+  wd:Q128907107 schema:description/bn "মে ২০২০-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907107 schema:description/ca "article científic" .
+  wd:Q128907107 schema:description/cs "vědecký článek" .
+  wd:Q128907107 schema:description/da "videnskabelig artikel udgivet maj 2020" .
+  wd:Q128907107 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907107 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907107 schema:description/eo "scienca artikolo" .
+  wd:Q128907107 schema:description/es "artículo científico publicado en 2020" .
+  wd:Q128907107 schema:description/et "teaduslik artikkel" .
+  wd:Q128907107 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907107 schema:description/fr "article scientifique" .
+  wd:Q128907107 schema:description/gl "artigo científico" .
+  wd:Q128907107 schema:description/he "מאמר מדעי" .
+  wd:Q128907107 schema:description/hu "tudományos cikk" .
+  wd:Q128907107 schema:description/id "artikel ilmiah" .
+  wd:Q128907107 schema:description/it "articolo scientifico" .
+  wd:Q128907107 schema:description/ja "2020年の論文" .
+  wd:Q128907107 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907107 schema:description/ko "2020년 논문" .
+  wd:Q128907107 schema:description/nan "2020 nî lūn-bûn" .
+  wd:Q128907107 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907107 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907107 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907107 schema:description/oc "article scientific" .
+  wd:Q128907107 schema:description/pl "artykuł naukowy" .
+  wd:Q128907107 schema:description/pt "artigo científico" .
+  wd:Q128907107 schema:description/pt-br "artigo científico" .
+  wd:Q128907107 schema:description/ro "articol științific" .
+  wd:Q128907107 schema:description/ru "научная статья" .
+  wd:Q128907107 schema:description/sk "vedecký článok" .
+  wd:Q128907107 schema:description/sq "artikull shkencor" .
+  wd:Q128907107 schema:description/sr "научни чланак" .
+  wd:Q128907107 schema:description/sr-ec "научни чланак" .
+  wd:Q128907107 schema:description/sr-el "naučni članak" .
+  wd:Q128907107 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907107 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907107 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907107 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907107 schema:description/tr "bilimsel makale" .
+  wd:Q128907107 schema:description/uk "наукова стаття, опублікована в травні 2020" .
+  wd:Q128907107 schema:description/vi "bài báo khoa học" .
+  wd:Q128907107 schema:description/zh "2020年学术文章" .
+  wd:Q128907107 schema:description/zh-hant "2020年學術文章" .
+  wd:Q128907107 schema:description/yue "2020年學術文章" .
+  wd:Q128907107 schema:description/zh-hans "2020年学术文章" .
+  wd:Q128907107 schema:description/wuu "2020年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907108 schema:description/sl "znanstveni članek" .
+  wd:Q128907108 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2002" .
+  wd:Q128907108 schema:description/ast "artículu científicu" .
+  wd:Q128907108 schema:description/bg "научна статия" .
+  wd:Q128907108 schema:description/bn "সেপ্টেম্বর ২০০২-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907108 schema:description/ca "article científic" .
+  wd:Q128907108 schema:description/cs "vědecký článek" .
+  wd:Q128907108 schema:description/da "videnskabelig artikel udgivet september 2002" .
+  wd:Q128907108 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907108 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907108 schema:description/eo "scienca artikolo" .
+  wd:Q128907108 schema:description/es "artículo científico publicado en 2002" .
+  wd:Q128907108 schema:description/et "teaduslik artikkel" .
+  wd:Q128907108 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907108 schema:description/fr "article scientifique" .
+  wd:Q128907108 schema:description/gl "artigo científico" .
+  wd:Q128907108 schema:description/he "מאמר מדעי" .
+  wd:Q128907108 schema:description/hu "tudományos cikk" .
+  wd:Q128907108 schema:description/id "artikel ilmiah" .
+  wd:Q128907108 schema:description/it "articolo scientifico" .
+  wd:Q128907108 schema:description/ja "2002年の論文" .
+  wd:Q128907108 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907108 schema:description/ko "2002년 논문" .
+  wd:Q128907108 schema:description/nan "2002 nî lūn-bûn" .
+  wd:Q128907108 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907108 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907108 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907108 schema:description/oc "article scientific" .
+  wd:Q128907108 schema:description/pl "artykuł naukowy" .
+  wd:Q128907108 schema:description/pt "artigo científico" .
+  wd:Q128907108 schema:description/pt-br "artigo científico" .
+  wd:Q128907108 schema:description/ro "articol științific" .
+  wd:Q128907108 schema:description/ru "научная статья" .
+  wd:Q128907108 schema:description/sk "vedecký článok" .
+  wd:Q128907108 schema:description/sq "artikull shkencor" .
+  wd:Q128907108 schema:description/sr "научни чланак" .
+  wd:Q128907108 schema:description/sr-ec "научни чланак" .
+  wd:Q128907108 schema:description/sr-el "naučni članak" .
+  wd:Q128907108 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907108 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907108 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907108 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907108 schema:description/tr "bilimsel makale" .
+  wd:Q128907108 schema:description/uk "наукова стаття, опублікована у вересні 2002" .
+  wd:Q128907108 schema:description/vi "bài báo khoa học" .
+  wd:Q128907108 schema:description/zh "2002年学术文章" .
+  wd:Q128907108 schema:description/zh-hant "2002年學術文章" .
+  wd:Q128907108 schema:description/yue "2002年學術文章" .
+  wd:Q128907108 schema:description/zh-hans "2002年学术文章" .
+  wd:Q128907108 schema:description/wuu "2002年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907109 schema:description/sl "znanstveni članek" .
+  wd:Q128907109 schema:description/ar "مقالة بحثية نشرت في 12 ديسمبر 2018" .
+  wd:Q128907109 schema:description/ast "artículu científicu" .
+  wd:Q128907109 schema:description/bg "научна статия" .
+  wd:Q128907109 schema:description/bn "১২ ডিসেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907109 schema:description/ca "article científic" .
+  wd:Q128907109 schema:description/cs "vědecký článek" .
+  wd:Q128907109 schema:description/da "videnskabelig artikel udgivet 12. december 2018" .
+  wd:Q128907109 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907109 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907109 schema:description/eo "scienca artikolo" .
+  wd:Q128907109 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907109 schema:description/et "teaduslik artikkel" .
+  wd:Q128907109 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907109 schema:description/fr "article scientifique" .
+  wd:Q128907109 schema:description/gl "artigo científico" .
+  wd:Q128907109 schema:description/he "מאמר מדעי" .
+  wd:Q128907109 schema:description/hu "tudományos cikk" .
+  wd:Q128907109 schema:description/id "artikel ilmiah" .
+  wd:Q128907109 schema:description/it "articolo scientifico" .
+  wd:Q128907109 schema:description/ja "2018年の論文" .
+  wd:Q128907109 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907109 schema:description/ko "2018년 논문" .
+  wd:Q128907109 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907109 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907109 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907109 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907109 schema:description/oc "article scientific" .
+  wd:Q128907109 schema:description/pl "artykuł naukowy" .
+  wd:Q128907109 schema:description/pt "artigo científico" .
+  wd:Q128907109 schema:description/pt-br "artigo científico" .
+  wd:Q128907109 schema:description/ro "articol științific" .
+  wd:Q128907109 schema:description/ru "научная статья" .
+  wd:Q128907109 schema:description/sk "vedecký článok" .
+  wd:Q128907109 schema:description/sq "artikull shkencor" .
+  wd:Q128907109 schema:description/sr "научни чланак" .
+  wd:Q128907109 schema:description/sr-ec "научни чланак" .
+  wd:Q128907109 schema:description/sr-el "naučni članak" .
+  wd:Q128907109 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907109 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907109 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907109 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907109 schema:description/tr "bilimsel makale" .
+  wd:Q128907109 schema:description/uk "наукова стаття, опублікована в грудні 2018" .
+  wd:Q128907109 schema:description/vi "bài báo khoa học" .
+  wd:Q128907109 schema:description/zh "2018年学术文章" .
+  wd:Q128907109 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907109 schema:description/yue "2018年學術文章" .
+  wd:Q128907109 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907109 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907110 schema:description/sl "znanstveni članek" .
+  wd:Q128907110 schema:description/ar "مقالة بحثية نشرت في 17 نوفمبر 2018" .
+  wd:Q128907110 schema:description/ast "artículu científicu" .
+  wd:Q128907110 schema:description/bg "научна статия" .
+  wd:Q128907110 schema:description/bn "১৭ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907110 schema:description/ca "article científic" .
+  wd:Q128907110 schema:description/cs "vědecký článek" .
+  wd:Q128907110 schema:description/da "videnskabelig artikel udgivet 17. november 2018" .
+  wd:Q128907110 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907110 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907110 schema:description/eo "scienca artikolo" .
+  wd:Q128907110 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907110 schema:description/et "teaduslik artikkel" .
+  wd:Q128907110 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907110 schema:description/fr "article scientifique" .
+  wd:Q128907110 schema:description/gl "artigo científico" .
+  wd:Q128907110 schema:description/he "מאמר מדעי" .
+  wd:Q128907110 schema:description/hu "tudományos cikk" .
+  wd:Q128907110 schema:description/id "artikel ilmiah" .
+  wd:Q128907110 schema:description/it "articolo scientifico" .
+  wd:Q128907110 schema:description/ja "2018年の論文" .
+  wd:Q128907110 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907110 schema:description/ko "2018년 논문" .
+  wd:Q128907110 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907110 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907110 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907110 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907110 schema:description/oc "article scientific" .
+  wd:Q128907110 schema:description/pl "artykuł naukowy" .
+  wd:Q128907110 schema:description/pt "artigo científico" .
+  wd:Q128907110 schema:description/pt-br "artigo científico" .
+  wd:Q128907110 schema:description/ro "articol științific" .
+  wd:Q128907110 schema:description/ru "научная статья" .
+  wd:Q128907110 schema:description/sk "vedecký článok" .
+  wd:Q128907110 schema:description/sq "artikull shkencor" .
+  wd:Q128907110 schema:description/sr "научни чланак" .
+  wd:Q128907110 schema:description/sr-ec "научни чланак" .
+  wd:Q128907110 schema:description/sr-el "naučni članak" .
+  wd:Q128907110 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907110 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907110 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907110 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907110 schema:description/tr "bilimsel makale" .
+  wd:Q128907110 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907110 schema:description/vi "bài báo khoa học" .
+  wd:Q128907110 schema:description/zh "2018年学术文章" .
+  wd:Q128907110 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907110 schema:description/yue "2018年學術文章" .
+  wd:Q128907110 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907110 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907111 schema:description/sl "znanstveni članek" .
+  wd:Q128907111 schema:description/ar "مقالة بحثية نشرت في 15 نوفمبر 2018" .
+  wd:Q128907111 schema:description/ast "artículu científicu" .
+  wd:Q128907111 schema:description/bg "научна статия" .
+  wd:Q128907111 schema:description/bn "১৫ নভেম্বর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907111 schema:description/ca "article científic" .
+  wd:Q128907111 schema:description/cs "vědecký článek" .
+  wd:Q128907111 schema:description/da "videnskabelig artikel udgivet 15. november 2018" .
+  wd:Q128907111 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907111 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907111 schema:description/eo "scienca artikolo" .
+  wd:Q128907111 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907111 schema:description/et "teaduslik artikkel" .
+  wd:Q128907111 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907111 schema:description/fr "article scientifique" .
+  wd:Q128907111 schema:description/gl "artigo científico" .
+  wd:Q128907111 schema:description/he "מאמר מדעי" .
+  wd:Q128907111 schema:description/hu "tudományos cikk" .
+  wd:Q128907111 schema:description/id "artikel ilmiah" .
+  wd:Q128907111 schema:description/it "articolo scientifico" .
+  wd:Q128907111 schema:description/ja "2018年の論文" .
+  wd:Q128907111 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907111 schema:description/ko "2018년 논문" .
+  wd:Q128907111 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907111 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907111 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907111 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907111 schema:description/oc "article scientific" .
+  wd:Q128907111 schema:description/pl "artykuł naukowy" .
+  wd:Q128907111 schema:description/pt "artigo científico" .
+  wd:Q128907111 schema:description/pt-br "artigo científico" .
+  wd:Q128907111 schema:description/ro "articol științific" .
+  wd:Q128907111 schema:description/ru "научная статья" .
+  wd:Q128907111 schema:description/sk "vedecký článok" .
+  wd:Q128907111 schema:description/sq "artikull shkencor" .
+  wd:Q128907111 schema:description/sr "научни чланак" .
+  wd:Q128907111 schema:description/sr-ec "научни чланак" .
+  wd:Q128907111 schema:description/sr-el "naučni članak" .
+  wd:Q128907111 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907111 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907111 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907111 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907111 schema:description/tr "bilimsel makale" .
+  wd:Q128907111 schema:description/uk "наукова стаття, опублікована в листопаді 2018" .
+  wd:Q128907111 schema:description/vi "bài báo khoa học" .
+  wd:Q128907111 schema:description/zh "2018年学术文章" .
+  wd:Q128907111 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907111 schema:description/yue "2018年學術文章" .
+  wd:Q128907111 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907111 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907112 schema:description/sl "znanstveni članek" .
+  wd:Q128907112 schema:description/ar "مقالة بحثية نشرت في 2 أكتوبر 2018" .
+  wd:Q128907112 schema:description/ast "artículu científicu" .
+  wd:Q128907112 schema:description/bg "научна статия" .
+  wd:Q128907112 schema:description/bn "২ অক্টোবর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907112 schema:description/ca "article científic" .
+  wd:Q128907112 schema:description/cs "vědecký článek" .
+  wd:Q128907112 schema:description/da "videnskabelig artikel udgivet 2. oktober 2018" .
+  wd:Q128907112 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907112 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907112 schema:description/eo "scienca artikolo" .
+  wd:Q128907112 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907112 schema:description/et "teaduslik artikkel" .
+  wd:Q128907112 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907112 schema:description/fr "article scientifique" .
+  wd:Q128907112 schema:description/gl "artigo científico" .
+  wd:Q128907112 schema:description/he "מאמר מדעי" .
+  wd:Q128907112 schema:description/hu "tudományos cikk" .
+  wd:Q128907112 schema:description/id "artikel ilmiah" .
+  wd:Q128907112 schema:description/it "articolo scientifico" .
+  wd:Q128907112 schema:description/ja "2018年の論文" .
+  wd:Q128907112 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907112 schema:description/ko "2018년 논문" .
+  wd:Q128907112 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907112 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907112 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907112 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907112 schema:description/oc "article scientific" .
+  wd:Q128907112 schema:description/pl "artykuł naukowy" .
+  wd:Q128907112 schema:description/pt "artigo científico" .
+  wd:Q128907112 schema:description/pt-br "artigo científico" .
+  wd:Q128907112 schema:description/ro "articol științific" .
+  wd:Q128907112 schema:description/ru "научная статья" .
+  wd:Q128907112 schema:description/sk "vedecký článok" .
+  wd:Q128907112 schema:description/sq "artikull shkencor" .
+  wd:Q128907112 schema:description/sr "научни чланак" .
+  wd:Q128907112 schema:description/sr-ec "научни чланак" .
+  wd:Q128907112 schema:description/sr-el "naučni članak" .
+  wd:Q128907112 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907112 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907112 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907112 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907112 schema:description/tr "bilimsel makale" .
+  wd:Q128907112 schema:description/uk "наукова стаття, опублікована в жовтні 2018" .
+  wd:Q128907112 schema:description/vi "bài báo khoa học" .
+  wd:Q128907112 schema:description/zh "2018年学术文章" .
+  wd:Q128907112 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907112 schema:description/yue "2018年學術文章" .
+  wd:Q128907112 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907112 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907113 schema:description/sl "znanstveni članek" .
+  wd:Q128907113 schema:description/ar "مقالة بحثية نشرت في 2 أكتوبر 2018" .
+  wd:Q128907113 schema:description/ast "artículu científicu" .
+  wd:Q128907113 schema:description/bg "научна статия" .
+  wd:Q128907113 schema:description/bn "২ অক্টোবর ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907113 schema:description/ca "article científic" .
+  wd:Q128907113 schema:description/cs "vědecký článek" .
+  wd:Q128907113 schema:description/da "videnskabelig artikel udgivet 2. oktober 2018" .
+  wd:Q128907113 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907113 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907113 schema:description/eo "scienca artikolo" .
+  wd:Q128907113 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907113 schema:description/et "teaduslik artikkel" .
+  wd:Q128907113 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907113 schema:description/fr "article scientifique" .
+  wd:Q128907113 schema:description/gl "artigo científico" .
+  wd:Q128907113 schema:description/he "מאמר מדעי" .
+  wd:Q128907113 schema:description/hu "tudományos cikk" .
+  wd:Q128907113 schema:description/id "artikel ilmiah" .
+  wd:Q128907113 schema:description/it "articolo scientifico" .
+  wd:Q128907113 schema:description/ja "2018年の論文" .
+  wd:Q128907113 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907113 schema:description/ko "2018년 논문" .
+  wd:Q128907113 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907113 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907113 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907113 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907113 schema:description/oc "article scientific" .
+  wd:Q128907113 schema:description/pl "artykuł naukowy" .
+  wd:Q128907113 schema:description/pt "artigo científico" .
+  wd:Q128907113 schema:description/pt-br "artigo científico" .
+  wd:Q128907113 schema:description/ro "articol științific" .
+  wd:Q128907113 schema:description/ru "научная статья" .
+  wd:Q128907113 schema:description/sk "vedecký článok" .
+  wd:Q128907113 schema:description/sq "artikull shkencor" .
+  wd:Q128907113 schema:description/sr "научни чланак" .
+  wd:Q128907113 schema:description/sr-ec "научни чланак" .
+  wd:Q128907113 schema:description/sr-el "naučni članak" .
+  wd:Q128907113 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907113 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907113 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907113 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907113 schema:description/tr "bilimsel makale" .
+  wd:Q128907113 schema:description/uk "наукова стаття, опублікована в жовтні 2018" .
+  wd:Q128907113 schema:description/vi "bài báo khoa học" .
+  wd:Q128907113 schema:description/zh "2018年学术文章" .
+  wd:Q128907113 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907113 schema:description/yue "2018年學術文章" .
+  wd:Q128907113 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907113 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907114 schema:description/sl "znanstveni članek" .
+  wd:Q128907114 schema:description/ar "مقالة بحثية نشرت في سبتمبر 2014" .
+  wd:Q128907114 schema:description/ast "artículu científicu" .
+  wd:Q128907114 schema:description/bg "научна статия" .
+  wd:Q128907114 schema:description/bn "সেপ্টেম্বর ২০১৪-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907114 schema:description/ca "article científic" .
+  wd:Q128907114 schema:description/cs "vědecký článek" .
+  wd:Q128907114 schema:description/da "videnskabelig artikel udgivet september 2014" .
+  wd:Q128907114 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907114 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907114 schema:description/eo "scienca artikolo" .
+  wd:Q128907114 schema:description/es "artículo científico publicado en 2014" .
+  wd:Q128907114 schema:description/et "teaduslik artikkel" .
+  wd:Q128907114 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907114 schema:description/fr "article scientifique" .
+  wd:Q128907114 schema:description/gl "artigo científico" .
+  wd:Q128907114 schema:description/he "מאמר מדעי" .
+  wd:Q128907114 schema:description/hu "tudományos cikk" .
+  wd:Q128907114 schema:description/id "artikel ilmiah" .
+  wd:Q128907114 schema:description/it "articolo scientifico" .
+  wd:Q128907114 schema:description/ja "2014年の論文" .
+  wd:Q128907114 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907114 schema:description/ko "2014년 논문" .
+  wd:Q128907114 schema:description/nan "2014 nî lūn-bûn" .
+  wd:Q128907114 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907114 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907114 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907114 schema:description/oc "article scientific" .
+  wd:Q128907114 schema:description/pl "artykuł naukowy" .
+  wd:Q128907114 schema:description/pt "artigo científico" .
+  wd:Q128907114 schema:description/pt-br "artigo científico" .
+  wd:Q128907114 schema:description/ro "articol științific" .
+  wd:Q128907114 schema:description/ru "научная статья" .
+  wd:Q128907114 schema:description/sk "vedecký článok" .
+  wd:Q128907114 schema:description/sq "artikull shkencor" .
+  wd:Q128907114 schema:description/sr "научни чланак" .
+  wd:Q128907114 schema:description/sr-ec "научни чланак" .
+  wd:Q128907114 schema:description/sr-el "naučni članak" .
+  wd:Q128907114 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907114 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907114 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907114 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907114 schema:description/tr "bilimsel makale" .
+  wd:Q128907114 schema:description/uk "наукова стаття, опублікована у вересні 2014" .
+  wd:Q128907114 schema:description/vi "bài báo khoa học" .
+  wd:Q128907114 schema:description/zh "2014年学术文章" .
+  wd:Q128907114 schema:description/zh-hant "2014年學術文章" .
+  wd:Q128907114 schema:description/yue "2014年學術文章" .
+  wd:Q128907114 schema:description/zh-hans "2014年学术文章" .
+  wd:Q128907114 schema:description/wuu "2014年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907115 schema:description/sl "znanstveni članek" .
+  wd:Q128907115 schema:description/ar "مقالة بحثية نشرت في يوليو 2018" .
+  wd:Q128907115 schema:description/ast "artículu científicu" .
+  wd:Q128907115 schema:description/bg "научна статия" .
+  wd:Q128907115 schema:description/bn "জুলাই ২০১৮-এ প্রকাশিত বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q128907115 schema:description/ca "article científic" .
+  wd:Q128907115 schema:description/cs "vědecký článek" .
+  wd:Q128907115 schema:description/da "videnskabelig artikel udgivet juli 2018" .
+  wd:Q128907115 schema:description/de "wissenschaftlicher Artikel" .
+  wd:Q128907115 schema:description/el "επιστημονικό άρθρο" .
+  wd:Q128907115 schema:description/eo "scienca artikolo" .
+  wd:Q128907115 schema:description/es "artículo científico publicado en 2018" .
+  wd:Q128907115 schema:description/et "teaduslik artikkel" .
+  wd:Q128907115 schema:description/fi "tieteellinen artikkeli" .
+  wd:Q128907115 schema:description/fr "article scientifique" .
+  wd:Q128907115 schema:description/gl "artigo científico" .
+  wd:Q128907115 schema:description/he "מאמר מדעי" .
+  wd:Q128907115 schema:description/hu "tudományos cikk" .
+  wd:Q128907115 schema:description/id "artikel ilmiah" .
+  wd:Q128907115 schema:description/it "articolo scientifico" .
+  wd:Q128907115 schema:description/ja "2018年の論文" .
+  wd:Q128907115 schema:description/ka "სამეცნიერო სტატია" .
+  wd:Q128907115 schema:description/ko "2018년 논문" .
+  wd:Q128907115 schema:description/nan "2018 nî lūn-bûn" .
+  wd:Q128907115 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q128907115 schema:description/nl "wetenschappelijk artikel" .
+  wd:Q128907115 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q128907115 schema:description/oc "article scientific" .
+  wd:Q128907115 schema:description/pl "artykuł naukowy" .
+  wd:Q128907115 schema:description/pt "artigo científico" .
+  wd:Q128907115 schema:description/pt-br "artigo científico" .
+  wd:Q128907115 schema:description/ro "articol științific" .
+  wd:Q128907115 schema:description/ru "научная статья" .
+  wd:Q128907115 schema:description/sk "vedecký článok" .
+  wd:Q128907115 schema:description/sq "artikull shkencor" .
+  wd:Q128907115 schema:description/sr "научни чланак" .
+  wd:Q128907115 schema:description/sr-ec "научни чланак" .
+  wd:Q128907115 schema:description/sr-el "naučni članak" .
+  wd:Q128907115 schema:description/sv "vetenskaplig artikel" .
+  wd:Q128907115 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q128907115 schema:description/th "บทความทางวิทยาศาสตร์" .
+  wd:Q128907115 schema:description/tl "artikulong pang-agham" .
+  wd:Q128907115 schema:description/tr "bilimsel makale" .
+  wd:Q128907115 schema:description/uk "наукова стаття, опублікована в липні 2018" .
+  wd:Q128907115 schema:description/vi "bài báo khoa học" .
+  wd:Q128907115 schema:description/zh "2018年学术文章" .
+  wd:Q128907115 schema:description/zh-hant "2018年學術文章" .
+  wd:Q128907115 schema:description/yue "2018年學術文章" .
+  wd:Q128907115 schema:description/zh-hans "2018年学术文章" .
+  wd:Q128907115 schema:description/wuu "2018年学术文章" .
+};
+INSERT DATA {
+  wd:Q128907119 schema:description/ig "ụlọ ọrụ ahụike dị na Naịjiria" .
+};
+INSERT DATA {
+  wd:Q128907119 schema:label/ig "Jonex Hospital" .
+};
+INSERT DATA {
+  wd:Q128907127 wdt:P17 "France" .
+  wd:Q128907127 wdt:P17/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128907127 wdt:P31 "business" .
+  wd:Q128907127 wdt:P31/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q128907127 wdt:P856 "https://ucar.fr/" .
+  wd:Q128907127 wdt:P856//ucar.fr//rank "Normal rank" .
+  wd:Q128907127 wdt:P856//ucar.fr//qualifier:P407 "French" .
+
+};
+INSERT DATA {
+  wd:Q134189 wdt:P1938/qualifier:P2241 "refers to different subject" .
+
+};
+INSERT DATA {
+  wd:Q13908325 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908326 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908328 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908330 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908333 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908335 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q13908337 schema:description/ga "speiceas feithidí" .
+};
+INSERT DATA {
+  wd:Q15172501 wdt:P1096 "0.06765722265754982±0.0000000017141Amount0.06765722265754982Upper bound0.06765722437164982Lower bound0.06765722094344982Unit1" .
+  wd:Q15172501 wdt:P1096/rank "Normal rank" .
+  wd:Q15172501 wdt:P1096/qualifier:P6259 "October 17, 2024" .
+
+  wd:Q15172501 wdt:P1096/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P1096/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P1096/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P1096/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172501 wdt:P6259 "October 17, 2024" .
+  wd:Q15172501 wdt:P6259/rank "Normal rank" .
+  wd:Q15172501 wdt:P6259/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172501 wdt:P6259/reference:P716 "20063917" .
+  wd:Q15172501 wdt:P6259/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063917" .
+  wd:Q15172501 wdt:P6259/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 schema:description/pl "planetoida" .
+};
+INSERT DATA {
+  wd:Q15172503 schema:label/bs "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/cs "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/en-ca "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/en-gb "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/eo "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/eu "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/hu "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/id "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/io "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/it "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/la "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/nan "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/nb "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/nl "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/nn "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/pl "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/pt-br "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/ro "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/sh "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/sk "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/sr "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/su "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/tl "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/uk "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/vi "(63918) 2001 SU37" .
+  wd:Q15172503 schema:label/yo "(63918) 2001 SU37" .
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P196/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P196/reference:P716 "20063918" .
+  wd:Q15172503 wdt:P196/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063918" .
+  wd:Q15172503 wdt:P196/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P31/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P31/reference:P716 "20063918" .
+  wd:Q15172503 wdt:P31/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063918" .
+  wd:Q15172503 wdt:P31/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P575 "16 September 2001Timestamp+2001-09-16T00:00:00ZTimezone+00:00CalendarGregorianPrecision1 dayBefore0After0" .
+  wd:Q15172503 wdt:P575/rank "Normal rank" .
+  wd:Q15172503 wdt:P575/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P575/reference:P716 "20063918" .
+  wd:Q15172503 wdt:P575/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063918" .
+  wd:Q15172503 wdt:P575/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P61 "Lincoln Near-Earth Asteroid Research" .
+  wd:Q15172503 wdt:P61/rank "Normal rank" .
+  wd:Q15172503 wdt:P61/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P61/reference:P716 "20063918" .
+  wd:Q15172503 wdt:P61/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063918" .
+  wd:Q15172503 wdt:P61/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P65 "Experimental Test Site" .
+  wd:Q15172503 wdt:P65/rank "Normal rank" .
+  wd:Q15172503 wdt:P65/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P65/reference:P716 "20063918" .
+  wd:Q15172503 wdt:P65/reference:P854 "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20063918" .
+  wd:Q15172503 wdt:P65/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q15172503 wdt:P716 "20063918" .
+  wd:Q15172503 wdt:P716/rank "Normal rank" .
+  wd:Q15172503 wdt:P716/reference:P248 "JPL Small-Body Database" .
+  wd:Q15172503 wdt:P716/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q19824741 wdt:P161/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q19824741 wdt:P57/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q21084 schema:label/cs "Porter Robinson" .
+};
+INSERT DATA {
+  wd:Q22909388 schema:aliases/he/0 "פרוייקט תאואי" .
+  wd:Q22909388 schema:aliases/he/1 "theoi.com" .
+};
+INSERT DATA {
+  wd:Q22909388 schema:description/he "אתר אינטרנט המשמש 5אנציקלופדיה של המיתולוגיה היוונית" .
+};
+INSERT DATA {
+  wd:Q22909388 schema:label/he "פרויקט תאואי" .
+};
+INSERT DATA {
+  wd:Q2861099 schema:description/en "informal fallacy linking wisdom to poverty" .
+};
+INSERT DATA {
+  wd:Q31283139 wdt:P39/qualifier:P580 "1936" .
+
+  wd:Q31283139 wdt:P39/qualifier:P582 "1936" .
+
+  wd:Q31283139 wdt:P39/qualifier:P1534 "deposition" .
+
+};
+INSERT DATA {
+  wd:Q370576 wdt:P19 "Duchy of Schleswig" .
+  wd:Q370576 wdt:P19/rank "Normal rank" .
+  wd:Q370576 wdt:P19/qualifier:P17 "Denmark" .
+
+};
+INSERT DATA {
+  wd:Q38770973 wdt:P921 "fatty acid composition" .
+  wd:Q38770973 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q38770973 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q39746207 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093 "D. J. Baylink" .
+  wd:Q41577417 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093 "S. Mohan" .
+  wd:Q41577417 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093/qualifier "series ordinal: 4" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093/qualifier "series ordinal: 5" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q41577417 wdt:P2093/reference:P698 "7680184" .
+  wd:Q41577417 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A7680184" .
+  wd:Q41577417 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q41577417 wdt:P2093/reference:P698 "7680184" .
+  wd:Q41577417 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A7680184" .
+  wd:Q41577417 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q41577417 wdt:P2093/reference:P698 "7680184" .
+  wd:Q41577417 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A7680184" .
+  wd:Q41577417 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953 "https://academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf" .
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953 "https://academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf" .
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953 "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206" .
+  wd:Q41577417 wdt:P953//api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/qualifier:P2701 "Portable Document Format" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/reference:P248 "Crossref" .
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/reference:P356 "10.1002/JBMR.5650080206" .
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/reference:P854 "https://api.crossref.org/works/10.1002/JBMR.5650080206" .
+  wd:Q41577417 wdt:P953//academic.oup.com/jbmr/article-pdf/8/2/157/56493122/5650080206.pdf/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q41577417 wdt:P953//api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206/reference:P248 "Crossref" .
+  wd:Q41577417 wdt:P953//api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206/reference:P356 "10.1002/JBMR.5650080206" .
+  wd:Q41577417 wdt:P953//api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206/reference:P854 "https://api.crossref.org/works/10.1002/JBMR.5650080206" .
+  wd:Q41577417 wdt:P953//api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fjbmr.5650080206/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q468243 schema:description/ja "フランスの女優 (1926-2024)" .
+};
+INSERT DATA {
+  wd:Q4791101 schema:description/en "mountain ridges in Antarctica" .
+};
+INSERT DATA {
+  wd:Q496091 schema:links/glkwiki/name "فیلمور ٚ شأرستان (نبراسکا)" .
+};
+INSERT DATA {
+  wd:Q496577 schema:links/glkwiki/name "فیلیپس ٚ شأرستان (مؤنتانا)" .
+};
+INSERT DATA {
+  wd:Q50499361 schema:description/hy "գիտական հոդված հրատարակված 2002 թվականի հուլիսին" .
+};
+INSERT DATA {
+  wd:Q51289774 schema:description/hy "գիտական հոդված հրատարակված 1963 թվականի հունվարին" .
+};
+INSERT DATA {
+  wd:Q55532859 schema:description/en "exhibition hall in Tokyo, Japan" .
+};
+INSERT DATA {
+  wd:Q60104675 schema:description/hy "Նեյչրում հրատարակված հոդված" .
+};
+INSERT DATA {
+  wd:Q60834362 wdt:P1412/reference:P143 "Polish Wikipedia" .
+  wd:Q60834362 wdt:P1412/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q60834362 wdt:P531/reference:P143 "Polish Wikipedia" .
+  wd:Q60834362 wdt:P531/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q60834362 wdt:P531/reference:P143 "Polish Wikipedia" .
+  wd:Q60834362 wdt:P531/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q60834362 wdt:P531/reference:P143 "Polish Wikipedia" .
+  wd:Q60834362 wdt:P531/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q61470 schema:links/glkwiki/name "فیلیپس ٚ شأرستان (آرکانزاس)" .
+};
+INSERT DATA {
+  wd:Q69454499 wdt:P921 "fatty acid composition" .
+  wd:Q69454499 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q69454499 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q69736208 schema:description/hy "գիտական հոդված հրատարակված 1974 թվականի փետրվարի 1-ին" .
+};
+INSERT DATA {
+  wd:Q71516553 wdt:P921 "fatty acid composition" .
+  wd:Q71516553 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q71516553 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q7177 schema:description/ja "フランスの政治家" .
+};
+INSERT DATA {
+  wd:Q71999829 wdt:P921 "fatty acid composition" .
+  wd:Q71999829 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q71999829 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q72084216 wdt:P921 "fatty acid composition" .
+  wd:Q72084216 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q72084216 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q79107736 wdt:P921 "fatty acid composition" .
+  wd:Q79107736 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q79107736 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P2093 "J. GERSHON-COHEN" .
+  wd:Q82157456 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P2093/qualifier "series ordinal: 1" .
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q82157456 wdt:P2093/reference:P698 "20993593" .
+  wd:Q82157456 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993593" .
+  wd:Q82157456 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P407 "English" .
+  wd:Q82157456 wdt:P407/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P407/reference:P248 "National Center for Biotechnology Information" .
+  wd:Q82157456 wdt:P407/reference:P698 "20993593" .
+  wd:Q82157456 wdt:P407/reference:P854 "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=20993593" .
+  wd:Q82157456 wdt:P407/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P921 "intervertebral disc" .
+  wd:Q82157456 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157456 wdt:P921/reference:P248 "Europe PubMed Central" .
+  wd:Q82157456 wdt:P921/reference:P698 "20993593" .
+  wd:Q82157456 wdt:P921/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993593" .
+  wd:Q82157456 wdt:P921/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157463 schema:description/fr "article scientifique publié le 29 octobre 2010" .
+  wd:Q82157463 schema:description/it "articolo scientifico pubblicato il 29 ottobre 2010" .
+  wd:Q82157463 schema:description/es "artículo científico publicado el 29 de octubre de 2010" .
+  wd:Q82157463 schema:description/pt "artigo científico publicado em 29 de outubro de 2010" .
+  wd:Q82157463 schema:description/sq "artikull shkencor i botuar më  29 tetor 2010" .
+  wd:Q82157463 schema:description/pl "artykuł naukowy opublikowany 29 października 2010" .
+  wd:Q82157463 schema:description/cs "vědecký článek publikovaný 29. října 2010" .
+  wd:Q82157463 schema:description/sk "vedecký článok publikovaný 29. októbra 2010" .
+  wd:Q82157463 schema:description/sv "vetenskaplig artikel publicerad den 29 oktober 2010" .
+  wd:Q82157463 schema:description/da "videnskabelig artikel offentliggjort den 29. oktober 2010" .
+  wd:Q82157463 schema:description/lt "mokslinis straipsnis, publikuotas 2010 m. spalio 29 d." .
+  wd:Q82157463 schema:description/sl "znanstveni članek objavljen 29. oktober 2010" .
+  wd:Q82157463 schema:description/sr "научни чланак објављен 29. октобар 2010." .
+  wd:Q82157463 schema:description/bg "научна статия, публикувана на 29 октомври 2010 г." .
+  wd:Q82157463 schema:description/ru "научная статья опубликованная 29 октября 2010 г." .
+  wd:Q82157463 schema:description/vi "bài báo khoa học xuất bản ngày 29 tháng 10, 2010" .
+  wd:Q82157463 schema:description/tr "29 Ekim 2010'de yayımlanmış bilimsel makale" .
+  wd:Q82157463 schema:description/zh-hant "2010年學術文章" .
+  wd:Q82157463 schema:description/zh-hans "2010年学术文章" .
+  wd:Q82157463 schema:description/nan "2010 nî ê lūn-bûn" .
+  wd:Q82157463 schema:description/ja "2010年の学術論文" .
+  wd:Q82157463 schema:description/ko "2010년 논문" .
+  wd:Q82157463 schema:description/tg-cyrl "мақолаи илмӣ" .
+  wd:Q82157463 schema:description/tg-latn "maqolai ilmiy" .
+  wd:Q82157463 schema:description/eo "scienca artikolo" .
+  wd:Q82157463 schema:description/ca "article científic" .
+  wd:Q82157463 schema:description/ro "articol științific" .
+  wd:Q82157463 schema:description/id "artikel ilmiah" .
+  wd:Q82157463 schema:description/bn "বৈজ্ঞানিক নিবন্ধ" .
+  wd:Q82157463 schema:description/nb "vitenskapelig artikkel" .
+  wd:Q82157463 schema:description/he "מאמר מדעי" .
+  wd:Q82157463 schema:description/nn "vitskapeleg artikkel" .
+  wd:Q82157463 schema:description/ar "مقالة علمية" .
+  wd:Q82157463 schema:description/gl "artigo científico" .
+  wd:Q82157463 schema:description/en-gb "scientific article published on 29 October 2010" .
+  wd:Q82157463 schema:description/pt-br "artigo científico publicado em 29 de outubro de 2010" .
+  wd:Q82157463 schema:description/sr-ec "научни чланак објављен 29. октобар 2010." .
+  wd:Q82157463 schema:description/zh "2010年學術文章" .
+  wd:Q82157463 schema:description/zh-tw "2010年學術文章" .
+  wd:Q82157463 schema:description/zh-hk "2010年學術文章" .
+  wd:Q82157463 schema:description/zh-mo "2010年學術文章" .
+  wd:Q82157463 schema:description/yue "2010年學術文章" .
+  wd:Q82157463 schema:description/zh-cn "2010年学术文章" .
+  wd:Q82157463 schema:description/zh-sg "2010年学术文章" .
+  wd:Q82157463 schema:description/zh-my "2010年学术文章" .
+  wd:Q82157463 schema:description/wuu "2010年学术文章" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093 "B. J. ANSON" .
+  wd:Q82157463 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093 "H. O. MAHONEY" .
+  wd:Q82157463 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093 "R. F. DENT" .
+  wd:Q82157463 wdt:P2093/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/qualifier "series ordinal: 1" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/qualifier "series ordinal: 2" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/qualifier "series ordinal: 3" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q82157463 wdt:P2093/reference:P698 "20993594" .
+  wd:Q82157463 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993594" .
+  wd:Q82157463 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q82157463 wdt:P2093/reference:P698 "20993594" .
+  wd:Q82157463 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993594" .
+  wd:Q82157463 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P2093/reference:P248 "Europe PubMed Central" .
+  wd:Q82157463 wdt:P2093/reference:P698 "20993594" .
+  wd:Q82157463 wdt:P2093/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993594" .
+  wd:Q82157463 wdt:P2093/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P407 "English" .
+  wd:Q82157463 wdt:P407/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P407/reference:P248 "National Center for Biotechnology Information" .
+  wd:Q82157463 wdt:P407/reference:P698 "20993594" .
+  wd:Q82157463 wdt:P407/reference:P854 "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=20993594" .
+  wd:Q82157463 wdt:P407/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P921 "cross-sectional anatomy" .
+  wd:Q82157463 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q82157463 wdt:P921/reference:P248 "Europe PubMed Central" .
+  wd:Q82157463 wdt:P921/reference:P698 "20993594" .
+  wd:Q82157463 wdt:P921/reference:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A20993594" .
+  wd:Q82157463 wdt:P921/reference:P813 "12 August 2024" .
+
+};
+INSERT DATA {
+  wd:Q86179434 schema:description/hy "աստղ Միաեղջյուր համաստեղությունում" .
+};
+INSERT DATA {
+  wd:Q9081815 wdt:P18 "Flora Antarctica Plate CXXIX.jpg" .
+  wd:Q9081815 wdt:P18/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q90930864 wdt:P921 "fatty acid composition" .
+  wd:Q90930864 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q90930864 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q91083012 wdt:P921 "fatty acid composition" .
+  wd:Q91083012 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q91083012 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q95831184 wdt:P921 "fatty acid composition" .
+  wd:Q95831184 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q95831184 wdt:P921/reference:P887 "inferred from title" .
+
+};
+INSERT DATA {
+  wd:Q97682888 wdt:P921 "fatty acid composition" .
+  wd:Q97682888 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q98080311 schema:description/en "species of flowering plant" .
+};
+INSERT DATA {
+  wd:Q98943000 wdt:P921 "fatty acid composition" .
+  wd:Q98943000 wdt:P921/rank "Normal rank" .
+};
+INSERT DATA {
+  wd:Q98943000 wdt:P921/reference:P887 "inferred from title" .
+
+};

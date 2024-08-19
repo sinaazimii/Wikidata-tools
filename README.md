@@ -3,7 +3,7 @@ Developing some tools around Wikidata
 
 # Retrieve recent changes of the wikidata
 The main goal of get_updates.py is to retrieve the latest changes that has been applied to wikidata,
-in the format of rdf queries. For this purpose we use wikidata api called recentchanges.
+in the SPARQL 1.1 Update Language. For this purpose we use wikidata api called recentchanges.
 And afterwards they are parsed into rdf format.
 
 e.g.

@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 def main(entity_id):
     # check if entity_id is correct format
     if not entity_id.startswith("Q"):
