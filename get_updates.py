@@ -98,7 +98,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS
     rows = soup.find_all("tr")
     current_predicate = None
-    for row in rows:
+    main_predicate = None
+    language = ""
+    for row in rows:  
         # Process property names
         if row.find("td", class_="diff-lineno"):
             td_tag_text = row.get_text(strip=True)
@@ -109,15 +111,26 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     # Extract the property ID from the match
                     property_id = pattern.search(value.prettify()).group(1)
                     current_predicate = f"wdt:{property_id}"
+                    main_predicate = current_predicate
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
-                        current_predicate += f"/{sub_prop.strip()}"
+                        current_predicate = sub_prop.strip()
+                        
+
             else:
                 current_predicate = (
                     f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 )
+                # if (current_predicate.startswith("schema:description")):
+                language_list = current_predicate.split("/")[1:]
+                language = "@" + language_list[0]
+                # remove everything after / in the predicate including the / itself
+                current_predicate = current_predicate.split("/")[0]
+                main_predicate = current_predicate
 
-        # TODO: schema url? is description really a schema property?
+                
+                    
+
         # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -126,33 +139,34 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 delete_nested_tags = value.find_all("a")
                 delete_nested_tags += value.find_all("b")
                 if(len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0):
-                    delete_statements.append(handle_nested(delete_nested_tags, current_predicate, subject))
+                    delete_statements.append(handle_nested(delete_nested_tags, current_predicate))
                 else:
                     if current_predicate:
                         deleted_value = value.text.strip()
                         delete_statements.append(
-                            f'  wd:{subject} {current_predicate} "{deleted_value}" .'
+                            f'  {current_predicate} {deleted_value}{language}'
                         )
 
+        
         # Process added values
-        elif row.find("td", class_="diff-addedline"):
+        if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             # find all nested a_tags/b_tags in the value
             if value:
                 add_nested_tags = value.find_all("a")
                 add_nested_tags += value.find_all("b")
                 if(len(add_nested_tags) > 0 and len(add_nested_tags) % 2 == 0):
-                    insert_statements.append(handle_nested(add_nested_tags, current_predicate, subject))
+                    insert_statements.append(handle_nested(add_nested_tags, current_predicate))
                 else:
                     if current_predicate:
                         added_value = value.text.strip()
                         insert_statements.append(
-                            f'  wd:{subject} {current_predicate} "{added_value}" .'
+                            f'  {current_predicate} {added_value}{language}'
                         )
 
 
-    delete_rdf = "DELETE DATA {\n" + "\n".join(delete_statements) + "\n};"
-    insert_rdf = "INSERT DATA {\n" + "\n".join(insert_statements) + "\n};"
+    delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(delete_statements) + "\n]};"
+    insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(insert_statements) + "\n]};"
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
@@ -163,17 +177,18 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print(insert_rdf)
         print("\n")
 
-def handle_nested(nested_tags, current_predicate, subject):
+def handle_nested(nested_tags, current_predicate):
     change_statement = ""
     for i in range(0, len(nested_tags), 2):
         # check if a tag has a property id
         # its a predicate
         pattern = re.compile(r'/wiki/Property:(P\d+)')
         if pattern.search(nested_tags[i].get('href')):
-            property_id = ":" +pattern.search(nested_tags[i].get('href')).group(1)
-            change_statement += f'  wd:{subject} {f"{current_predicate + property_id}"} "{nested_tags[i+1].text}" .\n'
+            property_id = pattern.search(nested_tags[i].get('href')).group(1)
+            change_statement += f'  {current_predicate} [\n  {property_id} "{nested_tags[i+1].text}" \n ]'
         
     return change_statement
+
 
 def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
@@ -261,8 +276,11 @@ def verify_date(date):
     formatted_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
     now = datetime.now()
     one_month_ago = now - relativedelta(months=1)
-    if formatted_date < one_month_ago:
+    if formatted_date < one_month_ago :
         print("The date cannot be earlier than 1 month ago.")
+        return False
+    if formatted_date > now:
+        print("The date cannot be later than the current date.")
         return False
     return True
 
@@ -276,16 +294,6 @@ def write_to_file(data):
             file.write(change)
             file.write("\n")
     print("Changes written to file.")
-
-# def compress_changes(changes_list):
-#     # changes list are in form of (subject, rdf, timestamp)
-#     compressed_changes = []
-#     for i in range  (0,len(changes_list)):
-#         for j in range (i+1,len(changes_list)):
-#             if changes_list[i][0] == changes_list[j][0]:
-#                 compressed_changes.append(merge_rdf(changes_list[i][1], changes_list[j][1]))
-#                 changes_list.pop(j)
-#     return compressed_changes
 
 def merge_rdf(old_rdf, new_rdf):
     # Extract the content from the old string's curly braces
@@ -346,6 +354,7 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
+            # if (change['title'] == "Q97681211"):
             compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
