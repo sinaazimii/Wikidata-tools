@@ -99,6 +99,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     rows = soup.find_all("tr")
     current_predicate = None
     main_predicate = None
+    main_predicate_type = None
     language = ""
     for row in rows:  
         # Process property names
@@ -116,18 +117,16 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     for sub_prop in sub_props:
                         current_predicate = sub_prop.strip()
                         
-
+                main_predicate_type = "property"
             else:
                 current_predicate = (
                     f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 )
-                # if (current_predicate.startswith("schema:description")):
                 language_list = current_predicate.split("/")[1:]
                 language = "@" + language_list[0]
-                # remove everything after / in the predicate including the / itself
                 current_predicate = current_predicate.split("/")[0]
                 main_predicate = current_predicate
-
+                main_predicate_type = "schema"
                 
                     
 
@@ -144,7 +143,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     if current_predicate:
                         deleted_value = value.text.strip()
                         delete_statements.append(
-                            f'  {current_predicate} {deleted_value}{language}'
+                            f' {current_predicate} {deleted_value}{language} ;'
                         )
 
         
@@ -161,12 +160,17 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     if current_predicate:
                         added_value = value.text.strip()
                         insert_statements.append(
-                            f'  {current_predicate} {added_value}{language}'
+                            f' {current_predicate} {added_value}{language} ;'
                         )
 
-
-    delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(delete_statements) + "\n]};"
-    insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(insert_statements) + "\n]};"
+    
+    if main_predicate_type == "schema":
+        delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(delete_statements) + "." + "\n};"
+        insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(insert_statements) + "." + "\n};"
+    
+    else:
+        delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(delete_statements) + "\n]};"
+        insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(insert_statements) + "\n]};"
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
@@ -178,16 +182,18 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print("\n")
 
 def handle_nested(nested_tags, current_predicate):
-    change_statement = ""
+    change_statement = "    " + current_predicate
+    i = 0
     for i in range(0, len(nested_tags), 2):
         # check if a tag has a property id
         # its a predicate
         pattern = re.compile(r'/wiki/Property:(P\d+)')
         if pattern.search(nested_tags[i].get('href')):
             property_id = pattern.search(nested_tags[i].get('href')).group(1)
-            change_statement += f'  {current_predicate} [\n  {property_id} "{nested_tags[i+1].text}" \n ]'
-        
-    return change_statement
+            change_statement += f'    {property_id} "{nested_tags[i+1].text}" \n'
+            i+=1
+
+    return change_statement + ']'
 
 
 def verify_args(args):
@@ -354,8 +360,8 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            # if (change['title'] == "Q97681211"):
-            compare_changes("https://www.wikidata.org/w/api.php", change)
+            if (change['title'] == "Q39454875"):
+                compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
