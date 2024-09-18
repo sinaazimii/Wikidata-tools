@@ -252,7 +252,8 @@ def handle_nested(nested_tags, current_predicate):
         # check if a tag has a property id
         # its a predicate
         pattern = re.compile(r"/wiki/Property:(P\d+)")
-        if pattern.search(nested_tags[i].get("href")):
+        href = nested_tags[i].get("href")
+        if href and pattern.search(href):
             property_id = pattern.search(nested_tags[i].get("href")).group(1)
             change_statement += (
                 f'    {prefix}:{property_id} "{nested_tags[i+1].text}" ;\n'
