@@ -30,7 +30,27 @@ WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
 XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 
 # Define namespaces
-PREFIXES = WD + '\n' + WDT + '\n' + P + '\n' + PS + '\n' + PR + '\n' + PQ + SCHEMA + '\n' + SKOS + '\n' + WIKIBASE + '\n' + XSD + '\n'
+PREFIXES = (
+    WD
+    + "\n"
+    + WDT
+    + "\n"
+    + P
+    + "\n"
+    + PS
+    + "\n"
+    + PR
+    + "\n"
+    + PQ
+    + SCHEMA
+    + "\n"
+    + SKOS
+    + "\n"
+    + WIKIBASE
+    + "\n"
+    + XSD
+    + "\n"
+)
 
 EDIT_DELETE_RDFS = []
 EDIT_INSERT_RDFS = []
@@ -70,7 +90,9 @@ def compare_changes(api_url, change):
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"])
         print(new_insert_statement)
-        NEW_INSERT_RDFS.append((change['title'],new_insert_statement, change["timestamp"]))
+        NEW_INSERT_RDFS.append(
+            (change["title"], new_insert_statement, change["timestamp"])
+        )
         return
     elif change["type"] != "edit":
         print("Unsupported change type:", change["type"])
@@ -107,14 +129,14 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     main_predicate = None
     main_predicate_type = None
     language = ""
-    for row in rows:  
+    for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
             td_tag_text = row.get_text(strip=True)
             value = row.find("a")
             if value:
-                pattern = re.compile(r'/wiki/Property:(P\d+)')
-                if (value and pattern.search(value.prettify())):
+                pattern = re.compile(r"/wiki/Property:(P\d+)")
+                if value and pattern.search(value.prettify()):
                     # Extract the property ID from the match
                     property_id = pattern.search(value.prettify()).group(1)
                     current_predicate = f"p:{property_id}"
@@ -122,26 +144,24 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
                         current_predicate = sub_prop.strip()
-                        
+
                 main_predicate_type = "property"
             else:
-                current_predicate = (
-                    f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
-                )
+                current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 language_list = current_predicate.split("/")[1:]
-                if (len(language_list) > 0):
+                if len(language_list) > 0:
                     language = "@" + language_list[0]
                 current_predicate = current_predicate.split("/")[0]
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
-                
-        if (current_predicate == "reference"):
+
+        if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
-        elif (current_predicate == "qualifier"):
+        elif current_predicate == "qualifier":
             current_predicate = "pq"
-        elif (current_predicate == "rank"):
+        elif current_predicate == "rank":
             current_predicate = "wikibase:rank"
-        elif (current_predicate.startswith("p:")):
+        elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
 
         # TODO: whenever an object has a href or link, use that instead of the text in the object
@@ -151,16 +171,17 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 delete_nested_tags = value.find_all("a")
                 delete_nested_tags += value.find_all("b")
-                if(len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0):
-                    delete_statements.append(handle_nested(delete_nested_tags, current_predicate))
+                if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
+                    delete_statements.append(
+                        handle_nested(delete_nested_tags, current_predicate)
+                    )
                 else:
                     if current_predicate:
                         deleted_value = extract_property_id(value)
                         delete_statements.append(
-                            f'  {current_predicate} {deleted_value}{language} ;'
+                            f"  {current_predicate} {deleted_value}{language} ;"
                         )
 
-        
         # Process added values
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
@@ -168,64 +189,88 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 add_nested_tags = value.find_all("a")
                 add_nested_tags += value.find_all("b")
-                if(len(add_nested_tags) > 0 and len(add_nested_tags) % 2 == 0):
-                    insert_statements.append(handle_nested(add_nested_tags, current_predicate))
+                if len(add_nested_tags) > 0 and len(add_nested_tags) % 2 == 0:
+                    insert_statements.append(
+                        handle_nested(add_nested_tags, current_predicate)
+                    )
                 else:
                     if current_predicate:
                         added_value = extract_property_id(value)
                         insert_statements.append(
-                            f'  {current_predicate} {added_value}{language} ;'
+                            f"  {current_predicate} {added_value}{language} ;"
                         )
 
-    
-
     if main_predicate_type == "schema":
-        delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(delete_statements) + "." + "\n};"
-        insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(insert_statements) + "." + "\n};"
-    
+        delete_rdf = (
+            "DELETE DATA {\n"
+            + f"  wd:{subject}"
+            + "\n\t\t".join(delete_statements)
+            + "."
+            + "\n};"
+        )
+        insert_rdf = (
+            "INSERT DATA {\n"
+            + f"  wd:{subject}"
+            + "\n\t\t".join(insert_statements)
+            + "."
+            + "\n};"
+        )
+
     else:
-        delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(delete_statements) + "\n]};"
-        insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject} {main_predicate} [\n'  + "\n".join(insert_statements) + "\n]};"
+        delete_rdf = (
+            "DELETE DATA {\n"
+            + f"  wd:{subject} {main_predicate} [\n"
+            + "\n".join(delete_statements)
+            + "\n]};"
+        )
+        insert_rdf = (
+            "INSERT DATA {\n"
+            + f"  wd:{subject} {main_predicate} [\n"
+            + "\n".join(insert_statements)
+            + "\n]};"
+        )
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
         print(delete_rdf)
         print("\n")
     if insert_statements != []:
-        EDIT_INSERT_RDFS.append((subject, insert_rdf,timestamp))
+        EDIT_INSERT_RDFS.append((subject, insert_rdf, timestamp))
         print(insert_rdf)
         print("\n")
 
-    
 
 def handle_nested(nested_tags, current_predicate):
-    prefix = 'ps'
-    if (current_predicate == "prov:wasDerivedFrom"):
-        prefix = 'pr'
-    elif (current_predicate == "qualifier"):
-        prefix = 'pq'
+    prefix = "ps"
+    if current_predicate == "prov:wasDerivedFrom":
+        prefix = "pr"
+    elif current_predicate == "qualifier":
+        prefix = "pq"
     change_statement = "    " + current_predicate + " [\n"
     i = 0
     for i in range(0, len(nested_tags), 2):
         # check if a tag has a property id
         # its a predicate
-        pattern = re.compile(r'/wiki/Property:(P\d+)')
-        if pattern.search(nested_tags[i].get('href')):
-            property_id = pattern.search(nested_tags[i].get('href')).group(1)
-            change_statement += f'    {prefix}:{property_id} "{nested_tags[i+1].text}" ;\n'
-            i+=1
+        pattern = re.compile(r"/wiki/Property:(P\d+)")
+        if pattern.search(nested_tags[i].get("href")):
+            property_id = pattern.search(nested_tags[i].get("href")).group(1)
+            change_statement += (
+                f'    {prefix}:{property_id} "{nested_tags[i+1].text}" ;\n'
+            )
+            i += 1
 
-    return change_statement + ']'
+    return change_statement + "]"
+
 
 def extract_property_id(tag):
     # Check for href with "Property:"
-    a_tag = tag.find('a', href=True)
-    if a_tag and "Property:" in a_tag['href']:
-        return a_tag['href'].split("Property:")[1]
+    a_tag = tag.find("a", href=True)
+    if a_tag and "Property:" in a_tag["href"]:
+        return a_tag["href"].split("Property:")[1]
 
     # Check for title attribute with "Property:"
-    if tag.has_attr('title') and "Property:" in tag['title']:
-        return tag['title'].split("Property:")[1]
+    if tag.has_attr("title") and "Property:" in tag["title"]:
+        return tag["title"].split("Property:")[1]
 
     # Check for P: in the tag value
     if "P:" in tag.text:
@@ -233,6 +278,7 @@ def extract_property_id(tag):
 
     # If none of the above, return the tag's text in ""
     return f'"{tag.text.strip()}"'
+
 
 def verify_args(args):
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID
@@ -267,14 +313,18 @@ def verify_args(args):
             return False
         FILE_NAME = args.file
     if args.number:
-        try:                
+        try:
             if not int(args.number) or int(args.number) not in range(1, 501):
-                print("Invalid number argument. Please provide a valid number between 1 and 501.")
+                print(
+                    "Invalid number argument. Please provide a valid number between 1 and 501."
+                )
                 return False
             else:
                 CHANGE_COUNT = args.number
         except ValueError:
-            print("Invalid number argument. Please provide a valid number between 1 and 500.")
+            print(
+                "Invalid number argument. Please provide a valid number between 1 and 500."
+            )
             return False
     if args.id:
         if args.id.startswith("Q") and args.id[1:].isdigit():
@@ -327,7 +377,7 @@ def verify_date(date):
     formatted_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
     now = datetime.now()
     one_month_ago = now - relativedelta(months=1)
-    if formatted_date < one_month_ago :
+    if formatted_date < one_month_ago:
         print("The date cannot be earlier than 1 month ago.")
         return False
     if formatted_date > now:
@@ -346,22 +396,26 @@ def write_to_file(data):
             file.write("\n")
     print("Changes written to file.")
 
+
 def merge_rdf(old_rdf, new_rdf):
     # Extract the content from the old string's curly braces
-    old_match = re.search(r'\{(.*?)\}', old_rdf, re.DOTALL)
+    old_match = re.search(r"\{(.*?)\}", old_rdf, re.DOTALL)
     if old_match:
         old_content = old_match.group(1).strip()
     else:
-        old_content = ''
+        old_content = ""
 
     # Insert the old content into the new string's curly braces
-    new_match = re.search(r'\{(.*?)\}', new_rdf, re.DOTALL)
+    new_match = re.search(r"\{(.*?)\}", new_rdf, re.DOTALL)
     if new_match:
         new_content = new_match.group(1).strip()
         combined_content = f"{new_content}\n  {old_content}"  # Add old content with a new line and indent
         # Replace the content inside the new string's curly braces
-        updated_string = re.sub(r'\{(.*?)\}', f'{{\n  {combined_content}\n}}', new_rdf, flags=re.DOTALL)
+        updated_string = re.sub(
+            r"\{(.*?)\}", f"{{\n  {combined_content}\n}}", new_rdf, flags=re.DOTALL
+        )
         return updated_string
+
 
 def main():
     # define some command line arguments
@@ -391,7 +445,7 @@ def main():
         help="start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes",
     )
     parser.add_argument(
-        "-et","--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
+        "-et", "--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
     )
     args = parser.parse_args()
 
@@ -410,18 +464,18 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            if (change['title'] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None):
+            if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
                 compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
             all_changes = sorted(
-                EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS, key=lambda x: x[1]
+                EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS,
+                key=lambda x: x[1],
             )
             write_to_file(all_changes)
 
-
-            # TODO: Comparison not working as intended! 1477 is the new length of the list after compression (500 before) 
+            # TODO: Comparison not working as intended! 1477 is the new length of the list after compression (500 before)
 
             # Possible refinement: stream the changes to the file while processing them to save time and memory
             # TODO: Add command line argument for filtering language of the new entities, without filtering the language
