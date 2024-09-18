@@ -15,6 +15,7 @@ LATEST = "false"
 START_DATE = None
 END_DATE = None
 FILE_NAME = None
+TARGET_ENTITY_ID = None
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -111,7 +112,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 if (value and pattern.search(value.prettify())):
                     # Extract the property ID from the match
                     property_id = pattern.search(value.prettify()).group(1)
-                    current_predicate = f"wdt:{property_id}"
+                    current_predicate = f"p:{property_id}"
                     main_predicate = current_predicate
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
@@ -123,12 +124,20 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 )
                 language_list = current_predicate.split("/")[1:]
-                language = "@" + language_list[0]
+                if (len(language_list) > 0):
+                    language = "@" + language_list[0]
                 current_predicate = current_predicate.split("/")[0]
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
                 
-                    
+        if (current_predicate == "reference"):
+            current_predicate = "prov:wasDerivedFrom"
+        elif (current_predicate == "qualifier"):
+            current_predicate = "pq"
+        elif (current_predicate == "rank"):
+            current_predicate = "wikibase:rank"
+        elif (current_predicate.startswith("p:")):
+            current_predicate = current_predicate.replace("p:", "ps:")
 
         # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
@@ -141,9 +150,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     delete_statements.append(handle_nested(delete_nested_tags, current_predicate))
                 else:
                     if current_predicate:
-                        deleted_value = value.text.strip()
+                        deleted_value = extract_property_id(value)
                         delete_statements.append(
-                            f' {current_predicate} {deleted_value}{language} ;'
+                            f'  {current_predicate} {deleted_value}{language} ;'
                         )
 
         
@@ -158,12 +167,13 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     insert_statements.append(handle_nested(add_nested_tags, current_predicate))
                 else:
                     if current_predicate:
-                        added_value = value.text.strip()
+                        added_value = extract_property_id(value)
                         insert_statements.append(
-                            f' {current_predicate} {added_value}{language} ;'
+                            f'  {current_predicate} {added_value}{language} ;'
                         )
 
     
+
     if main_predicate_type == "schema":
         delete_rdf = "DELETE DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(delete_statements) + "." + "\n};"
         insert_rdf = "INSERT DATA {\n" +  f'  wd:{subject}'  + "\n\t\t".join(insert_statements) + "." + "\n};"
@@ -181,8 +191,15 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print(insert_rdf)
         print("\n")
 
+    
+
 def handle_nested(nested_tags, current_predicate):
-    change_statement = "    " + current_predicate
+    prefix = 'ps'
+    if (current_predicate == "prov:wasDerivedFrom"):
+        prefix = 'pr'
+    elif (current_predicate == "qualifier"):
+        prefix = 'pq'
+    change_statement = "    " + current_predicate + " [\n"
     i = 0
     for i in range(0, len(nested_tags), 2):
         # check if a tag has a property id
@@ -190,14 +207,30 @@ def handle_nested(nested_tags, current_predicate):
         pattern = re.compile(r'/wiki/Property:(P\d+)')
         if pattern.search(nested_tags[i].get('href')):
             property_id = pattern.search(nested_tags[i].get('href')).group(1)
-            change_statement += f'    {property_id} "{nested_tags[i+1].text}" \n'
+            change_statement += f'    {prefix}:{property_id} "{nested_tags[i+1].text}" ;\n'
             i+=1
 
     return change_statement + ']'
 
+def extract_property_id(tag):
+    # Check for href with "Property:"
+    a_tag = tag.find('a', href=True)
+    if a_tag and "Property:" in a_tag['href']:
+        return a_tag['href'].split("Property:")[1]
+
+    # Check for title attribute with "Property:"
+    if tag.has_attr('title') and "Property:" in tag['title']:
+        return tag['title'].split("Property:")[1]
+
+    # Check for P: in the tag value
+    if "P:" in tag.text:
+        return tag.text.split("P:")[1].strip()
+
+    # If none of the above, return the tag's text in ""
+    return f'"{tag.text.strip()}"'
 
 def verify_args(args):
-    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME
+    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
         return False
@@ -238,6 +271,13 @@ def verify_args(args):
         except ValueError:
             print("Invalid number argument. Please provide a valid number between 1 and 500.")
             return False
+    if args.id:
+        if args.id.startswith("Q") and args.id[1:].isdigit():
+            TARGET_ENTITY_ID = args.id
+        else:
+            print("Invalid entity argument. Please provide a valid entity id.")
+            return False
+
     if args.start:
         if verify_date(args.start):
             START_DATE = datetime.strptime(args.start, "%Y-%m-%d %H:%M:%S")
@@ -337,6 +377,10 @@ def main():
         help="number of changes to get, not setting will get 5 changes, Maximum number of changes is 501",
     )
     parser.add_argument(
+        "-id",
+        help="get changes for a specific entity, provide the entity id",
+    )
+    parser.add_argument(
         "-st",
         "--start",
         help="start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes",
@@ -352,6 +396,7 @@ def main():
         print("Type: ", CHANGES_TYPE)
         print("Latest: ", LATEST)
         print("Number: ", CHANGE_COUNT)
+        print("Entity: ", TARGET_ENTITY_ID)
         print("Start Date: ", START_DATE)
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
@@ -360,7 +405,7 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            if (change['title'] == "Q39454875"):
+            if (change['title'] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None):
                 compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
