@@ -20,12 +20,17 @@ TARGET_ENTITY_ID = None
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
 WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
+P = "PREFIX p: <http://www.wikidata.org/prop/>"
+PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
+PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
+PR = "PREFIX prov: <http://www.w3.org/ns/prov#>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
 SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
+XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 
 # Define namespaces
-PREFIXES = WD + "\n" + WDT + "\n" + SCHEMA + "\n" + SKOS + "\n" + WIKIBASE + "\n"
+PREFIXES = WD + '\n' + WDT + '\n' + P + '\n' + PS + '\n' + PR + '\n' + PQ + SCHEMA + '\n' + SKOS + '\n' + WIKIBASE + '\n' + XSD + '\n'
 
 EDIT_DELETE_RDFS = []
 EDIT_INSERT_RDFS = []
