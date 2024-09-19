@@ -23,7 +23,8 @@ WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
 P = "PREFIX p: <http://www.wikidata.org/prop/>"
 PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
 PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
-PR = "PREFIX prov: <http://www.w3.org/ns/prov#>"
+PR = 'PREFIX pr: <http://www.wikidata.org/prop/reference/>'
+PROV = "PREFIX prov: <http://www.w3.org/ns/prov#>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
 SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
@@ -42,6 +43,9 @@ PREFIXES = (
     + PR
     + "\n"
     + PQ
+    + "\n"
+    + PROV
+    + "\n"
     + SCHEMA
     + "\n"
     + SKOS
@@ -162,7 +166,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
 
-
         # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -181,6 +184,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                             # extracted value is a property id
                             current_predicate = "pq:" + deleted_value
                             deleted_value = value.find('span').text.split(":")[1].strip()
+                        if current_predicate == "wikibase:rank":
+                            deleted_value = "wikibase:" + to_camel_case(deleted_value)
                         delete_statements.append(
                             f"  {current_predicate} {deleted_value}{language} ;"
                         )
@@ -192,7 +197,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 add_nested_tags = value.find_all("a")
                 add_nested_tags += value.find_all("b")
-                if len(add_nested_tags) > 0 and len(add_nested_tags) % 2 == 0:
+                if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
                     )
@@ -203,6 +208,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                             # extracted value is a property id
                             current_predicate = "pq:" + added_value
                             added_value = value.find('span').text.split(":")[1].strip()
+                        if current_predicate == "wikibase:rank":
+                            added_value = "wikibase:" + to_camel_case(added_value)
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
@@ -253,32 +260,28 @@ def handle_nested(nested_tags, current_predicate):
         prefix = "pr"
     elif current_predicate == "qualifier":
         prefix = "pq"
-        print("is aualifier in neste func")
-    change_statement = "    " + current_predicate + " [\n"
+    change_statement = "  " + current_predicate + " [\n"
     i = 0
     for i in range(0, len(nested_tags), 2):
-        # check if a tag has a property id
-        # its a predicate
-        pattern = re.compile(r"/wiki/Property:(P\d+)")
-        href = nested_tags[i].get("href")
-        if href and pattern.search(href):
-            property_id = pattern.search(nested_tags[i].get("href")).group(1)
-            change_statement += (
-                f'    {prefix}:{property_id} "{nested_tags[i+1].text}" ;\n'
-            )
-            i += 1
+        predicate = extract_href(nested_tags[i])
+        change_statement += (
+            f'    {prefix}:{predicate} "{nested_tags[i+1].text}" ;\n'
+        )
+        i += 1
 
-    return change_statement + "]"
+    return change_statement + "];"
 
 
 def extract_href(tag):
     # Check for href with "Property:"
     a_tag = tag.find("a", href=True)
+    b_tag = tag.find("b")
+    # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
 
     if a_tag and "Q" in a_tag["href"]:
-        return a_tag["href"].split("/")[2]
+        return "wd:" + a_tag["href"].split("/")[2]
 
     # Check for title attribute with "Property:"
     if tag.has_attr("title") and "Property:" in tag["title"]:
@@ -288,8 +291,20 @@ def extract_href(tag):
     if "P:" in tag.text:
         return tag.text.split("P:")[1].strip()
 
+    if b_tag:
+        return b_tag.text.strip()
+
     # If none of the above, return the tag's text in ""
     return f'"{tag.text.strip()}"'
+
+def to_camel_case(s):
+    # Remove quotes and trim whitespace
+    s = s.strip('"').strip()
+    # Split the string into words
+    words = s.split()
+    # Capitalize the first letter of each word and join them
+    camel_case_string = ''.join(word.capitalize() for word in words)
+    return camel_case_string
 
 
 def verify_args(args):
@@ -405,28 +420,8 @@ def write_to_file(data):
         file.write("\n")
         for subject, change, time in data:
             file.write(change)
-            file.write("\n")
+            file.write("\n\n")
     print("Changes written to file.")
-
-
-def merge_rdf(old_rdf, new_rdf):
-    # Extract the content from the old string's curly braces
-    old_match = re.search(r"\{(.*?)\}", old_rdf, re.DOTALL)
-    if old_match:
-        old_content = old_match.group(1).strip()
-    else:
-        old_content = ""
-
-    # Insert the old content into the new string's curly braces
-    new_match = re.search(r"\{(.*?)\}", new_rdf, re.DOTALL)
-    if new_match:
-        new_content = new_match.group(1).strip()
-        combined_content = f"{new_content}\n  {old_content}"  # Add old content with a new line and indent
-        # Replace the content inside the new string's curly braces
-        updated_string = re.sub(
-            r"\{(.*?)\}", f"{{\n  {combined_content}\n}}", new_rdf, flags=re.DOTALL
-        )
-        return updated_string
 
 
 def main():
@@ -482,8 +477,8 @@ def main():
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
             all_changes = sorted(
-                EDIT_DELETE_RDFS + EDIT_INSERT_RDFS + NEW_INSERT_RDFS,
-                key=lambda x: x[1],
+                EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
+                key=lambda x: x[2],
             )
             write_to_file(all_changes)
 
