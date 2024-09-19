@@ -157,12 +157,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
         if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
-        elif current_predicate == "qualifier":
-            current_predicate = "pq"
         elif current_predicate == "rank":
             current_predicate = "wikibase:rank"
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
+
 
         # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
@@ -177,7 +176,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     )
                 else:
                     if current_predicate:
-                        deleted_value = extract_property_id(value)
+                        deleted_value = extract_href(value)
+                        if (current_predicate == "qualifier"):
+                            # extracted value is a property id
+                            current_predicate = "pq:" + deleted_value
+                            deleted_value = value.find('span').text.split(":")[1].strip()
                         delete_statements.append(
                             f"  {current_predicate} {deleted_value}{language} ;"
                         )
@@ -195,7 +198,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     )
                 else:
                     if current_predicate:
-                        added_value = extract_property_id(value)
+                        added_value = extract_href(value)
+                        if (current_predicate == "qualifier"):
+                            # extracted value is a property id
+                            current_predicate = "pq:" + added_value
+                            added_value = value.find('span').text.split(":")[1].strip()
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
@@ -246,6 +253,7 @@ def handle_nested(nested_tags, current_predicate):
         prefix = "pr"
     elif current_predicate == "qualifier":
         prefix = "pq"
+        print("is aualifier in neste func")
     change_statement = "    " + current_predicate + " [\n"
     i = 0
     for i in range(0, len(nested_tags), 2):
@@ -263,11 +271,14 @@ def handle_nested(nested_tags, current_predicate):
     return change_statement + "]"
 
 
-def extract_property_id(tag):
+def extract_href(tag):
     # Check for href with "Property:"
     a_tag = tag.find("a", href=True)
     if a_tag and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
+
+    if a_tag and "Q" in a_tag["href"]:
+        return a_tag["href"].split("/")[2]
 
     # Check for title attribute with "Property:"
     if tag.has_attr("title") and "Property:" in tag["title"]:
