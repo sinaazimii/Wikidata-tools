@@ -136,8 +136,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
+            value = None
             td_tag_text = row.get_text(strip=True)
-            value = row.find("a")
+            predicate_a_tags = row.find_all("a")  # Find all <a> tags in the current row
+            if len(predicate_a_tags) != 0:
+                value = predicate_a_tags[0]
             if value:
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
@@ -159,6 +162,14 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
 
+
+        # Process Where clause
+        where_clause = ""
+        if (len(predicate_a_tags) > 1):
+            value = predicate_a_tags[1]
+            if value:           
+                where_clause = f"WHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}}"
+
         if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank":
@@ -166,7 +177,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
 
-        # TODO: whenever an object has a href or link, use that instead of the text in the object
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
@@ -216,32 +226,43 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
     if main_predicate_type == "schema":
         delete_rdf = (
-            "DELETE DATA {\n"
+            ("DELETE DATA {\n" if where_clause=='' else "DELETE {\n")
             + f"  wd:{subject}"
             + "\n\t\t".join(delete_statements)
             + "."
-            + "\n};"
+            + "\n}"
+            + "\n"
+            + where_clause
+            + "\n"
         )
         insert_rdf = (
-            "INSERT DATA {\n"
+            ("INSERT DATA {\n" if where_clause=='' else "INSERT {\n")
             + f"  wd:{subject}"
             + "\n\t\t".join(insert_statements)
             + "."
-            + "\n};"
+            + "\n}"
+            + "\n"
+            + where_clause
         )
 
     else:
         delete_rdf = (
-            "DELETE DATA {\n"
+            ("DELETE DATA {\n" if where_clause=='' else "DELETE {\n")
             + f"  wd:{subject} {main_predicate} [\n"
             + "\n".join(delete_statements)
-            + "\n]};"
+            + "\n]}"
+            + "\n"
+            + where_clause
+            + "\n"
         )
         insert_rdf = (
-            "INSERT DATA {\n"
+            ("INSERT DATA {\n" if where_clause=='' else "INSERT {\n")
             + f"  wd:{subject} {main_predicate} [\n"
             + "\n".join(insert_statements)
-            + "\n]};"
+            + "\n]}"
+            + "\n"
+            + where_clause
+            + "\n"
         )
 
     if delete_statements != []:
@@ -256,29 +277,37 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
 def handle_nested(nested_tags, current_predicate):
     prefix = "ps"
+    open_nested = None
+    change_statement = ""
     if current_predicate == "prov:wasDerivedFrom":
         prefix = "pr"
+        open_nested = True
+        change_statement = "  " + current_predicate + " [\n"
     elif current_predicate == "qualifier":
+        # do not open a nested [] for qualifiers
         prefix = "pq"
-    change_statement = "  " + current_predicate + " [\n"
+        open_nested = False
+
     i = 0
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         change_statement += (
-            f'    {prefix}:{predicate} "{nested_tags[i+1].text}" ;\n'
+            ("    " if open_nested else "  ") + f'{prefix}:{predicate} "{nested_tags[i+1].text}" ;' + ("\n" if open_nested else "")
         )
         i += 1
 
-    return change_statement + "];"
-
+    return change_statement + ("];" if open_nested else "")
 
 def extract_href(tag):
     # Check for href with "Property:"
-    a_tag = tag.find("a", href=True)
-    b_tag = tag.find("b")
+    a_tag = tag.find("a")
+    b_tag = tag.find("b", class_="wb-time-rendered")
+    if tag.name == "a":
+        a_tag = tag
     # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
+
 
     if a_tag and "Q" in a_tag["href"]:
         return "wd:" + a_tag["href"].split("/")[2]
