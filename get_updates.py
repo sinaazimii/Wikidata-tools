@@ -133,6 +133,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     main_predicate = None
     main_predicate_type = None
     language = ""
+    deleting_blank_node = False
     for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
@@ -167,8 +168,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         where_clause = ""
         if (len(predicate_a_tags) > 1):
             value = predicate_a_tags[1]
-            if value:           
-                where_clause = f"WHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}}"
+            if value:       
+                where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
+            
 
         if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
@@ -181,13 +183,18 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
             if value:
-                delete_nested_tags = value.find_all("a")
-                delete_nested_tags += value.find_all("b")
+                print("value:", value)
+                
+                delete_nested_tags = value.find_all("a", "b")
+                
+                # delete_nested_tags += value.find_all("b")
+                print(delete_nested_tags)
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
+                    deleting_blank_node = True
                     delete_statements.append(
-                        handle_nested(delete_nested_tags, current_predicate)
+                        handle_nested(delete_nested_tags, current_predicate, deleting_blank_node)
                     )
-                else:
+                else:     
                     if current_predicate:
                         deleted_value = extract_href(value)
                         if (current_predicate == "qualifier"):
@@ -208,9 +215,10 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 add_nested_tags = value.find_all("a")
                 add_nested_tags += value.find_all("b")
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
-                    insert_statements.append(
-                        handle_nested(add_nested_tags, current_predicate)
-                    )
+                    # insert_statements.append(
+                    #     handle_nested(add_nested_tags, current_predicate)
+                    # )
+                    continue
                 else:
                     if current_predicate:
                         added_value = extract_href(value)
@@ -223,47 +231,54 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
-
+    if (where_clause == ""):
+        where_clause = ";"
     if main_predicate_type == "schema":
         delete_rdf = (
-            ("DELETE DATA {\n" if where_clause=='' else "DELETE {\n")
+            ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
             + f"  wd:{subject}"
             + "\n\t\t".join(delete_statements)
             + "."
             + "\n}"
-            + "\n"
             + where_clause
-            + "\n"
         )
         insert_rdf = (
-            ("INSERT DATA {\n" if where_clause=='' else "INSERT {\n")
+            ("INSERT DATA {\n" if where_clause==';' else "INSERT {\n")
             + f"  wd:{subject}"
             + "\n\t\t".join(insert_statements)
             + "."
             + "\n}"
-            + "\n"
             + where_clause
         )
 
     else:
-        delete_rdf = (
-            ("DELETE DATA {\n" if where_clause=='' else "DELETE {\n")
-            + f"  wd:{subject} {main_predicate} [\n"
-            + "\n".join(delete_statements)
-            + "\n]}"
-            + "\n"
-            + where_clause
-            + "\n"
-        )
+        print("insert:", insert_statements)
         insert_rdf = (
-            ("INSERT DATA {\n" if where_clause=='' else "INSERT {\n")
+            ("INSERT DATA {\n" if where_clause==';' else "INSERT {\n")
             + f"  wd:{subject} {main_predicate} [\n"
             + "\n".join(insert_statements)
             + "\n]}"
-            + "\n"
             + where_clause
-            + "\n"
         )
+        if (deleting_blank_node):
+            print("deletes: ",delete_statements)
+            where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)}; {current_predicate} ?refNode ].\n}};\n"
+            delete_rdf = (
+                ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
+                + "?refNode"
+                + "\n".join(delete_statements)
+                + "\n}"
+                + where_clause
+            )
+        else:
+            delete_rdf = (
+                ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
+                + f"  wd:{subject} {main_predicate} [\n"
+                + "\n".join(delete_statements)
+                + "\n]}"
+                + where_clause
+            )
+
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
@@ -275,14 +290,15 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print("\n")
 
 
-def handle_nested(nested_tags, current_predicate):
+def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
     prefix = "ps"
     open_nested = None
     change_statement = ""
     if current_predicate == "prov:wasDerivedFrom":
         prefix = "pr"
-        open_nested = True
-        change_statement = "  " + current_predicate + " [\n"
+        if (not deleting_blank_node):
+            change_statement = "  " + current_predicate + " [\n"
+            open_nested = True
     elif current_predicate == "qualifier":
         # do not open a nested [] for qualifiers
         prefix = "pq"
@@ -291,11 +307,16 @@ def handle_nested(nested_tags, current_predicate):
     i = 0
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
-        change_statement += (
-            ("    " if open_nested else "  ") + f'{prefix}:{predicate} "{nested_tags[i+1].text}" ;' + ("\n" if open_nested else "")
-        )
+        object = extract_href(nested_tags[i+1])
+        if (deleting_blank_node):
+            change_statement += (
+                f"  {prefix}:{predicate} {object} ;"
+            )
+        else:
+            change_statement += (
+                ("    " if open_nested else "  ") + f'{prefix}:{predicate} {object} ;' + ("\n" if open_nested else "")
+            )
         i += 1
-
     return change_statement + ("];" if open_nested else "")
 
 def extract_href(tag):
@@ -304,6 +325,8 @@ def extract_href(tag):
     b_tag = tag.find("b", class_="wb-time-rendered")
     if tag.name == "a":
         a_tag = tag
+    # print("a tag is: ",a_tag)
+    
     # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
@@ -325,6 +348,7 @@ def extract_href(tag):
 
     # If none of the above, return the tag's text in ""
     return f'"{tag.text.strip()}"'
+
 
 def to_camel_case(s):
     # Remove quotes and trim whitespace

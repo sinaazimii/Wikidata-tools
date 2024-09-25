@@ -24,11 +24,15 @@ INSERT DATA {
   wd:Q16763189  schema:label "1869年比利时"@zh ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288746 p:P131 [
   ps:P131 wd:Q3922 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288746 p:P131 [ ps:P131 wd:Q3922 ].
+};
+
 
 DELETE DATA {
   wd:Q81193059  schema:label "TYC 1982-1735-1"@en ;
@@ -89,14 +93,18 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95805050 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1014034965" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95805050 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -138,7 +146,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -183,16 +191,20 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P8179 [
   ps:P8179 "ncf10960665" ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
-    pr:P248 "Virtual International Authority File" ;
+    pr:P248 wd:Q54919 ;
     pr:P214 "112927246" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P8179 [ ps:P8179 "ncf10960665" ].
+};
+
 
 INSERT DATA {
   wd:Q98090655  schema:description "波蘭足球運動員"@zh ;
@@ -209,22 +221,30 @@ INSERT DATA {
   pq:P1545 10 ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q130288741 p:P18 [
   ps:P18 "PasterzenhausGroßglocknerHochalpenstraße.JPG" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288741 p:P18 [ ps:P18 "PasterzenhausGroßglocknerHochalpenstraße.JPG" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q61157378 p:P271 [
   ps:P271 "DA07083276" ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
-    pr:P248 "Virtual International Authority File" ;
+    pr:P248 wd:Q54919 ;
     pr:P214 "112927246" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P271 [ ps:P271 "DA07083276" ].
+};
+
 
 INSERT DATA {
   wd:Q98090656  schema:description "波蘭足球運動員"@zh ;
@@ -299,18 +319,24 @@ INSERT DATA {
   wd:Q81190675  schema:label "TYC 1982-1773-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P20 [
-  qualifier [
-    pq:P1480 "according to some sources" ;
-];
-]};
+  pq:P1480 wd:Q59783740 ;
+]}
+WHERE {
+  wd:Q130288664 p:P20 [ ps:P20 wd:Q2766547 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q130288350 p:P3301 [
   ps:P3301 wd:Q9531 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288350 p:P3301 [ ps:P3301 wd:Q9531 ].
+};
+
 
 INSERT DATA {
   wd:Q98093375  schema:description "波蘭足球運動員"@zh ;
@@ -370,28 +396,36 @@ INSERT DATA {
   wd:Q11245833  schema:label "Sel'm"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95763229 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "111268655X" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95763229 p:P21 [ ps:P21 wd:Q6581097 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q13234727 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "070239177" ;
     pr:P813 "8 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q13234727 p:P1412 [ ps:P1412 wd:Q1860 ].
+};
+
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -457,14 +491,16 @@ DELETE DATA {
 		  schema:label "TYC 1982-1774-1"@et ;.
 };
 
-DELETE DATA {
-  wd:Q13234727 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/070239177" "8 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/070239177" "8 March 2020" ;
+        
+}
+WHERE {
+  wd:Q13234727 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81191281  schema:label "TYC 1982-1778-1"@mul ;.
@@ -616,7 +652,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -665,11 +701,15 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q3866371 p:P527 [
   ps:P527 wd:Q130288714 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q3866371 p:P527 [ ps:P527 wd:Q130288714 ].
+};
+
 
 INSERT DATA {
   wd:Q98831266  schema:description "波蘭足球運動員"@zh ;
@@ -677,11 +717,15 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q113087269 p:P361 [
   ps:P361 wd:Q15929980 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q113087269 p:P361 [ ps:P361 wd:Q15929980 ].
+};
+
 
 INSERT DATA {
   wd:Q56810857  schema:description "potok na Ćeškem"@sl ;.
@@ -740,14 +784,18 @@ INSERT DATA {
   wd:Q81192667  schema:label "TYC 1982-1815-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95834366 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061556557" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95834366 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q130288664  schema:aliases "Laurens van Teijlingen"@en ;
@@ -801,11 +849,15 @@ INSERT DATA {
   pq:P1545 12 ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q130288746 p:P18 [
   ps:P18 "Detmold - Mordkuhle Hiddesen (12).JPG" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288746 p:P18 [ ps:P18 "Detmold - Mordkuhle Hiddesen (12).JPG" ].
+};
+
 
 INSERT DATA {
   wd:Q98834583  schema:description "波蘭足球運動員"@zh ;
@@ -858,7 +910,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -912,15 +964,19 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P650 [
   prov:wasDerivedFrom [
-    pr:P248 "Catalogue of the Rijksmuseum Research Library" ;
+    pr:P248 wd:Q106327898 ;
     pr:P854 "https://library.rijksmuseum.nl/cgi-bin/koha/opac-authoritiesdetail.pl?marc=1&authid=112642" ;
     pr:P7444 "112642" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P650 [ ps:P650 "358396" ].
+};
+
 
 INSERT DATA {
   wd:Q98835289  schema:description "波蘭足球運動員"@zh ;
@@ -2137,14 +2193,18 @@ INSERT DATA {
   wd:Q81200182  schema:label "TYC 1982-1847-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95844681 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061634698" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95844681 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q98835296  schema:description "波蘭足球運動員"@zh ;
@@ -2152,19 +2212,23 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q16318945 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "168664704" ;
     pr:P813 "8 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q16318945 p:P1412 [ ps:P1412 wd:Q9063 ].
+};
+
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -2230,14 +2294,16 @@ DELETE DATA {
 		  schema:label "TYC 1982-1847-1"@ksh ;.
 };
 
-DELETE DATA {
-  wd:Q16318945 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/168664704" "8 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/168664704" "8 March 2020" ;
+        
+}
+WHERE {
+  wd:Q16318945 p:P1412 [ ps:P1412 wd:Q9063; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81200323  schema:label "TYC 1982-1851-1"@mul ;.
@@ -2332,17 +2398,25 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P213 [
   ps:P213 "000000039316521X" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P213 [ ps:P213 "000000039316521X" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q112047282 p:P669 [
   ps:P669 wd:Q130288589 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q112047282 p:P669 [ ps:P669 wd:Q130288589 ].
+};
+
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -2353,18 +2427,18 @@ INSERT DATA {
   wd:Q81192300  schema:label "TYC 1982-188-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288717 p:P2632 [
   ps:P2632 wd:Q7341 ;
   wikibase:rank wikibase:NormalRank ;
-  qualifier [
-    pq:P580 "18 May 1943" ;
-];
+  pq:P580 "18 May 1943" ;
   pq:P1545 114.010 ;
-  qualifier [
-    pq:P582 "5 July 1943" ;
-];
-]};
+  pq:P582 "5 July 1943" ;
+]}
+WHERE {
+  wd:Q130288717 p:P2632 [ ps:P2632 wd:Q7341 ].
+};
+
 
 INSERT DATA {
   wd:Lexeme:L630615  schema:Sense "linot"@L630615-S1 ;.
@@ -2373,7 +2447,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q46496045 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216528" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216528" ;
     pr:P813 "13 September 2024" ;
@@ -2447,11 +2521,15 @@ INSERT DATA {
   wd:Q58817431  schema:label "бассейн Кларэльвена"@ru ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q46496045 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ].
+};
+
 
 INSERT DATA {
   wd:Q98835301  schema:description "波蘭足球運動員"@zh ;
@@ -2532,25 +2610,33 @@ INSERT DATA {
   wd:Q58817431  schema:description "водосборный бассейн"@ru ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P213 [
   prov:wasDerivedFrom [
-    pr:P248 "Virtual International Authority File" ;
+    pr:P248 wd:Q54919 ;
     pr:P854 "https://viaf.org/viaf/287430628/" ;
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P213 [ ps:P213 "000000039316521X" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q46496045 p:P953 [
   prov:wasDerivedFrom [
-    pr:P248 "Crossref" ;
+    pr:P248 wd:Q5188229 ;
     pr:P356 "10.1016/S0190-9622(97)70216-0" ;
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ].
+};
+
 
 INSERT DATA {
   wd:Q130288762 a schema:Thing ;
@@ -2566,11 +2652,15 @@ INSERT DATA {
   wd:Q81183839  schema:label "TYC 1982-1898-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q46496045 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ].
+};
+
 
 INSERT DATA {
   wd:Q98874294  schema:description "波蘭足球運動員"@zh ;
@@ -2594,14 +2684,18 @@ INSERT DATA {
   wd:Q92978845  schema:description "artículo científico"@es ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95799141 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061677222" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95799141 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q11245933  schema:label "Shamo"@ga ;.
@@ -2682,15 +2776,19 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q46496045 p:P953 [
   prov:wasDerivedFrom [
-    pr:P248 "Crossref" ;
+    pr:P248 wd:Q5188229 ;
     pr:P356 "10.1016/S0190-9622(97)70216-0" ;
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ].
+};
+
 
 INSERT DATA {
   wd:Q92978845  schema:description "article scientifique"@fr ;.
@@ -2743,17 +2841,25 @@ INSERT DATA {
   wd:Q11245958  schema:label "She-Shell"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q46496045 p:P2860 [
   ps:P2860 wd:Q56269607 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q123699570 p:P1038 [
   ps:P1038 wd:Q47507126 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q123699570 p:P1038 [ ps:P1038 wd:Q47507126 ].
+};
+
 
 INSERT DATA {
   wd:Q30957374  schema:label "Ягалдай Сараевіч"@be ;.
@@ -2767,11 +2873,15 @@ INSERT DATA {
   wd:Q8521944  schema:label "companions"@en ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P244 [
   ps:P244 "no2011180367" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P244 [ ps:P244 "no2011180367" ].
+};
+
 
 INSERT DATA {
   wd:Q92978845  schema:description "artykuł naukowy"@pl ;.
@@ -2840,14 +2950,16 @@ DELETE DATA {
   wd:Q8521944  schema:label "Companions"@en ;.
 };
 
-DELETE DATA {
-  wd:Q130287189 p:P97 [
-  ps:P97 wd:Q1138610 ;
+DELETE {
+?refNode  ps:P97 wd:Q1138610 ;
   wikibase:rank wikibase:NormalRank ;
-  prov:wasDerivedFrom [
-    pr:P356 "10.4324/9781315576909-9" ;
-];
-]};
+  pr:P356 "10.4324/9781315576909-9" ;
+        
+}
+WHERE {
+  wd:Q130287189 p:P97 [ ps:P97 P356; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81198760  schema:label "TYC 1982-1913-1"@mul ;.
@@ -2869,20 +2981,28 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q46496045 p:P2860 [
   pq:P1545 14 ;
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
+};
+
 
 INSERT DATA {
   wd:Q92978845  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q3043226 p:P1368 [
   ps:P1368 "000078936" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q3043226 p:P1368 [ ps:P1368 "000078936" ].
+};
+
 
 INSERT DATA {
   wd:Q130288738 p:P6375 [
@@ -2926,14 +3046,18 @@ INSERT DATA {
   wd:Q30957374  schema:description "(XV ст.) татарскі князь"@be ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95803928 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061736474" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95803928 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q99332316  schema:description "波蘭足球運動員"@zh ;
@@ -2941,34 +3065,46 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P1280 [
   ps:P1280 "39810915" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P1280 [ ps:P1280 "39810915" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q46496045 p:P2860 [
   prov:wasDerivedFrom [
-    pr:P248 "Crossref" ;
+    pr:P248 wd:Q5188229 ;
     pr:P356 "10.1016/S0190-9622(97)70216-0" ;
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
+};
+
 
 INSERT DATA {
   wd:Q117195864  schema:label "Anota Joshua Ola"@ig ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q11427213 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "098838520" ;
     pr:P813 "7 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q11427213 p:P1412 [ ps:P1412 wd:Q5287 ].
+};
+
 
 DELETE DATA {
   wd:Q80002771  schema:label "TYC 1982-1923-1"@en ;
@@ -3011,14 +3147,16 @@ DELETE DATA {
 		  schema:label "TYC 1982-1923-1"@vo ;.
 };
 
-DELETE DATA {
-  wd:Q11427213 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/098838520" "7 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/098838520" "7 March 2020" ;
+        
+}
+WHERE {
+  wd:Q11427213 p:P1412 [ ps:P1412 wd:Q5287; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81187888  schema:label "TYC 1982-1939-1"@mul ;.
@@ -3036,15 +3174,19 @@ INSERT DATA {
   wd:Q11245979  schema:label "Sherry"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P244 [
   prov:wasDerivedFrom [
-    pr:P248 "Virtual International Authority File" ;
+    pr:P248 wd:Q54919 ;
     pr:P854 "https://viaf.org/viaf/287430628/" ;
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P244 [ ps:P244 "no2011180367" ].
+};
+
 
 INSERT DATA {
   wd:Q117195864  schema:description "nigerian"@en ;.
@@ -3082,18 +3224,20 @@ DELETE DATA {
   wd:Q120629783  schema:links "2018"@enwiki ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Weinstein GD" ;
+DELETE {
+?refNode  ps:P2093 "Weinstein GD" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 1 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q117195864  schema:description "Nigerian"@en ;.
@@ -3107,11 +3251,15 @@ INSERT DATA {
   wd:Q30957374  schema:aliases "Егалдай Сараевіч"@be ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q98607571 p:P10689 [
   ps:P10689 "166994620" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q98607571 p:P10689 [ ps:P10689 "166994620" ].
+};
+
 
 INSERT DATA {
   wd:Q40596  schema:description "波蘭足球運動員"@zh ;
@@ -3119,10 +3267,14 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q112047282 p:P669 [
   pq:P670 7 ;
-]};
+]}
+WHERE {
+  wd:Q112047282 p:P669 [ ps:P669 wd:Q130288589 ].
+};
+
 
 INSERT DATA {
   wd:Q117195864  schema:description "onye ndọrọ ndọrọ ọchịchị nigeria"@ig ;.
@@ -3156,18 +3308,20 @@ DELETE DATA {
 		  schema:label "TYC 1982-194-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Krueger GG" ;
+DELETE {
+?refNode  ps:P2093 "Krueger GG" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 2 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81198895  schema:label "TYC 1982-1949-1"@mul ;.
@@ -3236,31 +3390,35 @@ DELETE DATA {
 		  schema:label "TYC 1982-1949-1"@ksh ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Duvic M" ;
+DELETE {
+?refNode  ps:P2093 "Duvic M" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 4 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Lowe NJ" ;
+
+DELETE {
+?refNode  ps:P2093 "Lowe NJ" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 3 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:User:Fuzheado/MFA  schema:Line30: "88" ;
@@ -3325,15 +3483,19 @@ INSERT DATA {
   wd:Q11246027  schema:label "Shing"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288664 p:P1006 [
   prov:wasDerivedFrom [
-    pr:P248 "Virtual International Authority File" ;
+    pr:P248 wd:Q54919 ;
     pr:P854 "https://viaf.org/viaf/287430628/" ;
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q130288664 p:P1006 [ ps:P1006 "152934464" ].
+};
+
 
 INSERT DATA {
   wd:Q14806848  schema:description "potok na Češkem"@sl ;.
@@ -3443,37 +3605,47 @@ DELETE DATA {
 		  schema:label "TYC 1982-1954-1"@cy ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Friedman DJ" ;
+DELETE {
+?refNode  ps:P2093 "Friedman DJ" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 5 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81202236  schema:label "TYC 1982-1958-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95770703 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061723526" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95770703 p:P21 [ ps:P21 wd:Q6581097 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q130288762 p:P31 [
   ps:P31 wd:Q4830453 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288762 p:P31 [ ps:P31 wd:Q4830453 ].
+};
+
 
 DELETE DATA {
   wd:Q81202236  schema:label "TYC 1982-1958-1"@en ;
@@ -3503,18 +3675,20 @@ DELETE DATA {
 		  schema:label "TYC 1982-1958-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Jegasothy BV" ;
+DELETE {
+?refNode  ps:P2093 "Jegasothy BV" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 6 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q76925037  schema:label "TYC 1982-1964-1"@mul ;.
@@ -3565,33 +3739,35 @@ DELETE DATA {
 		  schema:label "TYC 1982-1964-1"@vo ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Jorizzo JL" ;
+DELETE {
+?refNode  ps:P2093 "Jorizzo JL" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 7 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
 
-DELETE DATA {
-  wd:Q130288385 p:P26 [
-  ps:P26 wd:Q1054887 ;
+
+DELETE {
+?refNode  ps:P26 wd:Q1054887 ;
   wikibase:rank wikibase:NormalRank ;
-  qualifier [
-    pq:P580 "28 June 1973" ;
-];
-  qualifier [
-    pq:P582 "3 September 2024" ;
-];
-  qualifier [
-    pq:P1534 "death of subject" ;
-];
-]};
+  pq:P580 "28 June 1973" ;
+        
+  pq:P582 "3 September 2024" ;
+        
+  pq:P1534 wd:Q99521170 ;
+        
+}
+WHERE {
+  wd:Q130288385 p:P26 [ ps:P26 P1534; qualifier ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81196465  schema:label "TYC 1982-1968-1"@mul ;.
@@ -3635,18 +3811,20 @@ DELETE DATA {
 		  schema:label "TYC 1982-1968-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Shmunes E" ;
+DELETE {
+?refNode  ps:P2093 "Shmunes E" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 8 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q79991157  schema:label "TYC 1982-1978-1"@mul ;.
@@ -3656,26 +3834,28 @@ INSERT DATA {
   wd:Wikidata:WikiProject Genealogy/numbers/descendants/Osman I  schema:Line11: "267" ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P8851 [
   ps:P8851 "30797671" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P8851 [ ps:P8851 "30797671" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q130288385 p:P26 [
   ps:P26 wd:Q1054887 ;
   wikibase:rank wikibase:NormalRank ;
-  qualifier [
-    pq:P580 "28 June 1973" ;
-];
-  qualifier [
-    pq:P582 "3 September 2024" ;
-];
-  qualifier [
-    pq:P1534 "death of subject" ;
-];
-]};
+  pq:P580 "28 June 1973" ;
+  pq:P582 "3 September 2024" ;
+  pq:P1534 wd:Q99521170 ;
+]}
+WHERE {
+  wd:Q130288385 p:P26 [ ps:P26 wd:Q1054887 ].
+};
+
 
 INSERT DATA {
   wd:Q104650543  schema:description "智利足球運動員"@zh ;
@@ -3728,18 +3908,20 @@ DELETE DATA {
   wd:Wikidata:WikiProject Genealogy/numbers/descendants/Osman I  schema:Line11: "266" ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Tschen EH" ;
+DELETE {
+?refNode  ps:P2093 "Tschen EH" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 9 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q4325527 p:P9435 [
@@ -3747,11 +3929,15 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P3987 [
   ps:P3987 "369551" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P3987 [ ps:P3987 "369551" ].
+};
+
 
 INSERT DATA {
   wd:Q105394167  schema:description "智利足球運動員"@zh ;
@@ -3759,37 +3945,47 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288746 p:P1889 [
   ps:P1889 wd:Q32142992 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288746 p:P1889 [ ps:P1889 wd:Q32142992 ].
+};
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Lew-Kaya DA" ;
+
+DELETE {
+?refNode  ps:P2093 "Lew-Kaya DA" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 10 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81184485  schema:label "TYC 1982-2000-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q94885841 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1012385728" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q94885841 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q105721085  schema:description "智利足球運動員"@zh ;
@@ -3809,14 +4005,18 @@ INSERT DATA {
   wd:Q11246279  schema:description "banna ceoil Seapánach"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q23694688 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "075672901" ;
     pr:P813 "10 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q23694688 p:P1412 [ ps:P1412 wd:Q1860 ].
+};
+
 
 INSERT DATA {
   wd:Q116793883  schema:label "Veveřský potok"@sl ;.
@@ -3850,27 +4050,31 @@ DELETE DATA {
 		  schema:label "TYC 1982-2000-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q23694688 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/075672901" "10 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/075672901" "10 March 2020" ;
+        
+}
+WHERE {
+  wd:Q23694688 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
+};
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Lue JC" ;
+
+DELETE {
+?refNode  ps:P2093 "Lue JC" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 11 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81187242  schema:label "TYC 1982-2003-1"@mul ;.
@@ -3914,46 +4118,52 @@ DELETE DATA {
 		  schema:label "TYC 1982-2003-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Gibson JR" ;
+DELETE {
+?refNode  ps:P2093 "Gibson JR" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 13 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q10087552  schema:description "Wikimedia"@fr ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Sefton J" ;
+DELETE {
+?refNode  ps:P2093 "Sefton J" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 12 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81185223  schema:label "TYC 1982-2011-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Lexeme:L630615 p:P1343 [
-  qualifier [
-    pq:P6072 "L630615-S1" ;
-];
-]};
+  pq:P6072 "L630615-S1" ;
+]}
+WHERE {
+  wd:Lexeme:L630615 p:P1343 [ ps:P1343 wd:Q19216625 ].
+};
+
 
 INSERT DATA {
   wd:Q117195864  schema:aliases "Joe Anota"@ig ;.
@@ -3963,11 +4173,15 @@ INSERT DATA {
   wd:Q112047282  schema:aliases "Дом Ковалева"@ru ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P9251 [
   ps:P9251 "29566" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P9251 [ ps:P9251 "29566" ].
+};
+
 
 DELETE DATA {
   wd:Q81185223  schema:label "TYC 1982-2011-1"@en ;
@@ -3997,18 +4211,20 @@ DELETE DATA {
 		  schema:label "TYC 1982-2011-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q46496045 p:P2093 [
-  ps:P2093 "Chandraratna RA" ;
+DELETE {
+?refNode  ps:P2093 "Chandraratna RA" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 14 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216528" ;
-    pr:P813 "reference URL" ;
-    pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216528" ;
+          pr:P813 P854 ;
+          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
+        
+}
+WHERE {
+  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81191806  schema:label "TYC 1982-2014-1"@mul ;.
@@ -4018,21 +4234,29 @@ INSERT DATA {
   wd:Q11246318  schema:label "Katala Hamu Lingu"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q32142992 p:P1889 [
   ps:P1889 wd:Q130288746 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q32142992 p:P1889 [ ps:P1889 wd:Q130288746 ].
+};
+
 
 INSERT DATA {
   wd:Q8521944  schema:description "Wikimédia"@fr ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288717 p:P20 [
   ps:P20 wd:Q7341 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288717 p:P20 [ ps:P20 wd:Q7341 ].
+};
+
 
 INSERT DATA {
   wd:Q106767983  schema:description "智利足球運動員"@zh ;
@@ -4080,11 +4304,15 @@ INSERT DATA {
   wd:Q81188287  schema:label "TYC 1982-2020-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P11193 [
   ps:P11193 "5c18dd4756972ccb3eb64f85" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P11193 [ ps:P11193 "5c18dd4756972ccb3eb64f85" ].
+};
+
 
 INSERT DATA {
   wd:Q106768141  schema:description "智利足球運動員"@zh ;
@@ -4124,20 +4352,28 @@ INSERT DATA {
   wd:Q81189536  schema:label "TYC 1982-2023-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95876036 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061808777" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95876036 p:P21 [ ps:P21 wd:Q6581097 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q98607571 p:P18 [
   ps:P18 "Dinkelsbühl Segringerstrasse 21-002.jpg" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q98607571 p:P18 [ ps:P18 "Dinkelsbühl Segringerstrasse 21-002.jpg" ].
+};
+
 
 INSERT DATA {
   wd:Q107353831  schema:description "智利足球運動員"@zh ;
@@ -4195,12 +4431,16 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q21456698 p:P737 [
   prov:wasDerivedFrom [
     pr:P854 "https://www.purdyhicks.com/artists/27-andrzej-jackowski/biography/" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q21456698 p:P737 [ ps:P737 wd:Q545825 ].
+};
+
 
 DELETE DATA {
   wd:Q81194409  schema:label "TYC 1982-2025-1"@en ;
@@ -4273,14 +4513,18 @@ INSERT DATA {
   wd:Q81189770  schema:label "TYC 1982-2029-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130287189 p:P511 [
   ps:P511 wd:Q1138610 ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
     pr:P356 "10.4324/9781315576909-9" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q130287189 p:P511 [ ps:P511 wd:Q1138610 ].
+};
+
 
 INSERT DATA {
   wd:Q107622883  schema:description "智利足球運動員"@zh ;
@@ -4292,17 +4536,25 @@ INSERT DATA {
   wd:Q90259985  schema:description "bilimsel makale"@tr ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q126417474 p:P31 [
   ps:P31 wd:Q178743 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q126417474 p:P31 [ ps:P31 wd:Q178743 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q130288762 p:P159 [
   ps:P159 wd:Q192517 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288762 p:P159 [ ps:P159 wd:Q192517 ].
+};
+
 
 DELETE DATA {
   wd:Q81189770  schema:label "TYC 1982-2029-1"@en ;
@@ -4409,11 +4661,15 @@ INSERT DATA {
   wd:Q18361944  schema:description "potok na Češkem"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Lexeme:L630615 p:P5137 [
   item for this sense wd:Q193807 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Lexeme:L630615 p:P5137 [ ps:P5137 wd:Q193807 ].
+};
+
 
 INSERT DATA {
   wd:Q90259985  schema:description "artykuł naukowy"@pl ;.
@@ -4554,28 +4810,36 @@ INSERT DATA {
   wd:Q90259985  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q15982578 p:P27 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "11956937X" ;
     pr:P813 "8 March 2020" ;
 ];
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "11956937X" ;
     pr:P813 "8 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q15982578 p:P27 [ ps:P27 wd:Q145 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q95854207 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061415783" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95854207 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q1077183  schema:links "LH 54-425"@svwiki ;.
@@ -4598,19 +4862,20 @@ DELETE DATA {
 		  schema:label "TYC 1982-2048-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q15982578 p:P27 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
-];
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
+        
+  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
+        
+}
+WHERE {
+  wd:Q15982578 p:P27 [ ps:P27 wd:Q145; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81200409  schema:label "TYC 1982-2063-1"@mul ;.
@@ -4770,11 +5035,15 @@ INSERT DATA {
   wd:Q81201953  schema:label "TYC 1982-2091-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q47507126 p:P734 [
   ps:P734 wd:Q21488887 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q47507126 p:P734 [ ps:P734 wd:Q21488887 ].
+};
+
 
 INSERT DATA {
   wd:Q10958285  schema:description "智利足球運動員"@zh ;
@@ -4815,35 +5084,47 @@ DELETE DATA {
 		  schema:label "TYC 1982-2091-1"@dv ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Lexeme:L630615 p:P5137 [
   item for this sense wd:Q37681 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Lexeme:L630615 p:P5137 [ ps:P5137 wd:Q37681 ].
+};
+
 
 INSERT DATA {
   wd:Q11246402  schema:label "Skirt"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95749846 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "117495905" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95749846 p:P21 [ ps:P21 wd:Q6581072 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q130288746 p:P276 [
   ps:P276 wd:Q326313 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288746 p:P276 [ ps:P276 wd:Q326313 ].
+};
+
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216529" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216529" ;
     pr:P813 "13 September 2024" ;
@@ -4858,11 +5139,15 @@ INSERT DATA {
   wd:Q123040393  schema:label "Bedřichovský potok"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288637 p:P138 [
   ps:P138 wd:Q18529869 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288637 p:P138 [ ps:P138 wd:Q18529869 ].
+};
+
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
@@ -5000,10 +5285,14 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q25488794 p:P31 [
   instance of wd:Q22808320 ;
-]};
+]}
+WHERE {
+  wd:Q25488794 p:P31 [ ps:P31 P31 ].
+};
+
 
 INSERT DATA {
   wd:Q11246441  schema:label "Sleep My Dear"@ga ;.
@@ -5012,17 +5301,21 @@ INSERT DATA {
 INSERT DATA {
   wd:Q34431919 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216529" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216529" ;
     pr:P813 "13 September 2024" ;
 ];
 ]};
 
-DELETE DATA {
+DELETE {
   wd:Q25488794 p:P31 [
   instance of wd:Q4167410 ;
-]};
+]}
+WHERE {
+  wd:Q25488794 p:P31 [ ps:P31 P31 ].
+};
+
 
 INSERT DATA {
   wd:Q81183988  schema:label "TYC 1982-2126-1"@mul ;.
@@ -5032,12 +5325,16 @@ INSERT DATA {
   wd:Q79991072  schema:label "TYC 1982-2125-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q21456698 p:P737 [
   prov:wasDerivedFrom [
     pr:P854 "https://www.purdyhicks.com/artists/27-andrzej-jackowski/biography/" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q21456698 p:P737 [ ps:P737 wd:Q276258 ].
+};
+
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
@@ -5112,11 +5409,15 @@ DELETE DATA {
 		  schema:label "TYC 1982-2125-1"@vo ;.
 };
 
-DELETE DATA {
+DELETE {
   wd:Q107405623 p:P17 [
   ps:P17 wd:Q1019 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q107405623 p:P17 [ ps:P17 wd:Q1019 ].
+};
+
 
 INSERT DATA {
   wd:Q3043226  schema:description "zemes attīrīšana no kokiem un krūmiem"@lv ;.
@@ -5145,23 +5446,31 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q95713283 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061716546" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95713283 p:P21 [ ps:P21 wd:Q6581072 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q12393426 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "14730914X" ;
     pr:P813 "8 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q12393426 p:P1412 [ ps:P1412 wd:Q1321 ].
+};
+
 
 INSERT DATA {
   wd:Q110827945  schema:description "智利足球運動員"@zh ;
@@ -5177,14 +5486,16 @@ DELETE DATA {
   wd:Q10087560  schema:description "Wikimedia"@fr ;.
 };
 
-DELETE DATA {
-  wd:Q12393426 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/14730914X" "8 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/14730914X" "8 March 2020" ;
+        
+}
+WHERE {
+  wd:Q12393426 p:P1412 [ ps:P1412 wd:Q1321; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81185883  schema:label "TYC 1982-2128-1"@mul ;.
@@ -5197,7 +5508,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q34431919 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216529" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216529" ;
     pr:P813 "13 September 2024" ;
@@ -5277,7 +5588,7 @@ INSERT DATA {
   wd:Q60890433  schema:label "Kategorio:Latviaj asocioj"@eo ;
 		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;
 		  prov:wasDerivedFrom [
-    pr:P143 "Esperanto Wikipedia" ;
+    pr:P143 wd:Q190551 ;
 ];
 		  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
 };
@@ -5428,9 +5739,8 @@ DELETE DATA {
 		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;
 		  ps:P31 wd:Q4167836@as ;
 		  wikibase:rank wikibase:NormalRank@as ;
-		  prov:wasDerivedFrom [
-    pr:P143 "Esperanto Wikipedia" ;
-];
+		  pr:P143 wd:Q190551 ;
+        
 		  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
 };
 
@@ -5479,17 +5789,25 @@ DELETE DATA {
   wd:Q112047282  schema:description "building"@en ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q1417938 p:P12385 [
   ps:P12385 "gerhard-grenzing" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q1417938 p:P12385 [ ps:P12385 "gerhard-grenzing" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q47507126 p:P1950 [
   ps:P1950 wd:Q93893699 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q47507126 p:P1950 [ ps:P1950 wd:Q93893699 ].
+};
+
 
 INSERT DATA {
   wd:Q16763217  schema:description "Wikimédia"@fr ;.
@@ -5500,11 +5818,15 @@ INSERT DATA {
   pq:P1545 4 ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q130288706 p:P10862 [
   ps:P10862 "highlight/3789038" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288706 p:P10862 [ ps:P10862 "highlight/3789038" ].
+};
+
 
 DELETE DATA {
   wd:Q16763217  schema:description "Wikimedia"@fr ;.
@@ -5548,7 +5870,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q34431919 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216529" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216529" ;
     pr:P813 "13 September 2024" ;
@@ -5598,14 +5920,18 @@ INSERT DATA {
   wd:Q81195260  schema:label "TYC 1982-224-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95705973 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "117701025" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95705973 p:P21 [ ps:P21 wd:Q6581072 ].
+};
+
 
 INSERT DATA {
   wd:Q74767171  schema:description "artículo científico"@es ;.
@@ -5683,7 +6009,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q34431919 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216529" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216529" ;
     pr:P813 "13 September 2024" ;
@@ -5745,11 +6071,15 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q34431919 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ].
+};
+
 
 INSERT DATA {
   wd:Q11246484  schema:description "banna ceoil Seapánach"@ga ;.
@@ -5757,12 +6087,10 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q130288741 p:P2044 [
-  ps:P2044 [
-    ps:"metre" "2,119 metre" ;
-];
+  ps:wd:www.wikidata.org "2,119 metre" ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
-    pr:P248 "Austrian Map" ;
+    pr:P248 wd:Q23196 ;
 ];
 ]};
 
@@ -5778,21 +6106,29 @@ INSERT DATA {
   wd:Q74767171  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q88097929 p:P21 [
   ps:P21 wd:Q6581097 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q88097929 p:P21 [ ps:P21 wd:Q6581097 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q34431919 p:P953 [
   prov:wasDerivedFrom [
-    pr:P248 "Crossref" ;
+    pr:P248 wd:Q5188229 ;
     pr:P356 "10.1016/S0190-9622(97)70217-2" ;
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70217-2" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ].
+};
+
 
 DELETE DATA {
   wd:Q81187279  schema:label "TYC 1982-234-1"@en ;
@@ -5828,11 +6164,15 @@ INSERT DATA {
   wd:Q81198790  schema:label "TYC 1982-249-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q34431919 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ].
+};
+
 
 INSERT DATA {
   wd:Q1220387  schema:description "智利足球運動員"@zh ;
@@ -5872,28 +6212,36 @@ INSERT DATA {
   wd:Q81188810  schema:label "TYC 1982-258-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95670086 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061290034" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95670086 p:P21 [ ps:P21 wd:Q6581072 ].
+};
+
 
 INSERT DATA {
   wd:Q130288664  schema:description "prentkunstenaar, stempelsnijder, cartograaf, muntmeester"@nl ;
 		  schema:description "print artist, diesinker, cartographer, mintmaster"@en ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q18576121 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "13687942X" ;
     pr:P813 "10 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q18576121 p:P1412 [ ps:P1412 wd:Q1860 ].
+};
+
 
 INSERT DATA {
   wd:Q11246484  schema:label "Small Circle of Friends"@ga ;.
@@ -5905,15 +6253,19 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q34431919 p:P953 [
   prov:wasDerivedFrom [
-    pr:P248 "Crossref" ;
+    pr:P248 wd:Q5188229 ;
     pr:P356 "10.1016/S0190-9622(97)70217-2" ;
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70217-2" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ].
+};
+
 
 DELETE DATA {
   wd:Q81188810  schema:label "TYC 1982-258-1"@en ;
@@ -5948,14 +6300,16 @@ DELETE DATA {
 		  schema:description "1637; RKDA:358396"@en ;.
 };
 
-DELETE DATA {
-  wd:Q18576121 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/13687942X" "10 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/13687942X" "10 March 2020" ;
+        
+}
+WHERE {
+  wd:Q18576121 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q12131552  schema:label ", Sângeru"@sh ;.
@@ -5965,11 +6319,15 @@ INSERT DATA {
   wd:Q81191081  schema:label "TYC 1982-262-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q126417474 p:P138 [
   ps:P138 wd:Q102285084 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q126417474 p:P138 [ ps:P138 wd:Q102285084 ].
+};
+
 
 INSERT DATA {
   wd:Q13972178  schema:description "智利足球運動員"@zh ;
@@ -6036,33 +6394,37 @@ DELETE DATA {
 		  schema:label "TYC 1982-262-1"@jv ;.
 };
 
-DELETE DATA {
-  wd:Q34431919 p:P2093 [
-  ps:P2093 "Hecker D" ;
+DELETE {
+?refNode  ps:P2093 "Hecker D" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 2 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216529" ;
-    pr:P813 "2 August 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216529" ;
+          pr:P813 "2 August 2017" ;
+        
+}
+WHERE {
+  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q12085975  schema:label ", Sângeru"@sh ;.
 };
 
-DELETE DATA {
-  wd:Q34431919 p:P2093 [
-  ps:P2093 "Lebwohl M" ;
+DELETE {
+?refNode  ps:P2093 "Lebwohl M" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 1 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216529" ;
-    pr:P813 "2 August 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216529" ;
+          pr:P813 "2 August 2017" ;
+        
+}
+WHERE {
+  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:User:Owenpatel/sandbox/countries/Chile/lower house members  schema:Line17,859: "Mario Desbordes" ;.
@@ -6131,23 +6493,29 @@ DELETE DATA {
 		  schema:label "TYC 1982-273-1"@vo ;.
 };
 
-DELETE DATA {
+DELETE {
   wd:Q107405623 p:P279 [
   ps:P279 wd:Q756820 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q107405623 p:P279 [ ps:P279 wd:Q756820 ].
+};
 
-DELETE DATA {
-  wd:Q34431919 p:P2093 [
-  ps:P2093 "Martinez J" ;
+
+DELETE {
+?refNode  ps:P2093 "Martinez J" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 3 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216529" ;
-    pr:P813 "2 August 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216529" ;
+          pr:P813 "2 August 2017" ;
+        
+}
+WHERE {
+  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q12131554  schema:label ", Sângeru"@sh ;.
@@ -6157,10 +6525,14 @@ INSERT DATA {
   wd:Q81200929  schema:label "TYC 1982-308-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]};
+]}
+WHERE {
+  wd:Q130288350 p:P710 [ ps:P710 wd:Q214124 ].
+};
+
 
 INSERT DATA {
   wd:Q11246499  schema:label "Smappies"@ga ;.
@@ -6198,27 +6570,33 @@ DELETE DATA {
 		  schema:label "TYC 1982-308-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q34431919 p:P2093 [
-  ps:P2093 "Sapadin A" ;
+DELETE {
+?refNode  ps:P2093 "Sapadin A" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 4 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216529" ;
-    pr:P813 "2 August 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216529" ;
+          pr:P813 "2 August 2017" ;
+        
+}
+WHERE {
+  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q76935774  schema:label "TYC 1982-327-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P21 [
   ps:P21 wd:Q6581097 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q28440932  schema:links "বিষয়শ্রেণী:ইউরোপে পুরুষ ক্রীড়া"@bnwiki ;.
@@ -6279,17 +6657,19 @@ DELETE DATA {
   wd:Q8521943  schema:description "Wikimedia"@fr ;.
 };
 
-DELETE DATA {
-  wd:Q34431919 p:P2093 [
-  ps:P2093 "Patel B" ;
+DELETE {
+?refNode  ps:P2093 "Patel B" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 5 ;
-  prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
-    pr:P698 "9216529" ;
-    pr:P813 "2 August 2017" ;
-];
-]};
+  pr:P248 wd:Q5412157 ;
+          pr:P698 "9216529" ;
+          pr:P813 "2 August 2017" ;
+        
+}
+WHERE {
+  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q76929943  schema:label "TYC 1982-342-1"@mul ;.
@@ -6299,14 +6679,18 @@ INSERT DATA {
   wd:Q2462528  schema:links "y"@enwiki ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95794399 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1062220307" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95794399 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q16142780  schema:description "智利足球運動員"@zh ;
@@ -6507,21 +6891,29 @@ INSERT DATA {
   wd:Q76932703  schema:label "TYC 1982-355-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q47507126 p:P1038 [
   ps:P1038 wd:Q123699570 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q47507126 p:P1038 [ ps:P1038 wd:Q123699570 ].
+};
+
 
 INSERT DATA {
   wd:Q117195820  schema:description "onye ndọrọ ndọrọ ọchịchị nigeria"@ig ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P6634 [
   ps:P6634 "r-keith-mobley-797a8810" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P6634 [ ps:P6634 "r-keith-mobley-797a8810" ].
+};
+
 
 INSERT DATA {
   wd:Q16236998  schema:description "智利足球運動員"@zh ;
@@ -6529,12 +6921,16 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q21456698 p:P551 [
   prov:wasDerivedFrom [
     pr:P854 "https://art-collection.europarl.europa.eu/mt/artists/andrzej-jackowski/" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q21456698 p:P551 [ ps:P551 wd:Q648810 ].
+};
+
 
 DELETE DATA {
   wd:Q76932703  schema:label "TYC 1982-355-1"@en ;
@@ -6674,23 +7070,31 @@ INSERT DATA {
   wd:Q81191877  schema:label "TYC 1982-369-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95750629 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061611663" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95750629 p:P21 [ ps:P21 wd:Q6581072 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q11482490 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "184472482" ;
     pr:P813 "7 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q11482490 p:P1412 [ ps:P1412 wd:Q5287 ].
+};
+
 
 INSERT DATA {
   wd:Q68178527  schema:description "bilimsel makale"@tr ;.
@@ -6765,14 +7169,16 @@ DELETE DATA {
 		  schema:label "TYC 1982-369-1"@hr ;.
 };
 
-DELETE DATA {
-  wd:Q11482490 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/184472482" "7 March 2020" ;
-];
-]};
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/184472482" "7 March 2020" ;
+        
+}
+WHERE {
+  wd:Q11482490 p:P1412 [ ps:P1412 wd:Q5287; prov:wasDerivedFrom ?refNode ].
+};
+
 
 DELETE DATA {
   wd:Q12160938  schema:label ", Șirna"@sh ;.
@@ -6788,20 +7194,28 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q16236171 p:P12335 [
   ps:P12335 "8591" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q16236171 p:P12335 [ ps:P12335 "8591" ].
+};
+
 
 INSERT DATA {
   wd:Q68178527  schema:description "article scientifique"@fr ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q88097929 p:P108 [
   employer wd:Q1739877 ;
-]};
+]}
+WHERE {
+  wd:Q88097929 p:P108 [ ps:P108 P108 ].
+};
+
 
 DELETE DATA {
   wd:Q76925787  schema:label "TYC 1982-371-1"@en ;
@@ -6846,10 +7260,14 @@ DELETE DATA {
   wd:Q12087808  schema:label ", Șirna"@sh ;.
 };
 
-DELETE DATA {
+DELETE {
   wd:Q88097929 p:P108 [
   employer wd:Q28738053 ;
-]};
+]}
+WHERE {
+  wd:Q88097929 p:P108 [ ps:P108 P108 ].
+};
+
 
 INSERT DATA {
   wd:Q130288765 a schema:Thing ;
@@ -6888,10 +7306,14 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]};
+]}
+WHERE {
+  wd:Q130288350 p:P710 [ ps:P710 wd:Q103779925 ].
+};
+
 
 INSERT DATA {
   wd:Q68178527  schema:description "artykuł naukowy"@pl ;.
@@ -7021,9 +7443,8 @@ DELETE DATA {
 		  schema:description "категорияд Ангилал"@mn ;
 		  ps:P31 wd:Q4167836@mn ;
 		  wikibase:rank wikibase:NormalRank@mn ;
-		  prov:wasDerivedFrom [
-    pr:P143 "Esperanto Wikipedia" ;
-];
+		  pr:P143 wd:Q190551 ;
+        
 		  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
 };
 
@@ -7064,7 +7485,7 @@ DELETE DATA {
 INSERT DATA {
   wd:Q19846108  schema:label "Kategorio:Kubaj asocioj"@eo ;
 		  prov:wasDerivedFrom [
-    pr:P143 "Esperanto Wikipedia" ;
+    pr:P143 wd:Q190551 ;
 ];
 		  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
 };
@@ -7109,10 +7530,14 @@ INSERT DATA {
   wd:Q76936512  schema:label "TYC 1982-389-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]};
+]}
+WHERE {
+  wd:Q130288350 p:P710 [ ps:P710 wd:Q10520 ].
+};
+
 
 INSERT DATA {
   wd:Q16902248  schema:links "రామ్‌చరణ్ బోహ్రా"@tewiki ;.
@@ -7173,14 +7598,18 @@ INSERT DATA {
   wd:Q11246642  schema:label "Soda fountains"@ga ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q95879314 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "106210448X" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95879314 p:P21 [ ps:P21 wd:Q6581097 ].
+};
+
 
 INSERT DATA {
   wd:Q16297909  schema:description "智利足球運動員"@zh ;
@@ -7287,10 +7716,14 @@ INSERT DATA {
   wd:Q76931263  schema:label "TYC 1982-425-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]};
+]}
+WHERE {
+  wd:Q130288350 p:P710 [ ps:P710 wd:Q122872964 ].
+};
+
 
 INSERT DATA {
   wd:Q16297966  schema:description "智利足球運動員"@zh ;
@@ -7348,11 +7781,15 @@ DELETE DATA {
 		  schema:label "TYC 1982-425-1"@vo ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P735 [
   ps:P735 wd:Q19803517 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P735 [ ps:P735 wd:Q19803517 ].
+};
+
 
 INSERT DATA {
   wd:Q11246689  schema:label "Braník"@ga ;.
@@ -7372,21 +7809,29 @@ INSERT DATA {
   wd:Q81188724  schema:label "TYC 1982-428-1"@mul ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q102285084 p:P119 [
   ps:P119 wd:Q126417474 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q102285084 p:P119 [ ps:P119 wd:Q126417474 ].
+};
+
 
 INSERT DATA {
   wd:Q10087583  schema:description "Wikimédia"@fr ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288637 p:P17 [
   ps:P17 wd:Q145 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288637 p:P17 [ ps:P17 wd:Q145 ].
+};
+
 
 INSERT DATA {
   wd:Q16298064  schema:description "智利足球運動員"@zh ;
@@ -7426,20 +7871,28 @@ DELETE DATA {
   wd:Q10087583  schema:description "Wikimedia"@fr ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q3436945 p:P8286 [
   ps:P8286 "5004216" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q3436945 p:P8286 [ ps:P8286 "5004216" ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q11856708 p:P1412 [
   prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
+    pr:P248 wd:Q47757534 ;
     pr:P269 "057082758" ;
     pr:P813 "8 March 2020" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q11856708 p:P1412 [ ps:P1412 wd:Q1412 ].
+};
+
 
 INSERT DATA {
   wd:Q39454875 p:P2093 [
@@ -7447,14 +7900,18 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT DATA {
+INSERT {
   wd:Q95742495 p:P21 [
   prov:wasDerivedFrom [
-    pr:P248 "Integrated Authority File" ;
+    pr:P248 wd:Q36578 ;
     pr:P227 "1061838757" ;
     pr:P813 "13 September 2024" ;
 ];
-]};
+]}
+WHERE {
+  wd:Q95742495 p:P21 [ ps:P21 wd:Q6581072 ].
+};
+
 
 INSERT DATA {
   wd:Q16298174  schema:description "智利足球運動員"@zh ;
@@ -7462,26 +7919,36 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q130288765 p:P31 [
   ps:P31 wd:Q5 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q130288765 p:P31 [ ps:P31 wd:Q5 ].
+};
 
-INSERT DATA {
+
+INSERT {
   wd:Q61157378 p:P735 [
   ps:P735 wd:Q1159033 ;
   wikibase:rank wikibase:NormalRank ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P735 [ ps:P735 wd:Q1159033 ].
+};
 
-DELETE DATA {
-  wd:Q11856708 p:P1412 [
-  prov:wasDerivedFrom [
-    pr:P248 "IdRef" ;
-    pr:P813 "reference URL" ;
-    pr:"https://www.idref.fr/057082758" "8 March 2020" ;
-];
-]};
+
+DELETE {
+?refNode  pr:P248 wd:Q47757534 ;
+          pr:P813 P854 ;
+          pr:"https://www.idref.fr/057082758" "8 March 2020" ;
+        
+}
+WHERE {
+  wd:Q11856708 p:P1412 [ ps:P1412 wd:Q1412; prov:wasDerivedFrom ?refNode ].
+};
+
 
 INSERT DATA {
   wd:Q81195416  schema:label "TYC 1982-438-1"@mul ;.
@@ -7495,10 +7962,14 @@ INSERT DATA {
   wd:Q65752262  schema:label "companions"@en ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P735 [
   pq:P1545 1 ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P735 [ ps:P735 wd:Q19803517 ].
+};
+
 
 INSERT DATA {
   wd:Q16298243  schema:description "智利足球運動員"@zh ;
@@ -7562,7 +8033,7 @@ INSERT DATA {
 INSERT DATA {
   wd:Q39454875 p:P2093 [
   prov:wasDerivedFrom [
-    pr:P248 "Europe PubMed Central" ;
+    pr:P248 wd:Q5412157 ;
     pr:P698 "9216530" ;
     pr:P854 "https://www.ebi.ac.uk/europepmc/webservices/rest/search?resulttype=core&format=json&query=SRC%3AMED%20AND%20EXT_ID%3A9216530" ;
     pr:P813 "13 September 2024" ;
@@ -7579,10 +8050,14 @@ INSERT DATA {
   wd:Q48906289  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT DATA {
+INSERT {
   wd:Q61157378 p:P735 [
   pq:P1545 2 ;
-]};
+]}
+WHERE {
+  wd:Q61157378 p:P735 [ ps:P735 wd:Q1159033 ].
+};
+
 
 DELETE DATA {
   wd:Q76932543  schema:label "TYC 1982-45-1"@en ;
