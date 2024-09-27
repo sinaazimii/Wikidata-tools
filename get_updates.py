@@ -136,12 +136,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     deleting_blank_node = False
     for row in rows:
         # Process property names
+        # print("row: ", row)
         if row.find("td", class_="diff-lineno"):
             value = None
             td_tag_text = row.get_text(strip=True)
-            predicate_a_tags = row.find_all("a")  # Find all <a> tags in the current row
-            if len(predicate_a_tags) != 0:
-                value = predicate_a_tags[0]
+            value = row.find("a")  # Find all <a> tags in the current row
             if value:
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
@@ -163,19 +162,12 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
 
-
-        # Process Where clause
-        where_clause = ""
-        if (len(predicate_a_tags) > 1):
-            value = predicate_a_tags[1]
-            if value:       
-                where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
-            
-
         if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank":
             current_predicate = "wikibase:rank"
+        elif current_predicate == "instance of":
+            current_predicate = main_predicate
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
 
@@ -183,12 +175,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
             if value:
-                print("value:", value)
-                
-                delete_nested_tags = value.find_all("a", "b")
-                
-                # delete_nested_tags += value.find_all("b")
-                print(delete_nested_tags)
+                delete_nested_tags = value.find_all(lambda tag: tag.name in ['a', 'b'])
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     deleting_blank_node = True
                     delete_statements.append(
@@ -210,14 +197,12 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         # Process added values
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
-            # find all nested a_tags/b_tags in the value
             if value:
-                add_nested_tags = value.find_all("a")
-                add_nested_tags += value.find_all("b")
+                add_nested_tags = value.find_all(lambda tag: tag.name in ['a', 'b'])
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
-                    # insert_statements.append(
-                    #     handle_nested(add_nested_tags, current_predicate)
-                    # )
+                    insert_statements.append(
+                        handle_nested(add_nested_tags, current_predicate)
+                    )
                     continue
                 else:
                     if current_predicate:
@@ -231,53 +216,40 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
-    if (where_clause == ""):
-        where_clause = ";"
+
     if main_predicate_type == "schema":
         delete_rdf = (
-            ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
+            "DELETE DATA {\n"
             + f"  wd:{subject}"
             + "\n\t\t".join(delete_statements)
             + "."
-            + "\n}"
-            + where_clause
+            + "\n};"
         )
         insert_rdf = (
-            ("INSERT DATA {\n" if where_clause==';' else "INSERT {\n")
+            "INSERT DATA {\n"
             + f"  wd:{subject}"
             + "\n\t\t".join(insert_statements)
             + "."
-            + "\n}"
-            + where_clause
+            + "\n};"
         )
 
     else:
-        print("insert:", insert_statements)
+        where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
         insert_rdf = (
-            ("INSERT DATA {\n" if where_clause==';' else "INSERT {\n")
+            "INSERT DATA {\n"
             + f"  wd:{subject} {main_predicate} [\n"
             + "\n".join(insert_statements)
-            + "\n]}"
-            + where_clause
+            + "\n]};"
         )
-        if (deleting_blank_node):
-            print("deletes: ",delete_statements)
-            where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)}; {current_predicate} ?refNode ].\n}};\n"
-            delete_rdf = (
-                ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
-                + "?refNode"
-                + "\n".join(delete_statements)
-                + "\n}"
-                + where_clause
-            )
-        else:
-            delete_rdf = (
-                ("DELETE DATA {\n" if where_clause==';' else "DELETE {\n")
-                + f"  wd:{subject} {main_predicate} [\n"
-                + "\n".join(delete_statements)
-                + "\n]}"
-                + where_clause
-            )
+        delete_rdf = (
+            "DELETE {\n"
+            + "?statement"
+            + "\n".join(delete_statements)
+            + "\n}"
+            + where_clause
+            + "\n\t".join(delete_statements)
+            + "\n};"
+        )
 
 
     if delete_statements != []:
@@ -310,7 +282,7 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
         object = extract_href(nested_tags[i+1])
         if (deleting_blank_node):
             change_statement += (
-                f"  {prefix}:{predicate} {object} ;"
+                f"  {prefix}:{predicate} {object} ;\n"
             )
         else:
             change_statement += (
@@ -325,7 +297,8 @@ def extract_href(tag):
     b_tag = tag.find("b", class_="wb-time-rendered")
     if tag.name == "a":
         a_tag = tag
-    # print("a tag is: ",a_tag)
+    if tag.name == "b":
+        b_tag = tag
     
     # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and "Property:" in a_tag["href"]:
@@ -344,7 +317,7 @@ def extract_href(tag):
         return tag.text.split("P:")[1].strip()
 
     if b_tag:
-        return b_tag.text.strip()
+        return f'"{b_tag.text.strip()}"'
 
     # If none of the above, return the tag's text in ""
     return f'"{tag.text.strip()}"'
@@ -524,8 +497,9 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
-                compare_changes("https://www.wikidata.org/w/api.php", change)
+            if change["title"].startswith("Q") and change["title"][1:].isdigit():
+                if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
+                    compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp

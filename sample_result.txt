@@ -16,7 +16,7 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q130288377 p:P576 [
-  ps:P576 1918 ;
+  ps:P576 "1918" ;
   wikibase:rank wikibase:NormalRank ;
 ]};
 
@@ -24,15 +24,11 @@ INSERT DATA {
   wd:Q16763189  schema:label "1869年比利时"@zh ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288746 p:P131 [
   ps:P131 wd:Q3922 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288746 p:P131 [ ps:P131 wd:Q3922 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81193059  schema:label "TYC 1982-1735-1"@en ;
@@ -93,18 +89,14 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95805050 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1014034965" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95805050 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -191,7 +183,7 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P8179 [
   ps:P8179 "ncf10960665" ;
   wikibase:rank wikibase:NormalRank ;
@@ -200,11 +192,7 @@ INSERT {
     pr:P214 "112927246" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q61157378 p:P8179 [ ps:P8179 "ncf10960665" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98090655  schema:description "波蘭足球運動員"@zh ;
@@ -221,17 +209,13 @@ INSERT DATA {
   pq:P1545 10 ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q130288741 p:P18 [
   ps:P18 "PasterzenhausGroßglocknerHochalpenstraße.JPG" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288741 p:P18 [ ps:P18 "PasterzenhausGroßglocknerHochalpenstraße.JPG" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P271 [
   ps:P271 "DA07083276" ;
   wikibase:rank wikibase:NormalRank ;
@@ -240,11 +224,7 @@ INSERT {
     pr:P214 "112927246" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q61157378 p:P271 [ ps:P271 "DA07083276" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98090656  schema:description "波蘭足球運動員"@zh ;
@@ -319,24 +299,16 @@ INSERT DATA {
   wd:Q81190675  schema:label "TYC 1982-1773-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P20 [
   pq:P1480 wd:Q59783740 ;
-]}
-WHERE {
-  wd:Q130288664 p:P20 [ ps:P20 wd:Q2766547 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q130288350 p:P3301 [
   ps:P3301 wd:Q9531 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288350 p:P3301 [ ps:P3301 wd:Q9531 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98093375  schema:description "波蘭足球運動員"@zh ;
@@ -396,31 +368,23 @@ INSERT DATA {
   wd:Q11245833  schema:label "Sel'm"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95763229 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "111268655X" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95763229 p:P21 [ ps:P21 wd:Q6581097 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q13234727 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "070239177" ;
     pr:P813 "8 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q13234727 p:P1412 [ ps:P1412 wd:Q1860 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -492,15 +456,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/070239177" "8 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/070239177" ;
+
 }
 WHERE {
-  wd:Q13234727 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q13234727 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/070239177" ;
 
+};
 
 INSERT DATA {
   wd:Q81191281  schema:label "TYC 1982-1778-1"@mul ;.
@@ -562,11 +529,15 @@ DELETE DATA {
   wd:Q12085550  schema:label ", Râfov"@sh ;.
 };
 
-DELETE DATA {
-  wd:Q112047280 p:P373 [
-  ps:P373 "Cultural heritage monuments in Borovsk" ;
+DELETE {
+?statement  ps:P373 "Cultural heritage monuments in Borovsk" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+}
+WHERE {
+  wd:Q112047280 p:P373 ?statement . 
+  ?statement  ps:P373 "Cultural heritage monuments in Borovsk" ;
+	  wikibase:rank wikibase:NormalRank ;
+};
 
 INSERT DATA {
   wd:Q81194674  schema:label "TYC 1982-1800-1"@mul ;.
@@ -701,15 +672,11 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q3866371 p:P527 [
   ps:P527 wd:Q130288714 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q3866371 p:P527 [ ps:P527 wd:Q130288714 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98831266  schema:description "波蘭足球運動員"@zh ;
@@ -717,15 +684,11 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q113087269 p:P361 [
   ps:P361 wd:Q15929980 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q113087269 p:P361 [ ps:P361 wd:Q15929980 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q56810857  schema:description "potok na Ćeškem"@sl ;.
@@ -784,18 +747,14 @@ INSERT DATA {
   wd:Q81192667  schema:label "TYC 1982-1815-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95834366 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061556557" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95834366 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q130288664  schema:aliases "Laurens van Teijlingen"@en ;
@@ -849,15 +808,11 @@ INSERT DATA {
   pq:P1545 12 ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q130288746 p:P18 [
   ps:P18 "Detmold - Mordkuhle Hiddesen (12).JPG" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288746 p:P18 [ ps:P18 "Detmold - Mordkuhle Hiddesen (12).JPG" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98834583  schema:description "波蘭足球運動員"@zh ;
@@ -964,7 +919,7 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P650 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q106327898 ;
@@ -972,11 +927,7 @@ INSERT {
     pr:P7444 "112642" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q130288664 p:P650 [ ps:P650 "358396" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98835289  schema:description "波蘭足球運動員"@zh ;
@@ -996,576 +947,6 @@ INSERT DATA {
 
 DELETE DATA {
   wd:Q5071438  schema:label "Râfov,"@sh ;.
-};
-
-INSERT DATA {
-  wd:User:NGOgo  schema:Line46: "32391" ;
-		  schema:Line46: "39" ;
-		  schema:Line46: "5" ;
-		  schema:Line46: "86" ;
-		  schema:Line46: "41" ;
-		  schema:Line46: "46" ;
-		  schema:Line46: "63" ;
-		  schema:Line46: "23" ;
-		  schema:Line46: "2" ;
-		  schema:Line46: "26" ;
-		  schema:Line46: "21225" ;
-		  schema:Line46: "91" ;
-		  schema:Line46: "90" ;
-		  schema:Line46: "2" ;
-		  schema:Line46: "91" ;
-		  schema:Line46: "26" ;
-		  schema:Line46: "18" ;
-		  schema:Line46: "06" ;
-		  schema:Line46: "19" ;
-		  schema:Line46: "17029" ;
-		  schema:Line46: "69" ;
-		  schema:Line46: "58" ;
-		  schema:Line46: "13" ;
-		  schema:Line46: "24" ;
-		  schema:Line46: "62" ;
-		  schema:Line46: "88" ;
-		  schema:Line46: "8" ;
-		  schema:Line46: "76" ;
-		  schema:Line46: "9458" ;
-		  schema:Line46: "11" ;
-		  schema:Line46: "51" ;
-		  schema:Line46: "49" ;
-		  schema:Line46: "78" ;
-		  schema:Line46: "84" ;
-		  schema:Line46: "76" ;
-		  schema:Line46: "91" ;
-		  schema:Line46: "41" ;
-		  schema:Line46: "11" ;
-		  schema:Line46: "96" ;
-		  schema:Line46: "3859" ;
-		  schema:Line46: "01" ;
-		  schema:Line46: "22" ;
-		  schema:Line46: "21" ;
-		  schema:Line46: "1" ;
-		  schema:Line46: "56" ;
-		  schema:Line46: "54" ;
-		  schema:Line46: "5" ;
-		  schema:Line46: "63" ;
-		  schema:Line46: "6" ;
-		  schema:Line46: "3003" ;
-		  schema:Line46: "41" ;
-		  schema:Line46: "99" ;
-		  schema:Line46: "18" ;
-		  schema:Line46: "26" ;
-		  schema:Line123: "Q213" ;
-		  schema:Line123: "2758" ;
-		  schema:Line123: "44" ;
-		  schema:Line123: "88" ;
-		  schema:Line123: "24" ;
-		  schema:Line123: "44" ;
-		  schema:Line123: "4" ;
-		  schema:Line123: "0" ;
-		  schema:Line123: "29" ;
-		  schema:Line123: "0" ;
-		  schema:Line123: "0" ;
-		  schema:Line123: "0" ;
-		  schema:Line123: "2353" ;
-		  schema:Line123: "60" ;
-		  schema:Line123: "24" ;
-		  schema:Line123: "80" ;
-		  schema:Line123: "301" ;
-		  schema:Line123: "34" ;
-		  schema:Line123: "08" ;
-		  schema:Line123: "3" ;
-		  schema:Line123: "72" ;
-		  schema:Line123: "38" ;
-		  schema:Line123: "04" ;
-		  schema:Line123: "1972" ;
-		  schema:Line123: "33" ;
-		  schema:Line123: "27" ;
-		  schema:Line123: "06" ;
-		  schema:Line123: "42" ;
-		  schema:Line123: "2" ;
-		  schema:Line123: "1" ;
-		  schema:Line123: "1686" ;
-		  schema:Line123: "49" ;
-		  schema:Line123: "246" ;
-		  schema:Line123: "37" ;
-		  schema:Line123: "39" ;
-		  schema:Line123: "05" ;
-		  schema:Line123: "26" ;
-		  schema:Line123: "1644" ;
-		  schema:Line123: "83" ;
-		  schema:Line123: "95" ;
-		  schema:Line123: "81" ;
-		  schema:Line123: "31" ;
-		  schema:Line123: "24" ;
-		  schema:Line123: "3" ;
-		  schema:Line123: "35" ;
-		  schema:Line123: "1584" ;
-		  schema:Line123: "02" ;
-		  schema:Line123: "14" ;
-		  schema:Line123: "25" ;
-		  schema:Line123: "18" ;
-		  schema:Line123: "27" ;
-		  schema:Line123: "02" ;
-		  schema:Line123: "06" ;
-		  schema:Line123: "44" ;
-		  schema:Line123: "19" ;
-		  schema:Line123: "1487" ;
-		  schema:Line123: "6" ;
-		  schema:Line123: "29" ;
-		  schema:Line123: "8" ;
-		  schema:Line123: "79" ;
-		  schema:Line226: "1362" ;
-		  schema:Line226: "25" ;
-		  schema:Line226: "34" ;
-		  schema:Line226: "55" ;
-		  schema:Line226: "31" ;
-		  schema:Line226: "11" ;
-		  schema:Line226: "8" ;
-		  schema:Line226: "59" ;
-		  schema:Line226: "17" ;
-		  schema:Line226: "22" ;
-		  schema:Line226: "1183" ;
-		  schema:Line226: "55" ;
-		  schema:Line226: "52" ;
-		  schema:Line226: "59" ;
-		  schema:Line226: "39" ;
-		  schema:Line226: "35" ;
-		  schema:Line226: "08" ;
-		  schema:Line226: "0" ;
-		  schema:Line226: "42" ;
-		  schema:Line226: "76" ;
-		  schema:Line226: "08" ;
-		  schema:Line226: "1095" ;
-		  schema:Line226: "63" ;
-		  schema:Line226: "54" ;
-		  schema:Line226: "70" ;
-		  schema:Line226: "27" ;
-		  schema:Line226: "20" ;
-		  schema:Line226: "22" ;
-		  schema:Line226: "5" ;
-		  schema:Line226: "19" ;
-		  schema:Line226: "18" ;
-		  schema:Line226: "1053" ;
-		  schema:Line226: "45" ;
-		  schema:Line226: ".79" ;
-		  schema:Line226: "31" ;
-		  schema:Line226: "55" ;
-		  schema:Line226: "04" ;
-		  schema:Line226: "47" ;
-		  schema:Line226: "66" ;
-		  schema:Line226: "28" ;
-		  schema:Line226: "1015" ;
-		  schema:Line226: "83" ;
-		  schema:Line226: "54" ;
-		  schema:Line226: "37" ;
-		  schema:Line226: "04" ;
-		  schema:Line226: "79" ;
-		  schema:Line226: "69" ;
-		  schema:Line226: "1" ;
-		  schema:Line226: "967" ;
-		  schema:Line226: "65" ;
-		  schema:Line226: "44" ;
-		  schema:Line226: "77" ;
-		  schema:Line226: "26" ;
-		  schema:Line226: "03" ;
-		  schema:Line226: "52" ;
-		  schema:Line226: "59" ;
-		  schema:Line226: "07" ;
-		  schema:Line226: "28" ;
-		  schema:Line226: "52" ;
-		  schema:Line226: "834" ;
-		  schema:Line226: "15" ;
-		  schema:Line226: "31" ;
-		  schema:Line226: "68" ;
-		  schema:Line226: "67" ;
-		  schema:Line226: "04" ;
-		  schema:Line226: "56" ;
-		  schema:Line226: "07" ;
-		  schema:Line226: "56" ;
-		  schema:Line226: "803" ;
-		  schema:Line226: "38" ;
-		  schema:Line226: "83" ;
-		  schema:Line226: "3" ;
-		  schema:Line226: "74" ;
-		  schema:Line226: "13" ;
-		  schema:Line226: "12" ;
-		  schema:Line226: "25" ;
-		  schema:Line226: "0" ;
-		  schema:Line226: "62" ;
-		  schema:Line226: "12" ;
-		  schema:Line226: "588" ;
-		  schema:Line226: "27" ;
-		  schema:Line226: "82" ;
-		  schema:Line226: "75" ;
-		  schema:Line226: "72" ;
-		  schema:Line226: "17" ;
-		  schema:Line226: "17" ;
-		  schema:Line226: "17" ;
-		  schema:Line226: "17" ;
-		  schema:Line226: "485" ;
-		  schema:Line226: "49" ;
-		  schema:Line226: "54" ;
-		  schema:Line226: "53" ;
-		  schema:Line226: "75" ;
-		  schema:Line395: "442" ;
-		  schema:Line395: "70" ;
-		  schema:Line395: "79" ;
-		  schema:Line395: "75" ;
-		  schema:Line434: "442" ;
-		  schema:Line434: "28" ;
-		  schema:Line434: "78" ;
-		  schema:Line434: "65" ;
-		  schema:Line434: "33" ;
-		  schema:Line434: "45" ;
-		  schema:Line434: "45" ;
-		  schema:Line434: "45" ;
-		  schema:Line434: "432" ;
-		  schema:Line434: "75" ;
-		  schema:Line434: "30" ;
-		  schema:Line434: "67" ;
-		  schema:Line434: "9" ;
-		  schema:Line434: "0" ;
-		  schema:Line434: "46" ;
-		  schema:Line434: "46" ;
-		  schema:Line434: "62" ;
-		  schema:Line434: "418" ;
-		  schema:Line434: "28" ;
-		  schema:Line434: "22" ;
-		  schema:Line434: "81" ;
-		  schema:Line434: "62" ;
-		  schema:Line434: "0" ;
-		  schema:Line434: "286" ;
-		  schema:Line434: "65" ;
-		  schema:Line434: "37" ;
-		  schema:Line434: "51" ;
-		  schema:Line434: "23" ;
-		  schema:Line434: "35" ;
-		  schema:Line434: "35" ;
-		  schema:Line434: "280" ;
-		  schema:Line434: "5" ;
-		  schema:Line434: "43" ;
-		  schema:Line434: "67" ;
-		  schema:Line434: "36" ;
-		  schema:Line434: "07" ;
-		  schema:Line434: "07" ;
-		  schema:Line434: "71" ;
-		  schema:Line434: "218" ;
-		  schema:Line434: "67" ;
-		  schema:Line434: "26" ;
-		  schema:Line434: "47" ;
-		  schema:Line434: "11" ;
-		  schema:Line434: "05" ;
-		  schema:Line434: "13" ;
-		  schema:Line434: "46" ;
-		  schema:Line434: "0" ;
-		  schema:Line434: "189" ;
-		  schema:Line434: "64" ;
-		  schema:Line434: "32" ;
-		  schema:Line434: "68" ;
-		  schema:Line434: "24" ;
-		  schema:Line434: "53" ;
-		  schema:Line434: "53" ;
-		  schema:Line434: "06" ;
-		  schema:Line434: "62" ;
-		  schema:Line434: "1" ;
-		  schema:Line434: "59" ;
-		  schema:Line577: "76" ;
-		  schema:Line577: "36" ;
-		  schema:Line577: "78" ;
-		  schema:Line591: "Q15180" ;
-		  schema:Line591: "157" ;
-		  schema:Line591: "80" ;
-		  schema:Line591: "24" ;
-		  schema:Line591: "19" ;
-		  schema:Line591: "2" ;
-		  schema:Line591: "Q15180" ;
-		  schema:Line591: "Q15180" ;
-		  schema:Line591: "Q15180" ;
-		  schema:Line591: ".64" ;
-		  schema:Line591: "6.37" ;
-		  schema:Line591: "Q15180" ;
-		  schema:Line591: "157" ;
-		  schema:Line591: "06" ;
-		  schema:Line591: "26" ;
-		  schema:Line591: "61" ;
-		  schema:Line591: "9" ;
-		  schema:Line591: "64" ;
-		  schema:Line591: "64" ;
-		  schema:Line591: "64" ;
-		  schema:Line591: "64" ;
-		  schema:Line634: "04" ;
-		  schema:Line642: "145" ;
-		  schema:Line642: "83" ;
-		  schema:Line642: "28" ;
-		  schema:Line642: "71" ;
-		  schema:Line642: "6" ;
-		  schema:Line642: "69" ;
-		  schema:Line642: "69" ;
-		  schema:Line642: "69" ;
-		  schema:Line642: "69" ;
-		  schema:Line642: "Q37" ;
-		  schema:Line642: "134" ;
-		  schema:Line642: "29" ;
-		  schema:Line642: "15" ;
-		  schema:Line642: ".1" ;
-		  schema:Line642: "66" ;
-		  schema:Line642: "2.99" ;
-		  schema:Line642: "Q37" ;
-		  schema:Line642: "1.49" ;
-		  schema:Line642: "1.49" ;
-		  schema:Line642: "0" ;
-		  schema:Line642: "Q37" ;
-		  schema:Line695: "Q33946" ;
-		  schema:Line695: "58" ;
-		  schema:Line695: "27" ;
-		  schema:Line695: "7" ;
-		  schema:Line695: "25" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "Q33946" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "Q33946" ;
-		  schema:Line695: "Q33946" ;
-		  schema:Line695: "Q219" ;
-		  schema:Line695: "122" ;
-		  schema:Line695: "71" ;
-		  schema:Line695: "40" ;
-		  schema:Line695: "68" ;
-		  schema:Line695: "14" ;
-		  schema:Line695: "2.46" ;
-		  schema:Line695: "Q219" ;
-		  schema:Line695: "1.64" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "Q219" ;
-		  schema:Line735: "119" ;
-		  schema:Line735: "54" ;
-		  schema:Line735: "29" ;
-		  schema:Line735: "03" ;
-		  schema:Line735: "52" ;
-		  schema:Line735: "84" ;
-		  schema:Line760: "Q117" ;
-		  schema:Line760: "61" ;
-		  schema:Line760: "38" ;
-		  schema:Line760: "61" ;
-		  schema:Line760: "7" ;
-		  schema:Line760: "88" ;
-		  schema:Line760: "88" ;
-		  schema:Line760: "95" ;
-		  schema:Line760: "79" ;
-		  schema:Line760: "53" ;
-		  schema:Line760: "62" ;
-		  schema:Line760: "21" ;
-		  schema:Line760: "05" ;
-		  schema:Line760: "11" ;
-		  schema:Line760: "05" ;
-		  schema:Line760: "11" ;
-		  schema:Line760: "91" ;
-		  schema:Line760: "38" ;
-		  schema:Line760: "13" ;
-		  schema:Line760: "51" ;
-		  schema:Line760: "49" ;
-		  schema:Line760: "1" ;
-		  schema:Line760: "2" ;
-		  schema:Line760: "1" ;
-		  schema:Line760: "85" ;
-		  schema:Line760: "0" ;
-		  schema:Line760: "35" ;
-		  schema:Line760: "65" ;
-		  schema:Line760: "12" ;
-		  schema:Line760: "18" ;
-		  schema:Line760: "18" ;
-		  schema:Line760: "18" ;
-		  schema:Line760: "18" ;
-		  schema:Line915: "50" ;
-		  schema:Line915: "11" ;
-		  schema:Line941: "77" ;
-		  schema:Line941: "77" ;
-		  schema:Line941: "40" ;
-		  schema:Line941: "62" ;
-		  schema:Line941: "09" ;
-		  schema:Line941: "6" ;
-		  schema:Line941: "6" ;
-		  schema:Line941: "7" ;
-		  schema:Line941: "7" ;
-		  schema:Line941: "74" ;
-		  schema:Line941: "68" ;
-		  schema:Line941: "33" ;
-		  schema:Line941: "81" ;
-		  schema:Line941: "76" ;
-		  schema:Line966: "35" ;
-		  schema:Line1,007: "Q794" ;
-		  schema:Line1,007: "62" ;
-		  schema:Line1,007: "34" ;
-		  schema:Line1,007: "55" ;
-		  schema:Line1,007: "19" ;
-		  schema:Line1,007: "52" ;
-		  schema:Line1,007: "66" ;
-		  schema:Line1,007: "80" ;
-		  schema:Line1,007: "42" ;
-		  schema:Line1,007: "09" ;
-		  schema:Line1,007: "21" ;
-		  schema:Line1,007: "52" ;
-		  schema:Line1,007: "52" ;
-		  schema:Line1,007: "63" ;
-		  schema:Line1,007: "73" ;
-		  schema:Line1,007: "31" ;
-		  schema:Line1,007: "4" ;
-		  schema:Line1,007: "4" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,072: "77" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,072: "8" ;
-		  schema:Line1,072: "16" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,072: "0" ;
-		  schema:Line1,072: "0" ;
-		  schema:Line1,072: "Q28513" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "43" ;
-		  schema:Line1,124: "74" ;
-		  schema:Line1,124: "18" ;
-		  schema:Line1,124: "37" ;
-		  schema:Line1,124: "18" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q241" ;
-		  schema:Line1,124: "Q1041" ;
-		  schema:Line1,124: "43" ;
-		  schema:Line1,124: "69" ;
-		  schema:Line1,124: "23" ;
-		  schema:Line1,124: "69" ;
-		  schema:Line1,124: "6" ;
-		  schema:Line1,124: "2.33" ;
-		  schema:Line1,124: "Q1041" ;
-		  schema:Line1,124: "2.33" ;
-		  schema:Line1,124: "0" ;
-		  schema:Line1,124: "0" ;
-		  schema:Line1,124: "0" ;
-		  schema:Line1,176: "Q29999" ;
-		  schema:Line1,176: "60" ;
-		  schema:Line1,176: "20" ;
-		  schema:Line1,176: "37" ;
-		  schema:Line1,176: "17" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q29999" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q29999" ;
-		  schema:Line1,176: "2.5" ;
-		  schema:Line1,176: "Q29999" ;
-		  schema:Line1,176: "Q954" ;
-		  schema:Line1,176: "69" ;
-		  schema:Line1,176: "Q954" ;
-		  schema:Line1,176: "84" ;
-		  schema:Line1,176: "2" ;
-		  schema:Line1,176: "Q954" ;
-		  schema:Line1,176: "Q954" ;
-		  schema:Line1,176: "2.56" ;
-		  schema:Line1,176: "2" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q189" ;
-		  schema:Line1,176: "57" ;
-		  schema:Line1,176: "Q189" ;
-		  schema:Line1,176: "57" ;
-		  schema:Line1,176: "7" ;
-		  schema:Line1,176: "2.63" ;
-		  schema:Line1,176: "Q189" ;
-		  schema:Line1,176: "2.63" ;
-		  schema:Line1,176: "2.63" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q189" ;
-		  schema:Line1,241: "Q7318" ;
-		  schema:Line1,241: "Q7318" ;
-		  schema:Line1,241: "21" ;
-		  schema:Line1,241: "10" ;
-		  schema:Line1,241: "28" ;
-		  schema:Line1,241: "26" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,306: "61" ;
-		  schema:Line1,306: "14" ;
-		  schema:Line1,306: "50" ;
-		  schema:Line1,306: "2" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,306: "0" ;
-		  schema:Line1,306: "Q232" ;
-		  schema:Line1,362: "75" ;
-		  schema:Line1,384: "Q174193" ;
-		  schema:Line1,384: "30" ;
-		  schema:Line1,384: "83" ;
-		  schema:Line1,384: "36" ;
-		  schema:Line1,384: "26" ;
-		  schema:Line1,384: "10" ;
-		  schema:Line1,384: "0" ;
-		  schema:Line1,384: "Q174193" ;
-		  schema:Line1,384: "Q174193" ;
-		  schema:Line1,384: "0" ;
-		  schema:Line1,384: "0" ;
-		  schema:Line1,384: "Q174193" ;
-		  schema:Line1,449: "Q230" ;
-		  schema:Line1,449: "72" ;
-		  schema:Line1,449: "Q230" ;
-		  schema:Line1,449: "62" ;
-		  schema:Line1,449: "3" ;
-		  schema:Line1,449: "0" ;
-		  schema:Line1,449: "Q230" ;
-		  schema:Line1,449: "0" ;
-		  schema:Line1,449: "0" ;
-		  schema:Line1,449: "Q230" ;
-		  schema:Line1,449: "Q230" ;
-		  schema:Line1,449: "29" ;
-		  schema:Line1,449: "76" ;
-		  schema:Line1,449: "3.45" ;
-		  schema:Line1,449: "6" ;
-		  schema:Line1,475: "Q221" ;
-		  schema:Line1,475: "39" ;
-		  schema:Line1,475: "28" ;
-		  schema:Line1,475: "82" ;
-		  schema:Line1,475: "17" ;
-		  schema:Line1,475: "3.57" ;
-		  schema:Line1,475: "Q221" ;
-		  schema:Line1,475: "3.57" ;
-		  schema:Line1,475: "Q221" ;
-		  schema:Line1,475: "Q221" ;
-		  schema:Line1,475: "Q221" ;
-		  schema:Line1,539: "26" ;
-		  schema:Line1,539: "57" ;
-		  schema:Line1,539: "42" ;
-		  schema:Line1,539: "61" ;
-		  schema:Line1,539: "26" ;
-		  schema:Line1,539: "3" ;
-		  schema:Line1,539: "3" ;
-		  schema:Line1,539: "3" ;
-		  schema:Line1,539: "26" ;
-		  schema:Line1,539: "73" ;
-		  schema:Line1,539: "42" ;
-		  schema:Line1,539: "65" ;
-		  schema:Line1,539: "15" ;
-		  schema:Line1,580: "24" ;
-		  schema:Line1,580: "75" ;
-		  schema:Line1,580: "33" ;
-		  schema:Line1,580: "66" ;
-		  schema:Line1,580: "16" ;
-		  schema:Line1,580: "17" ;
-		  schema:Line1,580: "17" ;
-		  schema:Line1,721: "157007" ;
-		  schema:Line1,721: "56" ;
-		  schema:Line1,721: "41" ;
-		  schema:Line1,721: "53" ;
-		  schema:Line1,721: "38" ;
-		  schema:Line1,721: "1" ;
-		  schema:Line1,721: "1" ;
-		  schema:Line1,721: "53" ;
-		  schema:Line1,721: "67" ;
-		  schema:Line1,721: "51" ;
-		  schema:Line1,721: "41" ;.
 };
 
 INSERT DATA {
@@ -1589,576 +970,6 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q11245863  schema:description "scríbhneoir Seirbiach"@ga ;.
-};
-
-DELETE DATA {
-  wd:User:NGOgo  schema:Line46: "32102" ;
-		  schema:Line46: "23" ;
-		  schema:Line46: "57" ;
-		  schema:Line46: "82" ;
-		  schema:Line46: "59" ;
-		  schema:Line46: "47" ;
-		  schema:Line46: "66" ;
-		  schema:Line46: "24" ;
-		  schema:Line46: "3" ;
-		  schema:Line46: "25" ;
-		  schema:Line46: "21062" ;
-		  schema:Line46: "92" ;
-		  schema:Line46: "91" ;
-		  schema:Line46: "02" ;
-		  schema:Line46: "92" ;
-		  schema:Line46: "27" ;
-		  schema:Line46: "19" ;
-		  schema:Line46: "07" ;
-		  schema:Line46: "24" ;
-		  schema:Line46: "16940" ;
-		  schema:Line46: "85" ;
-		  schema:Line46: "53" ;
-		  schema:Line46: "2" ;
-		  schema:Line46: "3" ;
-		  schema:Line46: "66" ;
-		  schema:Line46: "92" ;
-		  schema:Line46: "9" ;
-		  schema:Line46: "78" ;
-		  schema:Line46: "9536" ;
-		  schema:Line46: "68" ;
-		  schema:Line46: "53" ;
-		  schema:Line46: "62" ;
-		  schema:Line46: "65" ;
-		  schema:Line46: "89" ;
-		  schema:Line46: "74" ;
-		  schema:Line46: "92" ;
-		  schema:Line46: "43" ;
-		  schema:Line46: "52" ;
-		  schema:Line46: "95" ;
-		  schema:Line46: "3795" ;
-		  schema:Line46: "29" ;
-		  schema:Line46: "27" ;
-		  schema:Line46: "59" ;
-		  schema:Line46: "54" ;
-		  schema:Line46: "67" ;
-		  schema:Line46: "55" ;
-		  schema:Line46: "6" ;
-		  schema:Line46: "67" ;
-		  schema:Line46: "69" ;
-		  schema:Line46: "2990" ;
-		  schema:Line46: "27" ;
-		  schema:Line46: "87" ;
-		  schema:Line46: "27" ;
-		  schema:Line46: "29" ;
-		  schema:Line123: "Q20" ;
-		  schema:Line123: "2568" ;
-		  schema:Line123: "82" ;
-		  schema:Line123: "77" ;
-		  schema:Line123: "79" ;
-		  schema:Line123: "77" ;
-		  schema:Line123: "58" ;
-		  schema:Line123: "61" ;
-		  schema:Line123: "43" ;
-		  schema:Line123: "1.95" ;
-		  schema:Line123: "2" ;
-		  schema:Line123: ".16" ;
-		  schema:Line123: "2174" ;
-		  schema:Line123: "61" ;
-		  schema:Line123: "25" ;
-		  schema:Line123: "81" ;
-		  schema:Line123: "278" ;
-		  schema:Line123: "37" ;
-		  schema:Line123: "09" ;
-		  schema:Line123: "32" ;
-		  schema:Line123: "78" ;
-		  schema:Line123: "41" ;
-		  schema:Line123: "05" ;
-		  schema:Line123: "1919" ;
-		  schema:Line123: "32" ;
-		  schema:Line123: "59" ;
-		  schema:Line123: "76" ;
-		  schema:Line123: "43" ;
-		  schema:Line123: "21" ;
-		  schema:Line123: "0" ;
-		  schema:Line123: "1679" ;
-		  schema:Line123: "54" ;
-		  schema:Line123: "245" ;
-		  schema:Line123: "49" ;
-		  schema:Line123: "40" ;
-		  schema:Line123: "26" ;
-		  schema:Line123: "42" ;
-		  schema:Line123: "1622" ;
-		  schema:Line123: "92" ;
-		  schema:Line123: "82" ;
-		  schema:Line123: "69" ;
-		  schema:Line123: "32" ;
-		  schema:Line123: "25" ;
-		  schema:Line123: "31" ;
-		  schema:Line123: "39" ;
-		  schema:Line123: "1526" ;
-		  schema:Line123: "19" ;
-		  schema:Line123: "77" ;
-		  schema:Line123: "58" ;
-		  schema:Line123: "19" ;
-		  schema:Line123: "36" ;
-		  schema:Line123: "1" ;
-		  schema:Line123: "07" ;
-		  schema:Line123: "46" ;
-		  schema:Line123: "2" ;
-		  schema:Line123: "1471" ;
-		  schema:Line123: "5" ;
-		  schema:Line123: "30" ;
-		  schema:Line123: "7" ;
-		  schema:Line123: "80" ;
-		  schema:Line226: "1228" ;
-		  schema:Line226: "71" ;
-		  schema:Line226: "36" ;
-		  schema:Line226: "58" ;
-		  schema:Line226: "33" ;
-		  schema:Line226: "12" ;
-		  schema:Line226: "9" ;
-		  schema:Line226: "65" ;
-		  schema:Line226: "3" ;
-		  schema:Line226: "24" ;
-		  schema:Line226: "1040" ;
-		  schema:Line226: "54" ;
-		  schema:Line226: "57" ;
-		  schema:Line226: "62" ;
-		  schema:Line226: "44" ;
-		  schema:Line226: "54" ;
-		  schema:Line226: "1" ;
-		  schema:Line226: "1" ;
-		  schema:Line226: "48" ;
-		  schema:Line226: "87" ;
-		  schema:Line226: "1" ;
-		  schema:Line226: "1031" ;
-		  schema:Line226: "64" ;
-		  schema:Line226: "58" ;
-		  schema:Line226: "72" ;
-		  schema:Line226: "29" ;
-		  schema:Line226: "21" ;
-		  schema:Line226: "24" ;
-		  schema:Line226: "6" ;
-		  schema:Line226: "26" ;
-		  schema:Line226: "19" ;
-		  schema:Line226: "1030" ;
-		  schema:Line226: "71" ;
-		  schema:Line226: "25." ;
-		  schema:Line226: "53" ;
-		  schema:Line226: "7" ;
-		  schema:Line226: "07" ;
-		  schema:Line226: "49" ;
-		  schema:Line226: "68" ;
-		  schema:Line226: "29" ;
-		  schema:Line226: "943" ;
-		  schema:Line226: "87" ;
-		  schema:Line226: "07" ;
-		  schema:Line226: "39" ;
-		  schema:Line226: "35" ;
-		  schema:Line226: "85" ;
-		  schema:Line226: "74" ;
-		  schema:Line226: "11" ;
-		  schema:Line226: "897" ;
-		  schema:Line226: "69" ;
-		  schema:Line226: "47" ;
-		  schema:Line226: "81" ;
-		  schema:Line226: "27" ;
-		  schema:Line226: "35" ;
-		  schema:Line226: "56" ;
-		  schema:Line226: "79" ;
-		  schema:Line226: "23" ;
-		  schema:Line226: "45" ;
-		  schema:Line226: "56" ;
-		  schema:Line226: "803" ;
-		  schema:Line226: "77" ;
-		  schema:Line226: "32" ;
-		  schema:Line226: "69" ;
-		  schema:Line226: "69" ;
-		  schema:Line226: "12" ;
-		  schema:Line226: "62" ;
-		  schema:Line226: "35" ;
-		  schema:Line226: "62" ;
-		  schema:Line226: "786" ;
-		  schema:Line226: "37" ;
-		  schema:Line226: "05" ;
-		  schema:Line226: "33" ;
-		  schema:Line226: "67" ;
-		  schema:Line226: "81" ;
-		  schema:Line226: "13" ;
-		  schema:Line226: "26" ;
-		  schema:Line226: "02" ;
-		  schema:Line226: "51" ;
-		  schema:Line226: "13" ;
-		  schema:Line226: "567" ;
-		  schema:Line226: "28" ;
-		  schema:Line226: "94" ;
-		  schema:Line226: "76" ;
-		  schema:Line226: "82" ;
-		  schema:Line226: "18" ;
-		  schema:Line226: "18" ;
-		  schema:Line226: "18" ;
-		  schema:Line226: "18" ;
-		  schema:Line226: "480" ;
-		  schema:Line226: "67" ;
-		  schema:Line226: "79" ;
-		  schema:Line226: "5" ;
-		  schema:Line226: "76" ;
-		  schema:Line395: "438" ;
-		  schema:Line395: "71" ;
-		  schema:Line395: "8" ;
-		  schema:Line395: "76" ;
-		  schema:Line434: "402" ;
-		  schema:Line434: "95" ;
-		  schema:Line434: "91" ;
-		  schema:Line434: "68" ;
-		  schema:Line434: "72" ;
-		  schema:Line434: "5" ;
-		  schema:Line434: "5" ;
-		  schema:Line434: "5" ;
-		  schema:Line434: "388" ;
-		  schema:Line434: "73" ;
-		  schema:Line434: "33" ;
-		  schema:Line434: "66" ;
-		  schema:Line434: "10" ;
-		  schema:Line434: "1" ;
-		  schema:Line434: "52" ;
-		  schema:Line434: "52" ;
-		  schema:Line434: "8" ;
-		  schema:Line434: "314" ;
-		  schema:Line434: "26" ;
-		  schema:Line434: "21" ;
-		  schema:Line434: "7" ;
-		  schema:Line434: "64" ;
-		  schema:Line434: "1" ;
-		  schema:Line434: "278" ;
-		  schema:Line434: "66" ;
-		  schema:Line434: "14" ;
-		  schema:Line434: "52" ;
-		  schema:Line434: "42" ;
-		  schema:Line434: "36" ;
-		  schema:Line434: "72" ;
-		  schema:Line434: "266" ;
-		  schema:Line434: "56" ;
-		  schema:Line434: "92" ;
-		  schema:Line434: "65" ;
-		  schema:Line434: "64" ;
-		  schema:Line434: "13" ;
-		  schema:Line434: "13" ;
-		  schema:Line434: "38" ;
-		  schema:Line434: "197" ;
-		  schema:Line434: "3" ;
-		  schema:Line434: "27" ;
-		  schema:Line434: "45" ;
-		  schema:Line434: "12" ;
-		  schema:Line434: "58" ;
-		  schema:Line434: "57" ;
-		  schema:Line434: "51" ;
-		  schema:Line434: "1" ;
-		  schema:Line434: "174" ;
-		  schema:Line434: "63" ;
-		  schema:Line434: "33" ;
-		  schema:Line434: "72" ;
-		  schema:Line434: "27" ;
-		  schema:Line434: "57" ;
-		  schema:Line434: "57" ;
-		  schema:Line434: "15" ;
-		  schema:Line434: "64" ;
-		  schema:Line434: "71" ;
-		  schema:Line434: "60" ;
-		  schema:Line577: "75" ;
-		  schema:Line577: "35" ;
-		  schema:Line577: "77" ;
-		  schema:Line591: "Q77" ;
-		  schema:Line591: "156" ;
-		  schema:Line591: "54" ;
-		  schema:Line591: "18" ;
-		  schema:Line591: "39" ;
-		  schema:Line591: "4" ;
-		  schema:Line591: "Q77" ;
-		  schema:Line591: "Q77" ;
-		  schema:Line591: "Q77" ;
-		  schema:Line591: "0" ;
-		  schema:Line591: "0" ;
-		  schema:Line591: "Q77" ;
-		  schema:Line591: "150" ;
-		  schema:Line591: "33" ;
-		  schema:Line591: "28" ;
-		  schema:Line591: "64" ;
-		  schema:Line591: "10" ;
-		  schema:Line591: "67" ;
-		  schema:Line591: "67" ;
-		  schema:Line591: "67" ;
-		  schema:Line591: "67" ;
-		  schema:Line634: "73" ;
-		  schema:Line642: "140" ;
-		  schema:Line642: "29" ;
-		  schema:Line642: "30" ;
-		  schema:Line642: "73" ;
-		  schema:Line642: "7" ;
-		  schema:Line642: "71" ;
-		  schema:Line642: "71" ;
-		  schema:Line642: "71" ;
-		  schema:Line642: "71" ;
-		  schema:Line642: "Q15180" ;
-		  schema:Line642: "133" ;
-		  schema:Line642: "79" ;
-		  schema:Line642: "26" ;
-		  schema:Line642: "17." ;
-		  schema:Line642: "3" ;
-		  schema:Line642: "0" ;
-		  schema:Line642: "Q15180" ;
-		  schema:Line642: "0" ;
-		  schema:Line642: "0" ;
-		  schema:Line642: "7" ;
-		  schema:Line642: "Q15180" ;
-		  schema:Line695: "Q37" ;
-		  schema:Line695: "25" ;
-		  schema:Line695: "14" ;
-		  schema:Line695: "27" ;
-		  schema:Line695: "70" ;
-		  schema:Line695: "3.15" ;
-		  schema:Line695: "Q37" ;
-		  schema:Line695: "1.57" ;
-		  schema:Line695: "1.57" ;
-		  schema:Line695: "Q37" ;
-		  schema:Line695: "Q37" ;
-		  schema:Line695: "Q184" ;
-		  schema:Line695: "123" ;
-		  schema:Line695: "65" ;
-		  schema:Line695: "24" ;
-		  schema:Line695: "52" ;
-		  schema:Line695: "12" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: "Q184" ;
-		  schema:Line695: "0" ;
-		  schema:Line695: ".81" ;
-		  schema:Line695: "5" ;
-		  schema:Line695: "Q184" ;
-		  schema:Line735: "120" ;
-		  schema:Line735: "55" ;
-		  schema:Line735: "30" ;
-		  schema:Line735: "33" ;
-		  schema:Line735: "5" ;
-		  schema:Line735: "83" ;
-		  schema:Line760: "Q33946" ;
-		  schema:Line760: "84" ;
-		  schema:Line760: "44" ;
-		  schema:Line760: "6" ;
-		  schema:Line760: "5" ;
-		  schema:Line760: "89" ;
-		  schema:Line760: "89" ;
-		  schema:Line760: "91" ;
-		  schema:Line760: "82" ;
-		  schema:Line760: "77" ;
-		  schema:Line760: "63" ;
-		  schema:Line760: "4" ;
-		  schema:Line760: "1" ;
-		  schema:Line760: "2" ;
-		  schema:Line760: "1" ;
-		  schema:Line760: "2" ;
-		  schema:Line760: "86" ;
-		  schema:Line760: "36" ;
-		  schema:Line760: "15" ;
-		  schema:Line760: "50" ;
-		  schema:Line760: "81" ;
-		  schema:Line760: "16" ;
-		  schema:Line760: "33" ;
-		  schema:Line760: "16" ;
-		  schema:Line760: "84" ;
-		  schema:Line760: "71" ;
-		  schema:Line760: "62" ;
-		  schema:Line760: "66" ;
-		  schema:Line760: "29" ;
-		  schema:Line760: "19" ;
-		  schema:Line760: "19" ;
-		  schema:Line760: "19" ;
-		  schema:Line760: "19" ;
-		  schema:Line915: "51" ;
-		  schema:Line915: "7" ;
-		  schema:Line941: "75" ;
-		  schema:Line941: "78" ;
-		  schema:Line941: "41" ;
-		  schema:Line941: "64" ;
-		  schema:Line941: "33" ;
-		  schema:Line941: "67" ;
-		  schema:Line941: "67" ;
-		  schema:Line941: "8" ;
-		  schema:Line941: "8" ;
-		  schema:Line941: "73" ;
-		  schema:Line941: "67" ;
-		  schema:Line941: "34" ;
-		  schema:Line941: "27" ;
-		  schema:Line941: "85" ;
-		  schema:Line966: "37" ;
-		  schema:Line1,007: "Q851" ;
-		  schema:Line1,007: "67" ;
-		  schema:Line1,007: "32" ;
-		  schema:Line1,007: "64" ;
-		  schema:Line1,007: "8" ;
-		  schema:Line1,007: "49" ;
-		  schema:Line1,007: "64" ;
-		  schema:Line1,007: "81" ;
-		  schema:Line1,007: "19" ;
-		  schema:Line1,007: "38" ;
-		  schema:Line1,007: "88" ;
-		  schema:Line1,007: "56" ;
-		  schema:Line1,007: "56" ;
-		  schema:Line1,007: "59" ;
-		  schema:Line1,007: "74" ;
-		  schema:Line1,007: "28" ;
-		  schema:Line1,007: "42" ;
-		  schema:Line1,007: "42" ;
-		  schema:Line1,072: "Q225" ;
-		  schema:Line1,072: "71" ;
-		  schema:Line1,072: "Q227" ;
-		  schema:Line1,072: "61" ;
-		  schema:Line1,072: "14" ;
-		  schema:Line1,072: "Q227" ;
-		  schema:Line1,072: "Q227" ;
-		  schema:Line1,072: "Q227" ;
-		  schema:Line1,072: "6.12" ;
-		  schema:Line1,072: "4.08" ;
-		  schema:Line1,072: "Q227" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "47" ;
-		  schema:Line1,124: "76" ;
-		  schema:Line1,124: "40" ;
-		  schema:Line1,124: "4" ;
-		  schema:Line1,124: "17" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q28513" ;
-		  schema:Line1,124: "Q924" ;
-		  schema:Line1,124: "45" ;
-		  schema:Line1,124: "75" ;
-		  schema:Line1,124: "24" ;
-		  schema:Line1,124: "82" ;
-		  schema:Line1,124: "4" ;
-		  schema:Line1,124: "0" ;
-		  schema:Line1,124: "Q924" ;
-		  schema:Line1,124: "0" ;
-		  schema:Line1,124: "2.22" ;
-		  schema:Line1,124: "4.44" ;
-		  schema:Line1,124: "2.22" ;
-		  schema:Line1,176: "Q1041" ;
-		  schema:Line1,176: "67" ;
-		  schema:Line1,176: "22" ;
-		  schema:Line1,176: "72" ;
-		  schema:Line1,176: "5" ;
-		  schema:Line1,176: "2.5" ;
-		  schema:Line1,176: "Q1041" ;
-		  schema:Line1,176: "2.5" ;
-		  schema:Line1,176: "Q1041" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q1041" ;
-		  schema:Line1,176: "Q16957" ;
-		  schema:Line1,176: "89" ;
-		  schema:Line1,176: "Q16957" ;
-		  schema:Line1,176: "20" ;
-		  schema:Line1,176: "17" ;
-		  schema:Line1,176: "Q16957" ;
-		  schema:Line1,176: "Q16957" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "7" ;
-		  schema:Line1,176: "7.69" ;
-		  schema:Line1,176: "2.56" ;
-		  schema:Line1,176: "Q241" ;
-		  schema:Line1,176: "86" ;
-		  schema:Line1,176: "Q41304" ;
-		  schema:Line1,176: "7" ;
-		  schema:Line1,176: "26" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "Q41304" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "0" ;
-		  schema:Line1,176: "21.05" ;
-		  schema:Line1,176: "Q41304" ;
-		  schema:Line1,241: "Q954" ;
-		  schema:Line1,241: "Q954" ;
-		  schema:Line1,241: "36" ;
-		  schema:Line1,241: "84" ;
-		  schema:Line1,241: "2" ;
-		  schema:Line1,241: "41" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,306: "35" ;
-		  schema:Line1,306: "35" ;
-		  schema:Line1,306: "52" ;
-		  schema:Line1,306: "50" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,306: "2.94" ;
-		  schema:Line1,306: "Q347" ;
-		  schema:Line1,362: "78" ;
-		  schema:Line1,384: "Q974" ;
-		  schema:Line1,384: "31" ;
-		  schema:Line1,384: "64" ;
-		  schema:Line1,384: "29" ;
-		  schema:Line1,384: "54" ;
-		  schema:Line1,384: "19" ;
-		  schema:Line1,384: "3.23" ;
-		  schema:Line1,384: "Q974" ;
-		  schema:Line1,384: "Q974" ;
-		  schema:Line1,384: "3.23" ;
-		  schema:Line1,384: "3.23" ;
-		  schema:Line1,384: "Q974" ;
-		  schema:Line1,449: "Q25" ;
-		  schema:Line1,449: "41" ;
-		  schema:Line1,449: "Q25" ;
-		  schema:Line1,449: "34" ;
-		  schema:Line1,449: "6" ;
-		  schema:Line1,449: "10.34" ;
-		  schema:Line1,449: "Q25" ;
-		  schema:Line1,449: "10.34" ;
-		  schema:Line1,449: "10.34" ;
-		  schema:Line1,449: "Q25" ;
-		  schema:Line1,449: "Q25" ;
-		  schema:Line1,449: "28" ;
-		  schema:Line1,449: "14" ;
-		  schema:Line1,449: "0" ;
-		  schema:Line1,449: "7" ;
-		  schema:Line1,475: "Q1009" ;
-		  schema:Line1,475: "71" ;
-		  schema:Line1,475: "35" ;
-		  schema:Line1,475: "64" ;
-		  schema:Line1,475: "14" ;
-		  schema:Line1,475: "0" ;
-		  schema:Line1,475: "Q1009" ;
-		  schema:Line1,475: "0" ;
-		  schema:Line1,475: "Q1009" ;
-		  schema:Line1,475: "Q1009" ;
-		  schema:Line1,475: "Q1009" ;
-		  schema:Line1,539: "25" ;
-		  schema:Line1,539: "56" ;
-		  schema:Line1,539: "40" ;
-		  schema:Line1,539: "60" ;
-		  schema:Line1,539: "28" ;
-		  schema:Line1,539: "4" ;
-		  schema:Line1,539: "4" ;
-		  schema:Line1,539: "4" ;
-		  schema:Line1,539: "25" ;
-		  schema:Line1,539: "76" ;
-		  schema:Line1,539: "44" ;
-		  schema:Line1,539: "68" ;
-		  schema:Line1,539: "16" ;
-		  schema:Line1,580: "23" ;
-		  schema:Line1,580: "78" ;
-		  schema:Line1,580: "34" ;
-		  schema:Line1,580: "65" ;
-		  schema:Line1,580: "17" ;
-		  schema:Line1,580: "35" ;
-		  schema:Line1,580: "35" ;
-		  schema:Line1,721: "148102" ;
-		  schema:Line1,721: "58" ;
-		  schema:Line1,721: "42" ;
-		  schema:Line1,721: "55" ;
-		  schema:Line1,721: "39" ;
-		  schema:Line1,721: "89" ;
-		  schema:Line1,721: "2" ;
-		  schema:Line1,721: "98" ;
-		  schema:Line1,721: "9" ;
-		  schema:Line1,721: "68" ;
-		  schema:Line1,721: "49" ;.
 };
 
 DELETE DATA {
@@ -2193,18 +1004,14 @@ INSERT DATA {
   wd:Q81200182  schema:label "TYC 1982-1847-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95844681 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061634698" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95844681 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98835296  schema:description "波蘭足球運動員"@zh ;
@@ -2212,18 +1019,14 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q16318945 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "168664704" ;
     pr:P813 "8 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q16318945 p:P1412 [ ps:P1412 wd:Q9063 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -2295,15 +1098,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/168664704" "8 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/168664704" ;
+
 }
 WHERE {
-  wd:Q16318945 p:P1412 [ ps:P1412 wd:Q9063; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q16318945 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/168664704" ;
 
+};
 
 INSERT DATA {
   wd:Q81200323  schema:label "TYC 1982-1851-1"@mul ;.
@@ -2398,25 +1204,17 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P213 [
   ps:P213 "000000039316521X" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288664 p:P213 [ ps:P213 "000000039316521X" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q112047282 p:P669 [
   ps:P669 wd:Q130288589 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q112047282 p:P669 [ ps:P669 wd:Q130288589 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -2427,22 +1225,14 @@ INSERT DATA {
   wd:Q81192300  schema:label "TYC 1982-188-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288717 p:P2632 [
   ps:P2632 wd:Q7341 ;
   wikibase:rank wikibase:NormalRank ;
   pq:P580 "18 May 1943" ;
   pq:P1545 114.010 ;
   pq:P582 "5 July 1943" ;
-]}
-WHERE {
-  wd:Q130288717 p:P2632 [ ps:P2632 wd:Q7341 ].
-};
-
-
-INSERT DATA {
-  wd:Lexeme:L630615  schema:Sense "linot"@L630615-S1 ;.
-};
+]};
 
 INSERT DATA {
   wd:Q46496045 p:P2093 [
@@ -2521,15 +1311,11 @@ INSERT DATA {
   wd:Q58817431  schema:label "бассейн Кларэльвена"@ru ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98835301  schema:description "波蘭足球運動員"@zh ;
@@ -2610,7 +1396,7 @@ INSERT DATA {
   wd:Q58817431  schema:description "водосборный бассейн"@ru ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P213 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q54919 ;
@@ -2618,13 +1404,9 @@ INSERT {
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q130288664 p:P213 [ ps:P213 "000000039316521X" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P953 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q5188229 ;
@@ -2632,11 +1414,7 @@ INSERT {
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/xml" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q130288762 a schema:Thing ;
@@ -2645,22 +1423,18 @@ INSERT DATA {
     wdt:P31 wd:Q4830453 ;
     wdt:P159 wd:Q192517 ;
     wdt:P856 "https://www.inscripta.com" .
-}
+};
 
 
 INSERT DATA {
   wd:Q81183839  schema:label "TYC 1982-1898-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q98874294  schema:description "波蘭足球運動員"@zh ;
@@ -2673,10 +1447,6 @@ INSERT DATA {
 };
 
 INSERT DATA {
-  wd:Lexeme:L630615  schema:Sense "soie"@L630615-S2 ;.
-};
-
-INSERT DATA {
   wd:Q16763207  schema:description "d'un projet Wikimédia"@fr ;.
 };
 
@@ -2684,18 +1454,14 @@ INSERT DATA {
   wd:Q92978845  schema:description "artículo científico"@es ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95799141 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061677222" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95799141 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11245933  schema:label "Shamo"@ga ;.
@@ -2776,7 +1542,7 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P953 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q5188229 ;
@@ -2784,11 +1550,7 @@ INSERT {
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q46496045 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702160?httpAccept=text/plain" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q92978845  schema:description "article scientifique"@fr ;.
@@ -2841,25 +1603,17 @@ INSERT DATA {
   wd:Q11245958  schema:label "She-Shell"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P2860 [
   ps:P2860 wd:Q56269607 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q123699570 p:P1038 [
   ps:P1038 wd:Q47507126 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q123699570 p:P1038 [ ps:P1038 wd:Q47507126 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q30957374  schema:label "Ягалдай Сараевіч"@be ;.
@@ -2873,15 +1627,11 @@ INSERT DATA {
   wd:Q8521944  schema:label "companions"@en ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P244 [
   ps:P244 "no2011180367" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288664 p:P244 [ ps:P244 "no2011180367" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q92978845  schema:description "artykuł naukowy"@pl ;.
@@ -2951,15 +1701,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P97 wd:Q1138610 ;
+?statement  ps:P97 wd:Q1138610 ;
   wikibase:rank wikibase:NormalRank ;
   pr:P356 "10.4324/9781315576909-9" ;
-        
+
 }
 WHERE {
-  wd:Q130287189 p:P97 [ ps:P97 P356; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q130287189 p:P97 ?statement . 
+  ?statement  ps:P97 wd:Q1138610 ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pr:P356 "10.4324/9781315576909-9" ;
 
+};
 
 INSERT DATA {
   wd:Q81198760  schema:label "TYC 1982-1913-1"@mul ;.
@@ -2971,7 +1724,7 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q130288717 p:P570 [
-  ps:P570 5 July 1943 ;
+  ps:P570 "5 July 1943" ;
   wikibase:rank wikibase:NormalRank ;
 ]};
 
@@ -2981,28 +1734,20 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P2860 [
   pq:P1545 14 ;
-]}
-WHERE {
-  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q92978845  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q3043226 p:P1368 [
   ps:P1368 "000078936" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q3043226 p:P1368 [ ps:P1368 "000078936" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q130288738 p:P6375 [
@@ -3046,18 +1791,14 @@ INSERT DATA {
   wd:Q30957374  schema:description "(XV ст.) татарскі князь"@be ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95803928 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061736474" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95803928 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q99332316  schema:description "波蘭足球運動員"@zh ;
@@ -3065,17 +1806,13 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P1280 [
   ps:P1280 "39810915" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P1280 [ ps:P1280 "39810915" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q46496045 p:P2860 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q5188229 ;
@@ -3083,28 +1820,20 @@ INSERT {
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70216-0" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q46496045 p:P2860 [ ps:P2860 wd:Q56269607 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q117195864  schema:label "Anota Joshua Ola"@ig ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q11427213 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "098838520" ;
     pr:P813 "7 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q11427213 p:P1412 [ ps:P1412 wd:Q5287 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q80002771  schema:label "TYC 1982-1923-1"@en ;
@@ -3148,15 +1877,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/098838520" "7 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "7 March 2020" ;
+  pr:P854 "https://www.idref.fr/098838520" ;
+
 }
 WHERE {
-  wd:Q11427213 p:P1412 [ ps:P1412 wd:Q5287; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q11427213 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "7 March 2020" ;
+  pr:P854 "https://www.idref.fr/098838520" ;
 
+};
 
 INSERT DATA {
   wd:Q81187888  schema:label "TYC 1982-1939-1"@mul ;.
@@ -3174,7 +1906,7 @@ INSERT DATA {
   wd:Q11245979  schema:label "Sherry"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P244 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q54919 ;
@@ -3182,11 +1914,7 @@ INSERT {
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q130288664 p:P244 [ ps:P244 "no2011180367" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q117195864  schema:description "nigerian"@en ;.
@@ -3225,19 +1953,26 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Weinstein GD" ;
+?statement  ps:P2093 "Weinstein GD" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 1 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Weinstein GD" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 1 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 DELETE DATA {
   wd:Q117195864  schema:description "Nigerian"@en ;.
@@ -3251,15 +1986,11 @@ INSERT DATA {
   wd:Q30957374  schema:aliases "Егалдай Сараевіч"@be ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q98607571 p:P10689 [
   ps:P10689 "166994620" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q98607571 p:P10689 [ ps:P10689 "166994620" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q40596  schema:description "波蘭足球運動員"@zh ;
@@ -3267,14 +1998,10 @@ INSERT DATA {
 		  schema:description "波蘭足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q112047282 p:P669 [
   pq:P670 7 ;
-]}
-WHERE {
-  wd:Q112047282 p:P669 [ ps:P669 wd:Q130288589 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q117195864  schema:description "onye ndọrọ ndọrọ ọchịchị nigeria"@ig ;.
@@ -3309,19 +2036,26 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Krueger GG" ;
+?statement  ps:P2093 "Krueger GG" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 2 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Krueger GG" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 2 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81198895  schema:label "TYC 1982-1949-1"@mul ;.
@@ -3391,78 +2125,47 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Duvic M" ;
+?statement  ps:P2093 "Duvic M" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 4 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Duvic M" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 4 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 };
 
-
 DELETE {
-?refNode  ps:P2093 "Lowe NJ" ;
+?statement  ps:P2093 "Lowe NJ" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 3 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Lowe NJ" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 3 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
-
-INSERT DATA {
-  wd:User:Fuzheado/MFA  schema:Line30: "88" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "Q21647744" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q18396864" ;
-		  schema:Line395: "Q18396864" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q18396864" ;
-		  schema:Line395: "Q18396864" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q18396864" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q10855061" ;
-		  schema:Line455: "Q174782" ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "Q174782" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "Q174782" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "Q174782" ;
-		  schema:Line834: "18" ;.
 };
 
 INSERT DATA {
@@ -3483,7 +2186,7 @@ INSERT DATA {
   wd:Q11246027  schema:label "Shing"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288664 p:P1006 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q54919 ;
@@ -3491,59 +2194,10 @@ INSERT {
     pr:P214 "287430628" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q130288664 p:P1006 [ ps:P1006 "152934464" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q14806848  schema:description "potok na Češkem"@sl ;.
-};
-
-DELETE DATA {
-  wd:User:Fuzheado/MFA  schema:Line30: "86" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "Q5647631" ;
-		  schema:Line395: "100." ;
-		  schema:Line395: "Q17537576" ;
-		  schema:Line395: "Q17537576" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q17537576" ;
-		  schema:Line395: "Q17537576" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q17537576" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "0" ;
-		  schema:Line395: "Q7725634" ;
-		  schema:Line455: "Q1125338" ;
-		  schema:Line455: "0" ;
-		  schema:Line455: "Q1125338" ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "Q1125338" ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "100." ;
-		  schema:Line455: "Q1125338" ;
-		  schema:Line834: "16" ;.
 };
 
 DELETE DATA {
@@ -3606,46 +2260,45 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Friedman DJ" ;
+?statement  ps:P2093 "Friedman DJ" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 5 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Friedman DJ" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 5 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81202236  schema:label "TYC 1982-1958-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95770703 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061723526" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95770703 p:P21 [ ps:P21 wd:Q6581097 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q130288762 p:P31 [
   ps:P31 wd:Q4830453 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288762 p:P31 [ ps:P31 wd:Q4830453 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81202236  schema:label "TYC 1982-1958-1"@en ;
@@ -3676,19 +2329,26 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Jegasothy BV" ;
+?statement  ps:P2093 "Jegasothy BV" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 6 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Jegasothy BV" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 6 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q76925037  schema:label "TYC 1982-1964-1"@mul ;.
@@ -3740,34 +2400,48 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Jorizzo JL" ;
+?statement  ps:P2093 "Jorizzo JL" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 7 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Jorizzo JL" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 7 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 DELETE {
-?refNode  ps:P26 wd:Q1054887 ;
+?statement  ps:P26 wd:Q1054887 ;
   wikibase:rank wikibase:NormalRank ;
   pq:P580 "28 June 1973" ;
-        
+
   pq:P582 "3 September 2024" ;
-        
+
   pq:P1534 wd:Q99521170 ;
-        
+
 }
 WHERE {
-  wd:Q130288385 p:P26 [ ps:P26 P1534; qualifier ?refNode ].
-};
+  wd:Q130288385 p:P26 ?statement . 
+  ?statement  ps:P26 wd:Q1054887 ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P580 "28 June 1973" ;
 
+	  pq:P582 "3 September 2024" ;
+
+	  pq:P1534 wd:Q99521170 ;
+
+};
 
 INSERT DATA {
   wd:Q81196465  schema:label "TYC 1982-1968-1"@mul ;.
@@ -3812,50 +2486,45 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Shmunes E" ;
+?statement  ps:P2093 "Shmunes E" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 8 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Shmunes E" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 8 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q79991157  schema:label "TYC 1982-1978-1"@mul ;.
 };
 
 INSERT DATA {
-  wd:Wikidata:WikiProject Genealogy/numbers/descendants/Osman I  schema:Line11: "267" ;.
-};
-
-INSERT {
   wd:Q61157378 p:P8851 [
   ps:P8851 "30797671" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P8851 [ ps:P8851 "30797671" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q130288385 p:P26 [
   ps:P26 wd:Q1054887 ;
   wikibase:rank wikibase:NormalRank ;
   pq:P580 "28 June 1973" ;
   pq:P582 "3 September 2024" ;
   pq:P1534 wd:Q99521170 ;
-]}
-WHERE {
-  wd:Q130288385 p:P26 [ ps:P26 wd:Q1054887 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q104650543  schema:description "智利足球運動員"@zh ;
@@ -3904,24 +2573,27 @@ DELETE DATA {
 		  schema:label "TYC 1982-1978-1"@vo ;.
 };
 
-DELETE DATA {
-  wd:Wikidata:WikiProject Genealogy/numbers/descendants/Osman I  schema:Line11: "266" ;.
-};
-
 DELETE {
-?refNode  ps:P2093 "Tschen EH" ;
+?statement  ps:P2093 "Tschen EH" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 9 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Tschen EH" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 9 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q4325527 p:P9435 [
@@ -3929,15 +2601,11 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P3987 [
   ps:P3987 "369551" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P3987 [ ps:P3987 "369551" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q105394167  schema:description "智利足球運動員"@zh ;
@@ -3945,47 +2613,46 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288746 p:P1889 [
   ps:P1889 wd:Q32142992 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288746 p:P1889 [ ps:P1889 wd:Q32142992 ].
-};
-
+]};
 
 DELETE {
-?refNode  ps:P2093 "Lew-Kaya DA" ;
+?statement  ps:P2093 "Lew-Kaya DA" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 10 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Lew-Kaya DA" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 10 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81184485  schema:label "TYC 1982-2000-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q94885841 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1012385728" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q94885841 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q105721085  schema:description "智利足球運動員"@zh ;
@@ -4005,18 +2672,14 @@ INSERT DATA {
   wd:Q11246279  schema:description "banna ceoil Seapánach"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q23694688 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "075672901" ;
     pr:P813 "10 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q23694688 p:P1412 [ ps:P1412 wd:Q1860 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q116793883  schema:label "Veveřský potok"@sl ;.
@@ -4051,30 +2714,40 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/075672901" "10 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "10 March 2020" ;
+  pr:P854 "https://www.idref.fr/075672901" ;
+
 }
 WHERE {
-  wd:Q23694688 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
+  wd:Q23694688 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "10 March 2020" ;
+  pr:P854 "https://www.idref.fr/075672901" ;
+
 };
 
-
 DELETE {
-?refNode  ps:P2093 "Lue JC" ;
+?statement  ps:P2093 "Lue JC" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 11 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Lue JC" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 11 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81187242  schema:label "TYC 1982-2003-1"@mul ;.
@@ -4119,51 +2792,56 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Gibson JR" ;
+?statement  ps:P2093 "Gibson JR" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 13 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Gibson JR" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 13 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 DELETE DATA {
   wd:Q10087552  schema:description "Wikimedia"@fr ;.
 };
 
 DELETE {
-?refNode  ps:P2093 "Sefton J" ;
+?statement  ps:P2093 "Sefton J" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 12 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Sefton J" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 12 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81185223  schema:label "TYC 1982-2011-1"@mul ;.
 };
-
-INSERT {
-  wd:Lexeme:L630615 p:P1343 [
-  pq:P6072 "L630615-S1" ;
-]}
-WHERE {
-  wd:Lexeme:L630615 p:P1343 [ ps:P1343 wd:Q19216625 ].
-};
-
 
 INSERT DATA {
   wd:Q117195864  schema:aliases "Joe Anota"@ig ;.
@@ -4173,15 +2851,11 @@ INSERT DATA {
   wd:Q112047282  schema:aliases "Дом Ковалева"@ru ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P9251 [
   ps:P9251 "29566" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P9251 [ ps:P9251 "29566" ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81185223  schema:label "TYC 1982-2011-1"@en ;
@@ -4212,19 +2886,26 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Chandraratna RA" ;
+?statement  ps:P2093 "Chandraratna RA" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 14 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216528" ;
-          pr:P813 P854 ;
-          pr:"http://europepmc.org/abstract/MED/9216528" "22 December 2017" ;
-        
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
+
 }
 WHERE {
-  wd:Q46496045 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q46496045 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Chandraratna RA" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 14 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216528" ;
+  pr:P813 "22 December 2017" ;
+  pr:P854 "http://europepmc.org/abstract/MED/9216528" ;
 
+};
 
 INSERT DATA {
   wd:Q81191806  schema:label "TYC 1982-2014-1"@mul ;.
@@ -4234,29 +2915,21 @@ INSERT DATA {
   wd:Q11246318  schema:label "Katala Hamu Lingu"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q32142992 p:P1889 [
   ps:P1889 wd:Q130288746 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q32142992 p:P1889 [ ps:P1889 wd:Q130288746 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q8521944  schema:description "Wikimédia"@fr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288717 p:P20 [
   ps:P20 wd:Q7341 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288717 p:P20 [ ps:P20 wd:Q7341 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q106767983  schema:description "智利足球運動員"@zh ;
@@ -4304,15 +2977,11 @@ INSERT DATA {
   wd:Q81188287  schema:label "TYC 1982-2020-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P11193 [
   ps:P11193 "5c18dd4756972ccb3eb64f85" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P11193 [ ps:P11193 "5c18dd4756972ccb3eb64f85" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q106768141  schema:description "智利足球運動員"@zh ;
@@ -4352,28 +3021,20 @@ INSERT DATA {
   wd:Q81189536  schema:label "TYC 1982-2023-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95876036 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061808777" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95876036 p:P21 [ ps:P21 wd:Q6581097 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q98607571 p:P18 [
   ps:P18 "Dinkelsbühl Segringerstrasse 21-002.jpg" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q98607571 p:P18 [ ps:P18 "Dinkelsbühl Segringerstrasse 21-002.jpg" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q107353831  schema:description "智利足球運動員"@zh ;
@@ -4414,14 +3075,6 @@ INSERT DATA {
 };
 
 INSERT DATA {
-  wd:Wikidata:Lists/US counties/numbers/area sq mi  schema:Line25: "Q492355" ;
-		  schema:Line31: "Q586070" ;
-		  schema:Line37: "Q486075" ;
-		  schema:Line43: "Q27041" ;
-		  schema:Line49: "Q4938481" ;.
-};
-
-INSERT DATA {
   wd:Q11246361  schema:label "Sissy"@ga ;.
 };
 
@@ -4431,16 +3084,12 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q21456698 p:P737 [
   prov:wasDerivedFrom [
     pr:P854 "https://www.purdyhicks.com/artists/27-andrzej-jackowski/biography/" ;
 ];
-]}
-WHERE {
-  wd:Q21456698 p:P737 [ ps:P737 wd:Q545825 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81194409  schema:label "TYC 1982-2025-1"@en ;
@@ -4501,30 +3150,18 @@ DELETE DATA {
 		  schema:label "TYC 1982-2025-1"@en-gb ;.
 };
 
-DELETE DATA {
-  wd:Wikidata:Lists/US counties/numbers/area sq mi  schema:Line25: "Q1853983" ;
-		  schema:Line31: "Q490505" ;
-		  schema:Line37: "Q509757" ;
-		  schema:Line43: "Q498020" ;
-		  schema:Line49: "Q484401" ;.
-};
-
 INSERT DATA {
   wd:Q81189770  schema:label "TYC 1982-2029-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130287189 p:P511 [
   ps:P511 wd:Q1138610 ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
     pr:P356 "10.4324/9781315576909-9" ;
 ];
-]}
-WHERE {
-  wd:Q130287189 p:P511 [ ps:P511 wd:Q1138610 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q107622883  schema:description "智利足球運動員"@zh ;
@@ -4536,25 +3173,17 @@ INSERT DATA {
   wd:Q90259985  schema:description "bilimsel makale"@tr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q126417474 p:P31 [
   ps:P31 wd:Q178743 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q126417474 p:P31 [ ps:P31 wd:Q178743 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q130288762 p:P159 [
   ps:P159 wd:Q192517 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288762 p:P159 [ ps:P159 wd:Q192517 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81189770  schema:label "TYC 1982-2029-1"@en ;
@@ -4654,22 +3283,8 @@ INSERT DATA {
 };
 
 INSERT DATA {
-  wd:Wikidata:WikiProject Genealogy/numbers/descendants/Ottokar II of Bohemia  schema:Line17: "178558" ;.
-};
-
-INSERT DATA {
   wd:Q18361944  schema:description "potok na Češkem"@sl ;.
 };
-
-INSERT {
-  wd:Lexeme:L630615 p:P5137 [
-  item for this sense wd:Q193807 ;
-  wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Lexeme:L630615 p:P5137 [ ps:P5137 wd:Q193807 ].
-};
-
 
 INSERT DATA {
   wd:Q90259985  schema:description "artykuł naukowy"@pl ;.
@@ -4712,10 +3327,6 @@ DELETE DATA {
 		  schema:label "TYC 1982-203-1"@pt ;
 		  schema:label "TYC 1982-203-1"@pt-br ;
 		  schema:label "TYC 1982-203-1"@vo ;.
-};
-
-DELETE DATA {
-  wd:Wikidata:WikiProject Genealogy/numbers/descendants/Ottokar II of Bohemia  schema:Line17: "178376" ;.
 };
 
 INSERT DATA {
@@ -4799,7 +3410,7 @@ INSERT DATA {
     wdt:P18 "Armand de Caulaincourt1.jpg" ;
     wdt:P571 "+1800-00-00T00:00:00Z"^^xsd:dateTime ;
     wdt:P31 wd:Q3305213 .
-}
+};
 
 
 INSERT DATA {
@@ -4810,7 +3421,7 @@ INSERT DATA {
   wd:Q90259985  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q15982578 p:P27 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
@@ -4822,24 +3433,16 @@ INSERT {
     pr:P269 "11956937X" ;
     pr:P813 "8 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q15982578 p:P27 [ ps:P27 wd:Q145 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q95854207 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061415783" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95854207 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q1077183  schema:links "LH 54-425"@svwiki ;.
@@ -4863,19 +3466,26 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/11956937X" ;
+
   pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/11956937X" "8 March 2020" ;
-        
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/11956937X" ;
+
 }
 WHERE {
-  wd:Q15982578 p:P27 [ ps:P27 wd:Q145; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q15982578 p:P27 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/11956937X" ;
 
+	  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/11956937X" ;
+
+};
 
 INSERT DATA {
   wd:Q81200409  schema:label "TYC 1982-2063-1"@mul ;.
@@ -5035,15 +3645,11 @@ INSERT DATA {
   wd:Q81201953  schema:label "TYC 1982-2091-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q47507126 p:P734 [
   ps:P734 wd:Q21488887 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q47507126 p:P734 [ ps:P734 wd:Q21488887 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q10958285  schema:description "智利足球運動員"@zh ;
@@ -5084,42 +3690,24 @@ DELETE DATA {
 		  schema:label "TYC 1982-2091-1"@dv ;.
 };
 
-INSERT {
-  wd:Lexeme:L630615 p:P5137 [
-  item for this sense wd:Q37681 ;
-  wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Lexeme:L630615 p:P5137 [ ps:P5137 wd:Q37681 ].
-};
-
-
 INSERT DATA {
   wd:Q11246402  schema:label "Skirt"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95749846 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "117495905" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95749846 p:P21 [ ps:P21 wd:Q6581072 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q130288746 p:P276 [
   ps:P276 wd:Q326313 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288746 p:P276 [ ps:P276 wd:Q326313 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
@@ -5139,15 +3727,11 @@ INSERT DATA {
   wd:Q123040393  schema:label "Bedřichovský potok"@sl ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288637 p:P138 [
   ps:P138 wd:Q18529869 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288637 p:P138 [ ps:P138 wd:Q18529869 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
@@ -5225,12 +3809,6 @@ INSERT DATA {
 };
 
 INSERT DATA {
-  wd:Wikidata:CopyClear/Meemoo/instelling/Jakob Smitsmuseum  schema:Line56: ",beschermd" ;
-		  schema:Line56: ",15" ;
-		  schema:Line56: ",red" ;.
-};
-
-INSERT DATA {
   wd:Q34431919 p:P2093 [
   pq:P1545 2 ;
 ]};
@@ -5273,26 +3851,16 @@ DELETE DATA {
 		  schema:label "TYC 1982-2122-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Wikidata:CopyClear/Meemoo/instelling/Jakob Smitsmuseum  schema:Line56: "beschermd," ;
-		  schema:Line56: "15," ;
-		  schema:Line56: "red," ;.
-};
-
 INSERT DATA {
   wd:Q110805295  schema:description "智利足球運動員"@zh ;
 		  schema:description "智利足球运动员"@zh-hans ;
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q25488794 p:P31 [
-  instance of wd:Q22808320 ;
-]}
-WHERE {
-  wd:Q25488794 p:P31 [ ps:P31 P31 ].
-};
-
+  ps:P31 wd:Q22808320 ;
+]};
 
 INSERT DATA {
   wd:Q11246441  schema:label "Sleep My Dear"@ga ;.
@@ -5309,13 +3877,12 @@ INSERT DATA {
 ]};
 
 DELETE {
-  wd:Q25488794 p:P31 [
-  instance of wd:Q4167410 ;
-]}
+?statement  ps:P31 wd:Q4167410 ;
+}
 WHERE {
-  wd:Q25488794 p:P31 [ ps:P31 P31 ].
+  wd:Q25488794 p:P31 ?statement . 
+  ?statement  ps:P31 wd:Q4167410 ;
 };
-
 
 INSERT DATA {
   wd:Q81183988  schema:label "TYC 1982-2126-1"@mul ;.
@@ -5325,16 +3892,12 @@ INSERT DATA {
   wd:Q79991072  schema:label "TYC 1982-2125-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q21456698 p:P737 [
   prov:wasDerivedFrom [
     pr:P854 "https://www.purdyhicks.com/artists/27-andrzej-jackowski/biography/" ;
 ];
-]}
-WHERE {
-  wd:Q21456698 p:P737 [ ps:P737 wd:Q276258 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q34431919 p:P2093 [
@@ -5410,14 +3973,14 @@ DELETE DATA {
 };
 
 DELETE {
-  wd:Q107405623 p:P17 [
-  ps:P17 wd:Q1019 ;
+?statement  ps:P17 wd:Q1019 ;
   wikibase:rank wikibase:NormalRank ;
-]}
+}
 WHERE {
-  wd:Q107405623 p:P17 [ ps:P17 wd:Q1019 ].
+  wd:Q107405623 p:P17 ?statement . 
+  ?statement  ps:P17 wd:Q1019 ;
+	  wikibase:rank wikibase:NormalRank ;
 };
-
 
 INSERT DATA {
   wd:Q3043226  schema:description "zemes attīrīšana no kokiem un krūmiem"@lv ;.
@@ -5446,31 +4009,23 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q95713283 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061716546" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95713283 p:P21 [ ps:P21 wd:Q6581072 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q12393426 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "14730914X" ;
     pr:P813 "8 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q12393426 p:P1412 [ ps:P1412 wd:Q1321 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q110827945  schema:description "智利足球運動員"@zh ;
@@ -5487,15 +4042,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/14730914X" "8 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/14730914X" ;
+
 }
 WHERE {
-  wd:Q12393426 p:P1412 [ ps:P1412 wd:Q1321; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q12393426 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/14730914X" ;
 
+};
 
 INSERT DATA {
   wd:Q81185883  schema:label "TYC 1982-2128-1"@mul ;.
@@ -5740,7 +4298,7 @@ DELETE DATA {
 		  ps:P31 wd:Q4167836@as ;
 		  wikibase:rank wikibase:NormalRank@as ;
 		  pr:P143 wd:Q190551 ;
-        
+
 		  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
 };
 
@@ -5789,25 +4347,17 @@ DELETE DATA {
   wd:Q112047282  schema:description "building"@en ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q1417938 p:P12385 [
   ps:P12385 "gerhard-grenzing" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q1417938 p:P12385 [ ps:P12385 "gerhard-grenzing" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q47507126 p:P1950 [
   ps:P1950 wd:Q93893699 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q47507126 p:P1950 [ ps:P1950 wd:Q93893699 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16763217  schema:description "Wikimédia"@fr ;.
@@ -5818,15 +4368,11 @@ INSERT DATA {
   pq:P1545 4 ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q130288706 p:P10862 [
   ps:P10862 "highlight/3789038" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288706 p:P10862 [ ps:P10862 "highlight/3789038" ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q16763217  schema:description "Wikimedia"@fr ;.
@@ -5846,7 +4392,7 @@ INSERT DATA {
     wdt:P577 "+1950-00-00T00:00:00Z"^^xsd:dateTime ;
     wdt:P243 "1739014" ;
     wdt:P166 wd:Q176441 .
-}
+};
 
 
 INSERT DATA {
@@ -5920,18 +4466,14 @@ INSERT DATA {
   wd:Q81195260  schema:label "TYC 1982-224-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95705973 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "117701025" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95705973 p:P21 [ ps:P21 wd:Q6581072 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q74767171  schema:description "artículo científico"@es ;.
@@ -6071,15 +4613,11 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q34431919 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11246484  schema:description "banna ceoil Seapánach"@ga ;.
@@ -6087,7 +4625,7 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q130288741 p:P2044 [
-  ps:wd:www.wikidata.org "2,119 metre" ;
+  ps:"2,119 metre" wd:www.wikidata.org ;
   wikibase:rank wikibase:NormalRank ;
   prov:wasDerivedFrom [
     pr:P248 wd:Q23196 ;
@@ -6106,17 +4644,13 @@ INSERT DATA {
   wd:Q74767171  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q88097929 p:P21 [
   ps:P21 wd:Q6581097 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q88097929 p:P21 [ ps:P21 wd:Q6581097 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q34431919 p:P953 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q5188229 ;
@@ -6124,11 +4658,7 @@ INSERT {
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70217-2" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/xml" ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81187279  schema:label "TYC 1982-234-1"@en ;
@@ -6164,15 +4694,11 @@ INSERT DATA {
   wd:Q81198790  schema:label "TYC 1982-249-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q34431919 p:P953 [
   ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q1220387  schema:description "智利足球運動員"@zh ;
@@ -6212,36 +4738,28 @@ INSERT DATA {
   wd:Q81188810  schema:label "TYC 1982-258-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95670086 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061290034" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95670086 p:P21 [ ps:P21 wd:Q6581072 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q130288664  schema:description "prentkunstenaar, stempelsnijder, cartograaf, muntmeester"@nl ;
 		  schema:description "print artist, diesinker, cartographer, mintmaster"@en ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q18576121 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "13687942X" ;
     pr:P813 "10 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q18576121 p:P1412 [ ps:P1412 wd:Q1860 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11246484  schema:label "Small Circle of Friends"@ga ;.
@@ -6253,7 +4771,7 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q34431919 p:P953 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q5188229 ;
@@ -6261,11 +4779,7 @@ INSERT {
     pr:P854 "https://api.crossref.org/works/10.1016/S0190-9622(97)70217-2" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q34431919 p:P953 [ ps:P953 "https://api.elsevier.com/content/article/PII:S0190962297702172?httpAccept=text/plain" ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q81188810  schema:label "TYC 1982-258-1"@en ;
@@ -6301,15 +4815,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/13687942X" "10 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "10 March 2020" ;
+  pr:P854 "https://www.idref.fr/13687942X" ;
+
 }
 WHERE {
-  wd:Q18576121 p:P1412 [ ps:P1412 wd:Q1860; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q18576121 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "10 March 2020" ;
+  pr:P854 "https://www.idref.fr/13687942X" ;
 
+};
 
 DELETE DATA {
   wd:Q12131552  schema:label ", Sângeru"@sh ;.
@@ -6319,15 +4836,11 @@ INSERT DATA {
   wd:Q81191081  schema:label "TYC 1982-262-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q126417474 p:P138 [
   ps:P138 wd:Q102285084 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q126417474 p:P138 [ ps:P138 wd:Q102285084 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q13972178  schema:description "智利足球運動員"@zh ;
@@ -6395,39 +4908,47 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Hecker D" ;
+?statement  ps:P2093 "Hecker D" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 2 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216529" ;
-          pr:P813 "2 August 2017" ;
-        
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
+
 }
 WHERE {
-  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q34431919 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Hecker D" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 2 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
 
+};
 
 DELETE DATA {
   wd:Q12085975  schema:label ", Sângeru"@sh ;.
 };
 
 DELETE {
-?refNode  ps:P2093 "Lebwohl M" ;
+?statement  ps:P2093 "Lebwohl M" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 1 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216529" ;
-          pr:P813 "2 August 2017" ;
-        
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
+
 }
 WHERE {
-  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q34431919 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Lebwohl M" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 1 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
 
-
-INSERT DATA {
-  wd:User:Owenpatel/sandbox/countries/Chile/lower house members  schema:Line17,859: "Mario Desbordes" ;.
 };
 
 INSERT DATA {
@@ -6446,10 +4967,6 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q112047282  schema:links "Category:Kaluzhskaya Street 7, Borovsk"@commonswiki ;.
-};
-
-DELETE DATA {
-  wd:User:Owenpatel/sandbox/countries/Chile/lower house members  schema:Line23,991: "ZEUS" ;.
 };
 
 DELETE DATA {
@@ -6494,28 +5011,34 @@ DELETE DATA {
 };
 
 DELETE {
-  wd:Q107405623 p:P279 [
-  ps:P279 wd:Q756820 ;
+?statement  ps:P279 wd:Q756820 ;
   wikibase:rank wikibase:NormalRank ;
-]}
+}
 WHERE {
-  wd:Q107405623 p:P279 [ ps:P279 wd:Q756820 ].
+  wd:Q107405623 p:P279 ?statement . 
+  ?statement  ps:P279 wd:Q756820 ;
+	  wikibase:rank wikibase:NormalRank ;
 };
 
-
 DELETE {
-?refNode  ps:P2093 "Martinez J" ;
+?statement  ps:P2093 "Martinez J" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 3 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216529" ;
-          pr:P813 "2 August 2017" ;
-        
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
+
 }
 WHERE {
-  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q34431919 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Martinez J" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 3 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
 
+};
 
 DELETE DATA {
   wd:Q12131554  schema:label ", Sângeru"@sh ;.
@@ -6525,14 +5048,10 @@ INSERT DATA {
   wd:Q81200929  schema:label "TYC 1982-308-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]}
-WHERE {
-  wd:Q130288350 p:P710 [ ps:P710 wd:Q214124 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11246499  schema:label "Smappies"@ga ;.
@@ -6571,32 +5090,34 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Sapadin A" ;
+?statement  ps:P2093 "Sapadin A" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 4 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216529" ;
-          pr:P813 "2 August 2017" ;
-        
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
+
 }
 WHERE {
-  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q34431919 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Sapadin A" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 4 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
 
+};
 
 INSERT DATA {
   wd:Q76935774  schema:label "TYC 1982-327-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P21 [
   ps:P21 wd:Q6581097 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q28440932  schema:links "বিষয়শ্রেণী:ইউরোপে পুরুষ ক্রীড়া"@bnwiki ;.
@@ -6658,18 +5179,24 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  ps:P2093 "Patel B" ;
+?statement  ps:P2093 "Patel B" ;
   wikibase:rank wikibase:NormalRank ;
   pq:P1545 5 ;
   pr:P248 wd:Q5412157 ;
-          pr:P698 "9216529" ;
-          pr:P813 "2 August 2017" ;
-        
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
+
 }
 WHERE {
-  wd:Q34431919 p:P2093 [ ps:P2093 P248; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q34431919 p:P2093 ?statement . 
+  ?statement  ps:P2093 "Patel B" ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pq:P1545 5 ;
+	  pr:P248 wd:Q5412157 ;
+  pr:P698 "9216529" ;
+  pr:P813 "2 August 2017" ;
 
+};
 
 INSERT DATA {
   wd:Q76929943  schema:label "TYC 1982-342-1"@mul ;.
@@ -6679,18 +5206,14 @@ INSERT DATA {
   wd:Q2462528  schema:links "y"@enwiki ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95794399 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1062220307" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95794399 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16142780  schema:description "智利足球運動員"@zh ;
@@ -6891,29 +5414,21 @@ INSERT DATA {
   wd:Q76932703  schema:label "TYC 1982-355-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q47507126 p:P1038 [
   ps:P1038 wd:Q123699570 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q47507126 p:P1038 [ ps:P1038 wd:Q123699570 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q117195820  schema:description "onye ndọrọ ndọrọ ọchịchị nigeria"@ig ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P6634 [
   ps:P6634 "r-keith-mobley-797a8810" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P6634 [ ps:P6634 "r-keith-mobley-797a8810" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16236998  schema:description "智利足球運動員"@zh ;
@@ -6921,16 +5436,12 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q21456698 p:P551 [
   prov:wasDerivedFrom [
     pr:P854 "https://art-collection.europarl.europa.eu/mt/artists/andrzej-jackowski/" ;
 ];
-]}
-WHERE {
-  wd:Q21456698 p:P551 [ ps:P551 wd:Q648810 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q76932703  schema:label "TYC 1982-355-1"@en ;
@@ -7070,31 +5581,23 @@ INSERT DATA {
   wd:Q81191877  schema:label "TYC 1982-369-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95750629 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061611663" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95750629 p:P21 [ ps:P21 wd:Q6581072 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q11482490 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "184472482" ;
     pr:P813 "7 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q11482490 p:P1412 [ ps:P1412 wd:Q5287 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q68178527  schema:description "bilimsel makale"@tr ;.
@@ -7170,15 +5673,18 @@ DELETE DATA {
 };
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/184472482" "7 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "7 March 2020" ;
+  pr:P854 "https://www.idref.fr/184472482" ;
+
 }
 WHERE {
-  wd:Q11482490 p:P1412 [ ps:P1412 wd:Q5287; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q11482490 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "7 March 2020" ;
+  pr:P854 "https://www.idref.fr/184472482" ;
 
+};
 
 DELETE DATA {
   wd:Q12160938  schema:label ", Șirna"@sh ;.
@@ -7194,28 +5700,20 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q16236171 p:P12335 [
   ps:P12335 "8591" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q16236171 p:P12335 [ ps:P12335 "8591" ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q68178527  schema:description "article scientifique"@fr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q88097929 p:P108 [
   employer wd:Q1739877 ;
-]}
-WHERE {
-  wd:Q88097929 p:P108 [ ps:P108 P108 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q76925787  schema:label "TYC 1982-371-1"@en ;
@@ -7261,13 +5759,12 @@ DELETE DATA {
 };
 
 DELETE {
-  wd:Q88097929 p:P108 [
-  employer wd:Q28738053 ;
-]}
+?statement  employer wd:Q28738053 ;
+}
 WHERE {
-  wd:Q88097929 p:P108 [ ps:P108 P108 ].
+  wd:Q88097929 p:P108 ?statement . 
+  ?statement  employer wd:Q28738053 ;
 };
-
 
 INSERT DATA {
   wd:Q130288765 a schema:Thing ;
@@ -7279,7 +5776,7 @@ INSERT DATA {
     wdt:P735 wd:Q4927937 ;
     wdt:P734 wd:Q30102635 ;
     wdt:P2163 "343404" .
-}
+};
 
 
 INSERT DATA {
@@ -7306,14 +5803,10 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]}
-WHERE {
-  wd:Q130288350 p:P710 [ ps:P710 wd:Q103779925 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q68178527  schema:description "artykuł naukowy"@pl ;.
@@ -7444,7 +5937,7 @@ DELETE DATA {
 		  ps:P31 wd:Q4167836@mn ;
 		  wikibase:rank wikibase:NormalRank@mn ;
 		  pr:P143 wd:Q190551 ;
-        
+
 		  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
 };
 
@@ -7476,11 +5969,15 @@ DELETE DATA {
 		  schema:label "TYC 1982-379-1"@dv ;.
 };
 
-DELETE DATA {
-  wd:Q112047282 p:P373 [
-  ps:P373 "Cultural heritage monuments in Borovsk" ;
+DELETE {
+?statement  ps:P373 "Cultural heritage monuments in Borovsk" ;
   wikibase:rank wikibase:NormalRank ;
-]};
+}
+WHERE {
+  wd:Q112047282 p:P373 ?statement . 
+  ?statement  ps:P373 "Cultural heritage monuments in Borovsk" ;
+	  wikibase:rank wikibase:NormalRank ;
+};
 
 INSERT DATA {
   wd:Q19846108  schema:label "Kategorio:Kubaj asocioj"@eo ;
@@ -7530,14 +6027,10 @@ INSERT DATA {
   wd:Q76936512  schema:label "TYC 1982-389-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]}
-WHERE {
-  wd:Q130288350 p:P710 [ ps:P710 wd:Q10520 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16902248  schema:links "రామ్‌చరణ్ బోహ్రా"@tewiki ;.
@@ -7598,18 +6091,14 @@ INSERT DATA {
   wd:Q11246642  schema:label "Soda fountains"@ga ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q95879314 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "106210448X" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95879314 p:P21 [ ps:P21 wd:Q6581097 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16297909  schema:description "智利足球運動員"@zh ;
@@ -7709,21 +6198,13 @@ DELETE DATA {
 };
 
 INSERT DATA {
-  wd:Wikidata:WikiProject Art in the Christian Tradition (ACT)/Non-paintings  schema:Line53: "Q614316|private museum" ;.
-};
-
-INSERT DATA {
   wd:Q76931263  schema:label "TYC 1982-425-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288350 p:P710 [
   prov:wasDerivedFrom P854 ;
-]}
-WHERE {
-  wd:Q130288350 p:P710 [ ps:P710 wd:Q122872964 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16297966  schema:description "智利足球運動員"@zh ;
@@ -7733,11 +6214,6 @@ INSERT DATA {
 
 INSERT DATA {
   wd:Q123041245  schema:description "potok na Češkem"@sl ;.
-};
-
-DELETE DATA {
-  wd:Wikidata:WikiProject Art in the Christian Tradition (ACT)/Non-paintings  schema:Line53: "Q124830284" ;
-		  schema:Line5,478: "]]<br/>[[Q2263612|fresco-secco]]<br/>[[Q219423|mural" ;.
 };
 
 DELETE DATA {
@@ -7781,15 +6257,11 @@ DELETE DATA {
 		  schema:label "TYC 1982-425-1"@vo ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P735 [
   ps:P735 wd:Q19803517 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P735 [ ps:P735 wd:Q19803517 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11246689  schema:label "Braník"@ga ;.
@@ -7809,29 +6281,21 @@ INSERT DATA {
   wd:Q81188724  schema:label "TYC 1982-428-1"@mul ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q102285084 p:P119 [
   ps:P119 wd:Q126417474 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q102285084 p:P119 [ ps:P119 wd:Q126417474 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q10087583  schema:description "Wikimédia"@fr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288637 p:P17 [
   ps:P17 wd:Q145 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288637 p:P17 [ ps:P17 wd:Q145 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16298064  schema:description "智利足球運動員"@zh ;
@@ -7871,28 +6335,20 @@ DELETE DATA {
   wd:Q10087583  schema:description "Wikimedia"@fr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q3436945 p:P8286 [
   ps:P8286 "5004216" ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q3436945 p:P8286 [ ps:P8286 "5004216" ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q11856708 p:P1412 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q47757534 ;
     pr:P269 "057082758" ;
     pr:P813 "8 March 2020" ;
 ];
-]}
-WHERE {
-  wd:Q11856708 p:P1412 [ ps:P1412 wd:Q1412 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q39454875 p:P2093 [
@@ -7900,18 +6356,14 @@ INSERT DATA {
   wikibase:rank wikibase:NormalRank ;
 ]};
 
-INSERT {
+INSERT DATA {
   wd:Q95742495 p:P21 [
   prov:wasDerivedFrom [
     pr:P248 wd:Q36578 ;
     pr:P227 "1061838757" ;
     pr:P813 "13 September 2024" ;
 ];
-]}
-WHERE {
-  wd:Q95742495 p:P21 [ ps:P21 wd:Q6581072 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16298174  schema:description "智利足球運動員"@zh ;
@@ -7919,36 +6371,31 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q130288765 p:P31 [
   ps:P31 wd:Q5 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q130288765 p:P31 [ ps:P31 wd:Q5 ].
-};
+]};
 
-
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P735 [
   ps:P735 wd:Q1159033 ;
   wikibase:rank wikibase:NormalRank ;
-]}
-WHERE {
-  wd:Q61157378 p:P735 [ ps:P735 wd:Q1159033 ].
-};
-
+]};
 
 DELETE {
-?refNode  pr:P248 wd:Q47757534 ;
-          pr:P813 P854 ;
-          pr:"https://www.idref.fr/057082758" "8 March 2020" ;
-        
+?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/057082758" ;
+
 }
 WHERE {
-  wd:Q11856708 p:P1412 [ ps:P1412 wd:Q1412; prov:wasDerivedFrom ?refNode ].
-};
+  wd:Q11856708 p:P1412 ?statement . 
+  ?statement  pr:P248 wd:Q47757534 ;
+  pr:P813 "8 March 2020" ;
+  pr:P854 "https://www.idref.fr/057082758" ;
 
+};
 
 INSERT DATA {
   wd:Q81195416  schema:label "TYC 1982-438-1"@mul ;.
@@ -7962,14 +6409,10 @@ INSERT DATA {
   wd:Q65752262  schema:label "companions"@en ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P735 [
   pq:P1545 1 ;
-]}
-WHERE {
-  wd:Q61157378 p:P735 [ ps:P735 wd:Q19803517 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q16298243  schema:description "智利足球運動員"@zh ;
@@ -8050,14 +6493,10 @@ INSERT DATA {
   wd:Q48906289  schema:description "znanstveni članek"@sl ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q61157378 p:P735 [
   pq:P1545 2 ;
-]}
-WHERE {
-  wd:Q61157378 p:P735 [ ps:P735 wd:Q1159033 ].
-};
-
+]};
 
 DELETE DATA {
   wd:Q76932543  schema:label "TYC 1982-45-1"@en ;
@@ -8112,6 +6551,6 @@ INSERT DATA {
     wdt:P361 wd:Q3866371 ;
     wdt:P1535 wd:Q18745484 ;
     wdt:P1535 wd:Q3377740 .
-}
+};
 
 

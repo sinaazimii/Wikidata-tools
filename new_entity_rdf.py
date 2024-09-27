@@ -90,6 +90,6 @@ def main(entity_id):
     insert_data = insert_data.rstrip(" ;\n") + " .\n"
 
     # Close the INSERT DATA statement
-    insert_data += "}\n"
+    insert_data += "};\n"
 
     return insert_data
