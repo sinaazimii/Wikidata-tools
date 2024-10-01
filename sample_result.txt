@@ -4105,14 +4105,10 @@ INSERT DATA {
 		  schema:description "智利足球運動員"@zh-hant ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q25488794 p:P31 [
   ps:P31 wd:Q22808320 ;
-]}
-WHERE {
-  wd:Q25488794 p:P31 [ ps:P31 P31 ].
-};
-
+]};
 
 INSERT DATA {
   wd:Q11246441  schema:label "Sleep My Dear"@ga ;.
@@ -6065,14 +6061,10 @@ INSERT DATA {
   wd:Q68178527  schema:description "article scientifique"@fr ;.
 };
 
-INSERT {
+INSERT DATA {
   wd:Q88097929 p:P108 [
-  employer wd:Q1739877 ;
-]}
-WHERE {
-  wd:Q88097929 p:P108 [ ps:P108 P108 ].
-};
-
+  ps:P108 wd:Q1739877 ;
+]};
 
 DELETE DATA {
   wd:Q76925787  schema:label "TYC 1982-371-1"@en ;
@@ -6118,11 +6110,11 @@ DELETE DATA {
 };
 
 DELETE {
-?statement  employer wd:Q28738053 ;
+?statement  ps:P108 wd:Q28738053 ;
 }
 WHERE {
   wd:Q88097929 p:P108 ?statement . 
-  ?statement  employer wd:Q28738053 ;
+  ?statement  ps:P108 wd:Q28738053 ;
 };
 
 INSERT DATA {

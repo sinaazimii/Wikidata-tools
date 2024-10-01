@@ -151,6 +151,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
                         current_predicate = sub_prop.strip()
+                       
 
                 main_predicate_type = "property"
                 language = ""
@@ -165,7 +166,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
         # Process Where clause
         where_clause = ";"
-        if (len(predicate_a_tags) > 1):
+        if (len(predicate_a_tags) > 1  and predicate_a_tags[0] != predicate_a_tags[1]):
             value = predicate_a_tags[1]
             if value:       
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
@@ -176,6 +177,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         elif current_predicate == "rank":
             current_predicate = "wikibase:rank"
         elif current_predicate == "instance of":
+            current_predicate = main_predicate
+        # TODO FIX THIS, not  a good way to handle this
+        elif current_predicate == "employer":
             current_predicate = main_predicate
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
@@ -201,7 +205,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     if current_predicate:
                         deleted_value = extract_href(value)
                         if (current_predicate == "qualifier"):
-                            # extracted value is a property id
                             current_predicate = "pq:" + deleted_value
                             deleted_value = value.find('span').text.split(":")[1].strip()
                         if current_predicate == "wikibase:rank":
@@ -230,7 +233,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     if current_predicate:
                         added_value = extract_href(value)
                         if (current_predicate == "qualifier"):
-                            # extracted value is a property id
                             current_predicate = "pq:" + added_value
                             added_value = value.find('span').text.split(":")[1].strip()
                         if current_predicate == "wikibase:rank":
