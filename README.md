@@ -45,13 +45,14 @@ the resulting rdf will be created.
 ## Arguments
 Arguments are:
 ```bash
-"-h" :  "Show help message"
-"-f" :  "store the output in a file"
+"-h" : "Show help message"
+"-f" : "store the output in a file"
 "-l" : "get latest changes"
 "-t" : "filter the type of changes. possible values are edit|new, edit, new"
 "-n" : "number of changes to get, not setting will get 5 changes"
 "-st" : "start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes"
 "-et" : "end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
+"-id" : "filter changes by the entity id (should start with 'Q')"
 ```
 Usage examples:
 ```bash

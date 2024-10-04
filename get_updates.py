@@ -23,7 +23,7 @@ WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
 P = "PREFIX p: <http://www.wikidata.org/prop/>"
 PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
 PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
-PR = 'PREFIX pr: <http://www.wikidata.org/prop/reference/>'
+PR = "PREFIX pr: <http://www.wikidata.org/prop/reference/>"
 PROV = "PREFIX prov: <http://www.w3.org/ns/prov#>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
 SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
@@ -140,8 +140,24 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             value = None
             td_tag_text = row.get_text(strip=True)
             value = row.find("a")  # Find all <a> tags in the current row
-            predicate_a_tags = row.find_all("a") # Find all <a> tags in the current row
+            predicate_a_tags = row.find_all("a")  # Find all <a> tags in the current row
             if value:
+                if main_predicate_type == "schema":
+                    # this means the prev predicate was a schema
+                    # so generate the rdf for the previous predicate
+                    # do not mix schema and wikidata rdfs
+                    generate_rdf(
+                        subject,
+                        delete_statements,
+                        insert_statements,
+                        "",
+                        main_predicate_type,
+                        main_predicate,
+                        timestamp,
+                    )
+                    delete_statements = []
+                    insert_statements = []
+
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
                     # Extract the property ID from the match
@@ -151,11 +167,26 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
                         current_predicate = sub_prop.strip()
-                       
 
                 main_predicate_type = "property"
                 language = ""
             else:
+                if main_predicate_type == "property":
+                    # this means the prev predicate was a property
+                    # so generate the rdf for the previous predicate
+                    # do not mix schema and wikidata rdfs
+                    generate_rdf(
+                        subject,
+                        delete_statements,
+                        insert_statements,
+                        where_clause,
+                        main_predicate_type,
+                        main_predicate,
+                        timestamp,
+                    )
+                    delete_statements = []
+                    insert_statements = []
+
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 language_list = current_predicate.split("/")[1:]
                 if len(language_list) > 0:
@@ -166,11 +197,10 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
         # Process Where clause
         where_clause = ";"
-        if (len(predicate_a_tags) > 1  and predicate_a_tags[0] != predicate_a_tags[1]):
+        if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
             value = predicate_a_tags[1]
-            if value:       
+            if value:
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
-
 
         if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
@@ -188,25 +218,33 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
             if value:
-                delete_nested_tags = value.find_all(lambda tag: 
-                    (tag.name in ['a', 'b']) or (tag.name == 'span' and 'wb-monolingualtext-value' in tag.get('class', []))
+                delete_nested_tags = value.find_all(
+                    lambda tag: (tag.name in ["a", "b"])
+                    or (
+                        tag.name == "span"
+                        and "wb-monolingualtext-value" in tag.get("class", [])
+                    )
                 )
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     deleting_blank_node = True
                     delete_statements.append(
-                        handle_nested(delete_nested_tags, current_predicate, deleting_blank_node)
+                        handle_nested(
+                            delete_nested_tags, current_predicate, deleting_blank_node
+                        )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
                 elif len(delete_nested_tags) > 2 and len(delete_nested_tags) % 2 != 0:
                     delete_statements.append(
                         handle_nested(delete_nested_tags[:-1], current_predicate)
                     )
-                else:     
+                else:
                     if current_predicate:
                         deleted_value = extract_href(value)
-                        if (current_predicate == "qualifier"):
+                        if current_predicate == "qualifier":
                             current_predicate = "pq:" + deleted_value
-                            deleted_value = value.find('span').text.split(":")[1].strip()
+                            deleted_value = (
+                                value.find("span").text.split(":")[1].strip()
+                            )
                         if current_predicate == "wikibase:rank":
                             deleted_value = "wikibase:" + to_camel_case(deleted_value)
                         delete_statements.append(
@@ -217,8 +255,12 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             if value:
-                add_nested_tags = value.find_all(lambda tag: 
-                    (tag.name in ['a', 'b']) or (tag.name == 'span' and 'wb-monolingualtext-value' in tag.get('class', []))
+                add_nested_tags = value.find_all(
+                    lambda tag: (tag.name in ["a", "b"])
+                    or (
+                        tag.name == "span"
+                        and "wb-monolingualtext-value" in tag.get("class", [])
+                    )
                 )
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
@@ -232,14 +274,37 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 else:
                     if current_predicate:
                         added_value = extract_href(value)
-                        if (current_predicate == "qualifier"):
+                        if current_predicate == "qualifier":
                             current_predicate = "pq:" + added_value
-                            added_value = value.find('span').text.split(":")[1].strip()
+                            added_value = value.find("span").text.split(":")[1].strip()
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
+
+    generate_rdf(
+        subject,
+        delete_statements,
+        insert_statements,
+        where_clause,
+        main_predicate_type,
+        main_predicate,
+        timestamp,
+    )
+    delete_statements = []
+    insert_statements = []
+
+
+def generate_rdf(
+    subject,
+    delete_statements,
+    insert_statements,
+    where_clause,
+    main_predicate_type,
+    main_predicate,
+    timestamp,
+):
 
     if main_predicate_type == "schema":
         delete_rdf = (
@@ -259,13 +324,15 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
     else:
         insert_rdf = (
-            ("INSERT DATA {\n" if where_clause==';' else "INSERT {\n")
+            ("INSERT DATA {\n" if where_clause == ";" else "INSERT {\n")
             + f"  wd:{subject} {main_predicate} [\n"
             + "\n".join(insert_statements)
             + "\n]}"
             + where_clause
         )
-        where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
+        where_clause = (
+            f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
+        )
         delete_rdf = (
             "DELETE {\n"
             + "?statement"
@@ -276,7 +343,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             + "\n};"
         )
 
-
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
         print(delete_rdf)
@@ -286,6 +352,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         print(insert_rdf)
         print("\n")
 
+    return
+
 
 def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
     prefix = "ps"
@@ -293,7 +361,7 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
     change_statement = ""
     if current_predicate == "prov:wasDerivedFrom":
         prefix = "pr"
-        if (not deleting_blank_node):
+        if not deleting_blank_node:
             change_statement = "  " + current_predicate + " [\n"
             open_nested = True
     elif current_predicate == "qualifier":
@@ -303,22 +371,21 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
     elif current_predicate.startswith("ps:"):
         predicate = current_predicate
         object = extract_href(nested_tags[0])
-        return (
-            f"  {predicate} {object} ;"
-        )
+        return f"  {predicate} {object} ;"
 
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
-        object = extract_href(nested_tags[i+1])
-        if (deleting_blank_node):
-            change_statement += (
-                f"  {prefix}:{predicate} {object} ;\n"
-            )
+        object = extract_href(nested_tags[i + 1])
+        if deleting_blank_node:
+            change_statement += f"  {prefix}:{predicate} {object} ;\n"
         else:
             change_statement += (
-                ("    " if open_nested else "  ") + f'{prefix}:{predicate} {object} ;' + ("\n" if open_nested else "")
+                ("    " if open_nested else "  ")
+                + f"{prefix}:{predicate} {object} ;"
+                + ("\n" if open_nested else "")
             )
     return change_statement + ("];" if open_nested else "")
+
 
 def extract_href(tag):
     # Check for href with "Property:"
@@ -328,11 +395,10 @@ def extract_href(tag):
         a_tag = tag
     if tag.name == "b":
         b_tag = tag
-    
+
     # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
-
 
     if a_tag and "Q" in a_tag["href"]:
         return "wd:" + a_tag["href"].split("/")[2]
@@ -361,7 +427,7 @@ def to_camel_case(s):
     # Split the string into words
     words = s.split()
     # Capitalize the first letter of each word and join them
-    camel_case_string = ''.join(word.capitalize() for word in words)
+    camel_case_string = "".join(word.capitalize() for word in words)
     return camel_case_string
 
 
