@@ -134,30 +134,26 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     main_predicate_type = None
     language = ""
     deleting_blank_node = False
+    where_clause = ";"
     for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
+            generate_rdf(
+                subject,
+                delete_statements,
+                insert_statements,
+                where_clause,
+                main_predicate_type,
+                main_predicate,
+                timestamp,
+            )
+            delete_statements = []
+            insert_statements = []
             value = None
             td_tag_text = row.get_text(strip=True)
-            value = row.find("a")  # Find all <a> tags in the current row
+            value = row.find("a")  # Find first <a> tags in the current row
             predicate_a_tags = row.find_all("a")  # Find all <a> tags in the current row
             if value:
-                if main_predicate_type == "schema":
-                    # this means the prev predicate was a schema
-                    # so generate the rdf for the previous predicate
-                    # do not mix schema and wikidata rdfs
-                    generate_rdf(
-                        subject,
-                        delete_statements,
-                        insert_statements,
-                        "",
-                        main_predicate_type,
-                        main_predicate,
-                        timestamp,
-                    )
-                    delete_statements = []
-                    insert_statements = []
-
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
                     # Extract the property ID from the match
@@ -171,22 +167,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 main_predicate_type = "property"
                 language = ""
             else:
-                if main_predicate_type == "property":
-                    # this means the prev predicate was a property
-                    # so generate the rdf for the previous predicate
-                    # do not mix schema and wikidata rdfs
-                    generate_rdf(
-                        subject,
-                        delete_statements,
-                        insert_statements,
-                        where_clause,
-                        main_predicate_type,
-                        main_predicate,
-                        timestamp,
-                    )
-                    delete_statements = []
-                    insert_statements = []
-
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 language_list = current_predicate.split("/")[1:]
                 if len(language_list) > 0:
@@ -202,7 +182,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
 
-        if current_predicate == "reference" or current_predicate == "prov:wasDerivedFrom":
+        if current_predicate == "reference":
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank" or current_predicate == "wikibase:rank":
             current_predicate = "wikibase:rank"
@@ -255,12 +235,15 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             value = row.find("ins", class_="diffchange")
             if value:
                 add_nested_tags = value.find_all(
-                    lambda tag: (tag.name in ["a", "b"])
-                    or (
-                        tag.name == "span"
-                        and "wb-monolingualtext-value" in tag.get("class", [])
+                    lambda tag: (
+                        tag.name in ["a", "b"]  # Find 'a' and 'b' tags
+                        or (
+                            tag.name == "span"  # Find 'span' tags
+                            "wb-monolingualtext-value" in tag.get("class", [])  # 'span' tags with specific class
+                        )
                     )
                 )
+                add_nested_tags += extract_span_plaintext(value)
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
@@ -304,7 +287,6 @@ def generate_rdf(
     main_predicate,
     timestamp,
 ):
-
     if main_predicate_type == "schema":
         delete_rdf = (
             "DELETE DATA {\n"
@@ -388,6 +370,7 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
 
 def extract_href(tag):
     # Check for href with "Property:"
+
     a_tag = tag.find("a")
     b_tag = tag.find("b", class_=["wb-time-rendered", "wb-quantity-rendered"])
     if tag.name == "a":
@@ -396,10 +379,10 @@ def extract_href(tag):
         b_tag = tag
 
     # assumed b_tag never has href, never seen otherwise in the diff html so far
-    if a_tag and "Property:" in a_tag["href"]:
+    if a_tag and a_tag.has_attr('href') and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
 
-    if a_tag and "Q" in a_tag["href"]:
+    if a_tag and a_tag.has_attr('href') and "Q" in a_tag["href"]:
         return "wd:" + a_tag["href"].split("/")[2]
 
     # Check for title attribute with "Property:"
@@ -418,6 +401,34 @@ def extract_href(tag):
     # If none of the above, return the tag's text in ""
     quote_escaped_text = tag.text.strip().replace('"', '\\"')
     return f'"{quote_escaped_text}"'
+
+def extract_span_plaintext(value):
+    nested_tags = []
+    # Find all `span` tags that have an `a` tag and some direct text
+    target_spans = value.find_all(
+        lambda tag: (
+            tag.name == "span"
+            and tag.find("a")  # Must contain an `a` tag
+            and tag.find("a").next_sibling  # Must have direct text after the `a` tag
+        )
+    )
+    for span in target_spans:
+        # Extract the `a` tag
+        a_tag = span.find("a")
+        # Extract the text after the `a` tag (the sibling text node)
+        direct_text = a_tag.next_sibling.strip() if a_tag.next_sibling else ""
+        # Create a new `a` tag with the text
+        if direct_text != ":":
+            # check if the direct text starts with colon, if so, remove it
+            if direct_text.startswith(":"):
+                direct_text = direct_text[2:]
+            soup = BeautifulSoup("", "html.parser")
+            new_tag = soup.new_tag("a")
+            new_tag.string = direct_text
+            nested_tags.append(new_tag)
+
+    return nested_tags
+
 
 
 def to_camel_case(s):
