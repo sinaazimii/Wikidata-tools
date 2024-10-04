@@ -195,6 +195,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
 
+
+        print(current_predicate)
+
         # Process Where clause
         where_clause = ";"
         if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
@@ -206,13 +209,10 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank":
             current_predicate = "wikibase:rank"
-        elif current_predicate == "instance of":
-            current_predicate = main_predicate
-        # TODO FIX THIS, not  a good way to handle this
-        elif current_predicate == "employer":
-            current_predicate = main_predicate
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
+        elif current_predicate != "qualifier":
+            current_predicate = main_predicate
 
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -255,6 +255,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             if value:
+                print(value)
                 add_nested_tags = value.find_all(
                     lambda tag: (tag.name in ["a", "b"])
                     or (
@@ -262,6 +263,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         and "wb-monolingualtext-value" in tag.get("class", [])
                     )
                 )
+                print(add_nested_tags)
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
@@ -356,6 +358,7 @@ def generate_rdf(
 
 
 def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
+    print(current_predicate)
     prefix = "ps"
     open_nested = None
     change_statement = ""
