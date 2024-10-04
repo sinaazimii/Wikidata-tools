@@ -4404,11 +4404,22 @@ DELETE DATA {
 
 INSERT DATA {
   wd:Q60890433  schema:label "Kategorio:Latviaj asocioj"@eo ;
-		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;
-		  prov:wasDerivedFrom [
+		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;.
+};
+
+INSERT {
+  wd:Q60890433 p:P31 [
+  prov:wasDerivedFrom [
     pr:P143 wd:Q190551 ;
 ];
-		  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
+]}
+WHERE {
+  wd:Q60890433 p:P31 [ ps:P31 wd:Q4167836 ].
+};
+
+
+INSERT DATA {
+  wd:Q60890433  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
 };
 
 INSERT DATA {
@@ -4554,12 +4565,25 @@ DELETE DATA {
 		  schema:description "Wikimedia-kategorie"@nds-nl ;
 		  schema:description "Wikimedia:ကဏ္ဍခွဲခြင်း"@my ;
 		  schema:description "категорияд Ангилал"@mn ;
-		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;
-		  ps:P31 wd:Q4167836 ;
-		  wikibase:rank wikibase:NormalRank ;
-		  pr:P143 wd:Q190551 ;
+		  schema:description "ৱিকিমিডিয়াৰ শ্ৰেণী"@as ;.
+};
 
-		  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
+DELETE {
+?statement  ps:P31 wd:Q4167836 ;
+  wikibase:rank wikibase:NormalRank ;
+  pr:P143 wd:Q190551 ;
+
+}
+WHERE {
+  wd:Q9962650 p:P31 ?statement . 
+  ?statement  ps:P31 wd:Q4167836 ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pr:P143 wd:Q190551 ;
+
+};
+
+DELETE DATA {
+  wd:Q9962650  schema:links "Kategorio:Latviaj asocioj"@eowiki ;.
 };
 
 DELETE DATA {
@@ -5361,7 +5385,7 @@ INSERT {
   prov:wasDerivedFrom [
     pr:P854 "https://www.svt.se/sport/fotboll/fotbollsprofiler-och-varmlanningar-tog-farval-av-svennis-hade-formagan-att-se-alla" ;
     pr:P813 "13 September 2024" ;
-    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av "Svennis"" ;
+    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av \"Svennis\"" ;
     pr:P577 "13 September 2024" ;
     pr:P407 wd:Q9027 ;
     pr:P248 wd:Q10676513 ;
@@ -6159,7 +6183,7 @@ INSERT {
   prov:wasDerivedFrom [
     pr:P854 "https://www.svt.se/sport/fotboll/fotbollsprofiler-och-varmlanningar-tog-farval-av-svennis-hade-formagan-att-se-alla" ;
     pr:P813 "13 September 2024" ;
-    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av "Svennis"" ;
+    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av \"Svennis\"" ;
     pr:P577 "13 September 2024" ;
     pr:P407 wd:Q9027 ;
     pr:P248 wd:Q10676513 ;
@@ -6295,12 +6319,25 @@ DELETE DATA {
 		  schema:description "ویکیمیڈیا زمرہ"@ur ;
 		  schema:description "Wikimedia-kategorie"@nds-nl ;
 		  schema:description "Wikimedia:ကဏ္ဍခွဲခြင်း"@my ;
-		  schema:description "категорияд Ангилал"@mn ;
-		  ps:P31 wd:Q4167836 ;
-		  wikibase:rank wikibase:NormalRank ;
-		  pr:P143 wd:Q190551 ;
+		  schema:description "категорияд Ангилал"@mn ;.
+};
 
-		  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
+DELETE {
+?statement  ps:P31 wd:Q4167836 ;
+  wikibase:rank wikibase:NormalRank ;
+  pr:P143 wd:Q190551 ;
+
+}
+WHERE {
+  wd:Q9956744 p:P31 ?statement . 
+  ?statement  ps:P31 wd:Q4167836 ;
+	  wikibase:rank wikibase:NormalRank ;
+	  pr:P143 wd:Q190551 ;
+
+};
+
+DELETE DATA {
+  wd:Q9956744  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
 };
 
 DELETE DATA {
@@ -6342,11 +6379,22 @@ WHERE {
 };
 
 INSERT DATA {
-  wd:Q19846108  schema:label "Kategorio:Kubaj asocioj"@eo ;
-		  prov:wasDerivedFrom [
+  wd:Q19846108  schema:label "Kategorio:Kubaj asocioj"@eo ;.
+};
+
+INSERT {
+  wd:Q19846108 p:P31 [
+  prov:wasDerivedFrom [
     pr:P143 wd:Q190551 ;
 ];
-		  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
+]}
+WHERE {
+  wd:Q19846108 p:P31 [ ps:P31 wd:Q4167836 ].
+};
+
+
+INSERT DATA {
+  wd:Q19846108  schema:links "Kategorio:Kubaj asocioj"@eowiki ;.
 };
 
 INSERT DATA {
@@ -6394,7 +6442,7 @@ INSERT {
   prov:wasDerivedFrom [
     pr:P854 "https://www.svt.se/sport/fotboll/fotbollsprofiler-och-varmlanningar-tog-farval-av-svennis-hade-formagan-att-se-alla" ;
     pr:P813 "13 September 2024" ;
-    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av "Svennis"" ;
+    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av \"Svennis\"" ;
     pr:P577 "13 September 2024" ;
     pr:P407 wd:Q9027 ;
     pr:P248 wd:Q10676513 ;
@@ -6583,7 +6631,7 @@ INSERT {
   prov:wasDerivedFrom [
     pr:P854 "https://www.svt.se/sport/fotboll/fotbollsprofiler-och-varmlanningar-tog-farval-av-svennis-hade-formagan-att-se-alla" ;
     pr:P813 "13 September 2024" ;
-    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av "Svennis"" ;
+    pr:P1476 "Fotbollsprofiler och värmlänningar tog farväl av \"Svennis\"" ;
     pr:P577 "13 September 2024" ;
     pr:P407 wd:Q9027 ;
     pr:P248 wd:Q10676513 ;
@@ -6980,3 +7028,5 @@ INSERT DATA {
     wdt:P1535 wd:Q18745484 ;
     wdt:P1535 wd:Q3377740 .
 };
+
+

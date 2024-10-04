@@ -195,9 +195,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
 
-
-        print(current_predicate)
-
         # Process Where clause
         where_clause = ";"
         if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
@@ -205,12 +202,14 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
 
-        if current_predicate == "reference":
+        if current_predicate == "reference" or current_predicate == "prov:wasDerivedFrom":
             current_predicate = "prov:wasDerivedFrom"
-        elif current_predicate == "rank":
+        elif current_predicate == "rank" or current_predicate == "wikibase:rank":
             current_predicate = "wikibase:rank"
         elif current_predicate.startswith("p:"):
             current_predicate = current_predicate.replace("p:", "ps:")
+        elif current_predicate.startswith("ps:"):
+            current_predicate = current_predicate
         elif current_predicate != "qualifier":
             current_predicate = main_predicate
 
@@ -255,7 +254,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             if value:
-                print(value)
                 add_nested_tags = value.find_all(
                     lambda tag: (tag.name in ["a", "b"])
                     or (
@@ -263,7 +261,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         and "wb-monolingualtext-value" in tag.get("class", [])
                     )
                 )
-                print(add_nested_tags)
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
@@ -358,7 +355,6 @@ def generate_rdf(
 
 
 def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
-    print(current_predicate)
     prefix = "ps"
     open_nested = None
     change_statement = ""
