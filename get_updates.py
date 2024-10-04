@@ -204,6 +204,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         and "wb-monolingualtext-value" in tag.get("class", [])
                     )
                 )
+                # commented bc it messes with the order of the nested tags, TODO: fix this
+                # delete_nested_tags += extract_span_plaintext(value)
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     deleting_blank_node = True
                     delete_statements.append(
@@ -243,7 +245,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         )
                     )
                 )
-                add_nested_tags += extract_span_plaintext(value)
+                # commented bc it messes with the order of the nested tags, TODO: fix this
+                # add_nested_tags += extract_span_plaintext(value)
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
@@ -304,6 +307,7 @@ def generate_rdf(
         )
 
     else:
+        print("insert_statements", insert_statements)
         insert_rdf = (
             ("INSERT DATA {\n" if where_clause == ";" else "INSERT {\n")
             + f"  wd:{subject} {main_predicate} [\n"
@@ -362,8 +366,7 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
         else:
             change_statement += (
                 ("    " if open_nested else "  ")
-                + f"{prefix}:{predicate} {object} ;"
-                + ("\n" if open_nested else "")
+                + f"{prefix}:{predicate} {object} \n;"
             )
     return change_statement + ("];" if open_nested else "")
 
@@ -428,8 +431,6 @@ def extract_span_plaintext(value):
             nested_tags.append(new_tag)
 
     return nested_tags
-
-
 
 def to_camel_case(s):
     # Remove quotes and trim whitespace
