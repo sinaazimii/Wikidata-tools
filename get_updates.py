@@ -346,10 +346,13 @@ def extract_href(tag):
         return tag.text.split("P:")[1].strip()
 
     if b_tag:
-        return f'"{b_tag.text.strip()}"'
+        # escape quotes in the text
+        quote_escaped_text = b_tag.text.strip().replace('"', '\\"')
+        return f'"{quote_escaped_text}"'
 
     # If none of the above, return the tag's text in ""
-    return f'"{tag.text.strip()}"'
+    quote_escaped_text = tag.text.strip().replace('"', '\\"')
+    return f'"{quote_escaped_text}"'
 
 
 def to_camel_case(s):
