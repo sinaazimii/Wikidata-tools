@@ -64,6 +64,7 @@ def main(entity_id):
     # Add claims
     for prop, claims in entity["claims"].items():
         for claim in claims:
+            print(claim)
             if "mainsnak" in claim and "datavalue" in claim["mainsnak"]:
                 value = claim["mainsnak"]["datavalue"]["value"]
                 if claim["mainsnak"]["datavalue"]["type"] == "wikibase-entityid":
@@ -82,9 +83,14 @@ def main(entity_id):
                         f"    wdt:{prop} \"{value['amount']}\"^^xsd:decimal ;\n"
                     )
                     simple_entity[prop] = value["amount"]
+                elif claim["mainsnak"]["datavalue"]["type"] == "monolingualtext":
+                    insert_data += (
+                        f"    wdt:{prop} \"{value['text']}\"@{value['language']} ;\n"
+                    )
+                    simple_entity[prop] = value["text"]
                 else:
                     # add without type
-                    insert_data += f"    wdt:{prop} {value} ;\n"
+                    insert_data += f'    wdt:{prop} "{value}" ;\n'
 
     # Remove the last semicolon and add a period
     insert_data = insert_data.rstrip(" ;\n") + " .\n"
