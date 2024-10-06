@@ -152,7 +152,10 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             value = None
             td_tag_text = row.get_text(strip=True)
             value = row.find("a")  # Find first <a> tags in the current row
-            predicate_a_tags = row.find_all("a")  # Find all <a> tags in the current row
+            predicate_a_tags = row.find_all("a")
+            if ':' in td_tag_text:
+                predicate_a_tags.append(create_a_tag(td_tag_text.split(':', 1)[1].split('/')[0].strip()))
+            
             if value:
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
@@ -171,6 +174,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 language_list = current_predicate.split("/")[1:]
                 if len(language_list) > 0:
                     language = "@" + language_list[0]
+                    language = language.replace("_", "-")
                 current_predicate = current_predicate.split("/")[0]
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
@@ -182,7 +186,8 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             if value:
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
 
-        if current_predicate == "reference":
+
+        if current_predicate == "reference" or current_predicate == "prov:wasDerivedFrom":
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank" or current_predicate == "wikibase:rank":
             current_predicate = "wikibase:rank"
@@ -197,15 +202,27 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
             if value:
-                delete_nested_tags = value.find_all(
-                    lambda tag: (tag.name in ["a", "b"])
-                    or (
-                        tag.name == "span"
-                        and "wb-monolingualtext-value" in tag.get("class", [])
+                # remove extra tables from the value
+                wb_details = value.find("table", class_="wb-details wb-time-details")
+                if wb_details:
+                    wb_details.extract()
+                span_tags = value.find_all("span")
+                delete_nested_tags = []
+                for span in span_tags:
+                    nested_tuple = span.find_all(
+                        lambda tag: (tag.name in ["a", "b"])
+                        or (
+                            tag.name == "span"
+                            and "wb-monolingualtext-value" in tag.get("class", [])
+                        )
                     )
-                )
-                # commented bc it messes with the order of the nested tags, TODO: fix this
-                # delete_nested_tags += extract_span_plaintext(value)
+                    if len(nested_tuple) == 2:
+                        delete_nested_tags += nested_tuple
+                    elif len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1:
+                        obj = span.text.strip().split(":")[1].strip()
+                        delete_nested_tags.extend(nested_tuple)
+                        delete_nested_tags.append(create_a_tag(obj))
+
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     deleting_blank_node = True
                     delete_statements.append(
@@ -236,17 +253,27 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             if value:
-                add_nested_tags = value.find_all(
-                    lambda tag: (
-                        tag.name in ["a", "b"]  # Find 'a' and 'b' tags
+                # remove extra tables from the value
+                wb_details = value.find("table", class_="wb-details wb-time-details")
+                if wb_details:
+                    wb_details.extract()
+                span_tags = value.find_all("span")
+                add_nested_tags = []
+                for span in span_tags:
+                    nested_tuple = span.find_all(
+                        lambda tag: (tag.name in ["a", "b"])
                         or (
-                            tag.name == "span"  # Find 'span' tags
-                            "wb-monolingualtext-value" in tag.get("class", [])  # 'span' tags with specific class
+                            tag.name == "span"
+                            and "wb-monolingualtext-value" in tag.get("class", [])
                         )
                     )
-                )
-                # commented bc it messes with the order of the nested tags, TODO: fix this
-                # add_nested_tags += extract_span_plaintext(value)
+                    if len(nested_tuple) == 2:
+                        add_nested_tags += nested_tuple
+                    elif len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1:
+                        obj = span.text.strip().split(":")[1].strip()
+                        add_nested_tags.extend(nested_tuple)
+                        add_nested_tags.append(create_a_tag(obj))
+
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(add_nested_tags, current_predicate)
@@ -262,6 +289,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         if current_predicate == "qualifier":
                             current_predicate = "pq:" + added_value
                             added_value = value.find("span").text.split(":")[1].strip()
+                            added_value = f'"{added_value}"'
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
                         insert_statements.append(
@@ -290,6 +318,8 @@ def generate_rdf(
     main_predicate,
     timestamp,
 ):
+    if delete_statements == [] and insert_statements == []:
+        return
     if main_predicate_type == "schema":
         delete_rdf = (
             "DELETE DATA {\n"
@@ -307,7 +337,6 @@ def generate_rdf(
         )
 
     else:
-        print("insert_statements", insert_statements)
         insert_rdf = (
             ("INSERT DATA {\n" if where_clause == ";" else "INSERT {\n")
             + f"  wd:{subject} {main_predicate} [\n"
@@ -366,14 +395,13 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
         else:
             change_statement += (
                 ("    " if open_nested else "  ")
-                + f"{prefix}:{predicate} {object} \n;"
+                + f"{prefix}:{predicate} {object} ;\n"
             )
     return change_statement + ("];" if open_nested else "")
 
 
 def extract_href(tag):
     # Check for href with "Property:"
-
     a_tag = tag.find("a")
     b_tag = tag.find("b", class_=["wb-time-rendered", "wb-quantity-rendered"])
     if tag.name == "a":
@@ -405,6 +433,7 @@ def extract_href(tag):
     quote_escaped_text = tag.text.strip().replace('"', '\\"')
     return f'"{quote_escaped_text}"'
 
+
 def extract_span_plaintext(value):
     nested_tags = []
     # Find all `span` tags that have an `a` tag and some direct text
@@ -425,12 +454,17 @@ def extract_span_plaintext(value):
             # check if the direct text starts with colon, if so, remove it
             if direct_text.startswith(":"):
                 direct_text = direct_text[2:]
-            soup = BeautifulSoup("", "html.parser")
-            new_tag = soup.new_tag("a")
-            new_tag.string = direct_text
-            nested_tags.append(new_tag)
+            nested_tags.append(create_a_tag(direct_text))
 
     return nested_tags
+
+def create_a_tag(text):
+    soup = BeautifulSoup("", "html.parser")
+    new_tag = soup.new_tag("a")
+    new_tag.string = text
+    return new_tag
+
+
 
 def to_camel_case(s):
     # Remove quotes and trim whitespace
