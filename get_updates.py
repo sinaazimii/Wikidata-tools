@@ -293,7 +293,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                             added_value = f'"{added_value}"'
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
-                        print(value)
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
