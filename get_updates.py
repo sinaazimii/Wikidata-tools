@@ -171,6 +171,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 language = ""
             else:
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
+                print(current_predicate)
                 language_list = current_predicate.split("/")[1:]
                 if len(language_list) > 0:
                     language = "@" + language_list[0]
@@ -292,6 +293,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                             added_value = f'"{added_value}"'
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
+                        print(value)
                         insert_statements.append(
                             f"  {current_predicate} {added_value}{language} ;"
                         )
@@ -413,7 +415,7 @@ def extract_href(tag):
     if a_tag and a_tag.has_attr('href') and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
 
-    if a_tag and a_tag.has_attr('href') and "Q" in a_tag["href"]:
+    if a_tag and a_tag.has_attr('href') and a_tag["href"].startswith("/wiki/Q"):
         return "wd:" + a_tag["href"].split("/")[2]
 
     # Check for title attribute with "Property:"

@@ -64,7 +64,6 @@ def main(entity_id):
     # Add claims
     for prop, claims in entity["claims"].items():
         for claim in claims:
-            print(claim)
             if "mainsnak" in claim and "datavalue" in claim["mainsnak"]:
                 value = claim["mainsnak"]["datavalue"]["value"]
                 if claim["mainsnak"]["datavalue"]["type"] == "wikibase-entityid":
