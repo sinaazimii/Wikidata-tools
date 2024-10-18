@@ -74,6 +74,9 @@ def get_wikidata_updates(start_time, end_time):
         "format": "json",
         "rctype": CHANGES_TYPE,  # Limit the type of changes to edits and new entities
     }
+    if TARGET_ENTITY_ID:
+        params["rctitle"] = TARGET_ENTITY_ID
+
     # Make the request
     response = requests.get(api_url, params=params)
     data = response.json()
@@ -171,7 +174,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 language = ""
             else:
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
-                print(current_predicate)
                 language_list = current_predicate.split("/")[1:]
                 if len(language_list) > 0:
                     language = "@" + language_list[0]
@@ -459,12 +461,12 @@ def extract_span_plaintext(value):
 
     return nested_tags
 
+
 def create_a_tag(text):
     soup = BeautifulSoup("", "html.parser")
     new_tag = soup.new_tag("a")
     new_tag.string = text
     return new_tag
-
 
 
 def to_camel_case(s):
@@ -641,9 +643,9 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            if change["title"].startswith("Q") and change["title"][1:].isdigit():
-                if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
-                    compare_changes("https://www.wikidata.org/w/api.php", change)
+            # if change["title"].startswith("Q") and change["title"][1:].isdigit():
+                # if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
+                compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
@@ -652,12 +654,6 @@ def main():
                 key=lambda x: x[2],
             )
             write_to_file(all_changes)
-
-            # TODO: Comparison not working as intended! 1477 is the new length of the list after compression (500 before)
-
-            # Possible refinement: stream the changes to the file while processing them to save time and memory
-            # TODO: Add command line argument for filtering language of the new entities, without filtering the language
-            # the script will get all the languages of the new entity and resulting rdf might be too large
 
 
 main()
