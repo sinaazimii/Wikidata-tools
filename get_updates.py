@@ -156,9 +156,11 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             td_tag_text = row.get_text(strip=True)
             value = row.find("a")  # Find first <a> tags in the current row
             predicate_a_tags = row.find_all("a")
-            if ':' in td_tag_text:
-                predicate_a_tags.append(create_a_tag(td_tag_text.split(':', 1)[1].split('/')[0].strip()))
-            
+            if ":" in td_tag_text:
+                predicate_a_tags.append(
+                    create_a_tag(td_tag_text.split(":", 1)[1].split("/")[0].strip())
+                )
+
             if value:
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
@@ -187,10 +189,13 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
             value = predicate_a_tags[1]
             if value:
-                where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
+                # where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
+                where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement .\n  ?statement ps:{main_predicate[2:]} {extract_href(value)}.\n}};\n"
 
-
-        if current_predicate == "reference" or current_predicate == "prov:wasDerivedFrom":
+        if (
+            current_predicate == "reference"
+            or current_predicate == "prov:wasDerivedFrom"
+        ):
             current_predicate = "prov:wasDerivedFrom"
         elif current_predicate == "rank" or current_predicate == "wikibase:rank":
             current_predicate = "wikibase:rank"
@@ -221,7 +226,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     )
                     if len(nested_tuple) == 2:
                         delete_nested_tags += nested_tuple
-                    elif len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1:
+                    elif (
+                        len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1
+                    ):
                         obj = span.text.strip().split(":")[1].strip()
                         delete_nested_tags.extend(nested_tuple)
                         delete_nested_tags.append(create_a_tag(obj))
@@ -249,7 +256,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         if current_predicate == "wikibase:rank":
                             deleted_value = "wikibase:" + to_camel_case(deleted_value)
                         delete_statements.append(
-                            f"  {current_predicate} {deleted_value}{language} ;"
+                            f"  {current_predicate} {deleted_value}{language} ."
                         )
 
         # Process added values
@@ -272,7 +279,9 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                     )
                     if len(nested_tuple) == 2:
                         add_nested_tags += nested_tuple
-                    elif len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1:
+                    elif (
+                        len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1
+                    ):
                         obj = span.text.strip().split(":")[1].strip()
                         add_nested_tags.extend(nested_tuple)
                         add_nested_tags.append(create_a_tag(obj))
@@ -296,7 +305,7 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
                         insert_statements.append(
-                            f"  {current_predicate} {added_value}{language} ;"
+                            f"  {current_predicate} {added_value}{language} ."
                         )
 
     generate_rdf(
@@ -328,27 +337,33 @@ def generate_rdf(
             "DELETE DATA {\n"
             + f"  wd:{subject}"
             + "\n\t\t".join(delete_statements)
-            + "."
             + "\n};"
         )
         insert_rdf = (
             "INSERT DATA {\n"
             + f"  wd:{subject}"
             + "\n\t\t".join(insert_statements)
-            + "."
             + "\n};"
         )
 
     else:
+        if where_clause == ";":
+            where_clause = (
+                f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
+                + "\n\t".join(insert_statements)
+                + "\n};"
+            )
         insert_rdf = (
             ("INSERT DATA {\n" if where_clause == ";" else "INSERT {\n")
-            + f"  wd:{subject} {main_predicate} [\n"
+            + "  ?statement"
             + "\n".join(insert_statements)
-            + "\n]}"
+            + "\n}"
             + where_clause
         )
         where_clause = (
             f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
+            + "\n\t".join(delete_statements)
+            + "\n};"
         )
         delete_rdf = (
             "DELETE {\n"
@@ -356,8 +371,6 @@ def generate_rdf(
             + "\n".join(delete_statements)
             + "\n}"
             + where_clause
-            + "\n\t".join(delete_statements)
-            + "\n};"
         )
 
     if delete_statements != []:
@@ -388,19 +401,18 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
     elif current_predicate.startswith("ps:"):
         predicate = current_predicate
         object = extract_href(nested_tags[0])
-        return f"  {predicate} {object} ;"
+        return f"  {predicate} {object} ."
 
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         object = extract_href(nested_tags[i + 1])
         if deleting_blank_node:
-            change_statement += f"  {prefix}:{predicate} {object} ;\n"
+            change_statement += f"  {prefix}:{predicate} {object} .\n"
         else:
             change_statement += (
-                ("    " if open_nested else "  ")
-                + f"{prefix}:{predicate} {object} ;\n"
-            )
-    return change_statement + ("];" if open_nested else "")
+                "    " if open_nested else "  "
+            ) + f"{prefix}:{predicate} {object} ;\n"
+    return change_statement + ("]" if open_nested else "")
 
 
 def extract_href(tag):
@@ -413,10 +425,10 @@ def extract_href(tag):
         b_tag = tag
 
     # assumed b_tag never has href, never seen otherwise in the diff html so far
-    if a_tag and a_tag.has_attr('href') and "Property:" in a_tag["href"]:
+    if a_tag and a_tag.has_attr("href") and "Property:" in a_tag["href"]:
         return a_tag["href"].split("Property:")[1]
 
-    if a_tag and a_tag.has_attr('href') and a_tag["href"].startswith("/wiki/Q"):
+    if a_tag and a_tag.has_attr("href") and a_tag["href"].startswith("/wiki/Q"):
         return "wd:" + a_tag["href"].split("/")[2]
 
     # Check for title attribute with "Property:"
@@ -643,7 +655,7 @@ def main():
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
-            # if change["title"].startswith("Q") and change["title"][1:].isdigit():
+            if change["title"].startswith("Q") and change["title"][1:].isdigit():
                 # if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
                 compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
