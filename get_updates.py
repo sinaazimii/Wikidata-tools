@@ -386,6 +386,7 @@ def generate_rdf(
 
 
 def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
+    print("Handling nested tags")
     prefix = "ps"
     open_nested = None
     change_statement = ""
@@ -407,7 +408,7 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
         predicate = extract_href(nested_tags[i])
         object = extract_href(nested_tags[i + 1])
         if deleting_blank_node:
-            change_statement += f"  {prefix}:{predicate} {object} .\n"
+            change_statement += f"  {prefix}:{predicate} {object} ;\n"
         else:
             change_statement += (
                 "    " if open_nested else "  "
