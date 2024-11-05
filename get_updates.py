@@ -16,6 +16,7 @@ START_DATE = None
 END_DATE = None
 FILE_NAME = None
 TARGET_ENTITY_ID = None
+PRINT_OUTPUT = "true"
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -96,7 +97,7 @@ def compare_changes(api_url, change):
     if change["type"] == "new":
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"])
-        print(new_insert_statement)
+        if (PRINT_OUTPUT == "true"): print(new_insert_statement)
         NEW_INSERT_RDFS.append(
             (change["title"], new_insert_statement, change["timestamp"])
         )
@@ -375,18 +376,19 @@ def generate_rdf(
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
-        print(delete_rdf)
-        print("\n")
+        if (PRINT_OUTPUT == "true"): 
+            print(delete_rdf)
+            print("\n")
     if insert_statements != []:
         EDIT_INSERT_RDFS.append((subject, insert_rdf, timestamp))
-        print(insert_rdf)
-        print("\n")
+        if (PRINT_OUTPUT == "true"): 
+            print(insert_rdf)
+            print("\n")
 
     return
 
 
 def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
-    print("Handling nested tags")
     prefix = "ps"
     open_nested = None
     change_statement = ""
@@ -493,7 +495,7 @@ def to_camel_case(s):
 
 
 def verify_args(args):
-    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID
+    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
         return False
@@ -564,6 +566,13 @@ def verify_args(args):
         if (END_DATE - START_DATE).days < 0:
             print("Start date cannot be later than end date.")
             return False
+    
+    if args.print:
+        if args.print not in ["true", "false"]:
+            print("Invalid print argument. Please provide 'true' or 'false'.")
+            return False
+        else:
+            PRINT_OUTPUT = args.print
 
     return True
 
@@ -639,6 +648,11 @@ def main():
     parser.add_argument(
         "-et", "--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
     )
+    parser.add_argument(
+        "-p",
+        "--print",
+        help="print the changes in the console, values are true (default) or false",
+    )
     args = parser.parse_args()
 
     # verify the arguments type and values
@@ -651,8 +665,10 @@ def main():
         print("Start Date: ", START_DATE)
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
+        print("Print: ", PRINT_OUTPUT)
         print("\n")
-        print(PREFIXES)
+        if (PRINT_OUTPUT == "true"): print(PREFIXES)
+        else: print("Loading ...\nChanges will not be printed to console.")
         changes = get_wikidata_updates(START_DATE, END_DATE)
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
