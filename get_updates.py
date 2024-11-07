@@ -7,16 +7,18 @@ from rdflib import Graph, Namespace
 import new_entity_rdf
 import argparse
 from dateutil.relativedelta import relativedelta
+import time
 
 # default values
 CHANGES_TYPE = "edit|new"
 CHANGE_COUNT = 5
-LATEST = "false"
+LATEST = False
 START_DATE = None
 END_DATE = None
 FILE_NAME = None
 TARGET_ENTITY_ID = None
-PRINT_OUTPUT = "true"
+PRINT_OUTPUT = True
+DEBUG = False
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -78,6 +80,14 @@ def get_wikidata_updates(start_time, end_time):
     if TARGET_ENTITY_ID:
         params["rctitle"] = TARGET_ENTITY_ID
 
+    # create curl request for debug
+    if DEBUG:
+        curl_request = f"curl -G '{api_url}'"
+        for key, value in params.items():
+            if value is not None:
+                curl_request += f" --data-urlencode '{key}={value}'"
+        print("Query changes curl request: ", curl_request, "\n")
+
     # Make the request
     response = requests.get(api_url, params=params)
     data = response.json()
@@ -97,7 +107,7 @@ def compare_changes(api_url, change):
     if change["type"] == "new":
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"])
-        if (PRINT_OUTPUT == "true"): print(new_insert_statement)
+        if (PRINT_OUTPUT == True): print(new_insert_statement)
         NEW_INSERT_RDFS.append(
             (change["title"], new_insert_statement, change["timestamp"])
         )
@@ -112,6 +122,13 @@ def compare_changes(api_url, change):
             "torev": new_rev,
             "format": "json",
         }
+
+        if DEBUG:
+            curl_request = f"curl -G '{api_url}'"
+            for key, value in params.items():
+                if value is not None:
+                    curl_request += f" --data-urlencode '{key}={value}'"
+            print("\nCompare revisions curl request: ", curl_request, "\n")
 
         response = requests.get(api_url, params=params)
         comparison_data = response.json()
@@ -376,12 +393,12 @@ def generate_rdf(
 
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
-        if (PRINT_OUTPUT == "true"): 
+        if (PRINT_OUTPUT == True): 
             print(delete_rdf)
             print("\n")
     if insert_statements != []:
         EDIT_INSERT_RDFS.append((subject, insert_rdf, timestamp))
-        if (PRINT_OUTPUT == "true"): 
+        if (PRINT_OUTPUT == True): 
             print(insert_rdf)
             print("\n")
 
@@ -495,7 +512,7 @@ def to_camel_case(s):
 
 
 def verify_args(args):
-    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT
+    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
         return False
@@ -505,6 +522,7 @@ def verify_args(args):
     if args.end and not args.start:
         print("Cannot set end date without start date.")
         return False
+
     if args.type:
         if args.type not in ["edit|new", "edit", "new"]:
             print(
@@ -513,12 +531,10 @@ def verify_args(args):
             return False
         else:
             CHANGES_TYPE = args.type
+
     if args.latest:
-        if args.latest not in ["true", "false"]:
-            print("Invalid type argument. Please provide 'true' or 'false'.")
-            return False
-        else:
-            LATEST = args.latest
+        LATEST = True
+
     if args.file:
         if not args.file.endswith(".ttl") and not args.file.endswith(".txt"):
             print(
@@ -526,6 +542,7 @@ def verify_args(args):
             )
             return False
         FILE_NAME = args.file
+
     if args.number:
         try:
             if not int(args.number) or int(args.number) not in range(1, 501):
@@ -540,6 +557,7 @@ def verify_args(args):
                 "Invalid number argument. Please provide a valid number between 1 and 500."
             )
             return False
+
     if args.id:
         if args.id.startswith("Q") and args.id[1:].isdigit():
             TARGET_ENTITY_ID = args.id
@@ -560,19 +578,18 @@ def verify_args(args):
             print("Invalid end date argument. Please provide a valid date.")
             return False
     if not args.start or not args.end:
-        LATEST = "true"
+        LATEST = True
 
     if START_DATE and END_DATE:
         if (END_DATE - START_DATE).days < 0:
             print("Start date cannot be later than end date.")
             return False
     
-    if args.print:
-        if args.print not in ["true", "false"]:
-            print("Invalid print argument. Please provide 'true' or 'false'.")
-            return False
-        else:
-            PRINT_OUTPUT = args.print
+    if args.omit_print:
+        PRINT_OUTPUT = False
+
+    if args.debug:
+        DEBUG = True
 
     return True
 
@@ -624,8 +641,13 @@ def main():
         description="This script retrieves recent changes of the wikidata, allowing you to store the output in a file"
         "not setting a time period will get the latest changes"
     )
-    parser.add_argument("-f", "--file", help="store the output in a file")
-    parser.add_argument("-l", "--latest", help="get latest changes")
+    parser.add_argument("-f", "--file", help="filename to store the output in")
+    parser.add_argument(
+        "-l",
+        "--latest",
+        help="get latest changes",
+        action="store_true",
+    )
     parser.add_argument(
         "-t",
         "--type",
@@ -649,9 +671,16 @@ def main():
         "-et", "--end", help="end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
     )
     parser.add_argument(
-        "-p",
-        "--print",
-        help="print the changes in the console, values are true (default) or false",
+        "-op",
+        "--omit-print",
+        help="omit printing the changes in the console.",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        help="print api calls that are being used as curl requests",
+        action="store_true",
     )
     args = parser.parse_args()
 
@@ -665,11 +694,13 @@ def main():
         print("Start Date: ", START_DATE)
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
+        print("Debug: ", DEBUG)
         print("Print: ", PRINT_OUTPUT)
         print("\n")
-        if (PRINT_OUTPUT == "true"): print(PREFIXES)
-        else: print("Loading ...\nChanges will not be printed to console.")
+        start_time = time.time()
         changes = get_wikidata_updates(START_DATE, END_DATE)
+        if (PRINT_OUTPUT == True): print(PREFIXES)
+        else: print("Retrieving wikidata changes...\nChanges will not be printed to console.")
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
@@ -683,6 +714,7 @@ def main():
                 key=lambda x: x[2],
             )
             write_to_file(all_changes)
-
+        end_time = time.time()
+        print(f"Execution time: {end_time - start_time} seconds")
 
 main()
