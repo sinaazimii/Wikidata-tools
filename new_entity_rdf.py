@@ -1,7 +1,7 @@
 import requests
 import json
 
-def main(entity_id):
+def main(entity_id, debug=False):
     # check if entity_id is correct format
     if not entity_id.startswith("Q"):
         print("\n")
@@ -25,6 +25,11 @@ def main(entity_id):
             "languages": "en",
         },
     )
+
+    if debug:
+        curl_command = f"curl -G '{url}?action=wbgetentities&ids={entity_id}&format=json&languages=en'"
+        print("Get new entity data curl command:", curl_command)
+
     data = response.json()
 
     # Check for errors in the response

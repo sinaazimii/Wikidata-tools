@@ -106,7 +106,7 @@ def compare_changes(api_url, change):
     diff = ""
     if change["type"] == "new":
         # Fetch the JSON data for the new entity
-        new_insert_statement = new_entity_rdf.main(change["title"])
+        new_insert_statement = new_entity_rdf.main(change["title"], debug=DEBUG)
         if (PRINT_OUTPUT == True): print(new_insert_statement)
         NEW_INSERT_RDFS.append(
             (change["title"], new_insert_statement, change["timestamp"])
