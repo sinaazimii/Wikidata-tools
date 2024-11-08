@@ -8,6 +8,7 @@ import new_entity_rdf
 import argparse
 from dateutil.relativedelta import relativedelta
 import time
+import difflib
 
 # default values
 CHANGES_TYPE = "edit|new"
@@ -32,6 +33,7 @@ SCHEMA = "PREFIX schema: <http://schema.org/>"
 SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
 XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+REF = "PREFIX ref: <http://www.wikidata.org/reference/>"
 
 # Define namespaces
 PREFIXES = (
@@ -56,6 +58,8 @@ PREFIXES = (
     + WIKIBASE
     + "\n"
     + XSD
+    + "\n"
+    + REF
     + "\n"
 )
 
@@ -98,7 +102,6 @@ def get_wikidata_updates(start_time, end_time):
     changes = data.get("query", {}).get("recentchanges", [])
     return changes
 
-
 def compare_changes(api_url, change):
     global NEW_INSERT_RDFS
     new_rev = change["revid"]
@@ -135,13 +138,26 @@ def compare_changes(api_url, change):
         if "compare" in comparison_data:
             # Fetch The HTML diff of the changes using compare API
             diff = comparison_data["compare"]["*"]
-            convert_to_rdf(diff, change["title"], change["timestamp"])
+            # store the whole json of the new revision for later use
+            if (DEBUG):
+                print("Entity ID: ", change["title"])
+                print("new revision ID: ", new_rev)
+                print("old revision ID: ", old_rev)
+            convert_to_rdf(diff, change)
         else:
             print("Comparison data unavailable.")
     return diff
 
+def get_entity_json(entity_id, revision_id):
+    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
+    response = requests.get(api_url)
+    return response
 
-def convert_to_rdf(diff_html, entity_id, timestamp):
+def convert_to_rdf(diff_html, change):
+    entity_id = change["title"]
+    timestamp = change["timestamp"]
+    new_rev_id = change["revid"]
+    old_rev_id = change["old_revid"]
     # need a subject, predicate and object for each change
     subject = entity_id
     soup = BeautifulSoup(diff_html, "html.parser")
@@ -154,7 +170,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
     main_predicate = None
     main_predicate_type = None
     language = ""
-    deleting_blank_node = False
     where_clause = ";"
     for row in rows:
         # Process property names
@@ -172,13 +187,12 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
             insert_statements = []
             value = None
             td_tag_text = row.get_text(strip=True)
-            value = row.find("a")  # Find first <a> tags in the current row
+            value = row.find("a")  # Find first <a> tag in the current row
             predicate_a_tags = row.find_all("a")
             if ":" in td_tag_text:
                 predicate_a_tags.append(
                     create_a_tag(td_tag_text.split(":", 1)[1].split("/")[0].strip())
                 )
-
             if value:
                 pattern = re.compile(r"/wiki/Property:(P\d+)")
                 if value and pattern.search(value.prettify()):
@@ -194,10 +208,13 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                 language = ""
             else:
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
+                print(current_predicate)
                 language_list = current_predicate.split("/")[1:]
-                if len(language_list) > 0:
+                language = ""
+                if len(language_list) > 0 and ("name" in current_predicate.lower() or "label" in current_predicate.lower()):
                     language = "@" + language_list[0]
                     language = language.replace("_", "-")
+                current_predicate = current_predicate.replace("/", ":")
                 current_predicate = current_predicate.split("/")[0]
                 main_predicate = current_predicate
                 main_predicate_type = "schema"
@@ -207,7 +224,6 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
         if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
             value = predicate_a_tags[1]
             if value:
-                # where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} [ ps:{main_predicate[2:]} {extract_href(value)} ].\n}};\n"
                 where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement .\n  ?statement ps:{main_predicate[2:]} {extract_href(value)}.\n}};\n"
 
         if (
@@ -252,16 +268,15 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
                         delete_nested_tags.append(create_a_tag(obj))
 
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
-                    deleting_blank_node = True
                     delete_statements.append(
                         handle_nested(
-                            delete_nested_tags, current_predicate, deleting_blank_node
+                            delete_nested_tags, current_predicate, entity_id, old_rev_id, main_predicate
                         )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
                 elif len(delete_nested_tags) > 2 and len(delete_nested_tags) % 2 != 0:
                     delete_statements.append(
-                        handle_nested(delete_nested_tags[:-1], current_predicate)
+                        handle_nested(delete_nested_tags[:-1], current_predicate, entity_id, old_rev_id, main_predicate)
                     )
                 else:
                     if current_predicate:
@@ -306,12 +321,12 @@ def convert_to_rdf(diff_html, entity_id, timestamp):
 
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
-                        handle_nested(add_nested_tags, current_predicate)
+                        handle_nested(add_nested_tags, current_predicate, entity_id, new_rev_id, main_predicate)
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
                 elif len(add_nested_tags) > 2 and len(add_nested_tags) % 2 != 0:
                     insert_statements.append(
-                        handle_nested(add_nested_tags[:-1], current_predicate)
+                        handle_nested(add_nested_tags[:-1], current_predicate, entity_id, new_rev_id, main_predicate)
                     )
                 else:
                     if current_predicate:
@@ -405,19 +420,20 @@ def generate_rdf(
     return
 
 
-def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
+def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predicate):
     prefix = "ps"
-    open_nested = None
     change_statement = ""
+    ref_hash = None
+    snaks_group = None
     if current_predicate == "prov:wasDerivedFrom":
         prefix = "pr"
-        if not deleting_blank_node:
-            change_statement = "  " + current_predicate + " [\n"
-            open_nested = True
+        entity_json = get_entity_json(entity_id, rev_id)
+        ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
+        change_statement = "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
+        snaks_group = 'references'
     elif current_predicate == "qualifier":
-        # do not open a nested [] for qualifiers
         prefix = "pq"
-        open_nested = False
+        snaks_group = 'qualifiers'
     elif current_predicate.startswith("ps:"):
         predicate = current_predicate
         object = extract_href(nested_tags[0])
@@ -425,15 +441,48 @@ def handle_nested(nested_tags, current_predicate, deleting_blank_node=False):
 
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
-        object = extract_href(nested_tags[i + 1])
-        if deleting_blank_node:
-            change_statement += f"  {prefix}:{predicate} {object} ;\n"
+        if nested_tags[i + 1].name == "b" and "wb-time-rendered" in nested_tags[i + 1].get("class", []) and snaks_group:
+            try:
+                print()
+                print(nested_tags[i + 1])
+                object = get_datetime(entity_json, entity_id, main_predicate, predicate, snaks_group)
+            except:
+                object = extract_href(nested_tags[i + 1])
         else:
-            change_statement += (
-                "    " if open_nested else "  "
-            ) + f"{prefix}:{predicate} {object} ;\n"
-    return change_statement + ("]" if open_nested else "")
+            object = extract_href(nested_tags[i + 1])
+        if (ref_hash): change_statement += "  " + "ref:" + ref_hash
+        change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
+    return change_statement
 
+def get_reference_hash(entity_id, entity_json, property_id):
+    property_objects = entity_json.json()['entities'][entity_id]['claims'][property_id]
+    for property_obj in property_objects:
+        if (property_obj.get('references')):
+            # for now assume there is only one reference
+            node_hash = property_obj.get('references')[0].get('hash')
+    return node_hash
+
+
+def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
+    if (snaks_group == 'references'):
+        references = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][0][snaks_group]
+        print(references)
+        for reference in references:
+            snaks = reference['snaks']
+            if (predicate in snaks):
+                return f"'{snaks[predicate][0]['datavalue']['value']['time']}'"
+    elif (snaks_group == 'qualifiers'):
+        qualifiers = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][0][snaks_group]
+        if (len(qualifiers) == 1):
+            if (predicate in qualifiers):
+                return f"'{qualifiers[predicate][0]['datavalue']['value']['time']}'"
+        else: 
+            for qualifier in qualifiers:
+                print(qualifier)
+                if (predicate in qualifier):
+                    return f"'{qualifier[predicate][0]['datavalue']['value']['time']}'"
+
+    return None
 
 def extract_href(tag):
     # Check for href with "Property:"
