@@ -148,11 +148,6 @@ def compare_changes(api_url, change):
             print("Comparison data unavailable.")
     return diff
 
-def get_entity_json(entity_id, revision_id):
-    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
-    response = requests.get(api_url)
-    return response
-
 def convert_to_rdf(diff_html, change):
     entity_id = change["title"]
     timestamp = change["timestamp"]
@@ -453,6 +448,16 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         if (ref_hash): change_statement += "  " + "ref:" + ref_hash
         change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
     return change_statement
+
+
+
+def get_entity_json(entity_id, revision_id):
+    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
+    response = requests.get(api_url)
+    if DEBUG:
+        print("\nRetrieving entity JSON API...")
+        print("Entity JSON API URL: ", api_url, "\n")
+    return response
 
 def get_reference_hash(entity_id, entity_json, property_id):
     property_objects = entity_json.json()['entities'][entity_id]['claims'][property_id]
