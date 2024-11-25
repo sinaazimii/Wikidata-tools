@@ -203,7 +203,6 @@ def convert_to_rdf(diff_html, change):
                 language = ""
             else:
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
-                print(current_predicate)
                 language_list = current_predicate.split("/")[1:]
                 language = ""
                 if len(language_list) > 0 and ("name" in current_predicate.lower() or "label" in current_predicate.lower()):
@@ -438,8 +437,6 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         predicate = extract_href(nested_tags[i])
         if nested_tags[i + 1].name == "b" and "wb-time-rendered" in nested_tags[i + 1].get("class", []) and snaks_group:
             try:
-                print()
-                print(nested_tags[i + 1])
                 object = get_datetime(entity_json, entity_id, main_predicate, predicate, snaks_group)
             except:
                 object = extract_href(nested_tags[i + 1])
@@ -470,22 +467,22 @@ def get_reference_hash(entity_id, entity_json, property_id):
 
 def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
     if (snaks_group == 'references'):
-        references = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][0][snaks_group]
-        print(references)
+        # Some properties have multiple references, for now assume there is only one reference
+        # I take last one for now but this is not the correct way to handle it.
+        references = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][-1][snaks_group]
         for reference in references:
             snaks = reference['snaks']
             if (predicate in snaks):
-                return f"'{snaks[predicate][0]['datavalue']['value']['time']}'"
+                return f'"{snaks[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
     elif (snaks_group == 'qualifiers'):
-        qualifiers = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][0][snaks_group]
+        qualifiers = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][-1][snaks_group]
         if (len(qualifiers) == 1):
             if (predicate in qualifiers):
-                return f"'{qualifiers[predicate][0]['datavalue']['value']['time']}'"
+                return f'"{qualifiers[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
         else: 
             for qualifier in qualifiers:
-                print(qualifier)
                 if (predicate in qualifier):
-                    return f"'{qualifier[predicate][0]['datavalue']['value']['time']}'"
+                    return f'"{qualifier[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
 
     return None
 
