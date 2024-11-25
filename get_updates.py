@@ -20,6 +20,9 @@ FILE_NAME = None
 TARGET_ENTITY_ID = None
 PRINT_OUTPUT = True
 DEBUG = False
+SPECIFIC = False
+
+
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -423,6 +426,7 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         prefix = "pr"
         entity_json = get_entity_json(entity_id, rev_id)
         ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
+        # ref_hash = get_reference_node(entity_id, main_predicate[2:])
         change_statement = "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
         snaks_group = 'references'
     elif current_predicate == "qualifier":
@@ -435,18 +439,21 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
 
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
+        time_node_id = None
         if nested_tags[i + 1].name == "b" and "wb-time-rendered" in nested_tags[i + 1].get("class", []) and snaks_group:
             try:
                 object = get_datetime(entity_json, entity_id, main_predicate, predicate, snaks_group)
+                if (SPECIFIC):
+                    time_node_id = get_time_node(entity_id, rev_id, ref_hash, main_predicate[2:])
             except:
                 object = extract_href(nested_tags[i + 1])
         else:
             object = extract_href(nested_tags[i + 1])
         if (ref_hash): change_statement += "  " + "ref:" + ref_hash
         change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
+        if time_node_id:
+                change_statement += f"  ref:{ref_hash} prv:P813 {time_node_id} .\n"
     return change_statement
-
-
 
 def get_entity_json(entity_id, revision_id):
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
@@ -456,6 +463,24 @@ def get_entity_json(entity_id, revision_id):
         print("Entity JSON API URL: ", api_url, "\n")
     return response
 
+def replace_prefixes(text):
+    if text.startswith("http://www.wikidata.org/entity/"):
+        return text.replace("http://www.wikidata.org/entity/", "wd:")
+    elif text.startswith("http://www.wikidata.org/prop/statement/"):
+        return text.replace("http://www.wikidata.org/prop/statement/", "ps:")
+    elif text.startswith("http://www.wikidata.org/prop/qualifier/"):
+        return text.replace("http://www.wikidata.org/prop/qualifier/", "pq:")
+    elif text.startswith("http://www.wikidata.org/prop/reference/value/"):
+        return text.replace("http://www.wikidata.org/prop/reference/value/", "prv:")
+    elif text.startswith("http://www.wikidata.org/prop/reference/"):
+        return text.replace("http://www.wikidata.org/prop/reference/", "pr:")
+    elif text.startswith("http://www.wikidata.org/prop/"):
+        return text.replace("http://www.wikidata.org/prop/", "p:")
+    elif text.startswith("http://www.wikidata.org/value/"):
+        return text.replace("http://www.wikidata.org/value/", "v:")
+    return text
+
+
 def get_reference_hash(entity_id, entity_json, property_id):
     property_objects = entity_json.json()['entities'][entity_id]['claims'][property_id]
     for property_obj in property_objects:
@@ -464,6 +489,47 @@ def get_reference_hash(entity_id, entity_json, property_id):
             node_hash = property_obj.get('references')[0].get('hash')
     return node_hash
 
+def get_reference_node(entity_id, property_id):
+    """
+    Queries the Wikidata SPARQL endpoint to get the reference node ID (ref) for a given entity and property.
+    """
+    # SPARQL query to retrieve the reference node for the given entity and property
+    sparql_query = f"""
+    PREFIX p: <http://www.wikidata.org/prop/>
+    PREFIX ref: <http://www.wikidata.org/reference/>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+
+    SELECT ?reference
+    WHERE {{
+      # Get the statement for a given entity and property
+      wd:{entity_id} p:{property_id} ?statement .
+
+      # Check if the statement has references and get the reference node
+      ?statement prov:wasDerivedFrom ?reference .
+
+      # Ensure the reference is valid
+      FILTER(STRSTARTS(STR(?reference), "http://www.wikidata.org/reference/"))
+    }}
+    """
+    sparql_endpoint = "https://query.wikidata.org/sparql"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)'
+    }
+    response = requests.get(sparql_endpoint, params={'query': sparql_query, 'format': 'json'}, headers=headers)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        # Check if any results were returned
+        if data['results']['bindings']:
+            reference_node = data['results']['bindings'][0]['reference']['value']
+            return reference_node.split("/")[-1]
+    elif response.status_code == 429:
+        print("Rate limit hit! Try again later.")
+    else:
+        print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
+
+    return None
 
 def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
     if (snaks_group == 'references'):
@@ -484,7 +550,94 @@ def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
                 if (predicate in qualifier):
                     return f'"{qualifier[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
 
+def get_time_node(entity_id, revision_id, reference_id, property_id):
+    """
+    Queries the Wikidata SPARQL endpoint for a specific triple where the predicate is property_id
+    for a given reference node ID, ensuring it belongs to the specified entity and property.
+    """
+    # SPARQL query to retrieve the specific triple for prv:P813
+    sparql_query = f"""
+    PREFIX ref: <http://www.wikidata.org/reference/>
+    PREFIX p: <http://www.wikidata.org/prop/>
+    PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+
+    SELECT ?value
+    WHERE {{
+      # Ensure the reference is for the correct entity and property
+      wd:{entity_id} p:{property_id} ?statement .
+      
+      # The reference node
+      ?statement prov:wasDerivedFrom ref:{reference_id} .
+      
+      # The specific property value
+      ref:{reference_id} prv:P813 ?value .
+    }}
+    """
+
+    # Define the endpoint URL for Wikidata SPARQL service
+    sparql_endpoint = "https://query.wikidata.org/sparql"
+
+    # Set up headers with a custom User-Agent to help with rate limiting
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)'
+    }
+
+    # Send the query with the User-Agent header
+    response = requests.get(sparql_endpoint, params={'query': sparql_query, 'format': 'json'}, headers=headers)
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        if data['results']['bindings']:
+            # Extract the value from the response
+            value = data['results']['bindings'][0]['value']['value']
+            return value.split("/")[-1]
+    else:
+        print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
+        print(f"SPARQL query for prv:P813: {sparql_query}")
+
     return None
+
+    # Problem with this approach is if the data is not available in the SPARQL endpoint (e.g deleted nodes), it will return None
+    # Another approach is to fetch the TTL data of the entity and parse it to get the time node value (Much slower)
+
+
+    # time_node_query = f"""
+    # PREFIX ref: <http://www.wikidata.org/reference/>
+    # PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+
+    # SELECT ?value
+    # WHERE {{
+    #   ref:{reference_id} prv:P813 ?value .
+    # }}
+    # """
+
+    # api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
+    # try:
+    #     response = requests.get(api_url)
+    #     response.raise_for_status()
+    # except requests.RequestException as e:
+    #     print(f"Error fetching TTL data: {e}")
+    #     return None
+    
+    # if DEBUG:
+    #     print("\nRetrieving entity TTL API...")
+    #     print("Entity TTL API URL: ", api_url, "\n")
+    
+    # # Parse the TTL data
+    # g = Graph()
+    # try:
+    #     g.parse(data=response.text, format="ttl")
+    # except Exception as e:
+    #     print(f"Error parsing TTL data: {e}")
+    #     return None
+
+    # try:
+    #     results = g.query(time_node_query)
+    #     for row in results:
+    #         return replace_prefixes(str(row.value))
+    # except Exception as e:
+    #     print(f"Error executing SPARQL query: {e}")
+    # return None
 
 def extract_href(tag):
     # Check for href with "Property:"
@@ -563,7 +716,7 @@ def to_camel_case(s):
 
 
 def verify_args(args):
-    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG
+    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG, SPECIFIC
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
         return False
@@ -641,6 +794,9 @@ def verify_args(args):
 
     if args.debug:
         DEBUG = True
+
+    if args.specific:
+        SPECIFIC = True
 
     return True
 
@@ -733,6 +889,12 @@ def main():
         help="print api calls that are being used as curl requests",
         action="store_true",
     )
+    parser.add_argument(
+        "-sp",
+        "--specific",
+        help="get specific changes for the entity",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     # verify the arguments type and values
@@ -746,6 +908,7 @@ def main():
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
         print("Debug: ", DEBUG)
+        print("Specific node ids: ", SPECIFIC)
         print("Print: ", PRINT_OUTPUT)
         print("\n")
         start_time = time.time()
