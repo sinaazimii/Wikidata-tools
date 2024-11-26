@@ -23,7 +23,6 @@ DEBUG = False
 SPECIFIC = False
 
 
-
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
 WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
@@ -31,6 +30,7 @@ P = "PREFIX p: <http://www.wikidata.org/prop/>"
 PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
 PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
 PR = "PREFIX pr: <http://www.wikidata.org/prop/reference/>"
+PRV = "PREFIX prv: <http://www.wikidata.org/prop/reference/value/>"
 PROV = "PREFIX prov: <http://www.w3.org/ns/prov#>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
 SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
@@ -49,6 +49,8 @@ PREFIXES = (
     + PS
     + "\n"
     + PR
+    + "\n"
+    + PRV
     + "\n"
     + PQ
     + "\n"
@@ -105,6 +107,7 @@ def get_wikidata_updates(start_time, end_time):
     changes = data.get("query", {}).get("recentchanges", [])
     return changes
 
+
 def compare_changes(api_url, change):
     global NEW_INSERT_RDFS
     new_rev = change["revid"]
@@ -113,7 +116,8 @@ def compare_changes(api_url, change):
     if change["type"] == "new":
         # Fetch the JSON data for the new entity
         new_insert_statement = new_entity_rdf.main(change["title"], debug=DEBUG)
-        if (PRINT_OUTPUT == True): print(new_insert_statement)
+        if PRINT_OUTPUT == True:
+            print(new_insert_statement)
         NEW_INSERT_RDFS.append(
             (change["title"], new_insert_statement, change["timestamp"])
         )
@@ -142,7 +146,7 @@ def compare_changes(api_url, change):
             # Fetch The HTML diff of the changes using compare API
             diff = comparison_data["compare"]["*"]
             # store the whole json of the new revision for later use
-            if (DEBUG):
+            if DEBUG:
                 print("Entity ID: ", change["title"])
                 print("new revision ID: ", new_rev)
                 print("old revision ID: ", old_rev)
@@ -150,6 +154,7 @@ def compare_changes(api_url, change):
         else:
             print("Comparison data unavailable.")
     return diff
+
 
 def convert_to_rdf(diff_html, change):
     entity_id = change["title"]
@@ -208,7 +213,10 @@ def convert_to_rdf(diff_html, change):
                 current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
                 language_list = current_predicate.split("/")[1:]
                 language = ""
-                if len(language_list) > 0 and ("name" in current_predicate.lower() or "label" in current_predicate.lower()):
+                if len(language_list) > 0 and (
+                    "name" in current_predicate.lower()
+                    or "label" in current_predicate.lower()
+                ):
                     language = "@" + language_list[0]
                     language = language.replace("_", "-")
                 current_predicate = current_predicate.replace("/", ":")
@@ -267,13 +275,23 @@ def convert_to_rdf(diff_html, change):
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     delete_statements.append(
                         handle_nested(
-                            delete_nested_tags, current_predicate, entity_id, old_rev_id, main_predicate
+                            delete_nested_tags,
+                            current_predicate,
+                            entity_id,
+                            old_rev_id,
+                            main_predicate,
                         )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
                 elif len(delete_nested_tags) > 2 and len(delete_nested_tags) % 2 != 0:
                     delete_statements.append(
-                        handle_nested(delete_nested_tags[:-1], current_predicate, entity_id, old_rev_id, main_predicate)
+                        handle_nested(
+                            delete_nested_tags[:-1],
+                            current_predicate,
+                            entity_id,
+                            old_rev_id,
+                            main_predicate,
+                        )
                     )
                 else:
                     if current_predicate:
@@ -318,12 +336,24 @@ def convert_to_rdf(diff_html, change):
 
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
-                        handle_nested(add_nested_tags, current_predicate, entity_id, new_rev_id, main_predicate)
+                        handle_nested(
+                            add_nested_tags,
+                            current_predicate,
+                            entity_id,
+                            new_rev_id,
+                            main_predicate,
+                        )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
                 elif len(add_nested_tags) > 2 and len(add_nested_tags) % 2 != 0:
                     insert_statements.append(
-                        handle_nested(add_nested_tags[:-1], current_predicate, entity_id, new_rev_id, main_predicate)
+                        handle_nested(
+                            add_nested_tags[:-1],
+                            current_predicate,
+                            entity_id,
+                            new_rev_id,
+                            main_predicate,
+                        )
                     )
                 else:
                     if current_predicate:
@@ -403,15 +433,15 @@ def generate_rdf(
             + "\n}"
             + where_clause
         )
-        
+
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
-        if (PRINT_OUTPUT == True): 
+        if PRINT_OUTPUT == True:
             print(delete_rdf)
             print("\n")
     if insert_statements != []:
         EDIT_INSERT_RDFS.append((subject, insert_rdf, timestamp))
-        if (PRINT_OUTPUT == True): 
+        if PRINT_OUTPUT == True:
             print(insert_rdf)
             print("\n")
     print("-------------------------------")
@@ -429,10 +459,10 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
         # ref_hash = get_reference_node(entity_id, main_predicate[2:])
         change_statement = "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
-        snaks_group = 'references'
+        snaks_group = "references"
     elif current_predicate == "qualifier":
         prefix = "pq"
-        snaks_group = 'qualifiers'
+        snaks_group = "qualifiers"
     elif current_predicate.startswith("ps:"):
         predicate = current_predicate
         object = extract_href(nested_tags[0])
@@ -441,20 +471,30 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         time_node_id = None
-        if nested_tags[i + 1].name == "b" and "wb-time-rendered" in nested_tags[i + 1].get("class", []) and snaks_group:
+        if (
+            nested_tags[i + 1].name == "b"
+            and "wb-time-rendered" in nested_tags[i + 1].get("class", [])
+            and snaks_group
+        ):
             try:
-                object = get_datetime(entity_json, entity_id, main_predicate, predicate, snaks_group)
-                if (SPECIFIC):
-                    time_node_id = get_time_node(entity_id, rev_id, ref_hash, main_predicate[2:])
+                object = get_datetime(
+                    entity_json, entity_id, main_predicate, predicate, snaks_group
+                )
+                if SPECIFIC:
+                    time_node_id = get_time_node(
+                        entity_id, rev_id, ref_hash, main_predicate[2:]
+                    )
             except:
                 object = extract_href(nested_tags[i + 1])
         else:
             object = extract_href(nested_tags[i + 1])
-        if (ref_hash): change_statement += "  " + "ref:" + ref_hash
+        if ref_hash:
+            change_statement += "  " + "ref:" + ref_hash
         change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
         if time_node_id:
-                change_statement += f"  ref:{ref_hash} prv:P813 {time_node_id} .\n"
+            change_statement += f"  ref:{ref_hash} prv:P813 {time_node_id} .\n"
     return change_statement
+
 
 def get_entity_json(entity_id, revision_id):
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
@@ -463,6 +503,7 @@ def get_entity_json(entity_id, revision_id):
         print("\nRetrieving entity JSON API...")
         print("Entity JSON API URL: ", api_url, "\n")
     return response
+
 
 def replace_prefixes(text):
     if text.startswith("http://www.wikidata.org/entity/"):
@@ -483,12 +524,13 @@ def replace_prefixes(text):
 
 
 def get_reference_hash(entity_id, entity_json, property_id):
-    property_objects = entity_json.json()['entities'][entity_id]['claims'][property_id]
+    property_objects = entity_json.json()["entities"][entity_id]["claims"][property_id]
     for property_obj in property_objects:
-        if (property_obj.get('references')):
+        if property_obj.get("references"):
             # for now assume there is only one reference
-            node_hash = property_obj.get('references')[0].get('hash')
+            node_hash = property_obj.get("references")[0].get("hash")
     return node_hash
+
 
 def get_reference_node(entity_id, property_id):
     """
@@ -514,16 +556,20 @@ def get_reference_node(entity_id, property_id):
     """
     sparql_endpoint = "https://query.wikidata.org/sparql"
     headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)'
+        "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
     }
-    response = requests.get(sparql_endpoint, params={'query': sparql_query, 'format': 'json'}, headers=headers)
+    response = requests.get(
+        sparql_endpoint,
+        params={"query": sparql_query, "format": "json"},
+        headers=headers,
+    )
 
     # Check if the request was successful
     if response.status_code == 200:
         data = response.json()
         # Check if any results were returned
-        if data['results']['bindings']:
-            reference_node = data['results']['bindings'][0]['reference']['value']
+        if data["results"]["bindings"]:
+            reference_node = data["results"]["bindings"][0]["reference"]["value"]
             return reference_node.split("/")[-1]
     elif response.status_code == 429:
         print("Rate limit hit! Try again later.")
@@ -532,24 +578,30 @@ def get_reference_node(entity_id, property_id):
 
     return None
 
+
 def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
-    if (snaks_group == 'references'):
+    if snaks_group == "references":
         # Some properties have multiple references, for now assume there is only one reference
         # I take last one for now but this is not the correct way to handle it.
-        references = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][-1][snaks_group]
+        references = new_json.json()["entities"][entity_id]["claims"][
+            main_predicate[2:]
+        ][-1][snaks_group]
         for reference in references:
-            snaks = reference['snaks']
-            if (predicate in snaks):
+            snaks = reference["snaks"]
+            if predicate in snaks:
                 return f'"{snaks[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
-    elif (snaks_group == 'qualifiers'):
-        qualifiers = new_json.json()['entities'][entity_id]['claims'][main_predicate[2:]][-1][snaks_group]
-        if (len(qualifiers) == 1):
-            if (predicate in qualifiers):
+    elif snaks_group == "qualifiers":
+        qualifiers = new_json.json()["entities"][entity_id]["claims"][
+            main_predicate[2:]
+        ][-1][snaks_group]
+        if len(qualifiers) == 1:
+            if predicate in qualifiers:
                 return f'"{qualifiers[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
-        else: 
+        else:
             for qualifier in qualifiers:
-                if (predicate in qualifier):
+                if predicate in qualifier:
                     return f'"{qualifier[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
+
 
 def get_time_node(entity_id, revision_id, reference_id, property_id):
     """
@@ -574,71 +626,70 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
       ref:{reference_id} prv:P813 ?value .
     }}
     """
-
-    # Define the endpoint URL for Wikidata SPARQL service
     sparql_endpoint = "https://query.wikidata.org/sparql"
-
-    # Set up headers with a custom User-Agent to help with rate limiting
     headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)'
+        "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
     }
-
-    # Send the query with the User-Agent header
-    response = requests.get(sparql_endpoint, params={'query': sparql_query, 'format': 'json'}, headers=headers)
-    # Check if the request was successful
+    response = requests.get(
+        sparql_endpoint,
+        params={"query": sparql_query, "format": "json"},
+        headers=headers,
+    )
     if response.status_code == 200:
         data = response.json()
-        if data['results']['bindings']:
+        if data["results"]["bindings"]:
             # Extract the value from the response
-            value = data['results']['bindings'][0]['value']['value']
+            value = data["results"]["bindings"][0]["value"]["value"]
             return value.split("/")[-1]
     else:
         print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
-        print(f"SPARQL query for prv:P813: {sparql_query}")
+
+    # return None
+
+    # Problem with this approach is if the data is not available in the SPARQL endpoint (e.g deleted nodes),
+    # it will return None, so we move to the second appoaach to get the time node value for deleted nodes
+    # Another approach is to fetch the TTL data of the entity and parse it to get the time node value
+    # this approach is much slower but the last resort to get the datetime node value
+
+    time_node_query = f"""
+    PREFIX ref: <http://www.wikidata.org/reference/>
+    PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+
+    SELECT ?value
+    WHERE {{
+      ref:{reference_id} prv:P813 ?value .
+    }}
+    """
+
+    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Error fetching TTL data: {e}")
+        return None
+
+    if DEBUG:
+        print("\nRetrieving entity TTL API...")
+        print("Entity TTL API URL: ", api_url, "\n")
+
+    # Parse the TTL data
+    g = Graph()
+    try:
+        g.parse(data=response.text, format="ttl")
+    except Exception as e:
+        print(f"Error parsing TTL data: {e}")
+        return None
+
+    try:
+        results = g.query(time_node_query)
+        for row in results:
+            return replace_prefixes(str(row.value))
+    except Exception as e:
+        print(f"Error executing SPARQL query: {e}")
 
     return None
 
-    # Problem with this approach is if the data is not available in the SPARQL endpoint (e.g deleted nodes), it will return None
-    # Another approach is to fetch the TTL data of the entity and parse it to get the time node value (Much slower)
-
-
-    # time_node_query = f"""
-    # PREFIX ref: <http://www.wikidata.org/reference/>
-    # PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
-
-    # SELECT ?value
-    # WHERE {{
-    #   ref:{reference_id} prv:P813 ?value .
-    # }}
-    # """
-
-    # api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
-    # try:
-    #     response = requests.get(api_url)
-    #     response.raise_for_status()
-    # except requests.RequestException as e:
-    #     print(f"Error fetching TTL data: {e}")
-    #     return None
-    
-    # if DEBUG:
-    #     print("\nRetrieving entity TTL API...")
-    #     print("Entity TTL API URL: ", api_url, "\n")
-    
-    # # Parse the TTL data
-    # g = Graph()
-    # try:
-    #     g.parse(data=response.text, format="ttl")
-    # except Exception as e:
-    #     print(f"Error parsing TTL data: {e}")
-    #     return None
-
-    # try:
-    #     results = g.query(time_node_query)
-    #     for row in results:
-    #         return replace_prefixes(str(row.value))
-    # except Exception as e:
-    #     print(f"Error executing SPARQL query: {e}")
-    # return None
 
 def extract_href(tag):
     # Check for href with "Property:"
@@ -789,7 +840,7 @@ def verify_args(args):
         if (END_DATE - START_DATE).days < 0:
             print("Start date cannot be later than end date.")
             return False
-    
+
     if args.omit_print:
         PRINT_OUTPUT = False
 
@@ -914,8 +965,12 @@ def main():
         print("\n")
         start_time = time.time()
         changes = get_wikidata_updates(START_DATE, END_DATE)
-        if (PRINT_OUTPUT == True): print(PREFIXES)
-        else: print("Retrieving wikidata changes...\nChanges will not be printed to console.")
+        if PRINT_OUTPUT == True:
+            print(PREFIXES)
+        else:
+            print(
+                "Retrieving wikidata changes...\nChanges will not be printed to console."
+            )
         # Calling compare changes with the first change in the list for demonstration
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
@@ -931,5 +986,6 @@ def main():
             write_to_file(all_changes)
         end_time = time.time()
         print(f"Execution time: {end_time - start_time} seconds")
+
 
 main()
