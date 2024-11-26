@@ -37,6 +37,7 @@ SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
 XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 REF = "PREFIX ref: <http://www.wikidata.org/reference/>"
+V = "PREFIX v: <http://www.wikidata.org/value/>"
 
 # Define namespaces
 PREFIXES = (
@@ -65,6 +66,8 @@ PREFIXES = (
     + XSD
     + "\n"
     + REF
+    + "\n"
+    + V
     + "\n"
 )
 
@@ -150,6 +153,10 @@ def compare_changes(api_url, change):
                 print("Entity ID: ", change["title"])
                 print("new revision ID: ", new_rev)
                 print("old revision ID: ", old_rev)
+                print(
+                    "URL to compare revisions page: ",
+                    f"https://www.wikidata.org/w/index.php?title={change['title']}&diff={new_rev}&oldid={old_rev}\n",
+                )
             convert_to_rdf(diff, change)
         else:
             print("Comparison data unavailable.")
@@ -444,7 +451,6 @@ def generate_rdf(
         if PRINT_OUTPUT == True:
             print(insert_rdf)
             print("\n")
-    print("-------------------------------")
     return
 
 
@@ -457,7 +463,6 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         prefix = "pr"
         entity_json = get_entity_json(entity_id, rev_id)
         ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
-        # ref_hash = get_reference_node(entity_id, main_predicate[2:])
         change_statement = "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
         snaks_group = "references"
     elif current_predicate == "qualifier":
@@ -481,7 +486,7 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
                     entity_json, entity_id, main_predicate, predicate, snaks_group
                 )
                 if SPECIFIC:
-                    time_node_id = get_time_node(
+                    time_node_id = "v:" + get_time_node(
                         entity_id, rev_id, ref_hash, main_predicate[2:]
                     )
             except:
@@ -532,53 +537,6 @@ def get_reference_hash(entity_id, entity_json, property_id):
     return node_hash
 
 
-def get_reference_node(entity_id, property_id):
-    """
-    Queries the Wikidata SPARQL endpoint to get the reference node ID (ref) for a given entity and property.
-    """
-    # SPARQL query to retrieve the reference node for the given entity and property
-    sparql_query = f"""
-    PREFIX p: <http://www.wikidata.org/prop/>
-    PREFIX ref: <http://www.wikidata.org/reference/>
-    PREFIX prov: <http://www.w3.org/ns/prov#>
-
-    SELECT ?reference
-    WHERE {{
-      # Get the statement for a given entity and property
-      wd:{entity_id} p:{property_id} ?statement .
-
-      # Check if the statement has references and get the reference node
-      ?statement prov:wasDerivedFrom ?reference .
-
-      # Ensure the reference is valid
-      FILTER(STRSTARTS(STR(?reference), "http://www.wikidata.org/reference/"))
-    }}
-    """
-    sparql_endpoint = "https://query.wikidata.org/sparql"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
-    }
-    response = requests.get(
-        sparql_endpoint,
-        params={"query": sparql_query, "format": "json"},
-        headers=headers,
-    )
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        data = response.json()
-        # Check if any results were returned
-        if data["results"]["bindings"]:
-            reference_node = data["results"]["bindings"][0]["reference"]["value"]
-            return reference_node.split("/")[-1]
-    elif response.status_code == 429:
-        print("Rate limit hit! Try again later.")
-    else:
-        print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
-
-    return None
-
-
 def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
     if snaks_group == "references":
         # Some properties have multiple references, for now assume there is only one reference
@@ -609,23 +567,34 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     for a given reference node ID, ensuring it belongs to the specified entity and property.
     """
     # SPARQL query to retrieve the specific triple for prv:P813
-    sparql_query = f"""
-    PREFIX ref: <http://www.wikidata.org/reference/>
-    PREFIX p: <http://www.wikidata.org/prop/>
-    PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+    # sparql_query = f"""
+    # PREFIX ref: <http://www.wikidata.org/reference/>
+    # PREFIX p: <http://www.wikidata.org/prop/>
+    # PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
 
-    SELECT ?value
-    WHERE {{
-      # Ensure the reference is for the correct entity and property
-      wd:{entity_id} p:{property_id} ?statement .
-      
-      # The reference node
-      ?statement prov:wasDerivedFrom ref:{reference_id} .
-      
-      # The specific property value
-      ref:{reference_id} prv:P813 ?value .
-    }}
+    # SELECT ?value
+    # WHERE {{
+    #   # Ensure the reference is for the correct entity and property
+    #   wd:{entity_id} p:{property_id} ?statement .
+
+    #   # The reference node
+    #   ?statement prov:wasDerivedFrom ref:{reference_id} .
+
+    #   # The specific property value
+    #   ref:{reference_id} prv:P813 ?value .
+    # }}
+    # """
+
+    sparql_query = f"""
+        PREFIX ref: <http://www.wikidata.org/reference/>
+        PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+
+        SELECT ?value
+        WHERE {{
+        ref:{reference_id} prv:P813 ?value .
+        }}
     """
+
     sparql_endpoint = "https://query.wikidata.org/sparql"
     headers = {
         "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
