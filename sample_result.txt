@@ -597,7 +597,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:c59b1bab69299266f8a1db03daac9ef79b1174fc .
   ref:c59b1bab69299266f8a1db03daac9ef79b1174fc  pr:P248 wd:Q1194038 .
-  ref:c59b1bab69299266f8a1db03daac9ef79b1174fc  pr:P577 "11 June 2018" .
+  ref:c59b1bab69299266f8a1db03daac9ef79b1174fc  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:c59b1bab69299266f8a1db03daac9ef79b1174fc prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:c59b1bab69299266f8a1db03daac9ef79b1174fc  pr:P2326 "-1992544" .
 
 }
@@ -884,7 +885,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:a27ccd977cbd8d3e2537d8545f920143f1061a33 .
   ref:a27ccd977cbd8d3e2537d8545f920143f1061a33  pr:P248 wd:Q1194038 .
-  ref:a27ccd977cbd8d3e2537d8545f920143f1061a33  pr:P577 "11 June 2018" .
+  ref:a27ccd977cbd8d3e2537d8545f920143f1061a33  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:a27ccd977cbd8d3e2537d8545f920143f1061a33 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:a27ccd977cbd8d3e2537d8545f920143f1061a33  pr:P2326 "-1994724" .
 
 }
@@ -3104,7 +3106,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2 .
   ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2  pr:P248 wd:Q1194038 .
-  ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2  pr:P577 "11 June 2018" .
+  ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:4dfeb4beaec02c78c8dbbb8776a4502a93d6d5d2  pr:P2326 "-1995805" .
 
 }
@@ -4526,7 +4529,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:36a8c3d16d3378ba84920d510216a60f6734663e .
   ref:36a8c3d16d3378ba84920d510216a60f6734663e  pr:P248 wd:Q1194038 .
-  ref:36a8c3d16d3378ba84920d510216a60f6734663e  pr:P577 "11 June 2018" .
+  ref:36a8c3d16d3378ba84920d510216a60f6734663e  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:36a8c3d16d3378ba84920d510216a60f6734663e prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:36a8c3d16d3378ba84920d510216a60f6734663e  pr:P2326 "-1987575" .
 
 }
@@ -5061,7 +5065,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:1fb9babdf544323b01898707d122d26d1fc45af1 .
   ref:1fb9babdf544323b01898707d122d26d1fc45af1  pr:P248 wd:Q1194038 .
-  ref:1fb9babdf544323b01898707d122d26d1fc45af1  pr:P577 "11 June 2018" .
+  ref:1fb9babdf544323b01898707d122d26d1fc45af1  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:1fb9babdf544323b01898707d122d26d1fc45af1 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:1fb9babdf544323b01898707d122d26d1fc45af1  pr:P2326 "-1988618" .
 
 }
@@ -5558,7 +5563,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197 .
   ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197  pr:P248 wd:Q1194038 .
-  ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197  pr:P577 "11 June 2018" .
+  ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:79cd85fc6ff6f71a89f0039346f8a52aab7cb197  pr:P2326 "-1988681" .
 
 }
@@ -6279,7 +6285,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36 .
   ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36  pr:P248 wd:Q1194038 .
-  ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36  pr:P577 "11 June 2018" .
+  ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:795f5c66f88d19b3f53ee8d14659b2ebdf5f2c36  pr:P2326 "-1989435" .
 
 }
@@ -7076,7 +7083,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:46f782848fc05a02225e6dae7886de41cf2bf531 .
   ref:46f782848fc05a02225e6dae7886de41cf2bf531  pr:P248 wd:Q1194038 .
-  ref:46f782848fc05a02225e6dae7886de41cf2bf531  pr:P577 "11 June 2018" .
+  ref:46f782848fc05a02225e6dae7886de41cf2bf531  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:46f782848fc05a02225e6dae7886de41cf2bf531 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:46f782848fc05a02225e6dae7886de41cf2bf531  pr:P2326 "-1989659" .
 
 }
@@ -7619,7 +7627,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:3403e7dc480969997e7ca959c936c8b3b903912a .
   ref:3403e7dc480969997e7ca959c936c8b3b903912a  pr:P248 wd:Q1194038 .
-  ref:3403e7dc480969997e7ca959c936c8b3b903912a  pr:P577 "11 June 2018" .
+  ref:3403e7dc480969997e7ca959c936c8b3b903912a  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:3403e7dc480969997e7ca959c936c8b3b903912a prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:3403e7dc480969997e7ca959c936c8b3b903912a  pr:P2326 "-1990813" .
 
 }
@@ -9666,7 +9675,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619 .
   ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619  pr:P248 wd:Q1194038 .
-  ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619  pr:P577 "11 June 2018" .
+  ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:6fb6f1d9fdee954d209e5b8b8abd7b55fb781619  pr:P2326 "-1986313" .
 
 }
@@ -10114,7 +10124,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61 .
   ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61  pr:P248 wd:Q1194038 .
-  ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61  pr:P577 "11 June 2018" .
+  ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:f849f1f4de3798be64f68b3e0fe9b9f5a25cbd61  pr:P2326 "-1981474" .
 
 }
@@ -11043,7 +11054,8 @@ INSERT {
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P1476 "William Sohier Bryant (1861-1956)" .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P123 wd:Q63056 .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P407 wd:Q1860 .
-  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P813 "27 July 2022" .
+  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P813 "+2022-07-27T00:00:00Z"^^xsd:dateTime .
+  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067 prv:P813 v:a8cb14e3f795be35aa7849c41cac676a .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P854 "https://www.findagrave.com/memorial/210717126/william-sohier-bryant" .
 
 }
@@ -11183,7 +11195,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:c749bc560be35f44d51c9341aea1483a036cba21 .
   ref:c749bc560be35f44d51c9341aea1483a036cba21  pr:P248 wd:Q1194038 .
-  ref:c749bc560be35f44d51c9341aea1483a036cba21  pr:P577 "11 June 2018" .
+  ref:c749bc560be35f44d51c9341aea1483a036cba21  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:c749bc560be35f44d51c9341aea1483a036cba21 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:c749bc560be35f44d51c9341aea1483a036cba21  pr:P2326 "-1982453" .
 
 }
@@ -11198,7 +11211,8 @@ DELETE {
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P1476 "William Sohier Bryant (1861-1956)" .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P123 wd:Q63056 .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P407 wd:Q1860 .
-  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P813 "27 July 2022" .
+  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P813 "+2022-07-27T00:00:00Z"^^xsd:dateTime .
+  ref:a2ef0c840391b5b7c9765026e80e5d64afed8067 prv:P813 v:a8cb14e3f795be35aa7849c41cac676a .
   ref:a2ef0c840391b5b7c9765026e80e5d64afed8067  pr:P854 "https://www.findagrave.com/memorial/210717126/william-sohier-bryant" .
 
 }
@@ -11661,7 +11675,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc .
   ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc  pr:P248 wd:Q1194038 .
-  ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc  pr:P577 "11 June 2018" .
+  ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:5b8cf47a605f6e749aadeeb141ca5783854e25cc  pr:P2326 "-1982478" .
 
 }
@@ -12658,7 +12673,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:8f6b6cee676a933121d0e88f41efbce5009075bd .
   ref:8f6b6cee676a933121d0e88f41efbce5009075bd  pr:P248 wd:Q1194038 .
-  ref:8f6b6cee676a933121d0e88f41efbce5009075bd  pr:P577 "11 June 2018" .
+  ref:8f6b6cee676a933121d0e88f41efbce5009075bd  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:8f6b6cee676a933121d0e88f41efbce5009075bd prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:8f6b6cee676a933121d0e88f41efbce5009075bd  pr:P2326 "-1982487" .
 
 }
@@ -13187,7 +13203,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2 .
   ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2  pr:P248 wd:Q1194038 .
-  ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2  pr:P577 "11 June 2018" .
+  ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:16e5982fb9b14c1bddd1ec5d48c1af2ee86235f2  pr:P2326 "-1982517" .
 
 }
@@ -13689,7 +13706,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137 .
   ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137  pr:P248 wd:Q1194038 .
-  ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137  pr:P577 "11 June 2018" .
+  ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:513dc35ee2ab5354ba00b1ace426d219b9f4b137  pr:P2326 "-1977169" .
 
 }
@@ -13738,7 +13756,7 @@ INSERT {
   ?statement  prov:wasDerivedFrom ref:a4abe9ea699582f82e595b782d97d0a25ef2719f .
   ref:a4abe9ea699582f82e595b782d97d0a25ef2719f  pr:P1065 "https://archive.fo/0RV3u" .
   ref:a4abe9ea699582f82e595b782d97d0a25ef2719f  pr:P2960 "+2024-11-18T00:00:00Z"^^xsd:dateTime .
-  ref:a4abe9ea699582f82e595b782d97d0a25ef2719f prv:P813 v:b67a633f23f5fff0dade9e186165b07d .
+  ref:a4abe9ea699582f82e595b782d97d0a25ef2719f prv:P2960 v:b67a633f23f5fff0dade9e186165b07d .
   ref:a4abe9ea699582f82e595b782d97d0a25ef2719f  pr:P953 "https://geraldika.ru/s/24994" .
   ref:a4abe9ea699582f82e595b782d97d0a25ef2719f  pr:P813 "+2024-11-18T00:00:00Z"^^xsd:dateTime .
   ref:a4abe9ea699582f82e595b782d97d0a25ef2719f prv:P813 v:b67a633f23f5fff0dade9e186165b07d .
@@ -15645,7 +15663,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df .
   ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df  pr:P248 wd:Q1194038 .
-  ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df  pr:P577 "11 June 2018" .
+  ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:ad5962c91c46f562eccd72cc9c2f7708c08fe6df  pr:P2326 "-1977855" .
 
 }
@@ -18484,7 +18503,8 @@ WHERE {
 DELETE {
 ?statement  prov:wasDerivedFrom ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4 .
   ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4  pr:P248 wd:Q1194038 .
-  ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4  pr:P577 "11 June 2018" .
+  ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4  pr:P577 "+2018-06-11T00:00:00Z"^^xsd:dateTime .
+  ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4 prv:P577 v:7e281616976c7de150357c18e76abfd1 .
   ref:8deee241aa592fe4bf2fa75ba65af5a8a4b34be4  pr:P2326 "-1979583" .
 
 }

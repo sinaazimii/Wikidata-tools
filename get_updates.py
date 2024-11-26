@@ -498,7 +498,7 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
             change_statement += "  " + "ref:" + ref_hash
         change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
         if time_node_id:
-            change_statement += f"  ref:{ref_hash} prv:P813 {time_node_id} .\n"
+            change_statement += f"  ref:{ref_hash} prv:{predicate} {time_node_id} .\n"
     return change_statement
 
 
@@ -567,32 +567,34 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     Queries the Wikidata SPARQL endpoint for a specific triple where the predicate is property_id
     for a given reference node ID, ensuring it belongs to the specified entity and property.
     """
-    # SPARQL query to retrieve the specific triple for prv:P813
+    # SPARQL query to retrieve the specific triple for prv:
     # sparql_query = f"""
-    # PREFIX ref: <http://www.wikidata.org/reference/>
-    # PREFIX p: <http://www.wikidata.org/prop/>
-    # PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
+    #     PREFIX ref: <http://www.wikidata.org/reference/>
+    #     PREFIX p: <http://www.wikidata.org/prop/>
+    #     PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
 
-    # SELECT ?value
-    # WHERE {{
-    #   # Ensure the reference is for the correct entity and property
-    #   wd:{entity_id} p:{property_id} ?statement .
+    #     SELECT ?predicate ?value
+    #     WHERE {{
+    #     # Ensure the reference is for the correct entity and property
+    #     wd:{entity_id} p:{property_id} ?statement .
 
-    #   # The reference node
-    #   ?statement prov:wasDerivedFrom ref:{reference_id} .
+    #     # The reference node
+    #     ?statement prov:wasDerivedFrom ref:{reference_id} .
 
-    #   # The specific property value
-    #   ref:{reference_id} prv:P813 ?value .
-    # }}
+    #     # Capture all predicates under prv: namespace
+    #     ref:{reference_id} ?predicate ?value .
+    #     FILTER(STRSTARTS(STR(?predicate), STR(prv:)))
+    #     }}
     # """
 
     sparql_query = f"""
         PREFIX ref: <http://www.wikidata.org/reference/>
         PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
 
-        SELECT ?value
+        SELECT ?predicate ?value
         WHERE {{
-        ref:{reference_id} prv:P813 ?value .
+        ref:{reference_id} ?predicate ?value .
+        FILTER(STRSTARTS(STR(?predicate), STR(prv:)))
         }}
     """
 
@@ -621,15 +623,6 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     # Another approach is to fetch the TTL data of the entity and parse it to get the time node value
     # this approach is much slower but the last resort to get the datetime node value
 
-    time_node_query = f"""
-    PREFIX ref: <http://www.wikidata.org/reference/>
-    PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
-
-    SELECT ?value
-    WHERE {{
-      ref:{reference_id} prv:P813 ?value .
-    }}
-    """
 
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
     try:
@@ -652,7 +645,7 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
         return None
 
     try:
-        results = g.query(time_node_query)
+        results = g.query(sparql_query)
         for row in results:
             return replace_prefixes(str(row.value))
     except Exception as e:
