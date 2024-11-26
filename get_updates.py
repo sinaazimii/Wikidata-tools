@@ -390,11 +390,12 @@ def generate_rdf(
             + "\n}"
             + where_clause
         )
-        where_clause = (
-            f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
-            + "\n\t".join(delete_statements)
-            + "\n};"
-        )
+        if where_clause == ";":
+            where_clause = (
+                f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
+                + "\n\t".join(delete_statements)
+                + "\n};"
+            )
         delete_rdf = (
             "DELETE {\n"
             + "?statement"
@@ -402,7 +403,7 @@ def generate_rdf(
             + "\n}"
             + where_clause
         )
-
+        
     if delete_statements != []:
         EDIT_DELETE_RDFS.append((subject, delete_rdf, timestamp))
         if (PRINT_OUTPUT == True): 
@@ -413,7 +414,7 @@ def generate_rdf(
         if (PRINT_OUTPUT == True): 
             print(insert_rdf)
             print("\n")
-
+    print("-------------------------------")
     return
 
 
