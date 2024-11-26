@@ -414,31 +414,32 @@ def generate_rdf(
         )
 
     else:
+        insert_where_clause = delete_where_clause = where_clause
         if where_clause == ";":
-            where_clause = (
+            insert_where_clause = (
                 f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
                 + "\n\t".join(insert_statements)
                 + "\n};"
             )
-        insert_rdf = (
-            ("INSERT DATA {\n" if where_clause == ";" else "INSERT {\n")
-            + "  ?statement"
-            + "\n".join(insert_statements)
-            + "\n}"
-            + where_clause
-        )
-        if where_clause == ";":
-            where_clause = (
+            delete_where_clause = (
                 f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
                 + "\n\t".join(delete_statements)
                 + "\n};"
             )
+
+        insert_rdf = (
+            ("INSERT DATA {\n" if insert_where_clause == ";" else "INSERT {\n")
+            + "  ?statement"
+            + "\n".join(insert_statements)
+            + "\n}"
+            + insert_where_clause
+        )
         delete_rdf = (
             "DELETE {\n"
             + "?statement"
             + "\n".join(delete_statements)
             + "\n}"
-            + where_clause
+            + delete_where_clause
         )
 
     if delete_statements != []:
