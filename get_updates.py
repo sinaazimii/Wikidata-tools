@@ -38,6 +38,7 @@ WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
 XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 REF = "PREFIX ref: <http://www.wikidata.org/reference/>"
 V = "PREFIX v: <http://www.wikidata.org/value/>"
+S = "PREFIX s: <http://www.wikidata.org/entity/statement/>"
 
 # Define namespaces
 PREFIXES = (
@@ -69,12 +70,15 @@ PREFIXES = (
     + "\n"
     + V
     + "\n"
+    + S
+    + "\n"
 )
 
 EDIT_DELETE_RDFS = []
 EDIT_INSERT_RDFS = []
 NEW_INSERT_RDFS = []
 
+ADD_REMOVE_CLAIM = False
 
 def get_wikidata_updates(start_time, end_time):
     # Construct the API request URL
@@ -174,7 +178,8 @@ def convert_to_rdf(diff_html, change):
     # Construct DELETE and INSERT statements
     delete_statements = []
     insert_statements = []
-    global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS
+    global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS, ADD_REMOVE_CLAIM
+    ADD_REMOVE_CLAIM = False
     rows = soup.find_all("tr")
     current_predicate = None
     main_predicate = None
@@ -249,8 +254,25 @@ def convert_to_rdf(diff_html, change):
             current_predicate = current_predicate.replace("p:", "ps:")
         elif current_predicate.startswith("ps:"):
             current_predicate = current_predicate
+            ADD_REMOVE_CLAIM = True
         elif current_predicate != "qualifier":
             current_predicate = main_predicate
+
+
+        # process claim first
+        if (ADD_REMOVE_CLAIM):
+            if row.find("td", class_="diff-deletedline"):
+                delete_statements.append(f"  ?statement {current_predicate.replace('ps:','p:')} ?statement .")
+                delete_statements.append(f"  ?statement {current_predicate.replace('ps:','wdt:')} ?statement .")
+                delete_statements.append(f"  ?statement a wikibase:Statement .")
+                delete_statements.append(f"  ?statement a wikibase:BestRank .")
+            if row.find("td", class_="diff-addedline"):
+                insert_statements.append(f"  wd:{subject} {current_predicate.replace('ps:','p:')} ?statement .")
+                insert_statements.append(f"  wd:{subject} {current_predicate.replace('ps:','wdt:')} ?statement .")
+                insert_statements.append(f"  ?statement a wikibase:Statement .")
+                insert_statements.append(f"  ?statement a wikibase:BestRank .")
+            ADD_REMOVE_CLAIM = False
+
 
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -310,9 +332,16 @@ def convert_to_rdf(diff_html, change):
                             )
                         if current_predicate == "wikibase:rank":
                             deleted_value = "wikibase:" + to_camel_case(deleted_value)
-                        delete_statements.append(
-                            f"  {current_predicate} {deleted_value}{language} ."
-                        )
+                        sub = "wd:" + subject if where_clause == ";" else ""
+                        if (current_predicate.startswith("ps")):
+                            delete_statements.append(
+                                f"  ?statement {current_predicate} {deleted_value} ."
+                            )
+                        else:
+                            delete_statements.append(
+                                f"  {sub} {current_predicate} {deleted_value}{language} ."
+                            )
+
 
         # Process added values
         if row.find("td", class_="diff-addedline"):
@@ -371,10 +400,17 @@ def convert_to_rdf(diff_html, change):
                             added_value = f'"{added_value}"'
                         if current_predicate == "wikibase:rank":
                             added_value = "wikibase:" + to_camel_case(added_value)
-                        insert_statements.append(
-                            f"  {current_predicate} {added_value}{language} ."
-                        )
+                        sub = "wd:" + subject if where_clause == ";" else ""
+                        if (current_predicate.startswith("ps")):
+                            insert_statements.append(
+                                f"  ?statement {current_predicate} {added_value} ."
+                            )
+                        else:
+                            insert_statements.append(
+                                f"  {sub} {current_predicate} {added_value}{language} ."
+                            )
 
+    
     generate_rdf(
         subject,
         delete_statements,
@@ -402,44 +438,34 @@ def generate_rdf(
     if main_predicate_type == "schema":
         delete_rdf = (
             "DELETE DATA {\n"
-            + f"  wd:{subject}"
             + "\n\t\t".join(delete_statements)
             + "\n};"
         )
         insert_rdf = (
             "INSERT DATA {\n"
-            + f"  wd:{subject}"
             + "\n\t\t".join(insert_statements)
             + "\n};"
         )
 
     else:
-        insert_where_clause = delete_where_clause = where_clause
-        if where_clause == ";":
-            insert_where_clause = (
-                f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
-                + "\n\t".join(insert_statements)
-                + "\n};"
-            )
-            delete_where_clause = (
-                f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement . \n  ?statement"
-                + "\n\t".join(delete_statements)
-                + "\n};"
-            )
+        statement = "?statement"
+        statement_id = get_statement_id(subject, timestamp, main_predicate[2:])
+        if (statement_id): 
+            statement = f"s:{statement_id}"
+            insert_statements = replace_statements(statement, insert_statements)
+            delete_statements = replace_statements(statement, delete_statements)
 
         insert_rdf = (
-            ("INSERT DATA {\n" if insert_where_clause == ";" else "INSERT {\n")
-            + "  ?statement"
+            "INSERT DATA {\n"
+            + ("  " + statement if where_clause != ";" else "")
             + "\n".join(insert_statements)
-            + "\n}"
-            + insert_where_clause
+            + "\n};"
         )
         delete_rdf = (
             "DELETE {\n"
-            + "?statement"
+            + ("  "+ statement if where_clause != ";" else "")
             + "\n".join(delete_statements)
-            + "\n}"
-            + delete_where_clause
+            + "\n};"
         )
 
     if delete_statements != []:
@@ -452,8 +478,8 @@ def generate_rdf(
         if PRINT_OUTPUT == True:
             print(insert_rdf)
             print("\n")
+    # print("-----------------------------------")
     return
-
 
 def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predicate):
     prefix = "ps"
@@ -473,7 +499,7 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         predicate = current_predicate
         object = extract_href(nested_tags[0])
         return f"  {predicate} {object} ."
-
+    
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         time_node_id = None
@@ -500,6 +526,13 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         if time_node_id:
             change_statement += f"  ref:{ref_hash} prv:{predicate} {time_node_id} .\n"
     return change_statement
+
+
+def replace_statements(statement_id, changes_statements):
+    result = []
+    for change_statement in changes_statements:
+        result.append(change_statement.replace("?statement", statement_id))
+    return result
 
 
 def get_entity_json(entity_id, revision_id):
@@ -652,6 +685,43 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
         print(f"Error executing SPARQL query: {e}")
 
     return None
+
+
+def get_statement_id(entity_id, revision_id, property_id):
+    """
+    Queries the Wikidata SPARQL endpoint for the statement ID of a specific triple where the predicate is property_id.
+    """
+    # SPARQL query to retrieve the
+    sparql_query = f"""
+        PREFIX wd: <http://www.wikidata.org/entity/>
+        PREFIX p: <http://www.wikidata.org/prop/>
+        PREFIX ps: <http://www.wikidata.org/prop/statement/>
+        SELECT ?value
+        WHERE {{
+        wd:{entity_id} p:{property_id} ?value .
+        }}
+    """
+    sparql_endpoint = "https://query.wikidata.org/sparql"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
+    }
+    response = requests.get(
+        sparql_endpoint,
+        params={"query": sparql_query, "format": "json"},
+        headers=headers,
+    )
+    if response.status_code == 200:
+        data = response.json()
+        if data["results"]["bindings"]:
+            # Extract the value from the response
+            value = data["results"]["bindings"][0]["value"]["value"]
+            return value.split("/")[-1]
+    else:
+        print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
+
+    return None
+
+
 
 
 def extract_href(tag):
