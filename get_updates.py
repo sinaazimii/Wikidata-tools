@@ -39,6 +39,8 @@ XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 REF = "PREFIX ref: <http://www.wikidata.org/reference/>"
 V = "PREFIX v: <http://www.wikidata.org/value/>"
 S = "PREFIX s: <http://www.wikidata.org/entity/statement/>"
+PSN = "PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/>"
+WDTN = "PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>"
 
 # Define namespaces
 PREFIXES = (
@@ -71,6 +73,10 @@ PREFIXES = (
     + V
     + "\n"
     + S
+    + "\n"
+    + PSN
+    + "\n"
+    + WDTN
     + "\n"
 )
 
@@ -218,7 +224,6 @@ def convert_to_rdf(diff_html, change):
                     sub_props = td_tag_text.split("/")[2:]
                     for sub_prop in sub_props:
                         current_predicate = sub_prop.strip()
-
                 main_predicate_type = "property"
                 language = ""
             else:
@@ -259,20 +264,30 @@ def convert_to_rdf(diff_html, change):
             current_predicate = main_predicate
 
 
-        # process claim first
+        # process added/removed claim first
         if (ADD_REMOVE_CLAIM):
             if row.find("td", class_="diff-deletedline"):
-                delete_statements.append(f"  ?statement {current_predicate.replace('ps:','p:')} ?statement .")
-                delete_statements.append(f"  ?statement {current_predicate.replace('ps:','wdt:')} ?statement .")
                 delete_statements.append(f"  ?statement a wikibase:Statement .")
                 delete_statements.append(f"  ?statement a wikibase:BestRank .")
+                delete_statements.append(f'  ?statement {current_predicate.replace("ps:","p:")} ?statement .')
+                statement_values_tags = row.find("td", class_="diff-deletedline").find("a")
+                if statement_values_tags['href']:
+                    delete_statements.append(f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .')
+                    delete_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .')
+                if (statement_values_tags.text):
+                    delete_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .')
             if row.find("td", class_="diff-addedline"):
-                insert_statements.append(f"  wd:{subject} {current_predicate.replace('ps:','p:')} ?statement .")
-                insert_statements.append(f"  wd:{subject} {current_predicate.replace('ps:','wdt:')} ?statement .")
                 insert_statements.append(f"  ?statement a wikibase:Statement .")
                 insert_statements.append(f"  ?statement a wikibase:BestRank .")
-            ADD_REMOVE_CLAIM = False
-
+                insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","p:")} ?statement .')
+                statement_values_tags = row.find("td", class_="diff-addedline").find("a")
+                if statement_values_tags['href']:
+                    insert_statements.append(f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .')
+                    insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .')
+                if (statement_values_tags.text):
+                    insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .')
+            ADD_REMOVE_CLAIM = False    
+        
 
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
@@ -309,6 +324,8 @@ def convert_to_rdf(diff_html, change):
                             entity_id,
                             old_rev_id,
                             main_predicate,
+                            action="delete",
+                            timestamp=timestamp,
                         )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
@@ -320,6 +337,8 @@ def convert_to_rdf(diff_html, change):
                             entity_id,
                             old_rev_id,
                             main_predicate,
+                            action="delete",
+                            timestamp=timestamp,
                         )
                     )
                 else:
@@ -378,6 +397,8 @@ def convert_to_rdf(diff_html, change):
                             entity_id,
                             new_rev_id,
                             main_predicate,
+                            action="add",
+                            timestamp=timestamp,
                         )
                     )
                 # if some nested tags are not handled by the current logic, continue with the rest
@@ -389,6 +410,8 @@ def convert_to_rdf(diff_html, change):
                             entity_id,
                             new_rev_id,
                             main_predicate,
+                            action="add",
+                            timestamp=timestamp,
                         )
                     )
                 else:
@@ -481,7 +504,7 @@ def generate_rdf(
     # print("-----------------------------------")
     return
 
-def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predicate):
+def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predicate, action, timestamp):
     prefix = "ps"
     change_statement = ""
     ref_hash = None
@@ -490,7 +513,8 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         prefix = "pr"
         entity_json = get_entity_json(entity_id, rev_id)
         ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
-        change_statement = "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
+        change_statement += "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
+        change_statement += "  ref:" + ref_hash + " a wikibase:Reference .\n"
         snaks_group = "references"
     elif current_predicate == "qualifier":
         prefix = "pq"
@@ -503,15 +527,17 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         time_node_id = None
+        object = None
         if (
             nested_tags[i + 1].name == "b"
             and "wb-time-rendered" in nested_tags[i + 1].get("class", [])
             and snaks_group
         ):
             try:
-                object = get_datetime(
+                time_object = get_datetime_object(
                     entity_json, entity_id, main_predicate, predicate, snaks_group
                 )
+                object = f'"{time_object["time"]}"^^xsd:dateTime'
                 if SPECIFIC:
                     time_node_id = "v:" + get_time_node(
                         entity_id, rev_id, ref_hash, main_predicate[2:]
@@ -525,7 +551,37 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
         if time_node_id:
             change_statement += f"  ref:{ref_hash} prv:{predicate} {time_node_id} .\n"
+            handle_time_node(time_object, time_node_id, action, timestamp)
+
     return change_statement
+
+
+def handle_time_node(object, time_node_id, action, change_timestamp):
+    if action == "delete":
+        operation = "DELETE"
+    elif action == "add":
+        operation = "INSERT"
+
+
+    change_statement = f"{operation} DATA {{\n"
+    change_statement += f"  {time_node_id} a wikibase:TimeValue .\n"
+    if object and object['time']:
+        change_statement += f"  {time_node_id} wikibase:timeValue '{object['time']}'^^xsd:dateTime .\n"
+    if object and object['precision'] or object['precision'] == 0:
+        change_statement += f"  {time_node_id} wikibase:timePrecision '{object['precision']}'^^xsd:integer .\n"
+    if object and object['timezone'] or object['timezone'] == 0:
+        change_statement += f"  {time_node_id} wikibase:timeTimezone '{object['timezone']}'^^xsd:integer .\n"
+    if object and object['calendarmodel']:
+        change_statement += f"  {time_node_id} wikibase:timeCalendarModel '{object['calendarmodel']}' .\n"
+    change_statement += "};\n"
+
+    if action == "delete":
+        EDIT_DELETE_RDFS.append((time_node_id, change_statement, change_timestamp))
+    elif action == "add":
+        EDIT_INSERT_RDFS.append((time_node_id, change_statement, change_timestamp))
+    if PRINT_OUTPUT == True:
+        print(change_statement)
+    return
 
 
 def replace_statements(statement_id, changes_statements):
@@ -571,7 +627,7 @@ def get_reference_hash(entity_id, entity_json, property_id):
     return node_hash
 
 
-def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
+def get_datetime_object(new_json, entity_id, main_predicate, predicate, snaks_group):
     if snaks_group == "references":
         # Some properties have multiple references, for now assume there is only one reference
         # I take last one for now but this is not the correct way to handle it.
@@ -581,19 +637,18 @@ def get_datetime(new_json, entity_id, main_predicate, predicate, snaks_group):
         for reference in references:
             snaks = reference["snaks"]
             if predicate in snaks:
-                return f'"{snaks[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
+                return snaks[predicate][0]["datavalue"]["value"]
     elif snaks_group == "qualifiers":
         qualifiers = new_json.json()["entities"][entity_id]["claims"][
             main_predicate[2:]
         ][-1][snaks_group]
         if len(qualifiers) == 1:
             if predicate in qualifiers:
-                return f'"{qualifiers[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
+                return qualifiers[predicate][0]["datavalue"]["value"]
         else:
             for qualifier in qualifiers:
                 if predicate in qualifier:
-                    return f'"{qualifier[predicate][0]["datavalue"]["value"]["time"]}"^^xsd:dateTime'
-
+                    return qualifier[predicate][0]["datavalue"]["value"]
 
 def get_time_node(entity_id, revision_id, reference_id, property_id):
     """
@@ -721,9 +776,6 @@ def get_statement_id(entity_id, revision_id, property_id):
 
     return None
 
-
-
-
 def extract_href(tag):
     # Check for href with "Property:"
     a_tag = tag.find("a")
@@ -732,6 +784,8 @@ def extract_href(tag):
         a_tag = tag
     if tag.name == "b":
         b_tag = tag
+
+    # print(a_tag)
 
     # assumed b_tag never has href, never seen otherwise in the diff html so far
     if a_tag and a_tag.has_attr("href") and "Property:" in a_tag["href"]:
