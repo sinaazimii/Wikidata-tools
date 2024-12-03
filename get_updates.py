@@ -223,7 +223,6 @@ def convert_to_rdf(diff_html, change):
 
         current_predicate = normalize_predicate(current_predicate, main_predicate)
 
-        print("bf insert_statements", insert_statements)
         change_statements = []
         target_class = None
         # process added/removed claim first
@@ -238,7 +237,6 @@ def convert_to_rdf(diff_html, change):
             subject, change_statements, current_predicate, row, target_class
         )
 
-        print("af insert_statements", insert_statements)
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
