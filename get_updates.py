@@ -192,7 +192,7 @@ def convert_to_rdf(diff_html, change):
     main_predicate_type = None
     multiple_a_tags = False
     language = ""
-    
+
     rows = soup.find_all("tr")
     for row in rows:
         # Process property names
@@ -223,11 +223,22 @@ def convert_to_rdf(diff_html, change):
 
         current_predicate = normalize_predicate(current_predicate, main_predicate)
 
+        print("bf insert_statements", insert_statements)
+        change_statements = []
+        target_class = None
         # process added/removed claim first
+        if (row.find("td", class_="diff-deletedline")):
+            target_class = "diff-deletedline"
+            change_statements = delete_statements
+        elif (row.find("td", class_="diff-addedline")):
+            target_class = "diff-addedline"
+            change_statements = insert_statements
+
         handle_claim_updates(
-            subject, delete_statements, insert_statements, current_predicate, row
+            subject, change_statements, current_predicate, row, target_class
         )
 
+        print("af insert_statements", insert_statements)
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
@@ -461,44 +472,27 @@ def extract_and_normalize_main_predicate(
 
 
 def handle_claim_updates(
-    subject, delete_statements, insert_statements, current_predicate, row
+    subject, change_statements, current_predicate, row, target_class
 ):
     global ADD_REMOVE_CLAIM
     if ADD_REMOVE_CLAIM:
-        if row.find("td", class_="diff-deletedline"):
-            delete_statements.append(f"  ?statement a wikibase:Statement .")
-            delete_statements.append(f"  ?statement a wikibase:BestRank .")
-            delete_statements.append(
+        if row.find("td", class_=target_class):
+            
+            change_statements.append(f"  ?statement a wikibase:Statement .")
+            change_statements.append(f"  ?statement a wikibase:BestRank .")
+            change_statements.append(
                 f'  ?statement {current_predicate.replace("ps:","p:")} ?statement .'
             )
-            statement_values_tags = row.find("td", class_="diff-deletedline").find("a")
-            if statement_values_tags["href"]:
-                delete_statements.append(
+            statement_values_tags = row.find("td", class_=target_class).find("a")
+            if statement_values_tags and statement_values_tags["href"]:
+                change_statements.append(
                     f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .'
                 )
-                delete_statements.append(
+                change_statements.append(
                     f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .'
                 )
-            if statement_values_tags.text:
-                delete_statements.append(
-                    f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .'
-                )
-        if row.find("td", class_="diff-addedline"):
-            insert_statements.append(f"  ?statement a wikibase:Statement .")
-            insert_statements.append(f"  ?statement a wikibase:BestRank .")
-            insert_statements.append(
-                f'  wd:{subject} {current_predicate.replace("ps:","p:")} ?statement .'
-            )
-            statement_values_tags = row.find("td", class_="diff-addedline").find("a")
-            if statement_values_tags["href"]:
-                insert_statements.append(
-                    f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .'
-                )
-                insert_statements.append(
-                    f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .'
-                )
-            if statement_values_tags.text:
-                insert_statements.append(
+            if statement_values_tags and statement_values_tags.text:
+                change_statements.append(
                     f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .'
                 )
         ADD_REMOVE_CLAIM = False
