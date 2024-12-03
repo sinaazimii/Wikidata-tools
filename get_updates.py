@@ -86,6 +86,7 @@ NEW_INSERT_RDFS = []
 
 ADD_REMOVE_CLAIM = False
 
+
 def get_wikidata_updates(start_time, end_time):
     # Construct the API request URL
     api_url = "https://www.wikidata.org/w/api.php"
@@ -174,6 +175,7 @@ def compare_changes(api_url, change):
 
 
 def convert_to_rdf(diff_html, change):
+    global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS, ADD_REMOVE_CLAIM
     entity_id = change["title"]
     timestamp = change["timestamp"]
     new_rev_id = change["revid"]
@@ -184,137 +186,57 @@ def convert_to_rdf(diff_html, change):
     # Construct DELETE and INSERT statements
     delete_statements = []
     insert_statements = []
-    global PREFIXES, EDIT_DELETE_RDFS, EDIT_INSERT_RDFS, ADD_REMOVE_CLAIM
     ADD_REMOVE_CLAIM = False
-    rows = soup.find_all("tr")
     current_predicate = None
     main_predicate = None
     main_predicate_type = None
+    multiple_a_tags = False
     language = ""
-    where_clause = ";"
+    
+    rows = soup.find_all("tr")
     for row in rows:
         # Process property names
         if row.find("td", class_="diff-lineno"):
-            generate_rdf(
+            (
+                delete_statements,
+                insert_statements,
+                current_predicate,
+                main_predicate,
+                main_predicate_type,
+                language,
+                predicate_a_tags,
+            ) = extract_and_normalize_main_predicate(
+                timestamp,
                 subject,
                 delete_statements,
                 insert_statements,
-                where_clause,
-                main_predicate_type,
                 main_predicate,
-                timestamp,
+                main_predicate_type,
+                multiple_a_tags,
+                row,
             )
-            delete_statements = []
-            insert_statements = []
-            value = None
-            td_tag_text = row.get_text(strip=True)
-            value = row.find("a")  # Find first <a> tag in the current row
-            predicate_a_tags = row.find_all("a")
-            if ":" in td_tag_text:
-                predicate_a_tags.append(
-                    create_a_tag(td_tag_text.split(":", 1)[1].split("/")[0].strip())
-                )
-            if value:
-                pattern = re.compile(r"/wiki/Property:(P\d+)")
-                if value and pattern.search(value.prettify()):
-                    # Extract the property ID from the match
-                    property_id = pattern.search(value.prettify()).group(1)
-                    current_predicate = f"p:{property_id}"
-                    main_predicate = current_predicate
-                    sub_props = td_tag_text.split("/")[2:]
-                    for sub_prop in sub_props:
-                        current_predicate = sub_prop.strip()
-                main_predicate_type = "property"
-                language = ""
-            else:
-                current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
-                language_list = current_predicate.split("/")[1:]
-                language = ""
-                if len(language_list) > 0 and (
-                    "name" in current_predicate.lower()
-                    or "label" in current_predicate.lower()
-                ):
-                    language = "@" + language_list[0]
-                    language = language.replace("_", "-")
-                current_predicate = current_predicate.replace("/", ":")
-                current_predicate = current_predicate.split("/")[0]
-                main_predicate = current_predicate
-                main_predicate_type = "schema"
 
-        # Process Where clause
-        where_clause = ";"
         if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
             value = predicate_a_tags[1]
             if value:
-                where_clause = f"\nWHERE {{\n  wd:{subject} {main_predicate} ?statement .\n  ?statement ps:{main_predicate[2:]} {extract_href(value)}.\n}};\n"
+                multiple_a_tags = True
 
-        if (
-            current_predicate == "reference"
-            or current_predicate == "prov:wasDerivedFrom"
-        ):
-            current_predicate = "prov:wasDerivedFrom"
-        elif current_predicate == "rank" or current_predicate == "wikibase:rank":
-            current_predicate = "wikibase:rank"
-        elif current_predicate.startswith("p:"):
-            current_predicate = current_predicate.replace("p:", "ps:")
-        elif current_predicate.startswith("ps:"):
-            current_predicate = current_predicate
-            ADD_REMOVE_CLAIM = True
-        elif current_predicate != "qualifier":
-            current_predicate = main_predicate
-
+        current_predicate = normalize_predicate(current_predicate, main_predicate)
 
         # process added/removed claim first
-        if (ADD_REMOVE_CLAIM):
-            if row.find("td", class_="diff-deletedline"):
-                delete_statements.append(f"  ?statement a wikibase:Statement .")
-                delete_statements.append(f"  ?statement a wikibase:BestRank .")
-                delete_statements.append(f'  ?statement {current_predicate.replace("ps:","p:")} ?statement .')
-                statement_values_tags = row.find("td", class_="diff-deletedline").find("a")
-                if statement_values_tags['href']:
-                    delete_statements.append(f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .')
-                    delete_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .')
-                if (statement_values_tags.text):
-                    delete_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .')
-            if row.find("td", class_="diff-addedline"):
-                insert_statements.append(f"  ?statement a wikibase:Statement .")
-                insert_statements.append(f"  ?statement a wikibase:BestRank .")
-                insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","p:")} ?statement .')
-                statement_values_tags = row.find("td", class_="diff-addedline").find("a")
-                if statement_values_tags['href']:
-                    insert_statements.append(f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .')
-                    insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .')
-                if (statement_values_tags.text):
-                    insert_statements.append(f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .')
-            ADD_REMOVE_CLAIM = False    
-        
+        handle_claim_updates(
+            subject, delete_statements, insert_statements, current_predicate, row
+        )
 
         # Process deleted values
         if row.find("td", class_="diff-deletedline"):
             value = row.find("del", class_="diffchange")
             if value:
                 # remove extra tables from the value
-                wb_details = value.find("table", class_="wb-details wb-time-details")
-                if wb_details:
-                    wb_details.extract()
+                remove_wb_details(value)
                 span_tags = value.find_all("span")
                 delete_nested_tags = []
-                for span in span_tags:
-                    nested_tuple = span.find_all(
-                        lambda tag: (tag.name in ["a", "b"])
-                        or (
-                            tag.name == "span"
-                            and "wb-monolingualtext-value" in tag.get("class", [])
-                        )
-                    )
-                    if len(nested_tuple) == 2:
-                        delete_nested_tags += nested_tuple
-                    elif (
-                        len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1
-                    ):
-                        obj = span.text.strip().split(":")[1].strip()
-                        delete_nested_tags.extend(nested_tuple)
-                        delete_nested_tags.append(create_a_tag(obj))
+                aggregate_nested_elements(span_tags, delete_nested_tags)
 
                 if len(delete_nested_tags) > 0 and len(delete_nested_tags) % 2 == 0:
                     delete_statements.append(
@@ -341,53 +263,26 @@ def convert_to_rdf(diff_html, change):
                             timestamp=timestamp,
                         )
                     )
-                else:
-                    if current_predicate:
-                        deleted_value = extract_href(value)
-                        if current_predicate == "qualifier":
-                            current_predicate = "pq:" + deleted_value
-                            deleted_value = (
-                                value.find("span").text.split(":")[1].strip()
-                            )
-                        if current_predicate == "wikibase:rank":
-                            deleted_value = "wikibase:" + to_camel_case(deleted_value)
-                        sub = "wd:" + subject if where_clause == ";" else ""
-                        if (current_predicate.startswith("ps")):
-                            delete_statements.append(
-                                f"  ?statement {current_predicate} {deleted_value} ."
-                            )
-                        else:
-                            delete_statements.append(
-                                f"  {sub} {current_predicate} {deleted_value}{language} ."
-                            )
-
+                elif current_predicate:
+                    # if no nested tags
+                    process_flat_changes(
+                        subject,
+                        delete_statements,
+                        current_predicate,
+                        multiple_a_tags,
+                        language,
+                        value,
+                    )
 
         # Process added values
         if row.find("td", class_="diff-addedline"):
             value = row.find("ins", class_="diffchange")
             if value:
                 # remove extra tables from the value
-                wb_details = value.find("table", class_="wb-details wb-time-details")
-                if wb_details:
-                    wb_details.extract()
+                remove_wb_details(value)
                 span_tags = value.find_all("span")
                 add_nested_tags = []
-                for span in span_tags:
-                    nested_tuple = span.find_all(
-                        lambda tag: (tag.name in ["a", "b"])
-                        or (
-                            tag.name == "span"
-                            and "wb-monolingualtext-value" in tag.get("class", [])
-                        )
-                    )
-                    if len(nested_tuple) == 2:
-                        add_nested_tags += nested_tuple
-                    elif (
-                        len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1
-                    ):
-                        obj = span.text.strip().split(":")[1].strip()
-                        add_nested_tags.extend(nested_tuple)
-                        add_nested_tags.append(create_a_tag(obj))
+                aggregate_nested_elements(span_tags, add_nested_tags)
 
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
@@ -414,31 +309,22 @@ def convert_to_rdf(diff_html, change):
                             timestamp=timestamp,
                         )
                     )
-                else:
-                    if current_predicate:
-                        added_value = extract_href(value)
-                        if current_predicate == "qualifier":
-                            current_predicate = "pq:" + added_value
-                            added_value = value.find("span").text.split(":")[1].strip()
-                            added_value = f'"{added_value}"'
-                        if current_predicate == "wikibase:rank":
-                            added_value = "wikibase:" + to_camel_case(added_value)
-                        sub = "wd:" + subject if where_clause == ";" else ""
-                        if (current_predicate.startswith("ps")):
-                            insert_statements.append(
-                                f"  ?statement {current_predicate} {added_value} ."
-                            )
-                        else:
-                            insert_statements.append(
-                                f"  {sub} {current_predicate} {added_value}{language} ."
-                            )
+                elif current_predicate:
+                    # if no nested tags
+                    process_flat_changes(
+                        subject,
+                        insert_statements,
+                        current_predicate,
+                        multiple_a_tags,
+                        language,
+                        value,
+                    )
 
-    
     generate_rdf(
         subject,
         delete_statements,
         insert_statements,
-        where_clause,
+        multiple_a_tags,
         main_predicate_type,
         main_predicate,
         timestamp,
@@ -447,11 +333,182 @@ def convert_to_rdf(diff_html, change):
     insert_statements = []
 
 
+def normalize_predicate(current_predicate, main_predicate):
+    global ADD_REMOVE_CLAIM
+    if current_predicate == "reference" or current_predicate == "prov:wasDerivedFrom":
+        current_predicate = "prov:wasDerivedFrom"
+    elif current_predicate == "rank" or current_predicate == "wikibase:rank":
+        current_predicate = "wikibase:rank"
+    elif current_predicate.startswith("p:"):
+        current_predicate = current_predicate.replace("p:", "ps:")
+    elif current_predicate.startswith("ps:"):
+        current_predicate = current_predicate
+        ADD_REMOVE_CLAIM = True
+    elif current_predicate != "qualifier":
+        current_predicate = main_predicate
+    return current_predicate
+
+
+def process_flat_changes(
+    subject, statements, current_predicate, multiple_a_tags, language, value
+):
+    if current_predicate:
+        adde_or_deleted_value = extract_href(value)
+        if current_predicate == "qualifier":
+            current_predicate = "pq:" + adde_or_deleted_value
+            adde_or_deleted_value = value.find("span").text.split(":")[1].strip()
+        if current_predicate == "wikibase:rank":
+            adde_or_deleted_value = "wikibase:" + to_camel_case(adde_or_deleted_value)
+        sub = "wd:" + subject if not multiple_a_tags else ""
+        if current_predicate.startswith("ps"):
+            statements.append(
+                f"  ?statement {current_predicate} {adde_or_deleted_value} ."
+            )
+        else:
+            statements.append(
+                f"  {sub} {current_predicate} {adde_or_deleted_value}{language} ."
+            )
+
+    return current_predicate
+
+
+def aggregate_nested_elements(span_tags, nested_tags):
+    for span in span_tags:
+        nested_tuple = span.find_all(
+            lambda tag: (tag.name in ["a", "b"])
+            or (
+                tag.name == "span"
+                and "wb-monolingualtext-value" in tag.get("class", [])
+            )
+        )
+        if len(nested_tuple) == 2:
+            nested_tags += nested_tuple
+        elif len(nested_tuple) == 1 and len(span.text.strip().split(":")) > 1:
+            obj = span.text.strip().split(":")[1].strip()
+            nested_tags.extend(nested_tuple)
+            nested_tags.append(create_a_tag(obj))
+
+
+def remove_wb_details(value):
+    wb_details = value.find("table", class_="wb-details wb-time-details")
+    if wb_details:
+        wb_details.extract()
+
+
+def extract_and_normalize_main_predicate(
+    timestamp,
+    subject,
+    delete_statements,
+    insert_statements,
+    main_predicate,
+    main_predicate_type,
+    multiple_a_tags,
+    row,
+):
+    generate_rdf(
+        subject,
+        delete_statements,
+        insert_statements,
+        multiple_a_tags,
+        main_predicate_type,
+        main_predicate,
+        timestamp,
+    )
+    delete_statements = []
+    insert_statements = []
+    value = None
+    td_tag_text = row.get_text(strip=True)
+    value = row.find("a")  # Find first <a> tag in the current row
+    predicate_a_tags = row.find_all("a")
+    if ":" in td_tag_text:
+        predicate_a_tags.append(
+            create_a_tag(td_tag_text.split(":", 1)[1].split("/")[0].strip())
+        )
+    if value:
+        pattern = re.compile(r"/wiki/Property:(P\d+)")
+        if value and pattern.search(value.prettify()):
+            # Extract the property ID from the match
+            property_id = pattern.search(value.prettify()).group(1)
+            current_predicate = f"p:{property_id}"
+            main_predicate = current_predicate
+            sub_props = td_tag_text.split("/")[2:]
+            for sub_prop in sub_props:
+                current_predicate = sub_prop.strip()
+        main_predicate_type = "property"
+        language = ""
+    else:
+        current_predicate = f"schema:{row.find('td', class_='diff-lineno').text.strip().replace(' ', '')}"
+        language_list = current_predicate.split("/")[1:]
+        language = ""
+        if len(language_list) > 0 and (
+            "name" in current_predicate.lower() or "label" in current_predicate.lower()
+        ):
+            language = "@" + language_list[0]
+            language = language.replace("_", "-")
+        current_predicate = current_predicate.replace("/", ":")
+        current_predicate = current_predicate.split("/")[0]
+        main_predicate = current_predicate
+        main_predicate_type = "schema"
+    return (
+        delete_statements,
+        insert_statements,
+        current_predicate,
+        main_predicate,
+        main_predicate_type,
+        language,
+        predicate_a_tags,
+    )
+
+
+def handle_claim_updates(
+    subject, delete_statements, insert_statements, current_predicate, row
+):
+    global ADD_REMOVE_CLAIM
+    if ADD_REMOVE_CLAIM:
+        if row.find("td", class_="diff-deletedline"):
+            delete_statements.append(f"  ?statement a wikibase:Statement .")
+            delete_statements.append(f"  ?statement a wikibase:BestRank .")
+            delete_statements.append(
+                f'  ?statement {current_predicate.replace("ps:","p:")} ?statement .'
+            )
+            statement_values_tags = row.find("td", class_="diff-deletedline").find("a")
+            if statement_values_tags["href"]:
+                delete_statements.append(
+                    f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .'
+                )
+                delete_statements.append(
+                    f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .'
+                )
+            if statement_values_tags.text:
+                delete_statements.append(
+                    f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .'
+                )
+        if row.find("td", class_="diff-addedline"):
+            insert_statements.append(f"  ?statement a wikibase:Statement .")
+            insert_statements.append(f"  ?statement a wikibase:BestRank .")
+            insert_statements.append(
+                f'  wd:{subject} {current_predicate.replace("ps:","p:")} ?statement .'
+            )
+            statement_values_tags = row.find("td", class_="diff-addedline").find("a")
+            if statement_values_tags["href"]:
+                insert_statements.append(
+                    f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .'
+                )
+                insert_statements.append(
+                    f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .'
+                )
+            if statement_values_tags.text:
+                insert_statements.append(
+                    f'  wd:{subject} {current_predicate.replace("ps:","wdt:")} "{statement_values_tags.text}" .'
+                )
+        ADD_REMOVE_CLAIM = False
+
+
 def generate_rdf(
     subject,
     delete_statements,
     insert_statements,
-    where_clause,
+    multiple_a_tags,
     main_predicate_type,
     main_predicate,
     timestamp,
@@ -459,34 +516,26 @@ def generate_rdf(
     if delete_statements == [] and insert_statements == []:
         return
     if main_predicate_type == "schema":
-        delete_rdf = (
-            "DELETE DATA {\n"
-            + "\n\t\t".join(delete_statements)
-            + "\n};"
-        )
-        insert_rdf = (
-            "INSERT DATA {\n"
-            + "\n\t\t".join(insert_statements)
-            + "\n};"
-        )
+        delete_rdf = "DELETE DATA {\n" + "\n\t\t".join(delete_statements) + "\n};"
+        insert_rdf = "INSERT DATA {\n" + "\n\t\t".join(insert_statements) + "\n};"
 
     else:
         statement = "?statement"
         statement_id = get_statement_id(subject, timestamp, main_predicate[2:])
-        if (statement_id): 
+        if statement_id:
             statement = f"s:{statement_id}"
             insert_statements = replace_statements(statement, insert_statements)
             delete_statements = replace_statements(statement, delete_statements)
 
         insert_rdf = (
             "INSERT DATA {\n"
-            + ("  " + statement if where_clause != ";" else "")
+            + ("  " + statement if multiple_a_tags else "")
             + "\n".join(insert_statements)
             + "\n};"
         )
         delete_rdf = (
             "DELETE {\n"
-            + ("  "+ statement if where_clause != ";" else "")
+            + ("  " + statement if multiple_a_tags else "")
             + "\n".join(delete_statements)
             + "\n};"
         )
@@ -504,7 +553,10 @@ def generate_rdf(
     # print("-----------------------------------")
     return
 
-def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predicate, action, timestamp):
+
+def handle_nested(
+    nested_tags, current_predicate, entity_id, rev_id, main_predicate, action, timestamp
+):
     prefix = "ps"
     change_statement = ""
     ref_hash = None
@@ -523,7 +575,7 @@ def handle_nested(nested_tags, current_predicate, entity_id, rev_id, main_predic
         predicate = current_predicate
         object = extract_href(nested_tags[0])
         return f"  {predicate} {object} ."
-    
+
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
         time_node_id = None
@@ -562,16 +614,17 @@ def handle_time_node(object, time_node_id, action, change_timestamp):
     elif action == "add":
         operation = "INSERT"
 
-
     change_statement = f"{operation} DATA {{\n"
     change_statement += f"  {time_node_id} a wikibase:TimeValue .\n"
-    if object and object['time']:
-        change_statement += f"  {time_node_id} wikibase:timeValue '{object['time']}'^^xsd:dateTime .\n"
-    if object and object['precision'] or object['precision'] == 0:
+    if object and object["time"]:
+        change_statement += (
+            f"  {time_node_id} wikibase:timeValue '{object['time']}'^^xsd:dateTime .\n"
+        )
+    if object and object["precision"] or object["precision"] == 0:
         change_statement += f"  {time_node_id} wikibase:timePrecision '{object['precision']}'^^xsd:integer .\n"
-    if object and object['timezone'] or object['timezone'] == 0:
+    if object and object["timezone"] or object["timezone"] == 0:
         change_statement += f"  {time_node_id} wikibase:timeTimezone '{object['timezone']}'^^xsd:integer .\n"
-    if object and object['calendarmodel']:
+    if object and object["calendarmodel"]:
         change_statement += f"  {time_node_id} wikibase:timeCalendarModel '{object['calendarmodel']}' .\n"
     change_statement += "};\n"
 
@@ -650,6 +703,7 @@ def get_datetime_object(new_json, entity_id, main_predicate, predicate, snaks_gr
                 if predicate in qualifier:
                     return qualifier[predicate][0]["datavalue"]["value"]
 
+
 def get_time_node(entity_id, revision_id, reference_id, property_id):
     """
     Queries the Wikidata SPARQL endpoint for a specific triple where the predicate is property_id
@@ -710,7 +764,6 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     # it will return None, so we move to the second appoaach to get the time node value for deleted nodes
     # Another approach is to fetch the TTL data of the entity and parse it to get the time node value
     # this approach is much slower but the last resort to get the datetime node value
-
 
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
     try:
@@ -775,6 +828,7 @@ def get_statement_id(entity_id, revision_id, property_id):
         print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
 
     return None
+
 
 def extract_href(tag):
     # Check for href with "Property:"
