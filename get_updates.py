@@ -190,9 +190,8 @@ def convert_to_rdf(diff_html, change):
     current_predicate = None
     main_predicate = None
     main_predicate_type = None
-    multiple_a_tags = False
     language = ""
-
+    # change_statements = []
     rows = soup.find_all("tr")
     for row in rows:
         # Process property names
@@ -212,17 +211,11 @@ def convert_to_rdf(diff_html, change):
                 insert_statements,
                 main_predicate,
                 main_predicate_type,
-                multiple_a_tags,
                 row,
             )
 
-        if len(predicate_a_tags) > 1 and predicate_a_tags[0] != predicate_a_tags[1]:
-            value = predicate_a_tags[1]
-            if value:
-                multiple_a_tags = True
-
         current_predicate = normalize_predicate(current_predicate, main_predicate)
-
+        # print("insert_statements at loop start", insert_statements)
         change_statements = []
         target_class = None
         # process added/removed claim first
@@ -232,13 +225,17 @@ def convert_to_rdf(diff_html, change):
         elif (row.find("td", class_="diff-addedline")):
             target_class = "diff-addedline"
             change_statements = insert_statements
-
         handle_claim_updates(
             subject, change_statements, current_predicate, row, target_class
         )
-
         # Process deleted values
-        if row.find("td", class_="diff-deletedline"):
+        if row.find("td", class_="diff-deletedline"):            
+            value = aggregated_text = None
+            try: 
+                inline_changes = row.find_all("td", class_="diff-deletedline")
+                aggregated_text = '"' + ' '.join(tag.get_text() for tag in inline_changes) + '"'
+            except:
+                value = row.find("del", class_="diffchange")
             value = row.find("del", class_="diffchange")
             if value:
                 # remove extra tables from the value
@@ -278,13 +275,19 @@ def convert_to_rdf(diff_html, change):
                         subject,
                         delete_statements,
                         current_predicate,
-                        multiple_a_tags,
                         language,
                         value,
+                        aggregated_text,
                     )
 
         # Process added values
         if row.find("td", class_="diff-addedline"):
+            value = aggregated_text = None
+            try: 
+                inline_changes = row.find_all("td", class_="diff-addedline")
+                aggregated_text = '"' + ' '.join(tag.get_text() for tag in inline_changes) +'"'            
+            except: 
+                value = row.find("del", class_="diffchange")
             value = row.find("ins", class_="diffchange")
             if value:
                 # remove extra tables from the value
@@ -292,7 +295,6 @@ def convert_to_rdf(diff_html, change):
                 span_tags = value.find_all("span")
                 add_nested_tags = []
                 aggregate_nested_elements(span_tags, add_nested_tags)
-
                 if len(add_nested_tags) > 1 and len(add_nested_tags) % 2 == 0:
                     insert_statements.append(
                         handle_nested(
@@ -324,23 +326,23 @@ def convert_to_rdf(diff_html, change):
                         subject,
                         insert_statements,
                         current_predicate,
-                        multiple_a_tags,
                         language,
                         value,
+                        aggregated_text
                     )
+
 
     generate_rdf(
         subject,
         delete_statements,
         insert_statements,
-        multiple_a_tags,
         main_predicate_type,
         main_predicate,
         timestamp,
     )
     delete_statements = []
     insert_statements = []
-
+    print("----------------------------------")
 
 def normalize_predicate(current_predicate, main_predicate):
     global ADD_REMOVE_CLAIM
@@ -359,23 +361,29 @@ def normalize_predicate(current_predicate, main_predicate):
 
 
 def process_flat_changes(
-    subject, statements, current_predicate, multiple_a_tags, language, value
+    subject, statements, current_predicate, language, value, aggregated_text=None
 ):
     if current_predicate:
         adde_or_deleted_value = extract_href(value)
         if current_predicate == "qualifier":
             current_predicate = "pq:" + adde_or_deleted_value
+            statements.append(f"  ?statement {current_predicate} {adde_or_deleted_value} .")
             adde_or_deleted_value = value.find("span").text.split(":")[1].strip()
-        if current_predicate == "wikibase:rank":
+        elif current_predicate == "wikibase:rank":
             adde_or_deleted_value = "wikibase:" + to_camel_case(adde_or_deleted_value)
-        sub = "wd:" + subject if not multiple_a_tags else ""
-        if current_predicate.startswith("ps"):
+            statements.append(f"  ?statement {current_predicate} {adde_or_deleted_value} .")
+        elif current_predicate.startswith("ps"):
             statements.append(
                 f"  ?statement {current_predicate} {adde_or_deleted_value} ."
             )
+        elif aggregated_text and current_predicate.startswith('schema'):
+            print("aggregated_text: ", aggregated_text)
+            statements.append(
+                f"  wd:{subject} {current_predicate} {aggregated_text}{language} ."
+            )
         else:
             statements.append(
-                f"  {sub} {current_predicate} {adde_or_deleted_value}{language} ."
+                f"  wd:{subject} ll{current_predicate} {adde_or_deleted_value}{language} ."
             )
 
     return current_predicate
@@ -411,14 +419,12 @@ def extract_and_normalize_main_predicate(
     insert_statements,
     main_predicate,
     main_predicate_type,
-    multiple_a_tags,
     row,
 ):
     generate_rdf(
         subject,
         delete_statements,
         insert_statements,
-        multiple_a_tags,
         main_predicate_type,
         main_predicate,
         timestamp,
@@ -454,7 +460,7 @@ def extract_and_normalize_main_predicate(
         ):
             language = "@" + language_list[0]
             language = language.replace("_", "-")
-        current_predicate = current_predicate.replace("/", ":")
+        # current_predicate = current_predicate.replace("/", ":")
         current_predicate = current_predicate.split("/")[0]
         main_predicate = current_predicate
         main_predicate_type = "schema"
@@ -475,7 +481,6 @@ def handle_claim_updates(
     global ADD_REMOVE_CLAIM
     if ADD_REMOVE_CLAIM:
         if row.find("td", class_=target_class):
-            
             change_statements.append(f"  ?statement a wikibase:Statement .")
             change_statements.append(f"  ?statement a wikibase:BestRank .")
             change_statements.append(
@@ -501,7 +506,6 @@ def generate_rdf(
     subject,
     delete_statements,
     insert_statements,
-    multiple_a_tags,
     main_predicate_type,
     main_predicate,
     timestamp,
@@ -522,13 +526,11 @@ def generate_rdf(
 
         insert_rdf = (
             "INSERT DATA {\n"
-            + ("  " + statement if multiple_a_tags else "")
             + "\n".join(insert_statements)
             + "\n};"
         )
         delete_rdf = (
-            "DELETE {\n"
-            + ("  " + statement if multiple_a_tags else "")
+            "DELETE DATA{\n"
             + "\n".join(delete_statements)
             + "\n};"
         )
@@ -558,7 +560,7 @@ def handle_nested(
         prefix = "pr"
         entity_json = get_entity_json(entity_id, rev_id)
         ref_hash = get_reference_hash(entity_id, entity_json, main_predicate[2:])
-        change_statement += "  " + current_predicate + " " + "ref:" + ref_hash + " .\n"
+        change_statement += "  ?statement " + current_predicate + " " + "ref:" + ref_hash + " .\n"
         change_statement += "  ref:" + ref_hash + " a wikibase:Reference .\n"
         snaks_group = "references"
     elif current_predicate == "qualifier":
@@ -567,7 +569,7 @@ def handle_nested(
     elif current_predicate.startswith("ps:"):
         predicate = current_predicate
         object = extract_href(nested_tags[0])
-        return f"  {predicate} {object} ."
+        return f"  ?statement {predicate} {object} ."
 
     for i in range(0, len(nested_tags), 2):
         predicate = extract_href(nested_tags[i])
@@ -592,8 +594,11 @@ def handle_nested(
         else:
             object = extract_href(nested_tags[i + 1])
         if ref_hash:
-            change_statement += "  " + "ref:" + ref_hash
-        change_statement += "  " + f"{prefix}:{predicate} {object} .\n"
+            change_statement += "  " + "ref:" + ref_hash + f" {prefix}:{predicate} {object} .\n"
+        elif current_predicate == "qualifier":
+            change_statement += "  ?statement " + f"{prefix}:{predicate} {object} .\n"
+        else:
+            change_statement += "  " + f"wd:{entity_id} {prefix}:{predicate} {object} .\n"
         if time_node_id:
             change_statement += f"  ref:{ref_hash} prv:{predicate} {time_node_id} .\n"
             handle_time_node(time_object, time_node_id, action, timestamp)
@@ -1116,6 +1121,7 @@ def main():
             all_changes = sorted(
                 EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
                 key=lambda x: x[2],
+                reverse=True,
             )
             write_to_file(all_changes)
         end_time = time.time()
