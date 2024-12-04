@@ -479,15 +479,16 @@ def handle_claim_updates(
             change_statements.append(f"  ?statement a wikibase:Statement .")
             change_statements.append(f"  ?statement a wikibase:BestRank .")
             change_statements.append(
-                f'  ?statement {current_predicate.replace("ps:","p:")} ?statement .'
+                f'  wd:{subject} {current_predicate.replace("ps:","p:")} ?statement .'
             )
             statement_values_tags = row.find("td", class_=target_class).find("a")
             if statement_values_tags and statement_values_tags["href"]:
+                link = "<" + statement_values_tags["href"].replace("https","http") + ">"
                 change_statements.append(
-                    f'  ?statement {current_predicate.replace("ps:","psn:")} "{statement_values_tags["href"]}" .'
+                    f'  ?statement {current_predicate.replace("ps:","psn:")} {link} .'
                 )
                 change_statements.append(
-                    f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} "{statement_values_tags["href"]}" .'
+                    f'  wd:{subject} {current_predicate.replace("ps:","wdtn:")} {link} .'
                 )
             if statement_values_tags and statement_values_tags.text:
                 change_statements.append(
