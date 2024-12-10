@@ -9,6 +9,115 @@ import argparse
 from dateutil.relativedelta import relativedelta
 import time
 import difflib
+from rdflib.term import Literal
+
+
+# Define prefixes for the SPARQL query
+WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
+WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
+P = "PREFIX p: <http://www.wikidata.org/prop/>"
+PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
+PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
+PR = "PREFIX pr: <http://www.wikidata.org/prop/reference/>"
+PRV = "PREFIX prv: <http://www.wikidata.org/prop/reference/value/>"
+PROV = "PREFIX prov: <http://www.w3.org/ns/prov#>"
+SCHEMA = "PREFIX schema: <http://schema.org/>"
+SKOS = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
+WIKIBASE = "PREFIX wikibase: <http://wikiba.se/ontology#>"
+XSD = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+REF = "PREFIX ref: <http://www.wikidata.org/reference/>"
+V = "PREFIX v: <http://www.wikidata.org/value/>"
+S = "PREFIX s: <http://www.wikidata.org/entity/statement/>"
+PSN = "PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/>"
+WDTN = "PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>"
+
+# Define namespaces
+PREFIXES_1 = (
+    WD
+    + "\n"
+    + WDT
+    + "\n"
+    + P
+    + "\n"
+    + PS
+    + "\n"
+    + PR
+    + "\n"
+    + PRV
+    + "\n"
+    + PQ
+    + "\n"
+    + PROV
+    + "\n"
+    + SCHEMA
+    + "\n"
+    + SKOS
+    + "\n"
+    + WIKIBASE
+    + "\n"
+    + XSD
+    + "\n"
+    + REF
+    + "\n"
+    + V
+    + "\n"
+    + S
+    + "\n"
+    + PSN
+    + "\n"
+    + WDTN
+    + "\n"
+)
+
+
+
+PREDICATE_BLACKLIST = [
+    "<http://schema.org/version>",
+    "<http://schema.org/dateModified>",
+    "<http://schema.org/dateCreated>",
+    "<http://schema.org/about>",
+    "<http://creativecommons.org/ns#license>",
+    "<http://schema.org/softwareVersion>",
+    "<http://www.w3.org/2002/07/owl#complementOf>",
+    "<http://www.w3.org/2002/07/owl#disjointUnionOf>",
+    "<http://www.w3.org/2002/07/owl#members>",
+    "<http://www.w3.org/2002/07/owl#onProperty>"
+    "<http://www.w3.org/2002/07/owl#someValuesFrom>",
+    "<http://wikiba.se/ontology#statementProperty>",
+    "<http://wikiba.se/ontology#referenceProperty>",
+    "<http://wikiba.se/ontology#novalue>",
+]
+
+PREFIXES = {
+    "http://www.w3.org/ns/prov#": "prov",
+    "http://schema.org/": "schema",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+    "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+    "http://www.w3.org/2004/02/skos/core#": "skos",
+    "http://wikiba.se/ontology#": "wikibase",
+    "http://www.wikidata.org/entity/statement/": "s",
+    "http://www.wikidata.org/entity/": "wd",
+    "http://www.wikidata.org/prop/direct/": "wdt",
+    "http://www.wikidata.org/prop/qualifier/value/" : "pqv",
+    "http://www.wikidata.org/prop/qualifier/": "pq",
+    "http://www.wikidata.org/prop/statement/value-normalized/" : "psn",
+    "http://www.wikidata.org/prop/statement/value/" : "psv",
+    "http://www.wikidata.org/prop/direct-normalized/" : "wdtn",
+    "http://www.wikidata.org/prop/statement/": "ps",
+    "http://www.wikidata.org/prop/reference/value/": "prv",
+    "http://www.wikidata.org/prop/reference/value-normalized/": "prn",
+    "http://www.wikidata.org/prop/reference/": "pr",
+    'http://www.wikidata.org/prop/novalue/': 'wdno',
+    "http://www.wikidata.org/prop/": "p",
+    "http://www.w3.org/2001/XMLSchema#": "xsd",
+    "http://www.w3.org/ns/prov#" : "prov",
+    "http://wikiba.se/ontology#Statement": "wikibase:statement",
+    "http://wikiba.se/ontology#Reference": "wikibase:reference",
+    "http://www.wikidata.org/reference/": "ref",
+    "https://www.wikidata.org/wiki/Special:EntityData/" : "wd",
+    "http://www.wikidata.org/value/" : "v",
+
+}
 
 def get_entity_ttl(entity_id, revision_id):
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
@@ -53,7 +162,6 @@ def text_diff(text1, text2, enity_id):
             if (predicate_object == '++ text2' or predicate_object == '++ text1'):
                 continue
 
-            
             if predicate_object.startswith('\t'):
                 if predicate_object.startswith('wd:'):
                     predicate_object = predicate_object.split(' ', 1)[1]
@@ -155,7 +263,7 @@ def check_line_validity(line):
     return True
 
 
-def diff_ttls(old_ttl, new_ttl):
+def diff_ttls(old_ttl, new_ttl, entity_id):
     # Load the first TTL file into a graph
     g_old = Graph()
     g_old.parse(data=old_ttl, format="ttl")
@@ -169,30 +277,80 @@ def diff_ttls(old_ttl, new_ttl):
     added_triples = g_new - g_old
     removed_triples = g_old - g_new
 
-    delete_commands = triples_to_sparql(removed_triples, "DELETE")
-    insert_commands = triples_to_sparql(added_triples, "INSERT")
+    delete_commands = triples_to_sparql(removed_triples, "DELETE", entity_id)
+    insert_commands = triples_to_sparql(added_triples, "INSERT", entity_id)
 
     # Combine into a full SPARQL update
     sparql_update = f"{delete_commands}\n{insert_commands}"
     print(sparql_update)
+    # write to file
+    with open("sparql_update.txt", "w") as f:
+        f.write(sparql_update)
+    
 
 
-def triples_to_sparql(triples, operation):
+def triples_to_sparql(triples, operation, entity_id):
     """
     Converts triples to SPARQL update statements.
     """
     commands = []
     for s, p, o in triples:
+        if 'owl' in p or 'owl' in s or 'owl' in o:
+            continue
         # Format subject, predicate, and object to SPARQL-friendly strings
-        s_str = f"<{s}>" if not s.startswith("_:") else s  # Blank nodes as-is
-        p_str = f"<{p}>"
-        o_str = f"<{o}>" if isinstance(o, str) and not o.startswith("_:") else f'"{o}"' if isinstance(o, str) else o.n3()
-        
+        s_str = f"{s}" if not s.startswith("_:") else s  # Blank nodes as-is
+        p_str = f"{p}"
+
+        s_str = replace_prefixes(s_str)
+        p_str = replace_prefixes(p_str)
+        if p_str == 'rdf:type':
+            p_str = 'a'
+        o = replace_prefixes(o)
+
+        if s_str.startswith('wd:Q') and s_str != f"wd:{entity_id}":
+            continue
+        if s_str.startswith('wd:P'):
+            continue
+
+        # For objects: handle strings (quotes), URIs (angle brackets), and literals
+        if isinstance(o, Literal):
+            # Handle escaping quotes within literals
+            o_value = str(o)  # Get the literal value as a string
+            o_value = o_value.replace('"', '\\"')  # Escape any internal double quotes
+            if o.language:  # Check if it's a language-tagged literal
+                o_str = f'"{o_value}"@{o.language}'
+            elif o.datatype:  # If it has a datatype (e.g., xsd:string)
+                o_str = f'"{o_value}"^^{o.datatype}'
+            else:  # Plain literal
+                o_str = f'"{o_value}"'
+        else:
+            # If object is not a literal (URI or blank node)
+            if isinstance(o, str) and o.startswith("http"):
+                o_str = f"<{o}>"
+            elif isinstance(o, str) and has_prefix(o):
+                o_str = o
+            else:
+                o_str = f"'{o}'" if isinstance(o, str) and not o.startswith("_:") else o.n3()
+       
         # Construct the SPARQL command
         commands.append(f"{operation} DATA {{ {s_str} {p_str} {o_str} . }};")
 
+
+
     return "\n".join(commands)
 
+
+def replace_prefixes(url):
+    for uri, prefix in PREFIXES.items():
+        url = url.replace(uri, f"{prefix}:")
+    return url
+
+def has_prefix(element):
+    all_prefixes = PREFIXES.values()
+    for prefix in all_prefixes:
+        if element.startswith(f"{prefix}:"):
+            return True
+    return False
 
 def manipulate_ttl(ttl_text):
     g = Graph()
@@ -270,12 +428,25 @@ def main():
     # old_ttl = get_entity_ttl("Q108987708", "2271282756")
     # new_ttl = get_entity_ttl("Q108987708", "2271282759")
 
+
+# https://www.wikidata.org/wiki/Special:EntityData/Q131321024.json?revision=2279561017&flavor=dump
+
+    # new_ttl = get_entity_ttl("Q59146", "2279239134")
+    # old_ttl = get_entity_ttl("Q59146", "2241946943")
+
+
+    old_ttl = get_entity_ttl("Q37816733", "2276959296")
+    new_ttl = get_entity_ttl("Q37816733", "2276959315")
     
     # if debug is needed
-    print_text_diff(old_ttl, new_ttl)
+    # print_text_diff(old_ttl, new_ttl)
 
     # diff_ttls(old_ttl, new_ttl)
-    text_diff(old_ttl, new_ttl, "Q73536234")
+    # text_diff(old_ttl, new_ttl, "Q73536234")
+
+    print(PREFIXES_1)
+
+    diff_ttls(old_ttl, new_ttl, "Q37816733")
 
     # manipulate_ttl(new_ttl)
 
