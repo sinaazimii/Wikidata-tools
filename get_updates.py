@@ -85,6 +85,9 @@ EDIT_INSERT_RDFS = []
 NEW_INSERT_RDFS = []
 
 ADD_REMOVE_CLAIM = False
+OLD_REV_ID = None
+NEW_REV_ID = None
+STATEMENT_ID = None
 
 
 def get_wikidata_updates(start_time, end_time):
@@ -123,9 +126,9 @@ def get_wikidata_updates(start_time, end_time):
 
 
 def compare_changes(api_url, change):
-    global NEW_INSERT_RDFS
-    new_rev = change["revid"]
-    old_rev = change["old_revid"]
+    global NEW_INSERT_RDFS, OLD_REV_ID, NEW_REV_ID
+    NEW_REV_ID = change["revid"]
+    OLD_REV_ID = change["old_revid"]
     diff = ""
     if change["type"] == "new":
         # Fetch the JSON data for the new entity
@@ -142,8 +145,8 @@ def compare_changes(api_url, change):
     elif change["type"] == "edit":
         params = {
             "action": "compare",
-            "fromrev": old_rev,
-            "torev": new_rev,
+            "fromrev": OLD_REV_ID,
+            "torev": NEW_REV_ID,
             "format": "json",
         }
 
@@ -162,11 +165,11 @@ def compare_changes(api_url, change):
             # store the whole json of the new revision for later use
             if DEBUG:
                 print("Entity ID: ", change["title"])
-                print("new revision ID: ", new_rev)
-                print("old revision ID: ", old_rev)
+                print("new revision ID: ", NEW_REV_ID)
+                print("old revision ID: ", OLD_REV_ID)
                 print(
                     "URL to compare revisions page: ",
-                    f"https://www.wikidata.org/w/index.php?title={change['title']}&diff={new_rev}&oldid={old_rev}\n",
+                    f"https://www.wikidata.org/w/index.php?title={change['title']}&diff={NEW_REV_ID}&oldid={OLD_REV_ID}\n",
                 )
             convert_to_rdf(diff, change)
         else:
@@ -377,7 +380,6 @@ def process_flat_changes(
                 f"  ?statement {current_predicate} {adde_or_deleted_value} ."
             )
         elif aggregated_text and current_predicate.startswith('schema'):
-            print("aggregated_text: ", aggregated_text)
             statements.append(
                 f"  wd:{subject} {current_predicate} {aggregated_text}{language} ."
             )
@@ -510,6 +512,7 @@ def generate_rdf(
     main_predicate,
     timestamp,
 ):
+    global STATEMENT_ID
     if delete_statements == [] and insert_statements == []:
         return
     if main_predicate_type == "schema":
@@ -517,12 +520,23 @@ def generate_rdf(
         insert_rdf = "INSERT DATA {\n" + "\n\t\t".join(insert_statements) + "\n};"
 
     else:
-        statement = "?statement"
-        statement_id = get_statement_id(subject, timestamp, main_predicate[2:])
-        if statement_id:
-            statement = f"s:{statement_id}"
-            insert_statements = replace_statements(statement, insert_statements)
-            delete_statements = replace_statements(statement, delete_statements)
+        for insert in insert_statements:
+            if insert.startswith("  ?statement"):
+                object = get_third_element(insert)
+                statement = "?statement"
+                if object:
+                    STATEMENT_ID = get_statement_id(subject, NEW_REV_ID, main_predicate[2:], object)
+
+        for delete in delete_statements:
+            if delete.startswith("  ?statement"):
+                object = get_third_element(delete)
+                statement = "?statement"
+                if object:
+                    STATEMENT_ID = get_statement_id(subject, OLD_REV_ID, main_predicate[2:], object)
+
+        if STATEMENT_ID: 
+            insert_statements = replace_statements(STATEMENT_ID, insert_statements)
+            delete_statements = replace_statements(STATEMENT_ID, delete_statements)
 
         insert_rdf = (
             "INSERT DATA {\n"
@@ -677,6 +691,12 @@ def get_reference_hash(entity_id, entity_json, property_id):
             node_hash = property_obj.get("references")[0].get("hash")
     return node_hash
 
+def get_third_element(triplet):
+    # Regex to capture the third member, accounting for quoted strings
+    match = re.search(r'(\S+)\s(\S+)\s((".*?"|\S+))', triplet)
+    if match and match.group(2).startswith("ps:"):
+            return match.group(3)  # The third captured group includes quotes if present
+    return None
 
 def get_datetime_object(new_json, entity_id, main_predicate, predicate, snaks_group):
     if snaks_group == "references":
@@ -708,25 +728,6 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     for a given reference node ID, ensuring it belongs to the specified entity and property.
     """
     # SPARQL query to retrieve the specific triple for prv:
-    # sparql_query = f"""
-    #     PREFIX ref: <http://www.wikidata.org/reference/>
-    #     PREFIX p: <http://www.wikidata.org/prop/>
-    #     PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
-
-    #     SELECT ?predicate ?value
-    #     WHERE {{
-    #     # Ensure the reference is for the correct entity and property
-    #     wd:{entity_id} p:{property_id} ?statement .
-
-    #     # The reference node
-    #     ?statement prov:wasDerivedFrom ref:{reference_id} .
-
-    #     # Capture all predicates under prv: namespace
-    #     ref:{reference_id} ?predicate ?value .
-    #     FILTER(STRSTARTS(STR(?predicate), STR(prv:)))
-    #     }}
-    # """
-
     sparql_query = f"""
         PREFIX ref: <http://www.wikidata.org/reference/>
         PREFIX prv: <http://www.wikidata.org/prop/reference/value/>
@@ -793,39 +794,84 @@ def get_time_node(entity_id, revision_id, reference_id, property_id):
     return None
 
 
-def get_statement_id(entity_id, revision_id, property_id):
+def get_statement_id(entity_id, revision_id, property_id, object_value):
     """
-    Queries the Wikidata SPARQL endpoint for the statement ID of a specific triple where the predicate is property_id.
+    Retrieves the statement ID where ps:<property_id> equals object_value.
+    Tries the Wikidata SPARQL endpoint first, then falls back to TTL parsing.
     """
-    # SPARQL query to retrieve the
+    # The SPARQL query is defined once and reused
     sparql_query = f"""
         PREFIX wd: <http://www.wikidata.org/entity/>
         PREFIX p: <http://www.wikidata.org/prop/>
         PREFIX ps: <http://www.wikidata.org/prop/statement/>
-        SELECT ?value
+        SELECT ?statement
         WHERE {{
-        wd:{entity_id} p:{property_id} ?value .
+          wd:{entity_id} p:{property_id} ?statement .
+          ?statement ps:{property_id} {object_value} .
         }}
     """
+    
     sparql_endpoint = "https://query.wikidata.org/sparql"
     headers = {
         "User-Agent": "Mozilla/5.0 (compatible; MyWikidataQueryBot/1.0; +https://www.example.com/bot)"
     }
+
+    # Query the SPARQL endpoint
+    if DEBUG:
+        print("SPARQL Query:\n", sparql_query)
+
     response = requests.get(
         sparql_endpoint,
         params={"query": sparql_query, "format": "json"},
         headers=headers,
     )
-    if response.status_code == 200:
-        data = response.json()
-        if data["results"]["bindings"]:
-            # Extract the value from the response
-            value = data["results"]["bindings"][0]["value"]["value"]
-            return value.split("/")[-1]
-    else:
-        print(f"Error querying Wikidata SPARQL endpoint: {response.status_code}")
 
+    if response.status_code == 200:
+        try:
+            data = response.json()
+            if data["results"]["bindings"]:
+                # Extract the first statement value
+                statement = data["results"]["bindings"][0]["statement"]["value"]
+                return statement.split("/")[-1]  # Return only the statement ID
+        except KeyError as e:
+            print(f"Error processing SPARQL response: {e}")
+    else:
+        print(f"SPARQL query failed with status: {response.status_code}")
+
+    # Fallback to TTL Parsing
+    print("Fallback to TTL parsing...")
+    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
+    try:
+        ttl_response = requests.get(api_url)
+        ttl_response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Error fetching TTL data: {e}")
+        return None
+
+    if DEBUG:
+        print("TTL Data URL: ", api_url)
+
+    g = Graph()
+    try:
+        g.parse(data=ttl_response.text, format="ttl")
+    except Exception as e:
+        print(f"Error parsing TTL data: {e}")
+        return None
+
+    # Use the same SPARQL query on the RDF graph
+    try:
+        results = g.query(sparql_query)
+        for row in results:
+            if DEBUG:
+                print("Statement ID found in TTL:", "s:" + str(row["statement"]).split("/")[-1])
+            return "s:" + str(row["statement"]).split("/")[-1]
+    except Exception as e:
+        print(f"Error executing SPARQL query on TTL data: {e}")
+
+    print("Statement ID not found.\n")
     return None
+
+
 
 
 def extract_href(tag):
