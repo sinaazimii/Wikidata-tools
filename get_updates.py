@@ -5,6 +5,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from rdflib import Graph, Namespace
 import new_entity_rdf
+import ttl_compare
 import argparse
 from dateutil.relativedelta import relativedelta
 import time
@@ -30,6 +31,7 @@ P = "PREFIX p: <http://www.wikidata.org/prop/>"
 PS = "PREFIX ps: <http://www.wikidata.org/prop/statement/>"
 PQ = "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>"
 PR = "PREFIX pr: <http://www.wikidata.org/prop/reference/>"
+PRN = "PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/>"
 PRV = "PREFIX prv: <http://www.wikidata.org/prop/reference/value/>"
 PROV = "PREFIX prov: <http://www.w3.org/ns/prov#>"
 SCHEMA = "PREFIX schema: <http://schema.org/>"
@@ -41,6 +43,9 @@ V = "PREFIX v: <http://www.wikidata.org/value/>"
 S = "PREFIX s: <http://www.wikidata.org/entity/statement/>"
 PSN = "PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/>"
 WDTN = "PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>"
+RDFS = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+DATA = "PREFIX data: <https://www.wikidata.org/wiki/Special:EntityData/>"
+
 
 # Define namespaces
 PREFIXES = (
@@ -53,6 +58,8 @@ PREFIXES = (
     + PS
     + "\n"
     + PR
+    + "\n"
+    + PRN
     + "\n"
     + PRV
     + "\n"
@@ -78,6 +85,11 @@ PREFIXES = (
     + "\n"
     + WDTN
     + "\n"
+    + RDFS
+    + "\n"
+    + DATA
+    + "\n"
+
 )
 
 EDIT_DELETE_RDFS = []
@@ -89,6 +101,7 @@ OLD_REV_ID = None
 NEW_REV_ID = None
 STATEMENT_ID = None
 
+SEPERATOR = '\n'+80*'='+'\n'
 
 def get_wikidata_updates(start_time, end_time):
     # Construct the API request URL
@@ -112,7 +125,7 @@ def get_wikidata_updates(start_time, end_time):
         for key, value in params.items():
             if value is not None:
                 curl_request += f" --data-urlencode '{key}={value}'"
-        print("Query changes curl request: ", curl_request, "\n")
+        print("DEBUG: Query changes curl request: ", curl_request, "\n")
 
     # Make the request
     response = requests.get(api_url, params=params)
@@ -345,7 +358,6 @@ def convert_to_rdf(diff_html, change):
     )
     delete_statements = []
     insert_statements = []
-    print("----------------------------------")
 
 def normalize_predicate(current_predicate, main_predicate):
     global ADD_REMOVE_CLAIM
@@ -559,7 +571,6 @@ def generate_rdf(
         if PRINT_OUTPUT == True:
             print(insert_rdf)
             print("\n")
-    # print("-----------------------------------")
     return
 
 
@@ -1073,8 +1084,8 @@ def write_to_file(data):
     with open(FILE_NAME, "w") as file:
         file.write(PREFIXES)
         file.write("\n")
-        for subject, change, time in data:
-            file.write(change)
+        for entity_change in data:
+            file.write(entity_change)
             file.write("\n\n")
     print("Changes written to file.")
 
@@ -1156,19 +1167,25 @@ def main():
             print(
                 "Retrieving wikidata changes...\nChanges will not be printed to console."
             )
-        # Calling compare changes with the first change in the list for demonstration
+        all_changes = []
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
-                # if change["title"] == TARGET_ENTITY_ID or TARGET_ENTITY_ID == None:
-                compare_changes("https://www.wikidata.org/w/api.php", change)
+                # compare_changes("https://www.wikidata.org/w/api.php", change)
+                change_info = f'changes for entity: {change["title"]} between old_revid: {change["old_revid"]} and new_revid: {change["revid"]}'
+                print(change_info)
+                print()
+                all_changes.append(change_info)
+                all_changes.append(ttl_compare.main(change["title"], change["old_revid"], change["revid"], DEBUG))
+                all_changes.append(SEPERATOR)
+                print(SEPERATOR)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
-            all_changes = sorted(
-                EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
-                key=lambda x: x[2],
-                reverse=True,
-            )
+            # all_changes = sorted(
+            #     EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
+            #     key=lambda x: x[2],
+            #     reverse=True,
+            # )
             write_to_file(all_changes)
         end_time = time.time()
         print(f"Execution time: {end_time - start_time} seconds")

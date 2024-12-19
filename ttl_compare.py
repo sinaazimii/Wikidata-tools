@@ -12,6 +12,8 @@ import difflib
 from rdflib.term import Literal
 
 
+DEBUG = False
+
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
 WDT = "PREFIX wdt: <http://www.wikidata.org/prop/direct/>"
@@ -130,6 +132,9 @@ PREFIXES = {
 
 def get_entity_ttl(entity_id, revision_id):
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}"
+    if DEBUG:
+        curl_command = f"curl -X GET '{api_url}'"
+        print(f"DEBUG: Curl command to reproduce the request:\n{curl_command}\n")
     response = requests.get(api_url)
     return response.text
 
@@ -153,12 +158,8 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
 
     # Combine into a full SPARQL update
     sparql_update = f"{delete_commands}\n{insert_commands}"
-    # print(sparql_update)
-    # write to file
-    with open("sparql_update.txt", "w") as f:
-        f.write(PREFIXES_1)
-        f.write("\n")
-        f.write(sparql_update)
+    print(sparql_update)
+    return sparql_update
     
 
 
@@ -235,18 +236,28 @@ def has_prefix(element):
     return False
 
 
-def main():
+def main(entity_id, old_revision_id, new_revision_id, debug):
+    global DEBUG
+    DEBUG = debug
 
-    old_ttl = get_entity_ttl("Q37816733", "2276959296")
-    new_ttl = get_entity_ttl("Q37816733", "2276959315")
+    old_ttl = get_entity_ttl(entity_id, old_revision_id)
+    new_ttl = get_entity_ttl(entity_id, new_revision_id)
 
-    # print(PREFIXES_1)
+    if old_revision_id == 0:
+        old_ttl = ""
 
-    diff_ttls(old_ttl, new_ttl, "Q37816733")
-
-    # manipulate_ttl(new_ttl)
-
+    return diff_ttls(old_ttl, new_ttl, entity_id)
 
 
+def try_manual():
+    global DEBUG
+    entity_id = "Q37816733"
+    old_revision_id = "2276959296"
+    new_revision_id = "2276959315"
+    DEBUG = True
+    old_ttl = get_entity_ttl(entity_id, old_revision_id)
+    new_ttl = get_entity_ttl(entity_id, new_revision_id)
 
-main()
+    return diff_ttls(old_ttl, new_ttl, entity_id)
+
+# try_manual()
