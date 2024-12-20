@@ -101,8 +101,6 @@ OLD_REV_ID = None
 NEW_REV_ID = None
 STATEMENT_ID = None
 
-SEPERATOR = '\n'+80*'='+'\n'
-
 def get_wikidata_updates(start_time, end_time):
     # Construct the API request URL
     api_url = "https://www.wikidata.org/w/api.php"
@@ -882,9 +880,6 @@ def get_statement_id(entity_id, revision_id, property_id, object_value):
     print("Statement ID not found.\n")
     return None
 
-
-
-
 def extract_href(tag):
     # Check for href with "Property:"
     a_tag = tag.find("a")
@@ -1084,8 +1079,8 @@ def write_to_file(data):
     with open(FILE_NAME, "w") as file:
         file.write(PREFIXES)
         file.write("\n")
-        for entity_change in data:
-            file.write(entity_change)
+        for subject, change, time in data:
+            file.write(change)
             file.write("\n\n")
     print("Changes written to file.")
 
@@ -1170,22 +1165,15 @@ def main():
         all_changes = []
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
-                # compare_changes("https://www.wikidata.org/w/api.php", change)
-                change_info = f'changes for entity: {change["title"]} between old_revid: {change["old_revid"]} and new_revid: {change["revid"]}'
-                print(change_info)
-                print()
-                all_changes.append(change_info)
-                all_changes.append(ttl_compare.main(change["title"], change["old_revid"], change["revid"], DEBUG))
-                all_changes.append(SEPERATOR)
-                print(SEPERATOR)
+                compare_changes("https://www.wikidata.org/w/api.php", change)
         # write the changes to a file
         if FILE_NAME:
             # merge all the changes into one list sorted by timestamp
-            # all_changes = sorted(
-            #     EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
-            #     key=lambda x: x[2],
-            #     reverse=True,
-            # )
+            all_changes = sorted(
+                EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
+                key=lambda x: x[2],
+                reverse=True,
+            )
             write_to_file(all_changes)
         end_time = time.time()
         print(f"Execution time: {end_time - start_time} seconds")
