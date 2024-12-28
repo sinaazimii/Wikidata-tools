@@ -53,7 +53,7 @@ Arguments are:
 "-st" : "start date and time, in form of 'YYYY-MM-DD HH:MM:SS, not setting start and end date will get latest changes"
 "-et" : "end date and time, in form of 'YYYY-MM-DD HH:MM:SS'"
 "-id" : "filter changes by the entity id (should start with 'Q')"
-"-op" : ommits priniting of the changes, useful when writing to file or when debugging 
+"-op" : "ommits priniting of the changes, useful when writing to file or when debugging" 
 "-d" : "show debug outputs, shows api calls and curl commands being used"
 ```
 Usage examples:
