@@ -89,12 +89,28 @@ PREFIXES = (
     + "\n"
     + DATA
     + "\n"
-
 )
 
-SEPERATOR = '\n'+80*'='+'\n'
+SEPERATOR = "\n" + 80 * "=" + "\n"
+
 
 def get_wikidata_updates(start_time, end_time):
+    """
+    Fetches recent changes from Wikidata within the specified time range.
+    Args:
+        start_time (str): The start time for fetching updates in ISO 8601 format.
+        end_time (str): The end time for fetching updates in ISO 8601 format.
+    Returns:
+        list: A list of recent changes from Wikidata, where each change is represented as a dictionary.
+              Returns an empty list if no changes are found or if an error occurs.
+    Raises:
+        requests.exceptions.RequestException: If there is an issue with the network request.
+    Notes:
+        - The function constructs a query to the Wikidata API to fetch recent changes.
+        - The query parameters include the type of changes, the limit on the number of changes, and other properties.
+        - If the DEBUG flag is set, the function prints the curl request for debugging purposes.
+        - If the TARGET_ENTITY_ID is set, the function filters changes to only include those related to the specified entity.
+    """
     # Construct the API request URL
     api_url = "https://www.wikidata.org/w/api.php"
     params = {
@@ -118,25 +134,51 @@ def get_wikidata_updates(start_time, end_time):
                 curl_request += f" --data-urlencode '{key}={value}'"
         print("DEBUG: Query changes curl request: ", curl_request, "\n")
 
-    # Make the request
-    response = requests.get(api_url, params=params)
-    data = response.json()
-    # Check for errors in the response
-    if "error" in data:
-        print("Error:", data["error"]["info"])
+    try:
+        response = requests.get(api_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        if "error" in data:
+            print("Error:", data["error"]["info"])
+            return
+    except requests.exceptions.RequestException as e:
+        print("Request failed:", e)
         return
+
     changes = data.get("query", {}).get("recentchanges", [])
     return changes
 
-def get_entity_json(entity_id, revision_id):
-    api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.json?revision={revision_id}"
-    response = requests.get(api_url)
-    if DEBUG:
-        print("\nRetrieving entity JSON API...")
-        print("Entity JSON API URL: ", api_url, "\n")
-    return response
 
 def verify_args(args):
+    """
+    Verifies and processes command-line arguments.
+    Args:
+        args: An argparse.Namespace object containing the command-line arguments.
+    Returns:
+        bool: True if all arguments are valid, False otherwise.
+    Validates the following arguments:
+        - latest: Ensures it is not set with start or end date.
+        - start: Ensures it is set with end date and is a valid date.
+        - end: Ensures it is set with start date and is a valid date.
+        - type: Ensures it is one of ["edit|new", "edit", "new"].
+        - file: Ensures it has a .ttl or .txt extension.
+        - number: Ensures it is an integer between 1 and 500.
+        - id: Ensures it starts with "Q" followed by digits.
+        - omit_print: Sets PRINT_OUTPUT to False if provided.
+        - debug: Sets DEBUG to True if provided.
+        - specific: Sets SPECIFIC to True if provided.
+    Sets global variables based on the provided arguments:
+        - CHANGES_TYPE
+        - CHANGE_COUNT
+        - LATEST
+        - START_DATE
+        - END_DATE
+        - FILE_NAME
+        - TARGET_ENTITY_ID
+        - PRINT_OUTPUT
+        - DEBUG
+        - SPECIFIC
+    """
     global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG, SPECIFIC
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
@@ -216,13 +258,21 @@ def verify_args(args):
     if args.debug:
         DEBUG = True
 
-    if args.specific:
-        SPECIFIC = True
-
     return True
 
 
 def verify_date(date):
+    """
+    Verifies if the given date string is in the correct format and within the valid range.
+
+    The date string must be in the format "YYYY-MM-DD HH:MM:SS" and must not be earlier than one month ago from the current date or later than the current date.
+
+    Args:
+        date (str): The date string to verify.
+
+    Returns:
+        bool: True if the date is valid, False otherwise.
+    """
     if (
         type(date) is not str
         or len(date) != 19
@@ -232,13 +282,14 @@ def verify_date(date):
         or date[4] != "-"
         or date[7] != "-"
         or int(date[0:4]) not in range(1000, 9999)
-        or int(date[5:7]) not in range(1, 12)
-        or int(date[8:10]) not in range(1, 31)
+        or int(date[5:7]) not in range(1, 13)
+        or int(date[8:10]) not in range(1, 32)
         or int(date[11:13]) not in range(0, 24)
         or int(date[14:16]) not in range(0, 60)
         or int(date[17:19]) not in range(0, 60)
     ):
         return False
+    print(date)
     # check if date is not earlier than 1 month ago from now
     formatted_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
     now = datetime.now()
@@ -252,10 +303,22 @@ def verify_date(date):
     return True
 
 
-def write_to_file(data):
+def write_to_file(data, file_name, prefixes):
+    """
+    Writes a list of entity changes to a file.
+
+    This function takes a list of entity changes, writes predefined prefixes to the file,
+    and then writes each entity change followed by two newline characters.
+
+    Args:
+        data (list): A list of strings, where each string represents an entity change.
+
+    Raises:
+        IOError: If the file cannot be opened or written to.
+    """
     print("Writing changes to file...")
-    with open(FILE_NAME, "w") as file:
-        file.write(PREFIXES)
+    with open(file_name, "w") as file:
+        file.write(prefixes)
         file.write("\n")
         for entity_change in data:
             file.write(entity_change)
@@ -264,7 +327,35 @@ def write_to_file(data):
 
 
 def main():
-    # define some command line arguments
+    """
+    Main function to retrieve recent changes from Wikidata and optionally store the output in a file.
+    This script allows you to specify various parameters to filter the changes retrieved from Wikidata,
+    such as the type of changes, the number of changes, specific entity IDs, and date ranges. The changes
+    can be printed to the console or written to a file.
+    Command-line Arguments:
+        -f, --file: str
+            Filename to store the output in.
+        -l, --latest: bool
+            Get the latest changes.
+        -t, --type: str
+            Filter the type of changes. Possible values are 'edit|new', 'edit', 'new'.
+        -n, --number: int
+            Number of changes to get. Default is 5. Maximum is 501.
+        -id: str
+            Get changes for a specific entity by providing the entity ID.
+        -st, --start: str
+            Start date and time in the format 'YYYY-MM-DD HH:MM:SS'. If not set, the latest changes are retrieved.
+        -et, --end: str
+            End date and time in the format 'YYYY-MM-DD HH:MM:SS'.
+        -op, --omit-print: bool
+            Omit printing the changes to the console.
+        -d, --debug: bool
+            Print API calls being used as curl requests.
+        -sp, --specific: bool
+            Get specific changes for the entity.
+    Returns:
+        None
+    """
     parser = argparse.ArgumentParser(
         description="This script retrieves recent changes of the wikidata, allowing you to store the output in a file"
         "not setting a time period will get the latest changes"
@@ -310,12 +401,6 @@ def main():
         help="print api calls that are being used as curl requests",
         action="store_true",
     )
-    parser.add_argument(
-        "-sp",
-        "--specific",
-        help="get specific changes for the entity",
-        action="store_true",
-    )
     args = parser.parse_args()
 
     # verify the arguments type and values
@@ -343,25 +428,23 @@ def main():
         all_changes = []
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
-                # compare_changes("https://www.wikidata.org/w/api.php", change)
                 change_info = f'changes for entity: {change["title"]} between old_revid: {change["old_revid"]} and new_revid: {change["revid"]}'
                 print(change_info)
                 print()
                 all_changes.append(change_info)
-                all_changes.append(ttl_compare.main(change["title"], change["old_revid"], change["revid"], DEBUG))
+                all_changes.append(
+                    ttl_compare.main(
+                        change["title"], change["old_revid"], change["revid"], DEBUG
+                    )
+                )
                 all_changes.append(SEPERATOR)
                 print(SEPERATOR)
-        # write the changes to a file
+
         if FILE_NAME:
-            # merge all the changes into one list sorted by timestamp
-            # all_changes = sorted(
-            #     EDIT_INSERT_RDFS + EDIT_DELETE_RDFS + NEW_INSERT_RDFS,
-            #     key=lambda x: x[2],
-            #     reverse=True,
-            # )
-            write_to_file(all_changes)
+            write_to_file(all_changes, FILE_NAME, PREFIXES)
         end_time = time.time()
         print(f"Execution time: {end_time - start_time} seconds")
 
 
-main()
+if __name__ == "__main__":
+    main()
