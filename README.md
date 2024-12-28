@@ -55,7 +55,6 @@ Arguments are:
 "-id" : "filter changes by the entity id (should start with 'Q')"
 "-op" : ommits priniting of the changes, useful when writing to file or when debugging 
 "-d" : "show debug outputs, shows api calls and curl commands being used"
-"-sp" : "get specific node values for datetime. (this makes the process slower hence optional)"
 ```
 Usage examples:
 ```bash
