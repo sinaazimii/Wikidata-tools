@@ -21,7 +21,6 @@ FILE_NAME = None
 TARGET_ENTITY_ID = None
 PRINT_OUTPUT = True
 DEBUG = False
-SPECIFIC = False
 
 
 # Define prefixes for the SPARQL query
@@ -166,7 +165,6 @@ def verify_args(args):
         - id: Ensures it starts with "Q" followed by digits.
         - omit_print: Sets PRINT_OUTPUT to False if provided.
         - debug: Sets DEBUG to True if provided.
-        - specific: Sets SPECIFIC to True if provided.
     Sets global variables based on the provided arguments:
         - CHANGES_TYPE
         - CHANGE_COUNT
@@ -177,9 +175,8 @@ def verify_args(args):
         - TARGET_ENTITY_ID
         - PRINT_OUTPUT
         - DEBUG
-        - SPECIFIC
     """
-    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG, SPECIFIC
+    global CHANGES_TYPE, CHANGE_COUNT, LATEST, START_DATE, END_DATE, FILE_NAME, TARGET_ENTITY_ID, PRINT_OUTPUT, DEBUG
     if args.latest and (args.start or args.end):
         print("Cannot set latest and start or end date at the same time.")
         return False
@@ -351,8 +348,6 @@ def main():
             Omit printing the changes to the console.
         -d, --debug: bool
             Print API calls being used as curl requests.
-        -sp, --specific: bool
-            Get specific changes for the entity.
     Returns:
         None
     """
@@ -414,7 +409,6 @@ def main():
         print("End Date: ", END_DATE)
         print("File Name: ", FILE_NAME)
         print("Debug: ", DEBUG)
-        print("Specific node ids: ", SPECIFIC)
         print("Print: ", PRINT_OUTPUT)
         print("\n")
         start_time = time.time()
