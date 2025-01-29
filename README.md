@@ -23,7 +23,7 @@ DELETE {
 git clone git@github.com:sinaazimii/Wikidata-tools.git
 git checkout master
 pip install -r requirements.txt
-python3 get_updates.py #run the simple form, get the 5 latest changes of any type
+python3 sparql_updates.py #run the simple form, get the 5 latest changes of any type
 ```
 
 There are 4 types of changes:
