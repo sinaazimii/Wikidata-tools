@@ -10,6 +10,7 @@ from dateutil.relativedelta import relativedelta
 import time
 import difflib
 from rdflib.term import Literal
+import warnings
 
 
 DEBUG = False
@@ -163,13 +164,28 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
     Returns:
         str: A SPARQL update command string that includes both DELETE and INSERT commands.
     """
+    
+    
     # Load the first TTL file into a graph
-    g_old = Graph()
-    g_old.parse(data=old_ttl, format="ttl")
+    
+
 
     # Load the second TTL file into a graph
+    
+    
+
+    g_old = Graph()
     g_new = Graph()
-    g_new.parse(data=new_ttl, format="ttl")
+
+    old_ttl_fixed, old_bce_dates = preprocess_bce_dates(old_ttl)
+    new_ttl_fixed, old_bce_dates = preprocess_bce_dates(new_ttl)
+
+
+    try:
+        g_old.parse(data=old_ttl_fixed, format="ttl")
+        g_new.parse(data=new_ttl_fixed, format="ttl")
+    except :
+        print(f"Error parsing TTL data: {sys.exc_info()[0]}")
 
     # Calculate differences: triples in g_new but not in g_old are additions
     # and triples in g_old but not in g_new are deletions
@@ -180,9 +196,9 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
     insert_commands = triples_to_sparql(added_triples, "INSERT", entity_id)
 
     # Combine into a full SPARQL update
-    sparql_update = f"{delete_commands}\n{insert_commands}"
-    print(sparql_update)
-    return sparql_update
+    # sparql_update = f"{delete_commands}\n{insert_commands}"
+    # print(sparql_update)
+    # return sparql_update
 
 
 def triples_to_sparql(triples, operation, entity_id):
@@ -203,6 +219,7 @@ def triples_to_sparql(triples, operation, entity_id):
         - Objects are formatted to handle strings, URIs, and literals appropriately.
     """
     commands = []
+    parsed_triples = []
     for s, p, o in triples:
         if "/owl#" in p or "/owl#" in s or "/owl#" in o:
             continue
@@ -226,9 +243,13 @@ def triples_to_sparql(triples, operation, entity_id):
         # For objects: handle strings (quotes), URIs (angle brackets), and literals
         o_str = format_object_for_sparql(o, o_str)
 
+        parsed_triples.append(f" {s_str} {p_str} {o_str} .")
+
         # Construct the SPARQL command
         commands.append(f"{operation} DATA {{ {s_str} {p_str} {o_str} . }};")
 
+
+    print(f"{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
     return "\n".join(commands)
 
 
@@ -329,6 +350,30 @@ def main(entity_id, old_revision_id, new_revision_id, debug):
         old_ttl = ""
 
     return diff_ttls(old_ttl, new_ttl, entity_id)
+
+def preprocess_bce_dates(ttl_data):
+    """
+    Converts BCE dates in Turtle data into a custom string format (BCE_YYYY-MM-DDTHH:MM:SSZ).
+    This prevents RDFLib from failing due to unsupported negative years.
+    """
+    # Dictionary to store original BCE dates
+    bce_date_map = {}
+
+    # Regex pattern to find negative xsd:dateTime literals
+    pattern = r'"(-\d{4,}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)"\^\^xsd:dateTime'
+
+    def replace_bce(match):
+        original_date = match.group(1)  # Extract full "-YYYY-MM-DDTHH:MM:SSZ"
+        custom_date = f'"BCE_{original_date[1:]}"'  # Remove "-" and prefix with "BCE_"
+        bce_date_map[custom_date] = original_date  # Store mapping
+        print(f"Warning: Altered BCE date during ttl parsing {original_date} -> {custom_date}\n The date in no longer in xsd:dateTime format")
+
+        return custom_date  # Replace it in TTL data
+
+    # Replace BCE dates
+    modified_ttl = re.sub(pattern, replace_bce, ttl_data)
+
+    return modified_ttl, bce_date_map  # Return modified TTL and mapping
 
 
 def try_manual():
