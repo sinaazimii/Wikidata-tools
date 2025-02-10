@@ -156,22 +156,12 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
     Returns:
         str: A SPARQL update command string that includes both DELETE and INSERT commands.
     """
-    
-    
-    # Load the first TTL file into a graph
-    
-
-
-    # Load the second TTL file into a graph
-    
-    
 
     g_old = Graph()
     g_new = Graph()
 
     old_ttl_fixed, old_bce_dates = preprocess_bce_dates(old_ttl)
     new_ttl_fixed, old_bce_dates = preprocess_bce_dates(new_ttl)
-
 
     try:
         g_old.parse(data=old_ttl_fixed, format="ttl")
