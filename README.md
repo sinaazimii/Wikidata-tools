@@ -57,10 +57,10 @@ Arguments are:
 ```
 Usage examples:
 ```bash
-python3 get_updates.py -h #show help message
-python3 get_updates.py -t edit -n 15 #get 15 of latest updates with type edit
-python3 get_updates.py -n 5 -t new -st '2024-07-22 11:56:10' -et '2024-07-22 11:56:15' #get 5 of updates with type new with time interval between 2024-07-22 11:56:10 and 2024-07-22 11:56:15
-python3 get_updates.py -n 5 -sp -id Q42
+python3 sparql_updates.py -h #show help message
+python3 sparql_updates.py -t edit -n 15 #get 15 of latest updates with type edit
+python3 sparql_updates.py -n 5 -t new -st '2024-07-22 11:56:10' -et '2024-07-22 11:56:15' #get 5 of updates with type new with time interval between 2024-07-22 11:56:10 and 2024-07-22 11:56:15
+python3 sparql_updates.py -n 5 -sp -id Q42
 ```
 
 ## Sample result
