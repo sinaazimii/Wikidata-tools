@@ -38,8 +38,7 @@ Currently we are only interested in edit/new type.
 the title, description, and all the properties that have been added. 
 The logic that do this operation can be found in new_entity_rdf.py.
 
-* if a page is edited the wikimedia compare api is being called and then
-the resulting rdf will be created.
+* if a page is edited, the two turtle dumps of the the two revision ids which are old (before the change) and new (after the change) are retrieved, compared and the the difference will be a set of insert/delete statements.
 
 
 ## Arguments
