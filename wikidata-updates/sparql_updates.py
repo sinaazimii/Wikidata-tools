@@ -1,15 +1,9 @@
 import requests
-import re
-import sys
 from datetime import datetime
-from bs4 import BeautifulSoup
-from rdflib import Graph, Namespace
-import new_entity_rdf
 import ttl_compare
 import argparse
 from dateutil.relativedelta import relativedelta
 import time
-import difflib
 
 # default values
 CHANGES_TYPE = "edit|new"

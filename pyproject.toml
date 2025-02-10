@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "wikidata-tools"
+name = "wikidata-updates"
 version = "0.1.0"
-description = "A tools to get Wikidata updates"
+description = "A tool to get Wikidata updates"
 authors = ["Seyed Sina Azimi <sinaazm15@gmail.com>"]
+
+# ✅ Specify the correct package directory
+packages = [{ include = "wikidata-updates" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"

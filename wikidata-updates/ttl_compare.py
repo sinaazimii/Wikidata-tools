@@ -1,16 +1,8 @@
 import requests
 import re
 import sys
-from datetime import datetime
-from bs4 import BeautifulSoup
-from rdflib import Graph, Namespace
-import new_entity_rdf
-import argparse
-from dateutil.relativedelta import relativedelta
-import time
-import difflib
+from rdflib import Graph
 from rdflib.term import Literal
-import warnings
 
 
 DEBUG = False
@@ -248,8 +240,7 @@ def triples_to_sparql(triples, operation, entity_id):
         # Construct the SPARQL command
         commands.append(f"{operation} DATA {{ {s_str} {p_str} {o_str} . }};")
 
-
-    print(f"{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
+    print(f"\n{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
     return "\n".join(commands)
 
 
