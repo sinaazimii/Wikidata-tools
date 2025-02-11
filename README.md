@@ -1,4 +1,4 @@
-# Wikidata-tools
+# Wikidata-Update
 Developing some tools around Wikidata
 
 # Retrieve recent changes of the wikidata
@@ -20,7 +20,7 @@ DELETE {
 
 ## Getting Started
 ```bash
-git clone git@github.com:sinaazimii/wikidata-updates.git
+git clone git@github.com:sinaazimii/wikidata_update.git
 git checkout master
 pip install -r requirements.txt
 python3 sparql_updates.py #run the simple form, get the 5 latest changes of any type

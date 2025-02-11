@@ -1,9 +1,19 @@
 import requests
 from datetime import datetime
-import ttl_compare
+from wikidata_update import ttl_compare
 import argparse
 from dateutil.relativedelta import relativedelta
 import time
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",  # Define format
+)
+
+logger = logging.getLogger(__name__)  # Create a logger
+
 
 # default values
 CHANGES_TYPE = "edit|new"
@@ -120,22 +130,22 @@ def get_wikidata_updates(start_time, end_time):
         params["rctitle"] = TARGET_ENTITY_ID
 
     # create curl request for debug
-    if DEBUG:
-        curl_request = f"curl -G '{api_url}'"
-        for key, value in params.items():
-            if value is not None:
-                curl_request += f" --data-urlencode '{key}={value}'"
-        print("DEBUG: Query changes curl request: ", curl_request, "\n")
+
+    curl_request = f"curl -G '{api_url}'"
+    for key, value in params.items():
+        if value is not None:
+            curl_request += f" --data-urlencode '{key}={value}'"
+    logger.debug(("Query changes curl request: ", curl_request, "\n"))
 
     try:
         response = requests.get(api_url, params=params)
         response.raise_for_status()
         data = response.json()
         if "error" in data:
-            print("Error:", data["error"]["info"])
+            logger.error("Error:", data["error"]["info"])
             return
     except requests.exceptions.RequestException as e:
-        print("Request failed:", e)
+        logger.info("Request failed:", e)
         return
 
     changes = data.get("query", {}).get("recentchanges", [])
@@ -248,7 +258,10 @@ def verify_args(args):
 
     if args.debug:
         DEBUG = True
+        logger.setLevel(DEBUG)
 
+    if args.no_log:
+        logging.disable()
     return True
 
 
@@ -280,7 +293,6 @@ def verify_date(date):
         or int(date[17:19]) not in range(0, 60)
     ):
         return False
-    print(date)
     # check if date is not earlier than 1 month ago from now
     formatted_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
     now = datetime.now()
@@ -307,14 +319,14 @@ def write_to_file(data, file_name, prefixes):
     Raises:
         IOError: If the file cannot be opened or written to.
     """
-    print("Writing changes to file...")
+    logger.info("Writing changes to file...")
     with open(file_name, "w") as file:
         file.write(prefixes)
         file.write("\n")
         for entity_change in data:
             file.write(entity_change)
             file.write("\n\n")
-    print("Changes written to file.")
+    logger.info("Changes written to file.")
 
 
 def main():
@@ -390,48 +402,57 @@ def main():
         help="print api calls that are being used as curl requests",
         action="store_true",
     )
+    parser.add_argument(
+        "--no-log",
+        help="disables all logging levels",
+        action="store_true",
+    )
+
     args = parser.parse_args()
 
     # verify the arguments type and values
     if verify_args(args):
-        print("Getting updates from Wikidata...")
-        print("Type: ", CHANGES_TYPE)
-        print("Latest: ", LATEST)
-        print("Number: ", CHANGE_COUNT)
-        print("Entity: ", TARGET_ENTITY_ID)
-        print("Start Date: ", START_DATE)
-        print("End Date: ", END_DATE)
-        print("File Name: ", FILE_NAME)
-        print("Debug: ", DEBUG)
-        print("Print: ", PRINT_OUTPUT)
-        print("\n")
+        logger.info("Type: %s", CHANGES_TYPE)
+        logger.info("Latest: %s", LATEST)
+        logger.info("Number: %s", CHANGE_COUNT)
+        logger.info("Entity: %s", TARGET_ENTITY_ID)
+        logger.info("Start Date: %s", START_DATE)
+        logger.info("End Date: %s", END_DATE)
+        logger.info("File Name: %s", FILE_NAME)
+        logger.info("Debug: %s", DEBUG)
+        logger.info("Print: %s", PRINT_OUTPUT)
+        print()
         start_time = time.time()
         changes = get_wikidata_updates(START_DATE, END_DATE)
-        if PRINT_OUTPUT == True:
+        if PRINT_OUTPUT:
             print(PREFIXES)
         else:
-            print(
+            logger.info(
                 "Retrieving wikidata changes...\nChanges will not be printed to console."
             )
         all_changes = []
         for change in changes:
             if change["title"].startswith("Q") and change["title"][1:].isdigit():
                 change_info = f'changes for entity: {change["title"]} between old_revid: {change["old_revid"]} and new_revid: {change["revid"]}'
-                print(change_info)
-                print()
+                logger.info(change_info)
                 all_changes.append(change_info)
                 all_changes.append(
                     ttl_compare.main(
-                        change["title"], change["old_revid"], change["revid"], DEBUG
+                        change["title"],
+                        change["old_revid"],
+                        change["revid"],
+                        DEBUG,
+                        PRINT_OUTPUT,
                     )
                 )
                 all_changes.append(SEPERATOR)
-                print(SEPERATOR)
+                if PRINT_OUTPUT:
+                    print(SEPERATOR)
 
         if FILE_NAME:
             write_to_file(all_changes, FILE_NAME, PREFIXES)
         end_time = time.time()
-        print(f"Execution time: {end_time - start_time} seconds")
+        logger.info(f"Execution time: {end_time - start_time} seconds")
 
 
 if __name__ == "__main__":

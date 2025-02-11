@@ -3,9 +3,16 @@ import re
 import sys
 from rdflib import Graph
 from rdflib.term import Literal
+import logging
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",  # Define format
+)
 
-DEBUG = False
+logger = logging.getLogger(__name__)  # Create a logger
+
 
 # Define prefixes for the SPARQL query
 WD = "PREFIX wd: <http://www.wikidata.org/entity/>"
@@ -137,9 +144,10 @@ def get_entity_ttl(entity_id, revision_id):
         requests.exceptions.RequestException: If the request to the Wikidata API fails.
     """
     api_url = f"https://www.wikidata.org/wiki/Special:EntityData/{entity_id}.ttl?revision={revision_id}&flavor=dump"
-    if DEBUG:
-        curl_command = f"curl -X GET '{api_url}'"
-        print(f"DEBUG: Curl command to reproduce the request:\n{curl_command}\n")
+
+    curl_command = f"curl -X GET '{api_url}'"
+    logger.debug(f"Curl command to reproduce the request:\n{curl_command}\n")
+
     response = requests.get(api_url)
     return response.text
 
@@ -166,8 +174,8 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
     try:
         g_old.parse(data=old_ttl_fixed, format="ttl")
         g_new.parse(data=new_ttl_fixed, format="ttl")
-    except :
-        print(f"Error parsing TTL data: {sys.exc_info()[0]}")
+    except:
+        logger.error(f"Error parsing TTL data: {sys.exc_info()[0]}")
 
     # Calculate differences: triples in g_new but not in g_old are additions
     # and triples in g_old but not in g_new are deletions
@@ -230,7 +238,8 @@ def triples_to_sparql(triples, operation, entity_id):
         # Construct the SPARQL command
         commands.append(f"{operation} DATA {{ {s_str} {p_str} {o_str} . }};")
 
-    print(f"\n{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
+    if PRINT_OUTPUT:
+        print(f"\n{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
     return "\n".join(commands)
 
 
@@ -310,7 +319,7 @@ def has_prefix(element):
     return False
 
 
-def main(entity_id, old_revision_id, new_revision_id, debug):
+def main(entity_id, old_revision_id, new_revision_id, debug, print_output=True):
     """
     Compare the TTL (Terse Triple Language) representations of two revisions of an entity.
     Args:
@@ -321,8 +330,11 @@ def main(entity_id, old_revision_id, new_revision_id, debug):
     Returns:
         str: The differences between the TTL representations of the old and new revisions.
     """
-    global DEBUG
+    global DEBUG, PRINT_OUTPUT
     DEBUG = debug
+    if DEBUG:
+        logger.setLevel(logging.DEBUG)
+    PRINT_OUTPUT = print_output
 
     old_ttl = get_entity_ttl(entity_id, old_revision_id)
     new_ttl = get_entity_ttl(entity_id, new_revision_id)
@@ -331,6 +343,7 @@ def main(entity_id, old_revision_id, new_revision_id, debug):
         old_ttl = ""
 
     return diff_ttls(old_ttl, new_ttl, entity_id)
+
 
 def preprocess_bce_dates(ttl_data):
     """
@@ -347,7 +360,9 @@ def preprocess_bce_dates(ttl_data):
         original_date = match.group(1)  # Extract full "-YYYY-MM-DDTHH:MM:SSZ"
         custom_date = f'"BCE_{original_date[1:]}"'  # Remove "-" and prefix with "BCE_"
         bce_date_map[custom_date] = original_date  # Store mapping
-        print(f"Warning: Altered BCE date during ttl parsing {original_date} -> {custom_date}\n The date in no longer in xsd:dateTime format")
+        logger.warn(
+            f"Altered BCE date during ttl parsing {original_date} -> {custom_date}. The date in no longer in xsd:dateTime format"
+        )
 
         return custom_date  # Replace it in TTL data
 

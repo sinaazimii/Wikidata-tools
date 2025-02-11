@@ -1,11 +1,21 @@
 import requests
 import json
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,  # Set default logging level to INFO
+    format="%(asctime)s [%(levelname)s] %(message)s",  # Define format
+)
+
+logger = logging.getLogger(__name__)  # Create a logger
+
 
 def main(entity_id, debug=False):
     # check if entity_id is correct format
     if not entity_id.startswith("Q"):
         print("\n")
-        print("Invalid entity ID")
+        logger.error("Invalid entity ID")
         print(
             "one reason could be that the entity ID is not yet set in the correct format,"
             "this happens for entities that are very new and have not been indexed yet"
@@ -27,8 +37,9 @@ def main(entity_id, debug=False):
     )
 
     if debug:
+        logger.setLevel(logging.DEBUG)
         curl_command = f"curl -G '{url}?action=wbgetentities&ids={entity_id}&format=json&languages=en'"
-        print("Get new entity data curl command:", curl_command)
+        logger.debug("Get new entity data curl command:", curl_command)
 
     data = response.json()
 
@@ -37,7 +48,7 @@ def main(entity_id, debug=False):
         entity = data["entities"][entity_id]
     except KeyError:
         print("\n")
-        print("Entity not found")
+        logger.error("Entity not found")
         print("\n")
         return None
     # Initialize the INSERT DATA statement
