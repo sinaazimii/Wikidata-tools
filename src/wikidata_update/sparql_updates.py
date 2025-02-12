@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+# PYTHON_ARGCOMPLETE_OK
+
 import requests
 from datetime import datetime
 from wikidata_update import ttl_compare
 import argparse
+import argcomplete
 from dateutil.relativedelta import relativedelta
 import time
 import logging
@@ -307,6 +311,7 @@ def verify_date(date):
 
 
 def write_to_file(data, file_name, prefixes):
+    print(data)
     """
     Writes a list of entity changes to a file.
 
@@ -409,6 +414,9 @@ def main():
         action="store_true",
     )
 
+    argcomplete.autocomplete(parser)
+    argcomplete.autocomplete(parser, always_complete_options="long")
+
     args = parser.parse_args()
 
     # verify the arguments type and values
@@ -451,6 +459,7 @@ def main():
                     print(SEPERATOR)
 
         if FILE_NAME:
+            print("all_changes", all_changes)
             write_to_file(all_changes, FILE_NAME, PREFIXES)
         end_time = time.time()
         logger.info(f"Execution time: {end_time - start_time} seconds")

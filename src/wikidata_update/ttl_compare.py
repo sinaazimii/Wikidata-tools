@@ -185,10 +185,7 @@ def diff_ttls(old_ttl, new_ttl, entity_id):
     delete_commands = triples_to_sparql(removed_triples, "DELETE", entity_id)
     insert_commands = triples_to_sparql(added_triples, "INSERT", entity_id)
 
-    # Combine into a full SPARQL update
-    # sparql_update = f"{delete_commands}\n{insert_commands}"
-    # print(sparql_update)
-    # return sparql_update
+    return delete_commands + '\n' + insert_commands
 
 
 def triples_to_sparql(triples, operation, entity_id):
@@ -240,8 +237,8 @@ def triples_to_sparql(triples, operation, entity_id):
 
     if PRINT_OUTPUT:
         print(f"\n{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
-    return "\n".join(commands)
-
+    return (f"\n{operation} {{\n" + "\n".join(parsed_triples) + "\n}")
+    
 
 def format_object_for_sparql(o, o_str):
     """
@@ -360,7 +357,7 @@ def preprocess_bce_dates(ttl_data):
         original_date = match.group(1)  # Extract full "-YYYY-MM-DDTHH:MM:SSZ"
         custom_date = f'"BCE_{original_date[1:]}"'  # Remove "-" and prefix with "BCE_"
         bce_date_map[custom_date] = original_date  # Store mapping
-        logger.warn(
+        logger.warning(
             f"Altered BCE date during ttl parsing {original_date} -> {custom_date}. The date in no longer in xsd:dateTime format"
         )
 

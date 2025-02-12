@@ -10,7 +10,8 @@ setup(
         "matplotlib",
         "requests",
         "rdflib",
-        "python-dateutil"
+        "python-dateutil",
+        "argcomplete"
     ],
     entry_points={
         "console_scripts": [
