@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "wikidata_update"
+name = "wikidata-update"
 version = "0.1.0"
 description = "A tool to get Wikidata updates"
 authors = ["Seyed Sina Azimi <sinaazm15@gmail.com>"]
@@ -8,7 +8,7 @@ authors = ["Seyed Sina Azimi <sinaazm15@gmail.com>"]
 packages = [{ include = "wikidata_update", from="src" }]
 
 [tool.poetry.scripts]
-wikidata_update = "wikidata_update.sparql_updates:main"
+wikidata-update = "wikidata_update.sparql_updates:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"

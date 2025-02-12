@@ -226,9 +226,9 @@ def verify_args(args):
             )
             return False
 
-    if args.id:
-        if args.id.startswith("Q") and args.id[1:].isdigit():
-            TARGET_ENTITY_ID = args.id
+    if args.i:
+        if args.i.startswith("Q") and args.i[1:].isdigit():
+            TARGET_ENTITY_ID = args.i
         else:
             print("Invalid entity argument. Please provide a valid entity id.")
             return False
@@ -379,6 +379,7 @@ def main():
         help="number of changes to get, not setting will get 5 changes, Maximum number of changes is 501",
     )
     parser.add_argument(
+        "-i",
         "-id",
         help="get changes for a specific entity, provide the entity id",
     )

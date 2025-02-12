@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="wikidata_update", 
+    name="wikidata-update", 
     version="0.1.0",
     packages=find_packages(where="src"), 
     package_dir={"": "src"},
@@ -14,7 +14,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "wikidata_update=wikidata_update.sparql_updates:main", 
+            "wikidata-update=wikidata_update.sparql_updates:main", 
         ],
     },
 )
