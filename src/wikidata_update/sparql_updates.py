@@ -311,7 +311,6 @@ def verify_date(date):
 
 
 def write_to_file(data, file_name, prefixes):
-    print(data)
     """
     Writes a list of entity changes to a file.
 
@@ -459,7 +458,6 @@ def main():
                     print(SEPERATOR)
 
         if FILE_NAME:
-            print("all_changes", all_changes)
             write_to_file(all_changes, FILE_NAME, PREFIXES)
         end_time = time.time()
         logger.info(f"Execution time: {end_time - start_time} seconds")
