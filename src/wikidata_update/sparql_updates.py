@@ -413,7 +413,6 @@ def main():
         action="store_true",
     )
 
-    argcomplete.autocomplete(parser)
     argcomplete.autocomplete(parser, always_complete_options="long")
 
     args = parser.parse_args()
